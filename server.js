@@ -10,6 +10,7 @@ const url = "fleuread.onrender.com";
 
 app.listen(PORT, () => {
   console.log(`Le serveur de Fleuread fonctionne à l'adresse ${url}:${PORT}`);
+  console.log(__dirname);
 });
 
 app.get('/', async (req, res) => {
