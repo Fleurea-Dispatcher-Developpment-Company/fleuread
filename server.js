@@ -66,13 +66,15 @@ async function getAdress(coords) {
   console.log(result);
   const address = result.address;
   console.log(address);
-  const route = address.road || address.pedestrian || address.footway || address.cycleway || address.path || null;
-  const hameau = address.hamlet || address.neighbourhood || address.suburb || address.village || null;
-  const ville = address.city || address.town || address.village || address.hamlet || null;
-  const code_postal = address.postcode || null;
-  const departement = address.county || address.state || null;
-  const keep = `${route}, ${hameau}, ${ville} (${code_postal}), ${departement}`;
+  const route = address.road || address.pedestrian || address.footway || address.cycleway || address.path || 'nodata';
+  const hameau = address.hamlet || address.neighbourhood || address.suburb || address.village || 'nodata';
+  const ville = address.city || address.town || address.village || address.hamlet || 'nodata';
+  const code_postal = address.postcode || 'nodata';
+  const departement = address.county || address.state || 'nodata';
+  let keep = `${route}, ${hameau}, ${ville} (${code_postal}), ${departement}`;
   console.log(keep);
+  const tablekeep = keep.split(',');
+  keep = tablekeep.filter(item => item !== 'nodata');
   return keep;
   } catch (err) {
     return err;
