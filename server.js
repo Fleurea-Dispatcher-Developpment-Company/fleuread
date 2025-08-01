@@ -46,6 +46,7 @@ setInterval(autoPing, 1000*60*5);
 app.get('/osm', async (req, res) => {
   try {
   const coords = req.query.coords;
+  console.log(coords);
   res.send(await getAdress(coords));
   } catch (err) {
     console.error(err);
@@ -55,7 +56,6 @@ app.get('/osm', async (req, res) => {
 // Obtenir l'adresse à partir des coordonnées GPS
 async function getAdress(coords) {
   try {
-  console.log("getAdress");
   const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${coords[0]}&lon=${coords[1]}&format=json`, {
     headers:{
       'User-Agent': 'FleureaDispatcher/1.0 (fleureadispatcher@gmail.com)'
