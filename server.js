@@ -43,7 +43,7 @@ async function autoPing () {
 setInterval(autoPing, 1000*60*5);
 
 // Fonction de récupération de données via OSM
-app.post('/osm', async (req, res) => {
+app.get('/osm', async (req, res) => {
   try {
   const coords = req.query.coords;
   res.send(await getAdress(coords));
