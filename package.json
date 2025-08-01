@@ -3,11 +3,13 @@
   "description":"Projet d'amélioration de l'efficacité des tournées bennes chez Fleuréa",
   "version":"1.0.0",
   "homepage":"fleuread.onrender.com",
+  "main":"server.js",
+  "dependencies":{
+    
+  },
   "bugs":{
     "url":"https://github.com/Fleurea-Dispatcher-Developpment-Company/project/issues",
     "email":"fleureadispatcher@gmail.com"
   },
-  "creator":{
-    "name":"Baptiste M."
-  }
+    "author":"Baptiste M."
 }
