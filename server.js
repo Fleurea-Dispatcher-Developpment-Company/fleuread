@@ -12,7 +12,29 @@ app.listen(PORT, () => {
   console.log(`Le serveur de Fleuread fonctionne à l'adresse ${url}:${PORT}`);
 });
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+  try {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  } catch (err) {
+    console.error(err);
+  }
 });
+
+app.get('/ping', async (req, res) => {
+  try {
+  res.json({'status':'on'});
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+async function autoPing () {
+  try {
+    const response = await fetch(`https://${url}/ping`);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+setInterval(autoPing, 1000*60*5);
 
