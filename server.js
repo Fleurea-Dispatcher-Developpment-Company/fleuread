@@ -8,3 +8,7 @@ app.listen(PORT, () => {
   console.log(`Le serveur de Fleuread fonctionne à l'adresse ${url}:${PORT}`);
 });
 
+app.get('/', (req, res) => {
+  res.send("index.html");
+});
+
