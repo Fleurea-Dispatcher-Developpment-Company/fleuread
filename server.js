@@ -1,5 +1,8 @@
 // Baptiste M. 2025
 const express = require('express');
+const path = require('path');
+
+// On gère tous les app.something
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -10,6 +13,6 @@ app.listen(PORT, () => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile("index.html");
+  res.sendFile(path.join(_dirname, 'public', 'index.html'));
 });
 
