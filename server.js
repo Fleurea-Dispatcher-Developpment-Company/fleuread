@@ -70,7 +70,7 @@ async function getAdress(coords) {
   const hameau = address.hamlet || address.neighbourhood || address.suburb || address.village || 'nodata';
   const ville = address.city || address.town || address.village || address.hamlet || 'nodata';
   const code_postal = address.postcode || 'nodata';
-  const departement = address.county || address.state || 'nodata';
+  const departement = address.state_district ||address.county || address.state || 'nodata';
   let keep = `${route}, ${hameau}, ${ville} (${code_postal}), ${departement}`;
   console.log(keep);
   const tablekeep = keep.split(',');
