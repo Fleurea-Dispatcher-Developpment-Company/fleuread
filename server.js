@@ -50,7 +50,7 @@ app.get('/osm', async (req, res) => {
   console.log(coords);
   res.send(await getAdress(coords));
   } catch (err) {
-    console.error(err);
+    res.send(err);
   }
 });
 
