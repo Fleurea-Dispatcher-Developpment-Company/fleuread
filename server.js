@@ -75,6 +75,7 @@ async function getAdress(coords) {
   console.log(keep);
   const tablekeep = keep.split(',');
   keep = tablekeep.filter(item => item !== 'nodata');
+  keep = keep.join(',');
   return keep;
   } catch (err) {
     return err;
