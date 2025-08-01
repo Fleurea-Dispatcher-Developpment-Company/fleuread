@@ -53,6 +53,7 @@ app.post('/osm', async (req, res) => {
 
 // Obtenir l'adresse à partir des coordonnées GPS
 async function getAdress(coords) {
+  try {
   console.log("getAdress");
   const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${coords[0]}&lon=${coords[1]}&format=json`, {
     headers:{
@@ -71,5 +72,8 @@ async function getAdress(coords) {
   const keep = `${route}, ${hameau}, ${ville} (${code_postal}), ${departement}`;
   console.log(keep);
   return keep;
+  } catch (err) {
+    return err;
+  }
 }
 
