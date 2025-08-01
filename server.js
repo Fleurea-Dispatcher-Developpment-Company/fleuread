@@ -45,7 +45,7 @@ setInterval(autoPing, 1000*60*5);
 app.post('/osm', async (req, res) => {
   try {
   const coords = req.query.coords;
-  res.send(await getAdress(coords);
+  res.send(await getAdress(coords));
   } catch (err) {
     console.error(err);
   }
