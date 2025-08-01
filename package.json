@@ -5,11 +5,14 @@
   "homepage":"fleuread.onrender.com",
   "main":"server.js",
   "dependencies":{
-    
+    "express": "^4.18.2"
   },
   "bugs":{
     "url":"https://github.com/Fleurea-Dispatcher-Developpment-Company/project/issues",
     "email":"fleureadispatcher@gmail.com"
   },
-    "author":"Baptiste M."
+    "author":"Baptiste M.",
+  "engines": {
+  "node": ">=14.0.0"
+}
 }
