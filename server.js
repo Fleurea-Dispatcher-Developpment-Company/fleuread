@@ -45,7 +45,8 @@ setInterval(autoPing, 1000*60*5);
 // Fonction de récupération de données via OSM
 app.get('/osm', async (req, res) => {
   try {
-  const coords = req.query.coords;
+  const [lat, long] = req.query.coords.split(',');
+  const coords = [lat, long];
   console.log(coords);
   res.send(await getAdress(coords));
   } catch (err) {
