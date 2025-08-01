@@ -9,6 +9,6 @@ app.listen(PORT, () => {
 });
 
 app.get('/', (req, res) => {
-  res.send("index.html");
+  res.sendFile("index.html");
 });
 
