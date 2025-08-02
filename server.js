@@ -1,6 +1,8 @@
 // Baptiste M. 2025
 const express = require('express');
 const path = require('path');
+const cors = require("cors");
+const WebSocket = require('ws');
 
 // On gère tous les app.something
 const app = express();
@@ -12,6 +14,8 @@ app.listen(PORT, () => {
   console.log(`Le serveur de Fleuread fonctionne à l'adresse ${url}:${PORT}`);
   console.log(__dirname);
 });
+
+app.use(cors());
 
 app.get('/', async (req, res) => {
   try {
@@ -81,4 +85,9 @@ async function getAdress(coords) {
     return err;
   }
 }
+
+// const { createClient } = require("@supabase/supabase-js");
+// const supabaseUrl = process.env.SUPABASE_URL;
+// const supabaseKey = process.env.SUPABASE_KEY;
+// const supabase = createClient(supabaseUrl, supabaseKey);
 
