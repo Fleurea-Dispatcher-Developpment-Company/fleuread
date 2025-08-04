@@ -195,7 +195,7 @@ app.post('/getsessionid', async (req, res) => {
     }
   }
   } catch(err) {console.error(err);}
-}
+});
 
   app.post('/getrole', async (req, res) => {
   try {
