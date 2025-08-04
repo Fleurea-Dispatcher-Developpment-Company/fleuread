@@ -194,6 +194,8 @@ app.post('/getsessionid', async (req, res) => {
       res.json({id:sessionId});
     }
   }
+  } catch(err) {console.error(err);}
+}
 
   app.post('/getrole', async (req, res) => {
   try {
