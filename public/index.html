@@ -57,6 +57,7 @@
           'id':sessionId
         };
         const data = fetcher('getrole', content, 'POST', sessionId);
+        console.log(data.role);
         if (data.role == 'driver') {
           if (document.referrer) {
             console.warn(document.referrer);
