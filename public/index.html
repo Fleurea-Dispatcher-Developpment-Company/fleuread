@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   <body>
-    <div style="display:none" id="unconnected">
+    <div id="unconnected" hidden>
       <div class="form-container w3-center">
       <h1>Bienvenue</h1>
       <p>Fleuréa Dispatcher</p>
@@ -18,7 +18,7 @@
       </form>
       </div> 
     </div>
-    <div style="display:none" id="connected"></div>
+    <div id="connected" hidden></div>
     <script>
       let url;
       let sessionId;
@@ -43,13 +43,13 @@
       start();
       
       async function aiguiller () {
-        document.getElementById('unconnected').style.display = "none";
-        document.getElementById('connected').style.display = "flex";
+        document.getElementById('unconnected').hidden = true;
+        document.getElementById('connected').hidden = false;
       }
       
       async function formulaire () {
-        document.getElementById('connected').style.display = "none";
-        document.getElementById('unconnected').style.display = "flex";
+        document.getElementById('connected').hidden = true;
+        document.getElementById('unconnected').hidden = false;
       }
       
       async function check(id) {
