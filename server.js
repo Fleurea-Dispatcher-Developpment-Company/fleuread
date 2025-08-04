@@ -142,7 +142,7 @@ async function addDatabase (store, select, jsontoinsert) {
 }
 
 // Gestion des sessions
-const sessions; // Format sessions.id = id
+const sessions = []; // Format sessions.id = id
 app.post('/checksession', async (req, res) => {
   const data = req.body;
   const id = data.id;
