@@ -168,7 +168,7 @@ app.post('/login', async (req, res) => {
   console.log(accounts);
   for (const compte of accounts) {
     if (compte.password == password) {
-      console.log(compte.first_name, " ", compte.NOM, " est enregistré(e)");
+      console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const token = crypto.randomBytes(32).toString('hex');
       await editDatabase('comptes', 'auto_token', token, 'password', password);
       res.json({off:token});
@@ -186,7 +186,7 @@ app.post('/getsessionid', async (req, res) => {
   console.log(accounts);
   for (const compte of accounts) {
     if (compte.auto_token == token) {
-      console.log(compte.first_name, " ", compte.NOM, " est enregistré(e)");
+      console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const sessionId = crypto.randomBytes(32).toString('hex');
       sessions[sessionId] = {};
       sessions[sessionId].id = compte.num;
