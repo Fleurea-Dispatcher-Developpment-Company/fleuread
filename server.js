@@ -234,7 +234,7 @@ async function checkSession (id) {
         const me = sessions[id].id;
         console.log(compte.num);
         console.log(sessions[id].id);
-        if (compte.num = sessions[id].id) {
+        if (compte.num == sessions[id].id) {
           console.log("=");
           return compte.auth;
         }
