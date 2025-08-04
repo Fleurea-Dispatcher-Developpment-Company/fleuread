@@ -100,7 +100,8 @@ async function readDatabase (store, select) {
     let {data, error} = await supabase
     .from(store)
     .select(select);
-    if (data) {console.log(data)}
+    if (data) {console.log(data);
+              return data;}
     if (error) {console.error(error)}
   } catch (err) {console.error(err);}
 }
@@ -115,7 +116,8 @@ async function editDatabase (store, toupd, value_toupd, eq, value_eq) {
     .update(update_value)
     .eq(eq_value)
     .select();
-    if (data) {console.log(data)}
+    if (data) {console.log(data);
+              return data;}
     if (error) {console.error(error)}
   } catch (err) {console.error(err);}
 }
@@ -138,7 +140,8 @@ async function addDatabase (store, select, jsontoinsert) {
     .from(store)
     .insert([jsontoinsert])
     .select();
-    if (data) {console.log(data)}
+    if (data) {console.log(data);
+              return data;}
     if (error) {console.error(error)}
   } catch (err) {console.error(err);}
 }
