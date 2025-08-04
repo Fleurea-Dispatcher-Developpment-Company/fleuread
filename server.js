@@ -170,7 +170,7 @@ app.post('/login', async (req, res) => {
     if (compte.password == password) {
       console.log(compte.first_name, " ", compte.NOM, " est enregistré(e)");
       const token = crypto.randomBytes(32).toString('hex');
-      await editSupabase('comptes', 'auto_token', token, 'password', password);
+      await editDatabase('comptes', 'auto_token', token, 'password', password);
       res.json({off:token});
     }
   }
