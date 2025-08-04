@@ -141,3 +141,15 @@ async function addDatabase (store, select, jsontoinsert) {
   } catch (err) {console.error(err);}
 }
 
+// Gestion des sessions
+const sessions; // Format sessions.id = id
+app.post('/checksession', async (req, res) => {
+  const data = req.body;
+  const id = data.id;
+  if (sessions[id]) {
+    res.json({value:true});
+  } else {
+    res.json({value:false});
+  }
+});
+
