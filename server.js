@@ -190,6 +190,7 @@ app.post('/getsessionid', async (req, res) => {
       const sessionId = crypto.randomBytes(32).toString('hex');
       sessions[sessionId] = {};
       sessions[sessionId].id = compte.num;
+      await editDatabase('comptes', 'lastconnect', new Date(), 'num', compte.num);
       res.json({id:sessionId});
     }
   }
