@@ -147,7 +147,8 @@ app.post('/checksession', async (req, res) => {
   try {
   const data = req.body;
   let id;
-  if (data.id) {
+  console.log(typeof data.id);
+  if (typeof data.id != 'null') {
   id = data.id;
   } else {
   res.json({value:false});
