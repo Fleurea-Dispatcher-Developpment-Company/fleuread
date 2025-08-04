@@ -67,5 +67,25 @@
         margin:0.5rem;
       }
     </style>
+      <script>
+          async function start() {
+      url = new URL(window.location.href);
+      sessionId = await sessionStorage.getItem('session_id');
+      if (!sessionId) {
+        console.log("Not connected");
+        window.location.href = `https://${url.hostname}`; 
+      } else {
+        if (check(sessionId)) {
+        console.log("Connected");
+       
+        } else {
+        console.log("Not connected");
+        window.location.href = `https://${url.hostname}`; 
+        }
+      }
+      }
+      
+      start();
+    </script>
   </body>
 </html>
