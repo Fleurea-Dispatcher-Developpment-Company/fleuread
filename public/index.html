@@ -89,6 +89,7 @@
           alert("Le mot de passe est incorrect !");
         }
         localStorage.setItem('offtoken', fromServer.off);
+        autoConnect();
       });
 
       async function autoConnect () {
@@ -98,8 +99,10 @@
         };
          const fromServer = await fetcher('getsessionid', content, 'POST', 'noauth');
           sessionStorage.setItem('session_id', fromServer.id);
+          start();
         }
       }
+      autoConnected();
     </script>
     <style>
       body {
