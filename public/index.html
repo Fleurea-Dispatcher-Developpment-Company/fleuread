@@ -6,7 +6,7 @@
   </head>
   <body>
     <div style="display:none" id="unconnected">
-      <form id="login">
+      <form class="form-container" id="login">
         <input name="password" type="password" placeholder="Entrez votre mot de passe" required>
         <button type="submit()">Se connecter</button>
       </form>
@@ -68,5 +68,27 @@
         } catch (err) {return err;}
       }
     </script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        height: 100vh;
+        display:flex;
+        justify-content:center; /* aligné à l'horizontal */
+        align-items:center; /* aligné en vertical */
+        background: linear-gradient(90deg, blue, red);
+        font-family: Arial, sans-serif;
+      }
+      .form-container {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        width:100%;
+        max-width:400px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      }
+    </style>
   </body>
 </html>
