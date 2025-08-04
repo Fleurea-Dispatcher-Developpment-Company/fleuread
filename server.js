@@ -201,7 +201,7 @@ app.post('/getsessionid', async (req, res) => {
   try {
     const thisid = req.headers.auth;
     if (await checkSession(thisid)) {
-    res.send({role:await getRole(thisid)});
+    res.send({'role':await getRole(thisid)});
     } else {
       res.status(401);
     }
