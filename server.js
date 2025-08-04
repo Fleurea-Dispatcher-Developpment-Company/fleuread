@@ -144,6 +144,7 @@ async function addDatabase (store, select, jsontoinsert) {
 // Gestion des sessions
 const sessions = []; // Format sessions.id = id
 app.post('/checksession', async (req, res) => {
+  try {
   const data = req.body;
   const id = data.id;
   if (sessions[id]) {
@@ -151,5 +152,6 @@ app.post('/checksession', async (req, res) => {
   } else {
     res.json({value:false});
   }
+  } catch (err) {console.error(err);}
 });
 
