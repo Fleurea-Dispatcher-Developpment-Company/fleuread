@@ -19,6 +19,14 @@
       }
       }
       start();
+      async function aiguiller () {
+        document.getElementById('unconnected').style.display = "flex";
+        document.getElementById('connected').style.display = "none";
+      }
+      async function formulaire () {
+        document.getElementById('connected').style.display = "flex";
+        document.getElementById('unconnected').style.display = "none";
+      }
     </script>
   </body>
 </html>
