@@ -113,8 +113,8 @@ async function editDatabase (store, toupd, value_toupd, eq, value_eq) {
   try {
     let {data, error} = await supabase
     .from(store)
-    .update(update_value)
-    .eq(eq_value)
+    .update({[toupd]:value_toupd})
+    .eq(eq, value_eq)
     .select();
     if (data) {console.log(data);
               return data;}
@@ -129,7 +129,7 @@ async function deleteDatabase (store, eq, value_eq) {
     let {error} = await supabase
     .from(store)
     .delete()
-    .eq(eq_value);
+    .eq(eq, value_eq);
     if (error) {console.error(error)}
   } catch (err) {console.error(err);}
 }
