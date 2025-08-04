@@ -17,6 +17,7 @@ app.listen(PORT, () => {
 });
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', async (req, res) => {
   try {
