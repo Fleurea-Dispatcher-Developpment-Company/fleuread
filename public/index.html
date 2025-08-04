@@ -8,9 +8,13 @@
     <div style="display:none" id="unconnected"></div>
     <div style="display:none" id="connected"></div>
     <script>
+      let url;
+      let sessionId;
+      
       async function start() {
-      const sessionId = await sessionStorage.getItem('session_id');
-      if (!sessionId) {
+      url = new URL(window.location.href);
+      sessionId = await sessionStorage.getItem('session_id');
+      if (!sessionId && await check(sessionId)) {
         console.log("Not connected");
         formulaire();
       } else {
@@ -19,13 +23,38 @@
       }
       }
       start();
+      
       async function aiguiller () {
         document.getElementById('unconnected').style.display = "flex";
         document.getElementById('connected').style.display = "none";
       }
+      
       async function formulaire () {
         document.getElementById('connected').style.display = "flex";
         document.getElementById('unconnected').style.display = "none";
+      }
+      
+      async function check(id) {
+        const answer = await fetcher('checksession',{'id':id},'POST','noauth');
+        if (answer.value) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      async function fetcher (endpoint, body, method, auth) {
+        try {
+        const response = await fetch(`https://${url.host}/${endpoint}`,{
+          'method':method,
+          'headers' : {
+            'auth': auth
+          }, 
+          'body' : JSON.stringify(body)
+        });
+        const data = await response.json();
+          return data;
+        } catch (err) {return err;}
       }
     </script>
   </body>
