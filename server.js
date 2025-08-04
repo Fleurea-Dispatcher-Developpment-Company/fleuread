@@ -232,7 +232,10 @@ async function checkSession (id) {
       const accounts = await readDatabase('comptes', '*');
       for (const compte of accounts) {
         const me = sessions[id].id;
+        console.log(compte.num);
+        console.log(id);
         if (compte.num = id) {
+          console.log("=");
           return compte.auth;
         }
       }
