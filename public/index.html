@@ -79,7 +79,7 @@
 
       document.getElementById('login').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const formData = await new formData(this);
+        const formData = new FormData(e.target);
         const data = await Object.fromEntries(formData.entries());
         const content = {
           password:data.password
