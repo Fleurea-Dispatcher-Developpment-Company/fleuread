@@ -70,24 +70,47 @@
     </script>
     <style>
       * {
-        box-sizing: border-box;
+          box-sizing: border-box;
       }
       body {
-        margin: 0;
-        height: 100vh;
-        display:flex;
-        justify-content:center; /* aligné à l'horizontal */
-        align-items:center; /* aligné en vertical */
-        background: linear-gradient(90deg, blue, red);
-        font-family: Arial, sans-serif;
+          margin: 0;
+          height: 100vh;
+          display:flex;
+          justify-content:center; /* aligné à l'horizontal */
+          align-items:center; /* aligné en vertical */
+          background: linear-gradient(90deg, blue, red);
+          font-family: Arial, sans-serif;
       }
       .form-container {
-        background: white;
-        padding: 2rem;
-        border-radius: 1rem;
-        width:100%;
-        max-width:400px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+          background: white;
+          padding: 2rem;
+          border-radius: 1rem;
+          width:100%;
+          max-width:400px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      }
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+      }
+      button {
+        width: 100%;
+        padding: 0.75rem;
+        background-color:blue;
+        color:white;
+        margin-bottom: 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor:pointer;
+        transition:background 0.3s ease;
+      }
+      button:hover {
+        background-color:dark-blue;
       }
     </style>
   </body>
