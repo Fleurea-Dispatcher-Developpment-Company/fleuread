@@ -150,7 +150,8 @@ app.post('/checksession', async (req, res) => {
   if (data.id) {
   id = data.id;
   } else {
-    res.json({value:false});
+  res.json({value:false});
+  id = "system";
   }
   if (sessions[id]) {
     res.json({value:true});
