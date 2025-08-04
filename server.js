@@ -194,7 +194,44 @@ app.post('/getsessionid', async (req, res) => {
       res.json({id:sessionId});
     }
   }
-    res.send({status:'no', off:"Le token est périmé"});
+
+  app.post('/getrole', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    if (await checkSession(thisid)) {
+    res.send({role:await getRole(thisid)});
+    } else {
+      res.status(401);
+    }
   } catch (err) {console.error(err);}
 });
 
+async function checkRole (role, id) {
+  if (await checkSession(id)) {
+    if (await getRole(id) == role) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+async function checkSession (id) {
+  if (sessions[id]) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+    async function getRole (id) {
+      const accounts = await readDatabase('comptes', '*');
+      for (const compte of accounts) {
+        const me = sessions[id].id;
+        if (compte.num = id) {
+          return compte.auth;
+        }
+      }
+    }
