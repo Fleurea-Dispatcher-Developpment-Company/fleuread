@@ -19,14 +19,20 @@
       async function start() {
       url = new URL(window.location.href);
       sessionId = await sessionStorage.getItem('session_id');
-      if (!sessionId && await check(sessionId)) {
+      if (!sessionId) {
         console.log("Not connected");
         formulaire();
       } else {
+        if (check(sessionId)) {
         console.log("Connected");
         aiguiller();
+        } else {
+        console.log("Not connected");
+        formulaire(); 
+        }
       }
       }
+      
       start();
       
       async function aiguiller () {
