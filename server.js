@@ -174,3 +174,22 @@ app.post('/login', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
+app.post('/getsessionid', async (req, res) => {
+  try {
+  const data = req.body;
+  const token = data.token;
+  const accounts = await readDatabase('comptes','*');
+  console.log(accounts);
+  for (const compte of accounts) {
+    if (compte.auto_token == token) {
+      console.log(compte.first_name, " ", compte.NOM, " est enregistré(e)");
+      const sessionId = crypto.randomBytes(32).toString('hex');
+      sessions[sessionId] = {};
+      sessions[sessionId].id = compte.num;
+      res.json({id:sessionId});
+    }
+  }
+    res.send({status:'no', off:"Le token est périmé"});
+  } catch (err) {console.error(err);}
+});
+
