@@ -108,6 +108,7 @@
         const fromServer = await fetcher('login', content, 'POST', 'noauth');
         if (fromServer.status == "no") {
           alert("Le mot de passe est incorrect !");
+          return;
         }
         localStorage.setItem('offtoken', fromServer.off);
         autoConnect();
