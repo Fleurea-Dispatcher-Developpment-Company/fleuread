@@ -46,7 +46,7 @@
         document.getElementById('unconnected').hidden = true;
         document.getElementById('connected').hidden = false;
         const content = {
-          
+          'id':localStorage.getItem('session_id')
         };
         const data = fetcher('getrole', content, 'POST', localStorage.getItem('session_id'));
       }
