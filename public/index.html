@@ -93,6 +93,9 @@
 
       async function autoConnect () {
         if (localStorage.getItem('offtoken')) {
+        const content = {
+          token:localStorage.getItem('offtoken')
+        };
          const fromServer = await fetcher('getsessionid', content, 'POST', 'noauth');
           sessionStorage.setItem('session_id', fromServer.id);
         }
