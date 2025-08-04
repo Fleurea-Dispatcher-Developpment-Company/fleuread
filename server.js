@@ -240,3 +240,19 @@ async function checkSession (id) {
         }
       }
     }
+
+app.get('/driver', async (req, res) => {
+  try {
+  res.sendFile(path.join(__dirname, 'public', 'driver.html'));
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+app.get('/admin', async (req, res) => {
+  try {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+  } catch (err) {
+    console.error(err);
+  }
+});
