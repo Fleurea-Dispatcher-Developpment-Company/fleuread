@@ -45,6 +45,10 @@
       async function aiguiller () {
         document.getElementById('unconnected').hidden = true;
         document.getElementById('connected').hidden = false;
+        const content = {
+          
+        };
+        const data = fetcher('getrole', content, 'POST', localStorage.getItem('session_id'));
       }
       
       async function formulaire () {
