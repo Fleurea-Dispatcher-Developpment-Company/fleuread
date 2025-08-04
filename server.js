@@ -146,7 +146,12 @@ const sessions = []; // Format sessions.id = id
 app.post('/checksession', async (req, res) => {
   try {
   const data = req.body;
-  const id = data.id;
+  let id;
+  if (data.id) {
+  id = data.id;
+  } else {
+    res.json({value:false});
+  }
   if (sessions[id]) {
     res.json({value:true});
   } else {
