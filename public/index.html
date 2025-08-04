@@ -45,7 +45,7 @@
       async function aiguiller () {
         document.getElementById('unconnected').hidden = true;
         document.getElementById('connected').hidden = false;
-        const sessionId = await localStorage.getItem('session_id');
+        const sessionId = await sessionStorage.getItem('session_id');
         console.warn(sessionId);
         const content = {
           'id':sessionId
