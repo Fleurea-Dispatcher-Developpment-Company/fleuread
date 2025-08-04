@@ -46,9 +46,9 @@
         document.getElementById('unconnected').hidden = true;
         document.getElementById('connected').hidden = false;
         const content = {
-          'id':localStorage.getItem('session_id')
+          'id':await localStorage.getItem('session_id')
         };
-        const data = fetcher('getrole', content, 'POST', localStorage.getItem('session_id'));
+        const data = fetcher('getrole', content, 'POST', await localStorage.getItem('session_id'));
         if (data.role == 'driver') {
           if (document.referrer) {
             const last_url = new URL (document.referrer);
