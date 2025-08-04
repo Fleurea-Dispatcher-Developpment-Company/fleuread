@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cors = require("cors");
 const WebSocket = require('ws');
+const crypto = require('crypto');
 
 // On gère tous les app.something
 const app = express();
@@ -152,6 +153,24 @@ app.post('/checksession', async (req, res) => {
   } else {
     res.json({value:false});
   }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/login', async (req, res) => {
+  try {
+  const data = req.body;
+  const password = data.password;
+  const accounts = await readDatabase('comptes','*');
+  console.log(accounts);
+  for (const compte of accounts) {
+    if (compte.password == password) {
+      console.log(compte.first_name, " ", compte.NOM, " est enregistré(e)");
+      const token = crypto.randomBytes(32).toString('hex');
+      await editSupabase('comptes', 'auto_token', token, 'password', password);
+      res.json({off:token});
+    }
+  }
+    res.send({status:'no', off:"Le mot de passe est incorrect"});
   } catch (err) {console.error(err);}
 });
 
