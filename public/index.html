@@ -10,7 +10,7 @@
     <script>
       async function start() {
       const sessionId = await sessionStorage.getItem('session_id');
-      if (sessionId) {
+      if (!sessionId) {
         console.log("Not connected");
         formulaire();
       } else {
