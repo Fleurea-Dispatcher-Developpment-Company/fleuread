@@ -92,3 +92,52 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Début des fonctions supabase
+async function readDatabase (store, select) {
+  try {
+    let {data, error} = await supabase
+    .from(store)
+    .select(select);
+    if (data) {console.log(data)}
+    if (error) {console.error(error)}
+  } catch (err) {console.error(err);}
+}
+
+async function editDatabase (store, toupd, value_toupd, eq, value_eq) {
+  const update_value = `{${toupd}:'${value_toupd}'}`;
+  const eq_value = `'${eq}', '${value_eq}'`;
+  console.log(update_value, eq_value);
+  try {
+    let {data, error} = await supabase
+    .from(store)
+    .update(update_value)
+    .eq(eq_value)
+    .select();
+    if (data) {console.log(data)}
+    if (error) {console.error(error)}
+  } catch (err) {console.error(err);}
+}
+
+async function deleteDatabase (store, eq, value_eq) {
+  const eq_value = `'${eq}', '${value_eq}'`;
+  console.log(eq_value);
+  try {
+    let {error} = await supabase
+    .from(store)
+    .delete()
+    .eq(eq_value);
+    if (error) {console.error(error)}
+  } catch (err) {console.error(err);}
+}
+
+async function addDatabase (store, select, jsontoinsert) {
+  try {
+    let {data, error} = await supabase
+    .from(store)
+    .insert([jsontoinsert])
+    .select();
+    if (data) {console.log(data)}
+    if (error) {console.error(error)}
+  } catch (err) {console.error(err);}
+}
+
