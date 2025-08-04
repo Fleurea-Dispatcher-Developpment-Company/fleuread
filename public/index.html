@@ -59,6 +59,7 @@
         const data = fetcher('getrole', content, 'POST', sessionId);
         if (data.role == 'driver') {
           if (document.referrer) {
+            console.warn(document.referrer);
             const last_url = new URL (document.referrer);
             if (last_url.hostname == "fleurea.onrender.com" && last_url.pathname == "/driver") {
               window.location.href = document.referrer;
