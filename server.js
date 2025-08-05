@@ -349,5 +349,5 @@ async function formatHour (time) {
   return `${hour}h${minute}`;
 }
 
-setInterval(sendHour, 500);
+setInterval(sendHour, 1000);
 
