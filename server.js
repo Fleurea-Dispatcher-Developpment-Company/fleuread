@@ -33,11 +33,15 @@ wss.on('connection', (ws, req) => {
   if (checkRole(sesId, 'driver')) {
     WSDriver.push(ws);
     console.log(WSDriver);
+    try{
     ws.send({'action':'time', 'value':await formatHour(new Date())});
+       } catch(err) {console.error(err);}
   } else {
     WSAdmin.push(ws);
     console.log(WSAdmin);
+    try {
     ws.send({'action':'time', 'value':await formatHour(new Date())});
+    } catch(err) {console.error(err);}
   }
   } else {
     return;
@@ -305,7 +309,9 @@ app.get('/admin', async (req, res) => {
 async function broadcastToDrivers(message) {
   for(const ws of WSDriver) {
     if (ws.readState === ws.OPEN) {
+      try {
       ws.send(message);
+      } catch(err){console.error(err);}
     }
   }
 }
@@ -313,7 +319,9 @@ async function broadcastToDrivers(message) {
 async function broadcastToAdmins(message) {
   for(const ws of WSAdmin) {
     if (ws.readState === ws.OPEN) {
+       try {
       ws.send(message);
+      } catch(err){console.error(err);}
     }
   }
 }
