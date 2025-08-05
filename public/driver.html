@@ -7,11 +7,32 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   <body>
-    <div class="w3-center form-container">
-      <h1 class="w3-center">Bienvenue</h1>
-      <p class="w3-center">Fleuréa Dispatcher | Portail conducteur</p>
-      <img class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
+    <div id="lightbox">
+      <div class="lightbox-content w3-center">
+        <span id="close-btn">&times;</span>
+        <div class="circleB" style="top:50%; left:50%; transform:translate(-50%,-50%)">
+          <img id="lightImg" src="" alt="Profil">
+        </div>
+        <h2 id="lightH2"></h2>
+        <p id="lightP"></p>
+        <button onclick="localStorage.removeItem('offtoken'); sessionStorage.removeItem('session_id'); start();">Se déconnecter</button>
+      </div>
     </div>
+   <div class="head" id="head">
+     <div id="heure"><p id="time">N/A</p></div>
+     <div id="portal"><p>Portail Conducteur</p></div>
+     <!--  <button id="visuBtn">Voir la carte</button>
+       <button id="adminBtn">Administration</button> -->
+     <div id="logo_eurea">
+       <img src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" onclick="window.location.href = 'https://www.groupe-eurea.com/';" alt="Logo Euréa">
+       </div>
+   <div id="compte">
+      <div class="circle"> 
+      <img id="myPict" src="" alt="Icône du propriétaire du compte">
+      </div>
+     <p id="myName">DRIVER</p>
+   </div>
+   </div>
     <style>
       body {
           margin: 0;
@@ -45,11 +66,11 @@
         box-sizing:border-box; 
       }
       button {
-        width: 100%;
-        padding: 0.75rem;
+        
+        
         background-color:blue;
         color:white;
-        margin-bottom: 1rem;
+       
         border: none;
         border-radius: 0.5rem;
         font-size: 1rem;
@@ -60,14 +81,82 @@
       button:hover {
         background-color:red;
       }
-      img {
+      .img {
         max-width:80%;
         height:auto;
        box-sizing:border-box;
         margin:0.5rem;
       }
+      .head {
+        background:linear-gradient(90deg, black, grey);
+        display:flex;
+        position:fixed; /* Fixed is better than absolute as it fix the position even when scolling */
+        top:0;
+        left:0; /* We'll take the left side as a spot better than the right one */
+        width:100%;
+        height:10vh;
+        align-items:center; /* We center everything in height */
+        justify-content:space-between; /* Distribue l'espace horizontalement */
+        padding:0 1rem; /* Espace entre bordure et contenu */
+        box-sizing:border-box;
+        color:white;
+        font-weight:bold; /* Police d'écriture en gras */
+        z-index:1000;
+      }
+      .circle {
+        width:5vh;
+        height:5vh;
+        border-radius:50%;
+        overflow:hidden;
+        position:relative;
+      }
+
+      .circleB {
+        width:15vh;
+        height:15vh;
+        border-radius:50%;
+        overflow:hidden;
+        position:relative;
+      }
+       .circle img, .circleB img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+      }
+      #heure, #portal, #logo_eurea, #compte, #visuBtn, #adminBtn {
+        display:flex;
+        align-items:center;
+        white-space:nowrap; /* Forcer le texte à rester sur une seule ligne */
+      }
+  
+      #logo_eurea img {
+        height:6vh;
+        cursor:pointer;
+      }
+
+      #compte p {
+        margin:0;
+        font-size:1rem;
+        margin-left:2vh;
+      }
+
+      @media (max-width: 680px) { /* Ce qui se cache sur la version mobile */
+         #heure, #portal, #logo_eurea {
+           display:none;
+         }
+        button {
+          font-size:0.75rem;
+        } 
+      }
     </style>
-      <script>
+    <script>
+const offset = -((new Date().getTimezoneOffset()) / 60);
+      console.log(offset);
+      
           async function start() {
       url = new URL(window.location.href);
       sessionId = await sessionStorage.getItem('session_id');
@@ -75,10 +164,12 @@
         console.log("Not connected");
         window.location.href = `https://${url.hostname}`; 
       } else {
-        if (check(sessionId)) {
+        if (await check(sessionId)) {
         console.log("Connected");
-       
+       await connectWebSocket();
+          await getMe();
         } else {
+        sessionStorage.removeItem('session_id');
         console.log("Not connected");
         window.location.href = `https://${url.hostname}`; 
         }
@@ -86,13 +177,17 @@
       }
       
       start();
-        
+
+      
       async function check(id) {
         const answer = await fetcher('checksession',{'id':id},'POST','noauth');
         const bool = answer.value;
+        console.warn(bool);
         if (bool) {
+          console.warn("true");
           return true;
         } else {
+          console.warn("false");
           return false;
         }
       }
@@ -111,6 +206,94 @@
           return data;
         } catch (err) {return err;}
       }
+
+      let socket;
+      // Ici on gère la technologie websocket
+      async function connectWebSocket() {
+        if (socket && socket.readyState === WebSocket.OPEN) {
+          return;
+        }
+        socket = new WebSocket (`wss://${url.host}?key=${sessionStorage.getItem('session_id')}&offset=${offset}`);
+        socket.addEventListener('open', () => {
+               // console.log("Connecté au serveur websocket !");
+          socket.send(JSON.stringify({action:"SET", offset:offset}));
+        });
+        socket.addEventListener("message", (event) => {
+        mes = JSON.parse(event.data);
+        if (mes.action = 'time') {
+          document.getElementById('time').textContent = mes.value;
+        }
+      });
+      }
+
+let mydatas = {};
+      
+      async function getMe() {
+        const answer = await fetcher('getme',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
+        const icon = answer.icon;
+        const first_name = answer.first_name;
+        const name = answer.name;
+        const role = answer.role;
+        document.getElementById('myPict').src = icon;
+        document.getElementById('myName').textContent = `${first_name} ${name}`;
+        mydatas["icon"] = icon;
+        mydatas["first_name"] = first_name;
+        mydatas["name"] = name;
+        mydatas["role"] = role;
+      }
     </script>
+    <style>
+      #lightbox {
+        position:fixed;
+        top:0;
+        left:0;
+        height:100vh;
+        width:100vw;
+        background:rgba(100,100,100,0.7);
+        display:none;
+        justify-content:center;
+        align-items:center;
+        z-index:1000;
+      }
+       .lightbox-content {
+       background:white;
+        padding:2em;
+         border-radius:12px;
+         text-align:center;
+         max-width:400px;
+         width:80%;
+         position:relative;
+         box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      }
+      #close-btn {
+        position:absolute;
+        top:10px;
+        right:15px;
+        font-size:1.8em;
+        cursor:pointer;
+        color:red;
+      }
+    </style>
+     <script>
+       const profilePic = document.getElementById('compte');
+       const lightbox = document.getElementById('lightbox');
+       const closeBtn = document.getElementById('close-btn');
+       document.addEventListener('DOMContentLoaded', () => {
+       profilePic.addEventListener('click', () => {
+         lightbox.style.display = 'flex';
+         document.getElementById('lightH2').textContent = mydatas["first_name"] + " " + mydatas["name"];
+         document.getElementById('lightImg').src =  mydatas["icon"];
+         document.getElementById('lightP').textContent =  mydatas["role"];
+       });
+        closeBtn.addEventListener('click', () => {
+         lightbox.style.display = 'none';
+       });
+       lightbox.addEventListener('click', (e) => {
+         if (e.target === lightbox) {
+           lightbox.style.display = 'none';
+         }
+       });
+       });
+     </script>
   </body>
 </html>
