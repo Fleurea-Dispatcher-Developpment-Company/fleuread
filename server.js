@@ -34,20 +34,30 @@ wss.on('connection', (ws, req) => {
   console.log(idclient);
   if (checkRole(sesId, 'driver')) {
     WSDriver.push(ws);
+    console.log(WSDriver);
   } else {
     WSAdmin.push(ws);
+    console.log(WSAdmin);
   }
   } else {
     return;
   }
   ws.on('message', (data) => {
-    try {
     console.log("Socket:");
     console.log(data);
     let parsedData = JSON.parse(data.toString('utf8'));
   });
   ws.on('close', () => {
-    removeWs(ws);
+    const indexDriver = WSDriver.indexOf(ws);
+    const indexAdmin = WSAdmin.indexOf(ws);
+    if (indexDriver !== -1) {
+      WSDriver.splice(indexDriver, 1);
+    }
+    if (indexAdmin !== -1) {
+      WSAdmin.splice(indexAdmin, 1);
+    }
+    console.log(WSDriver);
+    console.log(WSAdmin);
   });
 });
 
