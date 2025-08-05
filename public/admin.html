@@ -273,7 +273,7 @@ let mydatas = {};
        document.addEventListener('DOMContentLoaded', () => {
        profilePic.addEventListener('click', () => {
          lightbox.style.display = 'flex';
-         document.getElementById('lightH2').textContent = mydatas["first_name"] + mydatas["name"];
+         document.getElementById('lightH2').textContent = mydatas["first_name"] + " " + mydatas["name"];
          document.getElementById('lightImg').src =  mydatas["icon"];
        });
         closeBtn.addEventListener('click', () => {
