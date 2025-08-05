@@ -34,13 +34,13 @@ wss.on('connection', (ws, req) => {
     WSDriver.push(ws);
     console.log(WSDriver);
     try{
-    ws.send({'action':'time', 'value':await formatHour(new Date())});
+    ws.send({'action':'time', 'value':formatHour(new Date())});
        } catch(err) {console.error(err);}
   } else {
     WSAdmin.push(ws);
     console.log(WSAdmin);
     try {
-    ws.send({'action':'time', 'value':await formatHour(new Date())});
+    ws.send({'action':'time', 'value':formatHour(new Date())});
     } catch(err) {console.error(err);}
   }
   } else {
@@ -335,24 +335,24 @@ async function sendHour () {
   const now = new Date();
   if (await checkNextHour(now)) {
     console.log("Nouvelle heure...");
-    broadcast({'action':'time', 'value':await formatHour(now)});
+    broadcast({'action':'time', 'value':formatHour(now)});
   }
 }
 
 let last_time;
 
 async function checkNextHour (time) {
- if (await formatHour(time) == last_time) {
+ if (formatHour(time) == last_time) {
    console.log('false');
    return false;
  } else {
    console.log('true');
-   last_time = await formatHour(time);
+   last_time = formatHour(time);
    return true;
  }
 }
 
-async function formatHour (time) {
+function formatHour (time) {
   const now = new Date(time);
   const hour = now.getHours();
   const minute = now.getMinutes();
