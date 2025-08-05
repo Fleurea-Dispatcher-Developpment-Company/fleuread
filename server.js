@@ -34,7 +34,7 @@ wss.on('connection', (ws, req) => {
   console.log(sesId);
   let idclient;
   if (checkSession(sesId)) {
-  setWS(sesId);
+  setWS(sesId, ws);
   } else {
     return;
   }
@@ -87,7 +87,7 @@ async function autoPing () {
   }
 }
 
-async function setWS (sesId) {
+async function setWS (sesId, ws) {
   if (await checkRole(sesId, 'driver')) {
     WSDriver.push(ws);
     console.log(WSDriver);
