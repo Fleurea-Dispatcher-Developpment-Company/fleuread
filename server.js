@@ -308,7 +308,7 @@ app.get('/admin', async (req, res) => {
 
 async function broadcastToDrivers(message) {
   for(const ws of WSDriver) {
-    if (ws.readState === ws.OPEN) {
+    if (ws.readyState === ws.OPEN) {
       try {
         console.log(JSON.stringify(message));
       ws.send(JSON.stringify(message));
@@ -319,7 +319,7 @@ async function broadcastToDrivers(message) {
 
 async function broadcastToAdmins(message) {
   for(const ws of WSAdmin) {
-    if (ws.readState === ws.OPEN) {
+    if (ws.readyState === ws.OPEN) {
        try {
          console.log(JSON.stringify(message));
       ws.send(JSON.stringify(message));
