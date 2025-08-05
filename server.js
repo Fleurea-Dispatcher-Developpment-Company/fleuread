@@ -34,13 +34,13 @@ wss.on('connection', (ws, req) => {
     WSDriver.push(ws);
     console.log(WSDriver);
     try{
-    ws.send({'action':'time', 'value':formatHour(new Date())});
+    ws.send(JSON.stringify({'action':'time', 'value':formatHour(new Date())}));
        } catch(err) {console.error(err);}
   } else {
     WSAdmin.push(ws);
     console.log(WSAdmin);
     try {
-    ws.send({'action':'time', 'value':formatHour(new Date())});
+    ws.send(JSON.stringify({'action':'time', 'value':formatHour(new Date())}));
     } catch(err) {console.error(err);}
   }
   } else {
@@ -310,7 +310,7 @@ async function broadcastToDrivers(message) {
   for(const ws of WSDriver) {
     if (ws.readState === ws.OPEN) {
       try {
-      ws.send(message);
+      ws.send(JSON.stringify(message));
       } catch(err){console.error(err);}
     }
   }
@@ -320,7 +320,7 @@ async function broadcastToAdmins(message) {
   for(const ws of WSAdmin) {
     if (ws.readState === ws.OPEN) {
        try {
-      ws.send(message);
+      ws.send(JSON.stringify(message));
       } catch(err){console.error(err);}
     }
   }
