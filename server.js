@@ -30,8 +30,6 @@ wss.on('connection', (ws, req) => {
   console.log(sesId);
   let idclient;
   if (checkSession(sesId)) {
-  idclient = sessions[sesId].id;
-  console.log(idclient);
   if (checkRole(sesId, 'driver')) {
     WSDriver.push(ws);
     console.log(WSDriver);
