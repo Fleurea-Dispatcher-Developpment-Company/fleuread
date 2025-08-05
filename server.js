@@ -30,7 +30,7 @@ wss.on('connection', (ws, req) => {
   const offset = urler.parse(req.url, true).query.offset;
   console.log(offset);
   ws.offset = parseInt(offset || '0', 10);
-  console.log(ws.offset);
+  console.log("Offset dans l'objet : ",ws.offset);
   console.log(sesId);
   let idclient;
   if (checkSession(sesId)) {
