@@ -5,6 +5,8 @@
     <link rel="shortcut icon" href="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   </head>
   <body>
     <div id="lightbox">
@@ -35,8 +37,12 @@
    </div>
 
     <div style="display:none" id="map">
-      <div id="view"></div>
       <div id="panel"></div>
+      <div id="view">
+        <div id="mapA">
+          
+        </div>
+      </div>
     </div>
     <div id="admin"></div>
     <style>
@@ -57,6 +63,11 @@
         width:20%;
         height:100%;
         background:blue;
+      }
+      #mapA {
+        height:100%;
+        margin:0;
+        padding:0;
       }
       body {
           margin: 0;
