@@ -27,6 +27,8 @@ const WSAdmin = [];
 wss.on('connection', (ws, req) => {
  console.log("Entrée WEBSOCKET");
   const sesId = urler.parse(req.url, true).query.key;
+  const offset = urler.parse(req.url, true).query.offset;
+  ws.offset = offset;
   console.log(sesId);
   let idclient;
   if (checkSession(sesId)) {
@@ -328,16 +330,30 @@ async function broadcastToAdmins(message) {
   }
 }
 
+async function broadcastTime(now) {
+  for(const ws of WSAdmin) {
+    if (ws.readyState === ws.OPEN) {
+       try {
+      ws.send(JSON.stringify({'action':'time', 'value':formatHour(now,ws.offset)}));
+      } catch(err){console.error(err);}
+    }
+  }
+}
+
 async function broadcast (message) {
+  if (message !== "time") {
   broadcastToDrivers(message);
   broadcastToAdmins(message);
+  } else {
+    broadcastTime(new Date());
+  }
 }
 
 async function sendHour () {
   const now = new Date();
   if (await checkNextHour(now)) {
     console.log("Nouvelle heure...");
-    broadcast({'action':'time', 'value':formatHour(now)});
+    broadcast("time");
   }
 }
 
@@ -354,9 +370,13 @@ async function checkNextHour (time) {
  }
 }
 
-function formatHour (time) {
+function formatHour (time, offset) {
   const now = new Date(time);
   const hour = now.getHours();
+  if (offset > 0) {
+    hour = hour + offset;
+  }
+  hour = hour.toString().padStart(2, '0');
   const minute = now.getMinutes();
   let toret = `${hour}h${minute}`;
   console.log(toret);
