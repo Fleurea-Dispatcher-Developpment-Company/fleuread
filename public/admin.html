@@ -10,10 +10,8 @@
    <div class="head" id="head">
      <div id="heure"><p>18:59</p></div>
      <div id="portal"><p>Portail Administration</p></div>
-      <div id="actions">
        <button id="visuBtn">Voir la carte</button>
        <button id="adminBtn">Administration</button>
-      </div>
      <div id="logo_eurea">
        <img src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
        </div>
@@ -105,7 +103,7 @@
         height:100%;
         object-fit:cover;
       }
-      #heure, #portal, #logo_eurea, #compte {
+      #heure, #portal, #logo_eurea, #compte, #visuBtn, #adminBtn {
         display:flex;
         align-items:center;
         white-space:nowrap; /* Forcer le texte à rester sur une seule ligne */
@@ -125,6 +123,7 @@
       #compte p {
         margin:0;
         font-size:1rem;
+        margin-left:10px;
       }
     </style>
     <script>
