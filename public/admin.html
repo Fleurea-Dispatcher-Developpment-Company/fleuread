@@ -8,7 +8,7 @@
   </head>
   <body>
    <div class="head" id="head">
-     <div id="heure"><p>18:59</p></div>
+     <div id="heure"><p id="time">18:59</p></div>
      <div id="portal"><p>Portail Administration</p></div>
        <button id="visuBtn">Voir la carte</button>
        <button id="adminBtn">Administration</button>
@@ -189,6 +189,9 @@
         });
         socket.addEventListener("message", (event) => {
         mes = JSON.parse(event.data);
+        if (mes.action = 'time') {
+          document.getElementById('time').textContent = mes.value;
+        }
       });
       }
     </script>
