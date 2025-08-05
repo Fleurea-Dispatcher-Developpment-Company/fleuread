@@ -152,7 +152,7 @@
       async function check(id) {
         const answer = await fetcher('checksession',{'id':id},'POST','noauth');
         const bool = answer.value;
-        if (bool) {
+        if (bool == 'true') {
           return true;
         } else {
           return false;
