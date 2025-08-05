@@ -4,6 +4,8 @@ const path = require('path');
 const cors = require("cors");
 const WebSocket = require('ws');
 const crypto = require('crypto');
+const http = require('http');
+const url = require('url');
 
 // On gère tous les app.something
 const app = express();
@@ -11,9 +13,42 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const url = "fleuread.onrender.com";
 
-app.listen(PORT, () => {
+const server = http.createServer(app);
+const wss = new WebSocket.Server({server});
+
+server.listen(PORT, () => {
   console.log(`Le serveur de Fleuread fonctionne à l'adresse ${url}:${PORT}`);
   console.log(__dirname);
+});
+
+const WSDriver = {};
+const WSAdmin = {};
+
+wss.on('connection', (ws, req) => {
+ console.log("Entrée WEBSOCKET");
+  const sesId = url.parse(req.url, true).query.key;
+  console.log(sesId);
+  let idclient;
+  if (checkSession(sesId)) {
+  idclient = sessions[sesId].id;
+  console.log(idclient);
+  if (checkRole(sesId, 'driver')) {
+    WSDriver.push(ws);
+  } else {
+    WSAdmin.push(ws);
+  }
+  } else {
+    return;
+  }
+  ws.on('message', (data) => {
+    try {
+    console.log("Socket:");
+    console.log(data);
+    let parsedData = JSON.parse(data.toString('utf8'));
+  });
+  ws.on('close', () => {
+    removeWs(ws);
+  });
 });
 
 app.use(cors());
