@@ -152,9 +152,12 @@
       async function check(id) {
         const answer = await fetcher('checksession',{'id':id},'POST','noauth');
         const bool = answer.value;
+        console.warn(bool);
         if (bool == 'true') {
+          console.warn("true");
           return true;
         } else {
+          console.warn("false");
           return false;
         }
       }
