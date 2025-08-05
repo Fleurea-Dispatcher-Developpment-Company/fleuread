@@ -29,7 +29,7 @@ wss.on('connection', (ws, req) => {
   const sesId = urler.parse(req.url, true).query.key;
   const offset = urler.parse(req.url, true).query.offset;
   console.log(offset);
-  ws.offset = offset;
+  ws.offset = parseInt(offset || '0', 10);
   console.log(ws.offset);
   console.log(sesId);
   let idclient;
