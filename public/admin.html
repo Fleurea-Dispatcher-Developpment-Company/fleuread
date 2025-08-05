@@ -342,9 +342,10 @@ let mydatas = {};
       "Topographie":topo
   };
     
-    const map = L.map('mapA').setView([45.72191877191547, 4.227417998761897], 13);
+    const map = L.map('mapA').setView([45.72191877191547, 4.227417998761897], 15);
     L.control.layers(baseMaps, null, {position:'bottomleft'}).addTo(map);
     osm.addTo(map);
+      map.invalidateSize();
     </script>
   </body>
 </html>
