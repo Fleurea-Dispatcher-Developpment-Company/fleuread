@@ -376,7 +376,7 @@ async function checkNextHour (time) {
 
 function formatHour (time, offset) {
   const now = new Date(time);
-  const hour = now.getHours();
+  let hour = now.getHours();
   if (offset > 0) {
     hour = hour + offset;
   }
