@@ -15,7 +15,7 @@
         </div>
         <h2 id="lightH2"></h2>
         <p id="lightP"></p>
-        <button onclick="sessionStorage.removeItem('session_id'); start();">Se déconnecter</button>
+        <button onclick="localStorage.removeItem('offtoken'); start();">Se déconnecter</button>
       </div>
     </div>
    <div class="head" id="head">
@@ -261,7 +261,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
        document.addEventListener('DOMContentLoaded', () => {
        profilePic.addEventListener('click', () => {
          lightbox.style.display = 'flex';
-         
+         document.getElementById('lightH2').textContent = document.getElementById()
        });
         closeBtn.addEventListener('click', () => {
          lightbox.style.display = 'none';
