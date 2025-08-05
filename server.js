@@ -377,13 +377,13 @@ async function checkNextHour (time) {
 
 function formatHour (time, offset) {
   console.log(offset);
-  const now = new Date(time);
+  const now = new Date(time.getTime() + offset * 60000);
   let hour = now.getHours();
-  if (offset > 0) {
-    hour = hour + offset;
-  }
+  //if (offset > 0) {
+  //  hour = hour + offset;
+  // }
   hour = hour.toString().padStart(2, '0');
-  const minute = now.getMinutes();
+  const minute = now.getMinutes().toString().padStart(2, '0');
   let toret = `${hour}h${minute}`;
   console.log(toret);
   return toret;
