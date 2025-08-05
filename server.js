@@ -350,6 +350,7 @@ async function broadcast (message) {
   broadcastToAdmins(message);
   } else {
     broadcastTime(new Date());
+    console.log("TIME BROADCASTING");
   }
 }
 
@@ -375,6 +376,7 @@ async function checkNextHour (time) {
 }
 
 function formatHour (time, offset) {
+  console.log(offset);
   const now = new Date(time);
   let hour = now.getHours();
   if (offset > 0) {
