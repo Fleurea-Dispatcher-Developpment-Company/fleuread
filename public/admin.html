@@ -136,7 +136,7 @@
         console.log("Not connected");
         window.location.href = `https://${url.hostname}`; 
       } else {
-        if (check(sessionId)) {
+        if (await check(sessionId)) {
         console.log("Connected");
        connectWebSocket();
         } else {
