@@ -28,7 +28,9 @@ wss.on('connection', (ws, req) => {
  console.log("Entrée WEBSOCKET");
   const sesId = urler.parse(req.url, true).query.key;
   const offset = urler.parse(req.url, true).query.offset;
+  console.log(offset);
   ws.offset = offset;
+  console.log(ws.offset);
   console.log(sesId);
   let idclient;
   if (checkSession(sesId)) {
