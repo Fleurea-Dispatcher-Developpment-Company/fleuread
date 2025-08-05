@@ -429,8 +429,16 @@ async function getNameAndIcon (thisid) {
   const accounts = await readDatabase('comptes', '*');
   for (const compte of accounts) {
     if (compte.num === sessions[thisid].id) {
-      toret = {icon:compte.link, name:compte.NOM, first_name:compte.first_name};
+      toret = {icon:compte.link, name:compte.NOM, first_name:compte.first_name, role:translate(compte.auth)};
     }
   }
   return JSON.stringify(toret);
+}
+
+function translate(input) {
+  const translateArray = {
+    "driver":"Conducteur",
+    "admin":"Administrateur"
+  }
+  return translateArray[input];
 }
