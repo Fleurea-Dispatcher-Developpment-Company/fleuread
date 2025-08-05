@@ -191,7 +191,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
         socket = new WebSocket (`wss://${url.host}?key=${sessionStorage.getItem('session_id')}`);
         socket.addEventListener('open', () => {
                // console.log("Connecté au serveur websocket !");
-          socket.send(JSON.stringify({content:"Connection from client..."}));
+          socket.send(JSON.stringify({content:"Connection from client...", offset:await offset}));
         });
         socket.addEventListener("message", (event) => {
         mes = JSON.parse(event.data);
