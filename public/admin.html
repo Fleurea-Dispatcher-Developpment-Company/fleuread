@@ -213,6 +213,8 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
       });
       }
 
+let mydatas = {};
+      
       async function getMe() {
         const answer = await fetcher('getme',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
         const icon = answer.icon;
@@ -220,6 +222,9 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
         const name = answer.name;
         document.getElementById('myPict').src = icon;
         document.getElementById('myName').textContent = `${first_name} ${name}`;
+        mydatas["icon"] = icon;
+        mydatas["first_name"] = first_name;
+        mydatas["name"] = name;
       }
     </script>
     <style>
@@ -261,7 +266,8 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
        document.addEventListener('DOMContentLoaded', () => {
        profilePic.addEventListener('click', () => {
          lightbox.style.display = 'flex';
-         document.getElementById('lightH2').textContent = document.getElementById()
+         document.getElementById('lightH2').textContent = mydatas["first_name"] + mydatas["name"];
+         document.getElementById('lightImg').src =  mydatas["icon"];
        });
         closeBtn.addEventListener('click', () => {
          lightbox.style.display = 'none';
