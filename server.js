@@ -33,9 +33,11 @@ wss.on('connection', (ws, req) => {
   if (checkRole(sesId, 'driver')) {
     WSDriver.push(ws);
     console.log(WSDriver);
+    ws.send({'action':'time', 'value':await formatHour(new Date())});
   } else {
     WSAdmin.push(ws);
     console.log(WSAdmin);
+    ws.send({'action':'time', 'value':await formatHour(new Date())});
   }
   } else {
     return;
