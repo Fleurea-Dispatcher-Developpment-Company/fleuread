@@ -135,7 +135,7 @@
       } else {
         if (check(sessionId)) {
         console.log("Connected");
-       
+       connectWebSocket();
         } else {
         console.log("Not connected");
         window.location.href = `https://${url.hostname}`; 
@@ -169,6 +169,21 @@
         const data = await response.json();
           return data;
         } catch (err) {return err;}
+      }
+
+      let socket;
+      // Ici on gère la technologie websocket
+      async function connectWebSocket() {
+        if (socket && socket.readyState === WebSocket.OPEN) {
+          return;
+        }
+        socket = new WebSocket (`wss://${url.host}?key=${sessionStorage.getItem('session_id')}`);
+        socket.addEventListener('open', () => {
+               // console.log("Connecté au serveur websocket !");
+        });
+        socket.addEventListener("message", (event) => {
+        mes = JSON.parse(event.data);
+      });
       }
     </script>
   </body>
