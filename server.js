@@ -21,8 +21,8 @@ server.listen(PORT, () => {
   console.log(__dirname);
 });
 
-const WSDriver = {};
-const WSAdmin = {};
+const WSDriver = [];
+const WSAdmin = [];
 
 wss.on('connection', (ws, req) => {
  console.log("Entrée WEBSOCKET");
