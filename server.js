@@ -336,6 +336,7 @@ async function broadcastTime(now) {
   for(const ws of WSAdmin) {
     console.log(ws);
     if (ws.readyState === ws.OPEN) {
+      console.log("Broadcast :", ws.offset);
        try {
          const offsetHere = ws.offset;
          console.log("Offset Here : ",offsetHere);
