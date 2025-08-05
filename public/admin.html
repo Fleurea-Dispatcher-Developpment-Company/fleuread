@@ -118,6 +118,12 @@
         font-size:1rem;
         margin-left:2vh;
       }
+
+      @media (max-width: 1024px) { /* Ce qui se cache sur la version mobile */
+         #heure, #portal {
+           display:none;
+         }
+      }
     </style>
     <script>
           async function start() {
