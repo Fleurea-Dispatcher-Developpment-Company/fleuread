@@ -187,6 +187,7 @@
         socket = new WebSocket (`wss://${url.host}?key=${sessionStorage.getItem('session_id')}`);
         socket.addEventListener('open', () => {
                // console.log("Connecté au serveur websocket !");
+          socket.send("Connection from client...");
         });
         socket.addEventListener("message", (event) => {
         mes = JSON.parse(event.data);
