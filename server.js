@@ -91,15 +91,12 @@ async function setWS (sesId, ws) {
   if (await checkRole(sesId, 'driver')) {
     WSDriver.push(ws);
     console.log(WSDriver);
-    try{
-    ws.send(JSON.stringify({'action':'time', 'value':formatHour(new Date())}));
-       } catch(err) {console.error(err);}
+    broadcast("time");
   } else {
     WSAdmin.push(ws);
     console.log(WSAdmin);
-    try {
-    ws.send(JSON.stringify({'action':'time', 'value':formatHour(new Date())}));
-    } catch(err) {console.error(err);}
+ 
+    broadcast("time");
   }
 }
 
