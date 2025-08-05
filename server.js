@@ -379,7 +379,7 @@ app.post('/getme', async (req, res) => {
 
 async function getNameAndIcon (thisid) {
   let toret;
-  const accounts = readDatabase('comptes', '*');
+  const accounts = await readDatabase('comptes', '*');
   for (const compte of accounts) {
     if (compte.num === sessions[thisid].id) {
       toret = {icon:compte.link, name:compte.NOM, first_name:compte.first_name};
