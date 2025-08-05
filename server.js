@@ -376,7 +376,8 @@ async function checkNextHour (time) {
  }
 }
 
-function formatHour (time, offset || 0) {
+function formatHour (time, offseter) {
+  const offset = offseter || 0;
   console.log("Entrée :", time, "+",offset);
   console.log(offset);
   const now = new Date(time.getTime() + offset * 60000);
