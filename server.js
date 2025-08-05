@@ -345,6 +345,18 @@ async function broadcastTime(now) {
       } catch(err){console.error(err);}
     }
   }
+    for(const ws of WSDriver) {
+    console.log("BROADTIME");
+    console.log(ws);
+    if (ws.readyState === ws.OPEN) {
+      console.log("Broadcast :", ws.offset);
+       try {
+         const offsetHere = ws.offset;
+         console.log("Offset Here : ",offsetHere);
+      ws.send(JSON.stringify({'action':'time', 'value':formatHour(now,offsetHere)}));
+      } catch(err){console.error(err);}
+    }
+  }
 }
 
 async function broadcast (message) {
