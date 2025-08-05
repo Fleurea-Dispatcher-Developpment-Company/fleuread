@@ -138,7 +138,8 @@
       } else {
         if (await check(sessionId)) {
         console.log("Connected");
-       connectWebSocket();
+       await connectWebSocket();
+          await getMe();
         } else {
         sessionStorage.removeItem('session_id');
         console.log("Not connected");
@@ -195,6 +196,13 @@
           document.getElementById('time').textContent = mes.value;
         }
       });
+      }
+
+      async function getMe() {
+        const answer = await fetcher('getme',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
+        const icon = answer.link;
+        const first_name = answer.first_name;
+        const name = answer.name;
       }
     </script>
   </body>
