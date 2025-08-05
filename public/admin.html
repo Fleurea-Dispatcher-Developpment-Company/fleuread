@@ -200,11 +200,11 @@
 
       async function getMe() {
         const answer = await fetcher('getme',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
-        const icon = answer.link;
+        const icon = answer.icon;
         const first_name = answer.first_name;
         const name = answer.name;
         document.getElementById('myPict').src = icon;
-        document.getElementById('myName').src = `${first_name} ${name}`;
+        document.getElementById('myName').textContent = `${first_name} ${name}`;
       }
     </script>
   </body>
