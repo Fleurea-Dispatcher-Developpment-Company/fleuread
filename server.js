@@ -399,7 +399,7 @@ function formatHour (time, offseter) {
   const offset = offseter || 0;
   console.log("Entrée :", time, "+",offset);
   console.log(offset);
-  const now = new Date(time.getTime() + offset * 60000);
+  const now = new Date(time.getTime() + offset * 60 * 60 *1000);
   console.log(now);
   let hour = now.getHours();
   //if (offset > 0) {
