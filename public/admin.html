@@ -11,10 +11,10 @@
       <div class="lightbox-content">
         <span id=close-btn">&times;</span>
         <div class="circle">
-          <img src="" alt="Profil">
+          <img id="lightImg" src="" alt="Profil">
         </div>
-        <h2></h2>
-        <p></p>
+        <h2 id="lightH2"></h2>
+        <p id="lightP"></p>
       </div>
     </div>
    <div class="head" id="head">
@@ -260,6 +260,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
        
        profilePic.addEventListener('click', () => {
          lightbox.style.display = 'flex';
+         
        });
         closeBtn.addEventListener('click', () => {
          lightbox.style.display = 'none';
