@@ -33,8 +33,8 @@ wss.on('connection', (ws, req) => {
   console.log("Offset dans l'objet : ",ws.offset);
   console.log(sesId);
   let idclient;
-  if (checkSession(sesId)) {
-  if (checkRole(sesId, 'driver')) {
+  if (await checkSession(sesId)) {
+  if (await checkRole(sesId, 'driver')) {
     WSDriver.push(ws);
     console.log(WSDriver);
     try{
