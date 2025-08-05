@@ -335,8 +335,10 @@ let last_time;
 
 async function checkNextHour (time) {
  if (await formatHour(time) == last_time) {
+   console.log('false');
    return false;
  } else {
+   console.log('true');
    last_time = formatHour(time);
    return true;
  }
@@ -346,7 +348,9 @@ async function formatHour (time) {
   const now = new Date(time);
   const hour = now.getHours();
   const minute = now.getMinutes();
-  return `${hour}h${minute}`;
+  let toret = `${hour}h${minute}`;
+  console.log(toret);
+  return toret;
 }
 
 setInterval(sendHour, 1000);
