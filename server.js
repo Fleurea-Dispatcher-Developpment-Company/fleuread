@@ -310,6 +310,7 @@ async function broadcastToDrivers(message) {
   for(const ws of WSDriver) {
     if (ws.readState === ws.OPEN) {
       try {
+        console.log(JSON.stringify(message));
       ws.send(JSON.stringify(message));
       } catch(err){console.error(err);}
     }
@@ -320,6 +321,7 @@ async function broadcastToAdmins(message) {
   for(const ws of WSAdmin) {
     if (ws.readState === ws.OPEN) {
        try {
+         console.log(JSON.stringify(message));
       ws.send(JSON.stringify(message));
       } catch(err){console.error(err);}
     }
