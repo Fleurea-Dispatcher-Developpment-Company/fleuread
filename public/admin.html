@@ -9,7 +9,7 @@
   <body>
     <div id="lightbox">
       <div class="lightbox-content">
-        <span id=close-btn">&times;</span>
+        <span id="close-btn">&times;</span>
         <div class="circle">
           <img id="lightImg" src="" alt="Profil">
         </div>
@@ -227,14 +227,14 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
         top:0;
         left:0;
         height:100vh;
-        width:100vh;
+        width:100vw;
         background:rgba(100,100,100,0.7);
         display:none;
-        justofy-content:center;
+        justify-content:center;
         align-items:center;
         z-index:1000;
       }
-       #lightbox-content {
+       .lightbox-content {
        background:white;
         padding:2em;
          border-radius:12px;
@@ -257,7 +257,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
        const profilePic = document.getElementById('myPict');
        const lightbox = document.getElementById('lightbox');
        const closeBtn = document.getElementById('close-btn');
-       
+       document.addEventListener('DOMContentLoaded', () => {
        profilePic.addEventListener('click', () => {
          lightbox.style.display = 'flex';
          
@@ -269,6 +269,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
          if (e.target === lightbox) {
            lightbox.style.display = 'none';
          }
+       });
        });
      </script>
   </body>
