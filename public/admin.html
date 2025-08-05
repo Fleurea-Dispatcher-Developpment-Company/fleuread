@@ -33,7 +33,31 @@
      <p id="myName">ADMIN</p>
    </div>
    </div>
+
+    <div style="display:none" id="map">
+      <div id="view"></div>
+      <div id="panel"></div>
+    </div>
+    <div id="admin"></div>
     <style>
+      #map {
+        position:fixed;
+        top:15vh;
+        height:85vh;
+        width:100vw;
+        display:flex;
+        flex-direction:row;
+      }
+      #view {
+        width:80%;
+        height:100%;
+        background:lightgray;
+      }
+       #panel {
+        width:20%;
+        height:100%;
+        background:blue;
+      }
       body {
           margin: 0;
           padding:1rem;
