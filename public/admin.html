@@ -129,6 +129,9 @@
       }
     </style>
     <script>
+const offset = -((new Date().getTimezoneOffset()) / 60);
+      console.log(offset);
+      
           async function start() {
       url = new URL(window.location.href);
       sessionId = await sessionStorage.getItem('session_id');
