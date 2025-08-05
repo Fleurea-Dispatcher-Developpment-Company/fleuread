@@ -336,9 +336,9 @@ async function broadcastTime(now) {
   for(const ws of WSAdmin) {
     if (ws.readyState === ws.OPEN) {
        try {
-         const offset = ws.offset;
-         console.log(offset);
-      ws.send(JSON.stringify({'action':'time', 'value':formatHour(now,offset)}));
+         const offsetHere = ws.offset;
+         console.log("Offset Here : ",offsetHere);
+      ws.send(JSON.stringify({'action':'time', 'value':formatHour(now,offsetHere)}));
       } catch(err){console.error(err);}
     }
   }
