@@ -334,6 +334,7 @@ async function broadcastToAdmins(message) {
 
 async function broadcastTime(now) {
   for(const ws of WSAdmin) {
+    console.log("BROADTIME");
     console.log(ws);
     if (ws.readyState === ws.OPEN) {
       console.log("Broadcast :", ws.offset);
