@@ -140,6 +140,7 @@
         console.log("Connected");
        connectWebSocket();
         } else {
+        sessionStorage.removeItem('session_id');
         console.log("Not connected");
         window.location.href = `https://${url.hostname}`; 
         }
