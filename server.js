@@ -5,7 +5,7 @@ const cors = require("cors");
 const WebSocket = require('ws');
 const crypto = require('crypto');
 const http = require('http');
-const url = require('url');
+const urler = require('url');
 
 // On gère tous les app.something
 const app = express();
@@ -26,7 +26,7 @@ const WSAdmin = {};
 
 wss.on('connection', (ws, req) => {
  console.log("Entrée WEBSOCKET");
-  const sesId = url.parse(req.url, true).query.key;
+  const sesId = urler.parse(req.url, true).query.key;
   console.log(sesId);
   let idclient;
   if (checkSession(sesId)) {
