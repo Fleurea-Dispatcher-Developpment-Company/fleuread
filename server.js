@@ -363,3 +363,25 @@ function formatHour (time) {
 
 setInterval(sendHour, 1000);
 
+app.post('/getme', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    if (await checkSession(thisid)) {
+      const jsonme = await getNameAndIcon(thisid);
+    res.send(jsonme);
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+async function getNameAndIcon (thisid) {
+  let toret;
+  const accounts = readDatabase('comptes', '*');
+  for (const compte of accounts) {
+    if (compte.num === sessions[thisid].id) {
+      toret = {icon:compte.link, name:compte.NOM, first_name:compte.first_name};
+    }
+  }
+  return JSON.stringify(toret);
+}
