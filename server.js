@@ -299,3 +299,53 @@ app.get('/admin', async (req, res) => {
     console.error(err);
   }
 });
+
+async function broadcastToDrivers(message) {
+  for(const ws of WSDriver) {
+    if (ws.readState === ws.OPEN) {
+      ws.send(message);
+    }
+  }
+}
+
+async function broadcastToAdmins(message) {
+  for(const ws of WSAdmin) {
+    if (ws.readState === ws.OPEN) {
+      ws.send(message);
+    }
+  }
+}
+
+async function broadcast (message) {
+  broadcastToDrivers(message);
+  broadcastToAdmins(message);
+}
+
+async function sendHour () {
+  const now = new Date();
+  if (await checkNextHour(now)) {
+    console.log("Nouvelle heure...");
+    broadcast({'action':'time', 'value':await formatHour(now)});
+  }
+}
+
+let last_time;
+
+async function checkNextHour (time) {
+ if (await formatHour(time) == last_time) {
+   return false;
+ } else {
+   last_time = formatHour(time);
+   return true;
+ }
+}
+
+async function formatHour (time) {
+  const now = new Date(time);
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+  return `${hour}h${minute}`;
+}
+
+setInterval(sendHour, 500);
+
