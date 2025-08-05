@@ -339,7 +339,7 @@ async function checkNextHour (time) {
    return false;
  } else {
    console.log('true');
-   last_time = formatHour(time);
+   last_time = await formatHour(time);
    return true;
  }
 }
