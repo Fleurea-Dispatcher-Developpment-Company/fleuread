@@ -33,20 +33,8 @@ wss.on('connection', (ws, req) => {
   console.log("Offset dans l'objet : ",ws.offset);
   console.log(sesId);
   let idclient;
-  if (await checkSession(sesId)) {
-  if (await checkRole(sesId, 'driver')) {
-    WSDriver.push(ws);
-    console.log(WSDriver);
-    try{
-    ws.send(JSON.stringify({'action':'time', 'value':formatHour(new Date())}));
-       } catch(err) {console.error(err);}
-  } else {
-    WSAdmin.push(ws);
-    console.log(WSAdmin);
-    try {
-    ws.send(JSON.stringify({'action':'time', 'value':formatHour(new Date())}));
-    } catch(err) {console.error(err);}
-  }
+  if (checkSession(sesId)) {
+  setWS();
   } else {
     return;
   }
@@ -96,6 +84,22 @@ async function autoPing () {
     console.log(data);
   } catch (err) {
     console.error(err);
+  }
+}
+
+async function setWS () {
+  if (await checkRole(sesId, 'driver')) {
+    WSDriver.push(ws);
+    console.log(WSDriver);
+    try{
+    ws.send(JSON.stringify({'action':'time', 'value':formatHour(new Date())}));
+       } catch(err) {console.error(err);}
+  } else {
+    WSAdmin.push(ws);
+    console.log(WSAdmin);
+    try {
+    ws.send(JSON.stringify({'action':'time', 'value':formatHour(new Date())}));
+    } catch(err) {console.error(err);}
   }
 }
 
@@ -273,7 +277,7 @@ async function checkRole (role, id) {
   }
 }
 
-async function checkSession (id) {
+function checkSession (id) {
   if (sessions[id]) {
     return true;
   } else {
