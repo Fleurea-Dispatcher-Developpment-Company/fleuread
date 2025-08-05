@@ -233,11 +233,13 @@ let mydatas = {};
         const icon = answer.icon;
         const first_name = answer.first_name;
         const name = answer.name;
+        const role = answer.role;
         document.getElementById('myPict').src = icon;
         document.getElementById('myName').textContent = `${first_name} ${name}`;
         mydatas["icon"] = icon;
         mydatas["first_name"] = first_name;
         mydatas["name"] = name;
+        mydatas["role"] = role;
       }
     </script>
     <style>
@@ -281,6 +283,7 @@ let mydatas = {};
          lightbox.style.display = 'flex';
          document.getElementById('lightH2').textContent = mydatas["first_name"] + " " + mydatas["name"];
          document.getElementById('lightImg').src =  mydatas["icon"];
+         document.getElementById('lightP').textContent =  mydatas["role"];
        });
         closeBtn.addEventListener('click', () => {
          lightbox.style.display = 'none';
