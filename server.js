@@ -509,7 +509,7 @@ app.post('/createbenne', async (req, res) => {
     const num = req.body.num;
     const vol = req.body.volume;
     if (await checkRole('admin',thisid)) {
-      addDatabase ('bennes', '', {num:num, volume:vol, creation:new Date()});
+      addDatabase ('bennes', '', {num:num, volume:vol, creation:new Date(), longitude:"45.72191877191547", latitude:"4.227417998761897", statut:"C"}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
     } else {
       res.status(401);
