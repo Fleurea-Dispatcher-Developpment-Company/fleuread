@@ -428,9 +428,9 @@ let mydatas = {};
         console.log(filtered);
         const bennesContainer = document.getElementById('bennesContent');
         bennesContainer.innerHTML = "";
-        const line = document.createElement('div');
-        line.classList.add('line');
         for (const ben of filtered) {
+          const line = document.createElement('div');
+          line.classList.add('line');
           const num = document.createElement('h1');
           num.textContent = ben.id;
           line.append(num);
