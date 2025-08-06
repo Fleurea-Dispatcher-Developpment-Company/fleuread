@@ -46,7 +46,7 @@
     </div>
     <div style="display:none" id="admin">
       <div id="selecter">
-        <button onclick="document.getElementById('bennesSearch').style.display='flex';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none';" id="btnBennes">Bennes</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='flex';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; putBennes('no');" id="btnBennes">Bennes</button>
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='flex';document.getElementById('clientsSearch').style.display='none';" id="btnBennes">Comptes</button>
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='flex';" id="btnBennes">Clients</button>
       </div>
@@ -419,7 +419,12 @@ let mydatas = {};
       async function putBennes(filtre) {
         const bennes = await getBennes();
         console.log(bennes);
-        const filtered = await filter(bennes, filtre);
+        let filtered
+        if (filtre = 'no') {
+        filtered = await filter(bennes, filtre);
+        } else {
+        filtered = bennes;
+        }
         console.log(filtered);
         const bennesContainer = document.getElementById('bennesContent');
         bennesContainer.innerHTML = "";
