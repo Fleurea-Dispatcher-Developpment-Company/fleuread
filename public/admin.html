@@ -460,7 +460,11 @@ let mydatas = {};
       }
 
       function short(str) {
-      return str.slice(0, 20);
+        if (str.length > 50) {
+      return str.slice(0, 50) + "...";    
+        } else {
+      return str;
+        }
       }
     </script>
   </body>
