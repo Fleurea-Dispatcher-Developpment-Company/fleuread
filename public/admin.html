@@ -109,7 +109,7 @@
         top:15vh;
         height:85vh;
       }
-      #selecter {
+      #selecter, #searcherBenne {
         width:100%;
         height:5%;
         background:linear-gradient(90deg, black, grey);
@@ -328,6 +328,11 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
         mes = JSON.parse(event.data);
         if (mes.action === 'time') {
           document.getElementById('time').textContent = mes.value;
+        }
+           if (mes.action === 'benstatus') {
+          if (mes.who === sessionStorage.getItem('session_id');) {
+            document.getElementById('benne_progress').value = mes.value;
+          }
         }
       });
       }
