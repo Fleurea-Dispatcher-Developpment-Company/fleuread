@@ -478,8 +478,8 @@ let mydatas = {};
       console.log("LIGHTBOX");
       line.addEventListener('click', () => {
          lightbox.style.display = 'flex';
-         document.getElementById('lightH2B').textContent = ben.id;
-         document.getElementById('lightPB').textContent =  ben.volume + " T | " + ben.adresse;
+         document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
+         document.getElementById('lightPB').textContent =  ben.volume + " T";
        });
         closeBtn.addEventListener('click', () => {
          lightbox.style.display = 'none';
