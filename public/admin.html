@@ -50,9 +50,21 @@
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='flex';document.getElementById('clientsSearch').style.display='none';" id="btnBennes">Comptes</button>
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='flex';" id="btnBennes">Clients</button>
       </div>
-      <div id="bennesSearch"></div>
-      <div style="display:none" id="comptesSearch"></div>
-      <div style="display:none" id="clientsSearch"></div>
+      <div id="bennesSearch">
+        <div class="scroll-container" id="bennesScroller">
+          <div id="bennesContent"></div> <!-- C'est ici qu'on va insérer les bennes. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
+        </div>
+      </div>
+      <div style="display:none" id="comptesSearch">
+        <div class="scroll-container" id="comptesScroller">
+          <div id="comptesContent"></div> <!-- C'est ici qu'on va insérer les comptes. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
+        </div>
+      </div>
+      <div style="display:none" id="clientsSearch">
+        <div class="scroll-container" id="clientsScroller">
+          <div id="clientsContent"></div> <!-- C'est ici qu'on va insérer les clients. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
+        </div>
+      </div>
     </div>
     <style>
       #map {
