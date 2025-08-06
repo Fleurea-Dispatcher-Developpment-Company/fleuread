@@ -563,11 +563,14 @@ let mydatas = {};
       });
 
       async function deleteBenne(num) {
+        if (confirm("Voulez-vous vraiment supprimer la benne n°", num, " de la base de donnée ?")) {
+          if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
         const content = {
           num:num
         };
         const fromServer = await fetcher('deletebenne', content, 'POST', sessionStorage.getItem('session_id'));
         putBennes('no');
+          }}
       }
     </script>
   </body>
