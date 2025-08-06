@@ -442,6 +442,7 @@ let mydatas = {};
           line.classList.add('line');
           const num = document.createElement('h1');
           num.textContent = ben.id;
+          num.style.backgroundColor = tocolor(ben.status);
           line.append(num);
           const status = document.createElement('p');
           status.textContent = toread(ben.status);
