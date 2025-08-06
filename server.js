@@ -442,3 +442,15 @@ function translate(input) {
   }
   return translateArray[input];
 }
+
+app.post('/getbennes', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    if (await checkSession(thisid)) {
+      const jsonme = await getNameAndIcon(thisid);
+    res.send(jsonme);
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
