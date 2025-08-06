@@ -456,7 +456,8 @@ app.post('/getbennes', async (req, res) => {
 });
 
 async function getBennes(thisid) {
-  const bennes = await readDatabase('bennes', '*');
+  let bennes = await readDatabase('bennes', '*');
+  bennes.sort((a, b) => a.num - b.num);
   totalStatBen = bennes.length;
   nowStatBen = 0;
   const formatted = await Promise.all(
