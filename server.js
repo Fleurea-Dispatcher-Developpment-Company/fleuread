@@ -466,7 +466,8 @@ async function getBennes() {
         longitude:benne.longitude,
         altitude:benne.altitude,
         adresse:adresse,
-        cereale:benne.cereale
+        cereale:benne.cereale,
+        status:benne.statut
       }
     })
   );
