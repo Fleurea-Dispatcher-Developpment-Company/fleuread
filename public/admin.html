@@ -336,7 +336,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
         }
            if (mes.action === 'benstatus') {
           if (mes.who === sessionStorage.getItem('session_id')) {
-            document.getElementById('benne_progress').value = mes.value;
+            document.getElementById('benne_progress').value = parseInt(mes.value)*100;
           }
         }
       });
