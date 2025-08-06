@@ -442,12 +442,13 @@ let mydatas = {};
           const num = document.createElement('h1');
           num.textContent = ben.id;
           line.append(num);
-          const status = document.createElement('select');
-          status.textContent = ben.statut;
+          const status = document.createElement('p');
+          status.textContent = toread(ben.statut);
+          status.style.background-color = tocolor(ben.statut);
           line.append(status);
-          const add = document.createElement('p');
-          add.textContent = short(ben.adresse);
-          line.append(add);
+          const notes = document.createElement('p');
+          notes.textContent = short(ben.notes);
+          line.append(notes);
           bennesContainer.append(line);
         }
       }
@@ -464,6 +465,29 @@ let mydatas = {};
       return str.slice(0, 50) + "...";    
         } else {
       return str;
+        }
+      }
+
+      function tocolor(statut) {
+        if (statut == "A") {
+          return 'yellow';
+        }
+         if (statut == "B") {
+          return 'red';
+        }
+         if (statut == "C") {
+          return 'blue';
+        }
+      }
+      function toread(statut) {
+        if (statut == "A") {
+          return 'posée';
+        }
+         if (statut == "B") {
+          return 'prête';
+        }
+         if (statut == "C") {
+          return 'stand_by';
         }
       }
     </script>
