@@ -417,17 +417,20 @@ let mydatas = {};
       }
 
       async function putBennes(filtre) {
+        console.log("Appel d'un putBennes...");
         const bennes = await getBennes();
         console.log(bennes);
-        let filtered
+        let filtered = [];
         if (filtre = 'no') {
         filtered = await filter(bennes, filtre);
         } else {
         filtered = bennes;
         }
+        console.log("Le système a filtré la liste :");
         console.log(filtered);
         const bennesContainer = document.getElementById('bennesContent');
         bennesContainer.innerHTML = "";
+        console.log("On va traiter l'ajout...");
         for (const ben of filtered) {
           console.log("Création d'une benne :", ben);
           const line = document.createElement('div');
