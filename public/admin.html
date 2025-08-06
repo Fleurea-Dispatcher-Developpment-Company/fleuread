@@ -25,7 +25,10 @@
         <span id="close-btnB">&times;</span>
         <h2 id="lightH2B"></h2>
         <p id="lightPB"></p>
-        <button onclick="">Éditer</button>
+        <div style="display:none;" id="editeurLightBenne">
+          <i>Selectionnez un paramètre puis modifiez-le...</i>
+        </div>
+        <button onclick="if (document.getElementById('editeurLightBenne').style.display == 'none') {document.getElementById('editeurLightBenne').style.display = 'flex'} else {document.getElementById('editeurLightBenne').style.display = 'none'}">Éditer</button>
         <button onclick="deleteBenne(numon)">Supprimer</button>
       </div>
     </div>
