@@ -26,7 +26,12 @@
         <h2 id="lightH2B"></h2>
         <p id="lightPB"></p>
         <div style="display:none;" id="editeurLightBenne">
-          <i>Selectionnez un paramètre puis modifiez-le...</i>
+          <div class="w3-center">
+          <i>Sélectionnez un paramètre puis modifiez-le...</i>
+            <select id="modifierSelecter"></select>
+            <input type="text" name="valueSelecter">
+            <button>Enregistrer</button>
+          </div>
         </div>
         <button onclick="if (document.getElementById('editeurLightBenne').style.display == 'none') {document.getElementById('editeurLightBenne').style.display = 'flex'} else {document.getElementById('editeurLightBenne').style.display = 'none'}">Éditer</button>
         <button onclick="deleteBenne(numon)">Supprimer</button>
