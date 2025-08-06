@@ -490,6 +490,8 @@ benDatas[ben.id] = ben;
          document.getElementById('lightPB').textContent =  ben.volume + " T";
         numon = ben.id;
         console.log(numon);
+        document.getElementById('editeurLightBenne').style.display == 'none';
+        selecter.selectedIndex = 0;
        });
         closeBtn.addEventListener('click', () => {
          lightbox.style.display = 'none';
@@ -556,6 +558,23 @@ benDatas[ben.id] = ben;
           return 'en dépôt';
         }
       }
+      function toreadOpt(statut) {
+        if (statut == "volume") {
+          return 'Capacité (T)';
+        }
+         if (statut == "notes") {
+          return 'Indications';
+        }
+         if (statut == "latitude") {
+          return 'Latitude';
+        }
+           if (statut == "longitude") {
+          return 'Longitude';
+        }
+           if (statut == "status") {
+          return 'État';
+        }
+      }
 
  let numon;
       document.getElementById('createBenne').addEventListener('submit', async (e) => {
@@ -591,10 +610,15 @@ const benDatas = {};
         "longitude",
         "status"
         ];
+        const option = document.createElement('option');
+          option.value = "no";
+          option.text = "Sélectionnez un paramètre";
+          option.disabled = true;
+          selecter.append(option);
         for (const item of selecterInput) {
           const option = document.createElement('option');
           option.value = item;
-          option.text = item;
+          option.text = toreadOpt(item);
           selecter.append(option);
         }
         selecter.addEventListener('change', (event) => {
