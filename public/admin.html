@@ -413,7 +413,7 @@ let mydatas = {};
       }, 300);
 
       async function getBennes() {
-        return await fetcher('getbennes',{'id':sessionStorage.getItem('session_id');},'POST',sessionStorage.getItem('session_id'););
+        return await fetcher('getbennes',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
       }
 
       async function putBennes(filtre) {
