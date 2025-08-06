@@ -584,20 +584,20 @@ benDatas[ben.id] = ben;
 const benDatas = {};
       
       const selecter = document.getElementById('modifierSelecter');
-        const selecterInput = {
+        const selecterInput = [
         "volume",
         "notes",
         "latitude",
         "longitude",
         "status"
-        };
+        ];
         for (const item of selecterInput) {
           const option = document.createElement('option');
           option.value = item;
           option.text = item;
-          selecterInput.append(option);
+          selecter.append(option);
         }
-        selecter.addEventListener('change', () => {
+        selecter.addEventListener('change', (event) => {
           console.log(benDatas);
           const value = event.target.value;
           document.getElementById('inpSelecter').value = benDatas[numon][value];
