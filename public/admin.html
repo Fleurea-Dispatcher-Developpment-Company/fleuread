@@ -69,6 +69,11 @@
         <div class="scroll-container" id="bennesScroller">
           <div id="bennesContent"></div> <!-- C'est ici qu'on va insérer les bennes. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
         </div>
+        <form id="createBenne">
+          <input type="text" name="num" placeholder="N° de la Benne">
+          <input type="text" name="volume" placeholder="Capacité (T)">
+          <button type="submit">Créer une benne</button>
+        </form>
       </div>
       <div style="display:none" id="comptesSearch">
         <div class="scroll-container" id="comptesScroller">
@@ -83,7 +88,7 @@
     </div>
     <style>
       .scroll-container {
-        height:95%;
+        height:90%;
         width:100%;
         overflow-y:auto;
         overflow-x:auto;
@@ -115,7 +120,7 @@
         height:85vh;
         flex-direction:column;
       }
-      #selecter, #searcherBenne {
+      #selecter, #searcherBenne, #createBenne {
         width:100%;
         height:5%;
         background:linear-gradient(90deg, black, grey);
