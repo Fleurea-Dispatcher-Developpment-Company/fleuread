@@ -61,8 +61,8 @@
       <div id="bennesSearch">
               <div id="searcherBenne">
                 <input class='input_search' type="text" id="text_searcherBenne" placeholder="Recherchez une benne ici...">
-                <button onclick="putBenne(document.getElementById('text_searcherBenne').value);">Filtrer</button>
-                <button onclick="putBenne('no'); document.getElementById('text_searcherBenne').value = '';">Réinitialiser</button>
+                <button onclick="putBennes(document.getElementById('text_searcherBenne').value);">Filtrer</button>
+                <button onclick="putBennes('no'); document.getElementById('text_searcherBenne').value = '';">Réinitialiser</button>
                 <progress id="benne_progress" value="0" max="100"></progress>
               </div>
         <div class="scroll-container" id="bennesScroller">
