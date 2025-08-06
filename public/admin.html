@@ -588,6 +588,7 @@ benDatas[ben.id] = ben;
         };
         const fromServer = await fetcher('createbenne', content, 'POST', sessionStorage.getItem('session_id'));
         putBennes('no');
+        document.getElementById('createBenne').reset();
       });
 
       async function deleteBenne(num) {
