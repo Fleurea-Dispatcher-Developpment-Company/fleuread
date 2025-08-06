@@ -421,7 +421,7 @@ let mydatas = {};
         const bennes = await getBennes();
         console.log(bennes);
         let filtered = [];
-        if (filtre = 'no') {
+        if (filtre != 'no') {
         filtered = await filter(bennes, filtre);
         } else {
         filtered = bennes;
