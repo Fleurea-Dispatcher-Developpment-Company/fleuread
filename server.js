@@ -447,7 +447,7 @@ app.post('/getbennes', async (req, res) => {
   try {
     const thisid = req.headers.auth;
     if (await checkRole('admin',thisid)) {
-      const jsonme = await getBennes();
+      const jsonme = await getBennes(thisid);
     res.json(jsonme);
     } else {
       res.status(401);
@@ -455,11 +455,14 @@ app.post('/getbennes', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
-async function getBennes() {
+async function getBennes(thisid) {
   const bennes = await readDatabase('bennes', '*');
+  totalStatBen = bennes.length;
+  nowStatBen = 0;
   const formatted = await Promise.all(
     bennes.map(async (benne) => {
       const adresse = await getAdress([benne.latitude,benne.longitude]);
+      benneStatus(thisid);
       return {
         id:benne.num,
         volume:benne.volume,
@@ -476,4 +479,14 @@ async function getBennes() {
   console.log(formatted);
   return formatted;
 }
+
+let totalStatBen;
+let nowStatBen;
+
+async function benneStatus (thisid) {
+  nowStatBen += 1;
+  broadcastToAdmins({action:'benstatus', value:(nowStatBen/totalStatBen), who:thisid});
+}
+
+
 
