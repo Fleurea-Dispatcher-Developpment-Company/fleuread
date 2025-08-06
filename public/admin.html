@@ -59,6 +59,12 @@
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='flex';" id="btnClients">Clients</button>
       </div>
       <div id="bennesSearch">
+              <div id="searcherBenne">
+                <input type="text" id="text_searcherBenne" placeholder="Recherchez une benne ici...">
+                <button onclick="putBenne(document.getElementById('text_searcherBenne').value);">Filtrer</button>
+                <button onclick="putBenne('no'); document.getElementById('text_searcherBenne').value = '';">Réinitialiser</button>
+                <progress id="benne_progress" max="100"></progress>
+              </div>
         <div class="scroll-container" id="bennesScroller">
           <div id="bennesContent"></div> <!-- C'est ici qu'on va insérer les bennes. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
         </div>
