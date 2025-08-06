@@ -472,7 +472,7 @@ async function getBennes(thisid) {
         latitude:benne.latitude,
         longitude:benne.longitude,
         altitude:benne.altitude,
-        adresse:"Cliquez sur les détails pour charger l'adresse...",
+        adresse:"unknown",
         cereale:benne.cereale,
         status:benne.statut
       }
