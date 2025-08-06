@@ -20,6 +20,14 @@
         <button onclick="localStorage.removeItem('offtoken'); sessionStorage.removeItem('session_id'); start();">Se déconnecter</button>
       </div>
     </div>
+     <div id="lightboxB">
+      <div class="lightbox-content w3-center">
+        <span id="close-btnB">&times;</span>
+        <h2 id="lightH2B"></h2>
+        <p id="lightPB"></p>
+        <button onclick="">Éditer</button>
+      </div>
+    </div>
    <div class="head" id="head">
      <div id="heure"><p id="time">N/A</p></div>
      <div id="portal"><p>Portail Administration</p></div>
@@ -335,7 +343,7 @@ let mydatas = {};
       }
     </script>
     <style>
-      #lightbox {
+      #lightbox, #lightboxB {
         position:fixed;
         top:0;
         left:0;
@@ -357,7 +365,7 @@ let mydatas = {};
          position:relative;
          box-shadow: 0 0 15px rgba(0,0,0,0.3);
       }
-      #close-btn {
+      #close-btn, #close-btnB {
         position:absolute;
         top:10px;
         right:15px;
