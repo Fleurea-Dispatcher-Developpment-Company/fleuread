@@ -448,6 +448,26 @@ let mydatas = {};
           console.log("Création d'une benne :", ben);
           const line = document.createElement('div');
           line.classList.add('line');
+          line.id = `B${ben.id}`;
+
+       const lightbox = document.getElementById('lightboxB');
+       const closeBtn = document.getElementById('close-btnB');
+       document.addEventListener('DOMContentLoaded', () => {
+       profilePic.addEventListener('click', () => {
+         lightbox.style.display = 'flex';
+         document.getElementById('lightH2B').textContent = ben.id;
+         document.getElementById('lightPB').textContent =  ben.pds + " | " + ben.adresse;
+       });
+        closeBtn.addEventListener('click', () => {
+         lightbox.style.display = 'none';
+       });
+       lightbox.addEventListener('click', (e) => {
+         if (e.target === lightbox) {
+           lightbox.style.display = 'none';
+         }
+       });
+       });
+          
           const num = document.createElement('h1');
           num.textContent = ben.id;
           num.style.backgroundColor = tocolor(ben.status);
