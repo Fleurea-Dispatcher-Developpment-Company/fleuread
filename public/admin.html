@@ -563,7 +563,7 @@ let mydatas = {};
       });
 
       async function deleteBenne(num) {
-        if (confirm("Voulez-vous vraiment supprimer la benne n°", num, " de la base de donnée ?")) {
+        if (confirm("Supprimer la benne n°", num, " ?")) {
           if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
         const content = {
           num:num
