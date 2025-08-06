@@ -452,7 +452,7 @@ let mydatas = {};
 
        const lightbox = document.getElementById('lightboxB');
        const closeBtn = document.getElementById('close-btnB');
-       document.addEventListener('DOMContentLoaded', () => {
+      console.log("LIGHTBOX");
        profilePic.addEventListener('click', () => {
          lightbox.style.display = 'flex';
          document.getElementById('lightH2B').textContent = ben.id;
@@ -466,7 +466,7 @@ let mydatas = {};
            lightbox.style.display = 'none';
          }
        });
-       });
+    
           
           const num = document.createElement('h1');
           num.textContent = ben.id;
