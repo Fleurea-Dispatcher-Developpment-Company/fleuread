@@ -375,6 +375,7 @@ let mydatas = {};
         margin-top:1vh;
         align-items:center;
         justify-content: space-between;
+        padding: 0.5rem;
       }
     </style>
      <script>
@@ -449,6 +450,9 @@ let mydatas = {};
           const notes = document.createElement('p');
           notes.textContent = short(ben.notes);
           line.append(notes);
+          const pds = document.createElement('p');
+          pds.textContent = ben.volume;
+          line.append(pds);
           bennesContainer.append(line);
         }
       }
