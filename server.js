@@ -457,9 +457,20 @@ app.post('/getbennes', async (req, res) => {
 
 async function getBennes() {
   const bennes = await readDatabase('bennes', '*');
-  const formatted = {};
-  for (const benne of bennes) {
-    
-  }
+  const formatted = await Promise.all(
+    bennes.map(async (benne) => {
+      const adresse = await getAdress([benne.latitude,benne.longitude]);
+      return {
+        id:benne.num,
+        latitude:benne.latitude,
+        longitude:benne.longitude,
+        altitude:benne.altitude,
+        adresse:adresse,
+        cereale:benne.cereale
+      }
+    })
+  );
+  console.log(formatted);
+  return formatted;
 }
 
