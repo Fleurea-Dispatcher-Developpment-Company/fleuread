@@ -462,6 +462,7 @@ async function getBennes(thisid) {
   nowStatBen = 0;
   const formatted = await Promise.all(
     bennes.map(async (benne) => {
+      console.log("Lancement de la requête n°", nowStatBen);
       const adresse = await getAdress([benne.latitude,benne.longitude]);
       benneStatus(thisid);
       return {
