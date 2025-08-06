@@ -365,6 +365,13 @@ let mydatas = {};
         cursor:pointer;
         color:red;
       }
+      .line {
+        width:100%;
+        height:5vh;
+        display:flex;
+        flex-direction:row;
+        background-color:white;
+      }
     </style>
      <script>
        const profilePic = document.getElementById('compte');
@@ -404,6 +411,27 @@ let mydatas = {};
       setTimeout(() => {
       map.invalidateSize();
       }, 300);
+
+      async function getBennes() {
+        return await fetcher('getbennes',{'id':sessionStorage.getItem('session_id');},'POST',sessionStorage.getItem('session_id'););
+      }
+
+      async function putBennes(filtre) {
+        const bennes = await getBennes();
+        console.log(bennes);
+        const filtered = await filter(bennes, filtre);
+        console.log(filtered);
+        const bennesContainer = document.getElementById('bennesContent');
+        bennesContainer.innerHTML = "";
+        const line = document.createElement('div');
+        line.classList.add('line');
+        bennesContainer.append(line);
+      }
+
+      async function filter (what, filtre) {
+        const query = filtre.toLowerCase();
+        return what.filter(obj => Object.values(obj).some(val => String(val).toLowerCase().startsWith(query)));
+      }
     </script>
   </body>
 </html>
