@@ -47,8 +47,8 @@
     <div style="display:none" id="admin">
       <div id="selecter">
         <button onclick="document.getElementById('bennesSearch').style.display='flex';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; putBennes('no');" id="btnBennes">Bennes</button>
-        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='flex';document.getElementById('clientsSearch').style.display='none';" id="btnBennes">Comptes</button>
-        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='flex';" id="btnBennes">Clients</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='flex';document.getElementById('clientsSearch').style.display='none';" id="btnComptes">Comptes</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='flex';" id="btnClients">Clients</button>
       </div>
       <div id="bennesSearch">
         <div class="scroll-container" id="bennesScroller">
@@ -71,7 +71,7 @@
         height:100%;
         width:100%;
         overflow-y:auto;
-        overflox-x:auto;
+        overflow-x:auto;
         padding:1vw;
         background:grey;
       }
@@ -445,7 +445,7 @@ let mydatas = {};
           line.append(num);
           const status = document.createElement('p');
           status.textContent = toread(ben.statut);
-          status.style.background-color = tocolor(ben.statut);
+          status.style.backgroundColor = tocolor(ben.statut);
           line.append(status);
           const notes = document.createElement('p');
           notes.textContent = short(ben.notes);
