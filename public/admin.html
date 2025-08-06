@@ -446,6 +446,8 @@ let mydatas = {};
       }
 
       async function filter (what, filtre) {
+        console.log("Appel d'un filtre");
+        console.log("Avant :", what);
         const query = filtre.toLowerCase();
         return what.filter(obj => Object.values(obj).some(val => String(val).toLowerCase().startsWith(query)));
       }
