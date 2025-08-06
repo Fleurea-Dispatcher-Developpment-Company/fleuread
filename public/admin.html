@@ -451,7 +451,7 @@ let mydatas = {};
           notes.textContent = short(ben.notes);
           line.append(notes);
           const pds = document.createElement('p');
-          pds.textContent = ben.volume;
+          pds.textContent = `${ben.volume} T`;
           line.append(pds);
           bennesContainer.append(line);
         }
