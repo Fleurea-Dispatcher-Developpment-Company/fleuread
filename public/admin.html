@@ -429,6 +429,7 @@ let mydatas = {};
         const bennesContainer = document.getElementById('bennesContent');
         bennesContainer.innerHTML = "";
         for (const ben of filtered) {
+          console.log("Création d'une benne :", ben);
           const line = document.createElement('div');
           line.classList.add('line');
           const num = document.createElement('h1');
