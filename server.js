@@ -490,5 +490,48 @@ async function benneStatus (thisid) {
   broadcastToAdmins({action:'benstatus', value:(nowStatBen/totalStatBen), who:thisid});
 }
 
+app.post('/deletebenne', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const value_eq = req.body.num;
+    if (await checkRole('admin',thisid)) {
+      deleteDatabase ('bennes', 'num', value_eq);
+      res.send("Suppression enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/createbenne', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const num = req.body.num;
+    const vol = req.body.volume;
+    if (await checkRole('admin',thisid)) {
+      addDatabase ('bennes', '', {num:num, volume:vol, creation:new Date()});
+      res.send("Création enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/editbenne', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const toupd = req.body.toupd;
+    const value_toupd = req.body.value_toupd;
+    const eq = req.body.eq;
+    const value_eq = req.body.value_eq;
+    if (await checkRole('admin',thisid)) {
+      editDatabase ('bennes', toupd, value_toupd, eq, value_eq);
+      res.send("Édition enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
 
 
