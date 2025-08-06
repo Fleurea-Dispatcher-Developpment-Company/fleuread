@@ -462,6 +462,8 @@ async function getBennes() {
       const adresse = await getAdress([benne.latitude,benne.longitude]);
       return {
         id:benne.num,
+        volume:benne.volume,
+        notes:benne.notes,
         latitude:benne.latitude,
         longitude:benne.longitude,
         altitude:benne.altitude,
