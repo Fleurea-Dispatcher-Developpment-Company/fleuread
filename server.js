@@ -446,11 +446,20 @@ function translate(input) {
 app.post('/getbennes', async (req, res) => {
   try {
     const thisid = req.headers.auth;
-    if (await checkSession(thisid)) {
-      const jsonme = await getNameAndIcon(thisid);
-    res.send(jsonme);
+    if (await checkRole('admin',thisid)) {
+      const jsonme = await getBennes();
+    res.json(jsonme);
     } else {
       res.status(401);
     }
   } catch (err) {console.error(err);}
 });
+
+async function getBennes() {
+  const bennes = await readDatabase('bennes', '*');
+  const formatted = {};
+  for (const benne of bennes) {
+    
+  }
+}
+
