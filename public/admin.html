@@ -488,6 +488,20 @@ let mydatas = {};
          lightbox.style.display = 'flex';
          document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
          document.getElementById('lightPB').textContent =  ben.volume + " T";
+        const selecter = document.getElementById('modifierSelecter');
+        const selecterInput = {
+        "volume",
+        "notes",
+        "latitude",
+        "longitude",
+        "status"
+        };
+        for (const item of selecterInput) {
+          const option = document.createElement('option');
+          option.value = item;
+          option.text = item;
+          selecterInput.append(option);
+        }
         numon = ben.id;
         console.log(numon);
        });
