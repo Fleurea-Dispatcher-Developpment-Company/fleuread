@@ -546,6 +546,19 @@ let mydatas = {};
           return 'en dépôt';
         }
       }
+
+ 
+      document.getElementById('createBenne').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = await Object.fromEntries(formData.entries());
+        const content = {
+          num:data.num,
+          volume:data.volume
+        };
+        const fromServer = await fetcher('createbenne', content, 'POST', sessionStorage.getItem('session_id'));
+        putBennes('no');
+      });
     </script>
   </body>
 </html>
