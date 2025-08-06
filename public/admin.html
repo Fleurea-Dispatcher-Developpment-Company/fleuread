@@ -60,7 +60,7 @@
       </div>
       <div id="bennesSearch">
               <div id="searcherBenne">
-                <input type="text" id="text_searcherBenne" placeholder="Recherchez une benne ici...">
+                <input class='input_search' type="text" id="text_searcherBenne" placeholder="Recherchez une benne ici...">
                 <button onclick="putBenne(document.getElementById('text_searcherBenne').value);">Filtrer</button>
                 <button onclick="putBenne('no'); document.getElementById('text_searcherBenne').value = '';">Réinitialiser</button>
                 <progress id="benne_progress" value="0" max="100"></progress>
@@ -104,6 +104,10 @@
         width:100vw;
         display:flex;
         flex-direction:column;
+      }
+      .input_search {
+        height:4vh;
+        width:25vh;
       }
       #bennesSearch, #comptesSearch, #clientsSearch {
         top:15vh;
