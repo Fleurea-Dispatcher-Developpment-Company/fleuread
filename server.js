@@ -510,7 +510,7 @@ async function benneStatus (thisid) {
   broadcastToAdmins({action:'benstatus', value:(nowStatBen/totalStatBen), who:thisid});
 }
 
-async function benneComptes (thisid) {
+async function compteStatus (thisid) {
   nowStatCom += 1;
   broadcastToAdmins({action:'comstatus', value:(nowStatCom/totalStatCom), who:thisid});
 }
