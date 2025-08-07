@@ -743,7 +743,7 @@ const benDatas = {};
         }, 15000)
       }
 
-      async popAdresse (latitude, longitude) {
+      async function popAdresse (latitude, longitude) {
         const adresse = await fetch(`https://fleuread.onrender.com/osm?coords=${ben.latitude},${ben.longitude}`);
         document.getElementById('lightPB2').textContent = await adresse.json;
       }
