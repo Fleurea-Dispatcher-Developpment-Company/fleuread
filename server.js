@@ -568,7 +568,7 @@ async function generateMap(latitude, longitude, zoom = 14) {
     anchor: { x: 24, y: 48 },
   })
 
-  await mapStat.render([parseFloat(longitude), parseFloat(latitude)], parseInt(zoom)) 
+  await mapStat.render([parseFloat(latitude), parseFloat(longitude)], parseInt(zoom)) 
 
   const filename = `map_${latitude}_${longitude}_${zoom}.png`;
   const filepath = path.join(__dirname, filename);
