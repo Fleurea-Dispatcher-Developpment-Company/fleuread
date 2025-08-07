@@ -96,8 +96,8 @@
       <div style="display:none" id="comptesSearch">
         <div id="searcherCompte">
                 <input class='input_search' type="text" id="text_searcherCompte" placeholder="Recherchez un compte ici...">
-                <button id="filtrerComptes" onclick="putClients(document.getElementById('text_searcherCompte').value);">Filtrer</button>
-                <button onclick="putClients('no'); document.getElementById('text_searcherCompte').value = '';">Réinitialiser</button>
+                <button id="filtrerComptes" onclick="putComptes(document.getElementById('text_searcherCompte').value);">Filtrer</button>
+                <button onclick="putComptes('no'); document.getElementById('text_searcherCompte').value = '';">Réinitialiser</button>
                 <progress id="compte_progress" value="0" max="100"></progress>
               </div>
         <div class="scroll-container" id="comptesScroller">
