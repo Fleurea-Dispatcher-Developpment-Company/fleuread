@@ -646,9 +646,9 @@ const benDatas = {};
         ];
 
       const statusOpt = [
-        "Posée":{value:"A", color:'yellow'},
-        "Prête":{value:"B", color:'red'},
-        "En dépôt":{value:"C", color:'blue'}
+        {name:"Posée", value:"A", color:'yellow'},
+        {name:"Prête",value:"B", color:'red'},
+        {name:"En dépôt", value:"C", color:'blue'}
       ];
         const option = document.createElement('option');
           option.value = "no";
@@ -671,7 +671,7 @@ const benDatas = {};
             document.getElementById('suggester').style.display = "flex";
             for (const opt of statusOpt) {
               const button = document.createElement('button');
-              button.textContent = opt;
+              button.textContent = opt.name;
               button.onclick(`document.getElementById('inpSelecter').value = ${opt.value}; document.getElementById('registerPop').click();`);
               button.style.color = opt.color;
             }
