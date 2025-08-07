@@ -569,8 +569,8 @@ console.log("Map créée");
     size: 48,
     anchor: { x: 24, y: 48 },
   })
-console.log("marqueur ajouté !");
-  await mapStat.render([parseFloat(latitude), parseFloat(longitude)], parseInt(zoom)) 
+console.log("Marqueur ajouté !");
+  await mapStat.render([parseFloat(latitude), parseFloat(longitude)], parseInt(zoom));
 console.log("Création de la map en png");
   const filename = `map_${latitude}_${longitude}_${zoom}.png`;
   const filepath = path.join(__dirname, filename);
