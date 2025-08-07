@@ -63,9 +63,11 @@
     </div>
     <div style="display:none" id="admin">
       <div id="selecter">
-        <button onclick="document.getElementById('bennesSearch').style.display='flex';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; putBennes('no');" id="btnBennes">Bennes</button>
-        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='flex';document.getElementById('clientsSearch').style.display='none';" id="btnComptes">Comptes</button>
-        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='flex';" id="btnClients">Clients</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='flex';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; putBennes('no'); document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none';" id="btnBennes">Bennes</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='flex';document.getElementById('clientsSearch').style.display='none'; document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none';" id="btnComptes">Comptes</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='flex'; document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none';" id="btnClients">Clients</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; document.getElementById('cerealesSearch').style.display='flex';document.getElementById('infosSearch').style.display='none';" id="btnCereales">Céréales</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='flex';" id="btnInfos">Paramètres</button>
       </div>
       <div id="bennesSearch">
               <div id="searcherBenne">
