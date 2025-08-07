@@ -136,7 +136,9 @@ async function getAdress(coords) {
   let keep = `${route}, ${hameau}, ${ville} (${code_postal}), ${departement}`;
   console.log(keep);
   const tablekeep = keep.split(',');
+  console.log("tablekeep :", tablekeep);
   keep = tablekeep.filter(item => item !== 'nodata');
+  console.log("keep :", keep);
   keep = keep.join(',');
   return keep;
   } catch (err) {
