@@ -571,6 +571,7 @@ console.log("Map créée");
   })
 console.log("Marqueur ajouté !");
   try {
+  console.log('latitude:', latitude, 'longitude:', longitude, 'zoom:', zoom);
   await mapStat.render([parseFloat(latitude), parseFloat(longitude)], parseInt(zoom));
   } catch (err) {
     console.log("Erreur qu'on cherche :", err);
