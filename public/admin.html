@@ -72,7 +72,7 @@
       <div id="bennesSearch">
               <div id="searcherBenne">
                 <input class='input_search' type="text" id="text_searcherBenne" placeholder="Recherchez une benne ici...">
-                <button onclick="putBennes(document.getElementById('text_searcherBenne').value);">Filtrer</button>
+                <button id="filtrerBennes" onclick="putBennes(document.getElementById('text_searcherBenne').value);">Filtrer</button>
                 <button onclick="putBennes('no'); document.getElementById('text_searcherBenne').value = '';">Réinitialiser</button>
                 <progress id="benne_progress" value="0" max="100"></progress>
               </div>
@@ -516,14 +516,14 @@ benDatas[ben.id] = ben;
        });
         closeBtn.addEventListener('click', () => {
          lightbox.style.display = 'none';
-        document.getElementById('editeurLightBenne').style.display == 'none';
+        document.getElementById('editeurLightBenne').style.display = 'none';
         selecter.selectedIndex = 0;
          document.getElementById('inpSelecter').value = "";
        });
        lightbox.addEventListener('click', (e) => {
          if (e.target === lightbox) {
            lightbox.style.display = 'none';
-             document.getElementById('editeurLightBenne').style.display == 'none';
+             document.getElementById('editeurLightBenne').style.display = 'none';
         selecter.selectedIndex = 0;
          document.getElementById('inpSelecter').value = "";
          }
@@ -684,10 +684,10 @@ const benDatas = {};
         };
         console.log(content);
         const fromServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
-        document.getElementById('editeurLightBenne').style.display == 'none';
+        document.getElementById('editeurLightBenne').style.display = 'none';
         selecter.selectedIndex = 0;
         document.getElementById('inpSelecter').value = "";
-        putBennes('no');
+        document.getElementById('filtrerBennes').click();
       }
     </script>
   </body>
