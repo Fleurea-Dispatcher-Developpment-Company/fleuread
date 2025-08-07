@@ -730,6 +730,7 @@ const benDatas = {};
         toast.classList.add('toast');
         toast.textContent = message;
         toast.style.backgroundColor = color;
+        document.getElementById('toast-container').append(toast);
         setTimeout(() => {
           toast.remove();
         }, 5000)
