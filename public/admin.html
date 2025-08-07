@@ -32,7 +32,8 @@
           <i>Sélectionnez un paramètre puis modifiez-le...</i>
             <select id="modifierSelecter"></select>
             <input id="inpSelecter" type="text" name="valueSelecter">
-            <button onclick="logModification()">Enregistrer</button>
+            <div id="suggester"></div>
+            <button id="registerPop" onclick="logModification()">Enregistrer</button>
           </div>
         </div>
         <button onclick="if (document.getElementById('editeurLightBenne').style.display == 'none') {document.getElementById('editeurLightBenne').style.display = 'flex'} else {document.getElementById('editeurLightBenne').style.display = 'none'}">Éditer</button>
@@ -643,6 +644,12 @@ const benDatas = {};
         "longitude",
         "status"
         ];
+
+      const statusOpt = {
+        "Posée":{value:"A"},
+        "Prête":{value:"B"},
+        "En dépôt":{value:"C"}
+      };
         const option = document.createElement('option');
           option.value = "no";
           option.text = "Sélectionnez un paramètre";
@@ -657,6 +664,19 @@ const benDatas = {};
         selecter.addEventListener('change', (event) => {
           console.log(benDatas);
           const value = event.target.value;
+          if (value == "status") {
+            document.getElementById('inpSelecter').style.display = "none";
+            document.getElementById('suggester').style.display = "flex";
+            for (const opt of statusOpt) {
+              const button = document.createElement('button');
+              button.textContent = opt;
+              button.onclick(`document.getElementById('inpSelecter').value = ${opt.value}; document.getElementById('registerPop').click();`);
+            }
+          } else {
+            document.getElementById('inpSelecter').style.display = "flex"
+            document.getElementById('suggester').style.display = "none";
+            document.getElementById('suggester').innerHTML = "";
+          }
           document.getElementById('inpSelecter').value = benDatas[numon][value];
         });
     </script>
@@ -744,7 +764,7 @@ const benDatas = {};
       }
 
       async function popAdresse (latitude, longitude) {
-        const adresse = await fetch(`https://fleuread.onrender.com/osm?coords=${ben.latitude},${ben.longitude}`);
+        const adresse = await fetch(`https://fleuread.onrender.com/osm?coords=${latitude},${longitude}`);
         document.getElementById('lightPB2').textContent = await adresse.json;
       }
     </script>
