@@ -93,6 +93,16 @@
           <div id="clientsContent"></div> <!-- C'est ici qu'on va insérer les clients. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
         </div>
       </div>
+      <div style="display:none" id="cerealesSearch">
+        <div class="scroll-container" id="cerealesScroller">
+          <div id="cerealesContent"></div> <!-- C'est ici qu'on va insérer les céréales. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
+        </div>
+      </div>
+      <div style="display:none" id="infosSearch">
+        <div class="scroll-container" id="infosScroller">
+          <div id="infosContent"></div> <!-- C'est ici qu'on va insérer les informations. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
+        </div>
+      </div>
     </div>
     <style>
       .scroll-container {
@@ -123,7 +133,7 @@
         height:2vh;
         width:25vh;
       }
-      #bennesSearch, #comptesSearch, #clientsSearch {
+      #bennesSearch, #comptesSearch, #clientsSearch, #cerealesSearch, #infosSearch {
         top:15vh;
         height:85vh;
         flex-direction:column;
