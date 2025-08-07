@@ -576,7 +576,7 @@ app.post('/getcomptes', async (req, res) => {
 
 async function getComptes(thisid) {
   let bennes = await readDatabase('comptes', '*');
-  bennes.sort((a, b) => a.num - b.num);
+  bennes.sort((a, b) => a.NOM - b.NOM);
   totalStatCom = bennes.length;
   nowStatCom = 0;
   const formatted = await Promise.all(
