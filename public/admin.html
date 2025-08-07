@@ -689,7 +689,9 @@ const benDatas = {};
         };
         console.log(content);
         const fromServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+        setTimeout(() => {
         document.getElementById(`B${numon}`).click();
+        }, 500);
         showToast(`Modification enregistrée (Benne n°${numon} - ${affSelecter}) !`);
         document.getElementById('editeurLightBenne').style.display = 'none';
         selecter.selectedIndex = 0;
