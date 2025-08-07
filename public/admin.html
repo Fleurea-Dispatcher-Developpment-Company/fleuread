@@ -26,6 +26,7 @@
         <span id="close-btnB">&times;</span>
         <h2 id="lightH2B"></h2>
         <p id="lightPB"></p>
+        <i id="lightPB2"></i>
         <div style="display:none;" id="editeurLightBenne">
           <div class="w3-center">
           <i>Sélectionnez un paramètre puis modifiez-le...</i>
@@ -509,6 +510,8 @@ benDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
          document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
          document.getElementById('lightPB').textContent =  ben.volume + " T";
+        const adresse = await fetch(`https://fleuread.onrender.com/osm?coords=${ben.latitude},${ben.longitude}`);
+        document.getElementById('lightPB2').textContent = await adresse.json;
         numon = ben.id;
         console.log(numon);
         document.getElementById('editeurLightBenne').style.display == 'none';
