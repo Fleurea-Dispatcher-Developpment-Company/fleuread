@@ -620,7 +620,7 @@ benDatas[ben.id] = ben;
       });
 
       async function deleteBenne(num) {
-        if (confirm("Supprimer la benne n°", num, " ?")) {
+        if (confirm("Supprimer la benne n°", numon, " ?")) {
           if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
         const content = {
           num:num
@@ -677,6 +677,8 @@ const benDatas = {};
 
       async function logModification () {
         const parameterToChange = selecter.value;
+        const affSelecter = selecter.text;
+        console.log("affSelecter :", affSelecter);
         const value = document.getElementById('inpSelecter').value;
         const num = numon;
         const content = {
@@ -687,7 +689,7 @@ const benDatas = {};
         };
         console.log(content);
         const fromServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
-        showToast(`Modification enregistrée (Benne n°${numon} - ${selecter.text}) !`);
+        showToast(`Modification enregistrée (Benne n°${numon} - ${affSelecter}) !`);
         document.getElementById('editeurLightBenne').style.display = 'none';
         selecter.selectedIndex = 0;
         document.getElementById('inpSelecter').value = "";
@@ -711,7 +713,7 @@ const benDatas = {};
         border-radius:5px;
         font-size:1rem;
         box-shadow: 0 0 10px;
-        animation:fadein 0.5s, fadeout 0.5s 4.5s;
+        animation:fadein 0.5s, fadeout 0.5s 14.5s;
         opacity:0;
         animation-fill-mode:forwards;
       }
@@ -733,7 +735,7 @@ const benDatas = {};
         document.getElementById('toast-container').append(toast);
         setTimeout(() => {
           toast.remove();
-        }, 5000)
+        }, 15000)
       }
     </script>
   </body>
