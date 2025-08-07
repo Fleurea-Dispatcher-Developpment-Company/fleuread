@@ -664,7 +664,9 @@ const benDatas = {};
         selecter.addEventListener('change', (event) => {
           console.log(benDatas);
           const value = event.target.value;
+          console.log("Change ", value);
           if (value == "status") {
+            console.log(true);
             document.getElementById('inpSelecter').style.display = "none";
             document.getElementById('suggester').style.display = "flex";
             for (const opt of statusOpt) {
