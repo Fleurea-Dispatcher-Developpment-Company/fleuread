@@ -566,7 +566,7 @@ app.post('/getcomptes', async (req, res) => {
   try {
     const thisid = req.headers.auth;
     if (await checkRole('admin',thisid)) {
-      const jsonme = await getBennes(thisid);
+      const jsonme = await getComptes(thisid);
     res.json(jsonme);
     } else {
       res.status(401);
