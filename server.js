@@ -502,9 +502,17 @@ async function getBennes(thisid) {
 let totalStatBen;
 let nowStatBen;
 
+let totalStatCom;
+let nowStatCom;
+
 async function benneStatus (thisid) {
   nowStatBen += 1;
   broadcastToAdmins({action:'benstatus', value:(nowStatBen/totalStatBen), who:thisid});
+}
+
+async function benneComptes (thisid) {
+  nowStatCom += 1;
+  broadcastToAdmins({action:'comstatus', value:(nowStatCom/totalStatCom), who:thisid});
 }
 
 app.post('/deletebenne', async (req, res) => {
@@ -553,3 +561,81 @@ app.post('/editbenne', async (req, res) => {
 async function allDatas () {
   return await readDatabase('cereales', '*');
 }
+
+app.post('/getcomptes', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    if (await checkRole('admin',thisid)) {
+      const jsonme = await getBennes(thisid);
+    res.json(jsonme);
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+async function getComptes(thisid) {
+  let bennes = await readDatabase('comptes', '*');
+  bennes.sort((a, b) => a.num - b.num);
+  totalStatCom = bennes.length;
+  nowStatCom = 0;
+  const formatted = await Promise.all(
+    bennes.map(async (benne) => {
+      console.log("Lancement de la requête n°", nowStatCom);
+      compteStatus(thisid);
+      return {
+        id:benne.num,
+        name:benne.NOM,
+        first_name:benne.first_name,
+        last_connection:benne.lastconnect,
+        auth:benne.auth
+        link:benne.link
+      }
+    })
+  );
+  console.log(formatted);
+  return formatted;
+}
+
+app.post('/deletecompte', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const value_eq = req.body.num;
+    if (await checkRole('admin',thisid)) {
+      deleteDatabase ('comptes', 'num', value_eq);
+      res.send("Suppression enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/createcompte', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const first_name = req.body.first_name;
+    const name = req.body.name;
+    if (await checkRole('admin',thisid)) {
+      addDatabase ('comptes', '', {num:crypto.randomBytes(6).toString('hex'), password:crypto.randomBytes(3).toString('hex'),creation:new Date(), first_name:first_name, NOM:name}); // 45.72191877191547, 4.227417998761897
+      res.send("Création enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/editcompte', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const toupd = req.body.toupd;
+    const value_toupd = req.body.value_toupd;
+    const eq = req.body.eq;
+    const value_eq = req.body.value_eq;
+    if (await checkRole('admin',thisid)) {
+      editDatabase ('comptes', toupd, value_toupd, eq, value_eq);
+      res.send("Édition enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
