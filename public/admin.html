@@ -510,8 +510,7 @@ benDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
          document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
          document.getElementById('lightPB').textContent =  ben.volume + " T";
-        const adresse = await fetch(`https://fleuread.onrender.com/osm?coords=${ben.latitude},${ben.longitude}`);
-        document.getElementById('lightPB2').textContent = await adresse.json;
+         popAdresse(ben.latitude, ben.longitude);
         numon = ben.id;
         console.log(numon);
         document.getElementById('editeurLightBenne').style.display == 'none';
@@ -742,6 +741,11 @@ const benDatas = {};
         setTimeout(() => {
           toast.remove();
         }, 15000)
+      }
+
+      async popAdresse (latitude, longitude) {
+        const adresse = await fetch(`https://fleuread.onrender.com/osm?coords=${ben.latitude},${ben.longitude}`);
+        document.getElementById('lightPB2').textContent = await adresse.json;
       }
     </script>
   </body>
