@@ -553,60 +553,99 @@ async function allDatas () {
 
 // Gestion de la Static Map
 
-async function generateMap(latitude, longitude, zoom = 14) {
-  console.log("Static Map");
-  const optionsStat = {
-  width:600,
-  height:400,
-  tileUrl:"https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+function parseParams(query) {
+  console.log('Parsing params:', query);
+  
+  const lat = parseFloat(query.lat);
+  const lon = parseFloat(query.lon);
+  let zoom = query.zoom !== undefined ? parseInt(query.zoom) : 14;
+
+  if (isNaN(lat) || isNaN(lon)) {
+    throw new Error('Paramètres lat et lon doivent être des nombres valides.');
+  }
+  if (isNaN(zoom) || zoom < 0 || zoom > 20) {
+    console.log(`Zoom invalide ou non défini (${query.zoom}), utilisation de la valeur par défaut 14.`);
+    zoom = 14;
+  }
+
+  console.log(`Params parsés - lat: ${lat}, lon: ${lon}, zoom: ${zoom}`);
+  return { lat, lon, zoom };
 }
-console.log(optionsStat);
+
+async function generateMap(latitude, longitude, zoom = 14) {
+  console.log('Début génération de la carte statique...');
+  const optionsStat = {
+    width: 600,
+    height: 400,
+    tileUrl: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  };
+  console.log('Options pour StaticMaps:', optionsStat);
+
   const mapStat = new StaticMaps(optionsStat);
-console.log("Map créée");
+  console.log('Instance StaticMaps créée.');
+
+  const latF = parseFloat(latitude);
+  const lonF = parseFloat(longitude);
+  const zoomI = parseInt(zoom);
+
+  console.log(`Ajout du marqueur en coord : [${latF}, ${lonF}]`);
   mapStat.addMarker({
-    coord: [parseFloat(latitude), parseFloat(longitude)],
+    coord: [latF, lonF],
     color: '#ff0000',
     size: 48,
     anchor: { x: 24, y: 48 },
-  })
-console.log("Marqueur ajouté !");
-  console.log('latitude:', latitude, 'longitude:', longitude, 'zoom:', zoom);
-  try {
-  await mapStat.render([parseFloat(latitude), parseFloat(longitude)], parseInt(zoom));
-  } catch (err) {
-    console.log("Erreur qu'on cherche :", err);
-  }
-console.log("Création de la map en png");
-  const filename = `map_${latitude}_${longitude}_${zoom}.png`;
-  const filepath = path.join(__dirname, filename);
+  });
+  console.log('Marqueur ajouté.');
 
-  await mapStat.save(filepath);
-console.log("Map enregistrée");
+  try {
+    console.log(`Rendu de la carte avec zoom = ${zoomI}...`);
+    await mapStat.render([latF, lonF], zoomI);
+    console.log('Carte rendue.');
+  } catch (err) {
+    console.error('Erreur lors du rendu de la carte:', err);
+    throw err; // Remonter l'erreur pour gestion en amont
+  }
+
+  const filename = `map_${latF}_${lonF}_${zoomI}.png`;
+  const filepath = path.join(__dirname, filename);
+  console.log('Chemin fichier de sauvegarde:', filepath);
+
+  try {
+    await mapStat.save(filepath);
+    console.log('Carte enregistrée sous :', filepath);
+  } catch (err) {
+    console.error('Erreur lors de la sauvegarde de la carte:', err);
+    throw err;
+  }
+
   return filepath;
 }
 
-// Cette fonction est copiée
+// Middleware express
 app.get('/staticmap', async (req, res) => {
+  console.log('Requête reçue /staticmap avec query:', req.query);
   try {
-  const { lat, lon, zoom } = req.query;
+    const { lat, lon, zoom } = parseParams(req.query);
 
-  if (!lat || !lon) {
-    return res.status(400).send('Params lat et lon obligatoires.');
-  }
-
-  try {
     const imagePath = await generateMap(lat, lon, zoom);
+
+    console.log('Envoi du fichier image:', imagePath);
     res.sendFile(imagePath, err => {
-      if (!err) {
-        // Optionnel : supprime l'image après envoi pour éviter d'encombrer
-        fs.unlink(imagePath, () => {});
+      if (err) {
+        console.error('Erreur lors de l\'envoi du fichier:', err);
+        return res.status(500).send('Erreur lors de l\'envoi de l\'image.');
       }
+      // Supprimer le fichier après envoi
+      fs.unlink(imagePath, unlinkErr => {
+        if (unlinkErr) {
+          console.error('Erreur lors de la suppression du fichier:', unlinkErr);
+        } else {
+          console.log('Fichier supprimé après envoi:', imagePath);
+        }
+      });
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Erreur lors de la génération de la carte.');
-  }
-  } catch (err) {
-    console.log(err);
+    console.error('Erreur dans la gestion de la requête:', err.message);
+    res.status(400).send(`Erreur : ${err.message}`);
   }
 });
