@@ -575,21 +575,21 @@ app.post('/getcomptes', async (req, res) => {
 });
 
 async function getComptes(thisid) {
-  let bennes = await readDatabase('comptes', '*');
-  bennes.sort((a, b) => a.NOM - b.NOM);
-  totalStatCom = bennes.length;
+  let comptes = await readDatabase('comptes', '*');
+  comptes.sort((a, b) => a.NOM - b.NOM);
+  totalStatCom = comptes.length;
   nowStatCom = 0;
   const formatted = await Promise.all(
-    bennes.map(async (benne) => {
+    comptes.map(async (compte) => {
       console.log("Lancement de la requête n°", nowStatCom);
       compteStatus(thisid);
       return {
-        id:benne.num,
-        name:benne.NOM,
-        first_name:benne.first_name,
-        last_connection:benne.lastconnect,
-        auth:benne.auth,
-        link:benne.link
+        id:compte.num,
+        name:compte.NOM,
+        first_name:compte.first_name,
+        last_connection:compte.lastconnect,
+        auth:compte.auth,
+        link:compte.link
       }
     })
   );
