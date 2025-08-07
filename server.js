@@ -554,27 +554,29 @@ async function allDatas () {
 // Gestion de la Static Map
 
 async function generateMap(latitude, longitude, zoom = 14) {
+  console.log("Static Map");
   const optionsStat = {
   width:600,
   height:400,
   tileUrl:'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
 }
+console.log(optionsStat);
   const mapStat = new StaticMaps(optionsStat);
-
+console.log("Map créée");
   mapStat.addMarker({
     coord: [parseFloat(latitude), parseFloat(longitude)],
     color: '#ff0000',
     size: 48,
     anchor: { x: 24, y: 48 },
   })
-
+console.log("marqueur ajouté !");
   await mapStat.render([parseFloat(latitude), parseFloat(longitude)], parseInt(zoom)) 
-
+console.log("Création de la map en png");
   const filename = `map_${latitude}_${longitude}_${zoom}.png`;
   const filepath = path.join(__dirname, filename);
 
   await mapStat.save(filepath);
-
+console.log("Map enregistrée");
   return filepath;
 }
 
