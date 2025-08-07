@@ -556,9 +556,9 @@ const optionsStat = {
   width:600,
   height:400
 }
-const mapStat = new StaticMaps(optionsStat);
+
 async function generateMap(latitude, longitude, zoom = 14) {
-  mapStat.clearMarkers();
+  const mapStat = new StaticMaps(optionsStat);
 
   mapStat.addMarker({
     coord: [parseFloat(longitude), parseFloat(latitude)],
