@@ -690,5 +690,46 @@ const benDatas = {};
         document.getElementById('filtrerBennes').click();
       }
     </script>
+    <style>
+      #toast-container {
+        position:fixed;
+        bottom:2vh;
+        right:2vw;
+        z-index:9999;
+        display:flex;
+        flex-direction:column;
+        gap:1vh;
+      }
+      .toast {
+        background-color:#4CAF50;
+        color:white;
+        padding: 1rem 1.5rem;
+        border-radius:5px;
+        font-size:1rem;
+        box-shadow: 0 0 10px;
+        animation:fadein 0.5s, fadeout 0.5s 4.5s;
+        opacity:0;
+        animation-fill-mode:forwards;
+      }
+      @keyframe fadein {
+        from {opacity:0; transform:translateX(50%);}
+        to {opacity:1; transform:translateX(0);}
+      }
+      @keyframe fadeout {
+        from {opacity:1; transform:translateX(0);}
+        to {opacity:0; transform:translateX(50%);}
+      }
+    </style>
+    <script>
+      async function showToast(message, color = '#4CAF50') {
+        const toast = document.createElement('div');
+        toast.classList.add('toast');
+        toast.textContent = message;
+        toast.style.backgroundColor = color;
+        setTimeout(() => {
+          toast.remove();
+        }, 5000)
+      }
+    </script>
   </body>
 </html>
