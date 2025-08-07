@@ -71,8 +71,8 @@
     </div>
     <div style="display:none" id="admin">
       <div id="selecter">
-        <button onclick="document.getElementById('bennesSearch').style.display='flex';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; putBennes('no'); document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none';" id="btnBennes">Bennes</button>
-        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='flex';document.getElementById('clientsSearch').style.display='none'; document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none';" id="btnComptes">Comptes</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='flex';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; putBennes('no'); document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none'; setForBennes();" id="btnBennes">Bennes</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='flex';document.getElementById('clientsSearch').style.display='none'; document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none'; setForComptes();" id="btnComptes">Comptes</button>
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='flex'; document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none';" id="btnClients">Clients</button>
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; document.getElementById('cerealesSearch').style.display='flex';document.getElementById('infosSearch').style.display='none';" id="btnCereales">Céréales</button>
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='flex';" id="btnInfos">Paramètres</button>
@@ -659,9 +659,28 @@ benDatas[ben.id] = ben;
 
 const benDatas = {};
 const comDatas = {};
+
+      async function setForBennes () {
+        selecterInput = [
+        "volume",
+        "notes",
+        "latitude",
+        "longitude",
+        "statut"
+        ]
+      }
+
+        async function setForComptes () {
+        selecterInput = [
+        "password",
+        "name",
+        "first_name",
+        "auth"
+        ]
+      }
       
       const selecter = document.getElementById('modifierSelecter');
-        const selecterInput = [
+        let selecterInput = [
         "volume",
         "notes",
         "latitude",
@@ -669,7 +688,7 @@ const comDatas = {};
         "statut"
         ];
 
-      const statusOpt = [
+      let statusOpt = [
         {name:"Posée", value:"A", color:'yellow'},
         {name:"Prête",value:"B", color:'red'},
         {name:"En dépôt", value:"C", color:'blue'}
