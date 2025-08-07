@@ -614,6 +614,7 @@ benDatas[ben.id] = ben;
           volume:data.volume
         };
         const fromServer = await fetcher('createbenne', content, 'POST', sessionStorage.getItem('session_id'));
+        showToast(`Création de la benne n°${data.num} !`);
         putBennes('no');
         document.getElementById('createBenne').reset();
       });
@@ -625,6 +626,7 @@ benDatas[ben.id] = ben;
           num:num
         };
         const fromServer = await fetcher('deletebenne', content, 'POST', sessionStorage.getItem('session_id'));
+            showToast(`Suppression effective (Benne n°${numon}) !`);
         putBennes('no');
           }}
       }
@@ -685,6 +687,7 @@ const benDatas = {};
         };
         console.log(content);
         const fromServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+        showToast(`Modification enregistrée (Benne n°${numon} - ${selecter.text}) !`);
         document.getElementById('editeurLightBenne').style.display = 'none';
         selecter.selectedIndex = 0;
         document.getElementById('inpSelecter').value = "";
