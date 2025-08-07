@@ -659,7 +659,7 @@ const benDatas = {};
       async function checkWebSocket() {
         if (!socket || socket.readyState == WebSocket.CLOSED ||  socket.readyState == WebSocket.CLOSING) {
           console.log("WebSocket Inactif !");
-          connectWebSocket();
+          window.location.reload();
         } else {
           console.log("WebSocket Actif !");
         }
