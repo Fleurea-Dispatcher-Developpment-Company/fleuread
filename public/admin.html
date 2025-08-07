@@ -358,6 +358,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
       }
 
 let mydatas = {};
+let generalDatas;
       
       async function getMe() {
         const answer = await fetcher('getme',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
@@ -371,6 +372,13 @@ let mydatas = {};
         mydatas["first_name"] = first_name;
         mydatas["name"] = name;
         mydatas["role"] = role;
+        getGeneralDatas();
+      }
+
+       async function getGeneralDatas() {
+        const answer = await fetcher('getgeneraldatas',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
+        generalDatas = answer;
+        console.log(generalDatas);
       }
     </script>
     <style>
