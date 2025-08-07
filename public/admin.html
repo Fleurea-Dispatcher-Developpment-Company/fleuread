@@ -672,7 +672,7 @@ const benDatas = {};
             for (const opt of statusOpt) {
               const button = document.createElement('button');
               button.textContent = opt.name;
-              button.onclick(`document.getElementById('inpSelecter').value = ${opt.value}; document.getElementById('registerPop').click();`);
+              button.onclick = `document.getElementById('inpSelecter').value = ${opt.value}; document.getElementById('registerPop').click();`;
               button.style.color = opt.color;
             }
           } else {
