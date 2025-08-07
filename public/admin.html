@@ -24,6 +24,9 @@
      <div id="lightboxB">
       <div class="lightbox-content w3-center">
         <span id="close-btnB">&times;</span>
+        <div class="circleB" style="top:50%; left:50%; transform:translate(-50%,-50%)">
+          <img id="lightImgB" src="" alt="Profil">
+        </div>
         <h2 id="lightH2B"></h2>
         <p id="lightPB"></p>
         <i id="lightPB2"></i>
@@ -506,9 +509,11 @@ let generalDatas;
 benDatas[ben.id] = ben;
        const lightbox = document.getElementById('lightboxB');
        const closeBtn = document.getElementById('close-btnB');
+        const imagePop = document.getElementById('lightImgB');
       console.log("LIGHTBOX");
       line.addEventListener('click', () => {
          lightbox.style.display = 'flex';
+        document.getElementById('imagePop').src = ;
          document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
          document.getElementById('lightPB').textContent =  ben.volume + " T";
          popAdresse(ben.latitude, ben.longitude);
@@ -669,6 +674,7 @@ const benDatas = {};
             console.log(true);
             document.getElementById('inpSelecter').style.display = "none";
             document.getElementById('suggester').style.display = "flex";
+            document.getElementById('suggester').innerHTML="";
             for (const opt of statusOpt) {
               const button = document.createElement('button');
               button.textContent = opt.name;
