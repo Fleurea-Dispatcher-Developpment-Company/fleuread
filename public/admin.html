@@ -677,7 +677,7 @@ const benDatas = {};
 
       async function logModification () {
         const parameterToChange = selecter.value;
-        const affSelecter = selecter.text;
+        const affSelecter = selecter.options[selecter.selectedIndex].text;
         console.log("affSelecter :", affSelecter);
         const value = document.getElementById('inpSelecter').value;
         const num = numon;
