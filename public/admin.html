@@ -725,7 +725,7 @@ const benDatas = {};
       }
     </style>
     <script>
-      async function showToast(message, color = '#4CAF50') {
+      function showToast(message, color = '#4CAF50') {
         const toast = document.createElement('div');
         toast.classList.add('toast');
         toast.textContent = message;
