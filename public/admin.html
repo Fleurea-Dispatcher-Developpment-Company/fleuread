@@ -602,7 +602,7 @@ benDatas[ben.id] = ben;
            if (statut == "longitude") {
           return 'Longitude';
         }
-           if (statut == "status") {
+           if (statut == "statut") {
           return 'État';
         }
       }
@@ -642,7 +642,7 @@ const benDatas = {};
         "notes",
         "latitude",
         "longitude",
-        "status"
+        "statut"
         ];
 
       const statusOpt = [
@@ -665,7 +665,7 @@ const benDatas = {};
           console.log(benDatas);
           const value = event.target.value;
           console.log("Change ", value);
-          if (value == "status") {
+          if (value == "statut") {
             console.log(true);
             document.getElementById('inpSelecter').style.display = "none";
             document.getElementById('suggester').style.display = "flex";
