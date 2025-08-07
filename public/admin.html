@@ -816,5 +816,80 @@ const benDatas = {};
         document.getElementById('lightPB2').textContent = await adresse.text();
       }
     </script>
+    <script>
+            async function putComptes(filtre) {
+        console.log("Appel d'un putComptes...");
+        const bennes = await getComptes();
+        console.log(bennes);
+        let filtered = [];
+        if (filtre !== 'no') {
+        filtered = await filter(bennes, filtre);
+        } else {
+        filtered = bennes;
+        }
+        console.log("Le système a filtré la liste :");
+        console.log(filtered);
+        const bennesContainer = document.getElementById('comptesContent');
+        bennesContainer.innerHTML = "";
+        console.log("On va traiter l'ajout...");
+        for (const ben of filtered) {
+          console.log("Création d'une compte :", ben);
+          const line = document.createElement('div');
+          line.classList.add('line');
+          line.id = `C${ben.id}`;
+benDatas[ben.id] = ben;
+       const lightbox = document.getElementById('lightboxB');
+       const closeBtn = document.getElementById('close-btnB');
+        const imagePop = document.getElementById('lightImgB');
+      console.log("LIGHTBOX");
+      line.addEventListener('click', () => {
+         lightbox.style.display = 'flex';
+        console.log("Lien image :", ben.link);
+        document.getElementById('imagePop').src = ben.link;
+         document.getElementById('lightH2B').textContent = "Compte n°" + ben.id;
+         document.getElementById('lightPB').textContent =  ben.first_name + " " + ben.name + " | " + ben.auth;
+        document.getElementById('lightPB3').innerHTML =  "Dernière connexion : <strong>" + ben.last_connection + "</strong> !" ;
+  
+        numon = ben.id;
+        console.log(numon);
+        document.getElementById('editeurLightBenne').style.display == 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+       });
+        closeBtn.addEventListener('click', () => {
+         lightbox.style.display = 'none';
+        document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+       });
+       lightbox.addEventListener('click', (e) => {
+         if (e.target === lightbox) {
+           lightbox.style.display = 'none';
+             document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+         }
+       });
+    
+          
+          const num = document.createElement('h1');
+          num.textContent = ben.id;
+          line.append(num);
+          const status = document.createElement('p');
+          status.textContent = ben.first_name + " " + ben.name + " | " + ben.auth;
+          line.append(status);
+          const notes = document.createElement('p');
+          notes.textContent = ben.password;
+          line.append(notes);
+          const pds = document.createElement('p');
+          pds.textContent = ben.last_connection;
+          line.append(pds);
+          bennesContainer.append(line);
+        }
+      }
+      async function getComptes() {
+        return await fetcher('getcomptes',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
+      }
+    </script>
   </body>
 </html>
