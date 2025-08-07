@@ -558,7 +558,7 @@ async function generateMap(latitude, longitude, zoom = 14) {
   const optionsStat = {
   width:600,
   height:400,
-  tileUrl:'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  tileUrl:"https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
 }
 console.log(optionsStat);
   const mapStat = new StaticMaps(optionsStat);
