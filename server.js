@@ -488,7 +488,8 @@ async function getBennes(thisid) {
         altitude:benne.altitude,
         adresse:"unknown",
         cereale:benne.cereale,
-        status:benne.statut
+        status:benne.statut,
+        link:benne.link
       }
     })
   );
