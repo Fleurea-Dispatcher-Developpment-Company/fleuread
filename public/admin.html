@@ -30,7 +30,7 @@
           <i>Sélectionnez un paramètre puis modifiez-le...</i>
             <select id="modifierSelecter"></select>
             <input id="inpSelecter" type="text" name="valueSelecter">
-            <button>Enregistrer</button>
+            <button onclick="logModification()">Enregistrer</button>
           </div>
         </div>
         <button onclick="if (document.getElementById('editeurLightBenne').style.display == 'none') {document.getElementById('editeurLightBenne').style.display = 'flex'} else {document.getElementById('editeurLightBenne').style.display = 'none'}">Éditer</button>
@@ -671,6 +671,21 @@ const benDatas = {};
         document.getElementById('panel').style.display = "none";
       }
       resizeMap();
+
+      async function logModification () {
+        const parameterToChange = selecter.value;
+        const value = document.getElementById('inpSelecter').value;
+        const num = numon;
+        const content = {
+          toupd : parameterToChange,
+          value_toupd : value,
+          eq:'num',
+          value_eq:num
+        };
+        console.log(content);
+        const fromServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+        putBennes('no');
+      }
     </script>
   </body>
 </html>
