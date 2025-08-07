@@ -6,6 +6,8 @@ const WebSocket = require('ws');
 const crypto = require('crypto');
 const http = require('http');
 const urler = require('url');
+const StaticMaps = require('staticmaps');
+const fs = require('fs');
 
 // On gère tous les app.something
 const app = express();
