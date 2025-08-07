@@ -985,8 +985,8 @@ comDatas[ben.id] = ben;
         const formData = new FormData(e.target);
         const data = await Object.fromEntries(formData.entries());
         const content = {
-          name:name,
-          first_name:first_name
+          name:data.name,
+          first_name:data.first_name
         };
         const fromServer = await fetcher('createcompte', content, 'POST', sessionStorage.getItem('session_id'));
         showToast(`Création du compte n°${data.num} !`);
