@@ -563,6 +563,7 @@ async function allDatas () {
 }
 
 app.post('/getcomptes', async (req, res) => {
+  console.log("Réception d'un GET compte");
   try {
     const thisid = req.headers.auth;
     if (await checkRole('admin',thisid)) {
