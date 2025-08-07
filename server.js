@@ -424,6 +424,18 @@ app.post('/getme', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
+app.post('/getgeneraldatas', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    if (await checkSession(thisid)) {
+      const jsonme = await allDatas(thisid);
+    res.send(jsonme);
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
 async function getNameAndIcon (thisid) {
   let toret;
   const accounts = await readDatabase('comptes', '*');
@@ -533,5 +545,7 @@ app.post('/editbenne', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
-
+async function allDatas () {
+  return await readDatabase('cereales', '*');
+}
 
