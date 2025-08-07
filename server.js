@@ -552,12 +552,20 @@ async function allDatas () {
 }
 
 // Gestion de la Static Map
-const optionsStat = {
-  width:600,
-  height:400
-}
+
+
+const tileProvider = {
+  getTileUrl: function (x, y, z) {
+    return `https://a.tile.openstreetmap.org/${z}/${x}/${y}.png`;
+  },
+};
 
 async function generateMap(latitude, longitude, zoom = 14) {
+  const optionsStat = {
+  width:600,
+  height:400,
+  tileUrl:'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+}
   const mapStat = new StaticMaps(optionsStat);
 
   mapStat.addMarker({
