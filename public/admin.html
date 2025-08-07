@@ -513,6 +513,7 @@ benDatas[ben.id] = ben;
       console.log("LIGHTBOX");
       line.addEventListener('click', () => {
          lightbox.style.display = 'flex';
+        console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
          document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
          document.getElementById('lightPB').textContent =  ben.volume + " T";
