@@ -817,6 +817,29 @@ const comDatas = {};
         document.getElementById('inpSelecter').value = "";
         document.getElementById('filtrerBennes').click();
       }
+      async function logModificationB () {
+        const parameterToChange = selecter.value;
+        const affSelecter = selecter.options[selecter.selectedIndex].text;
+        console.log("affSelecter :", affSelecter);
+        const value = document.getElementById('inpSelecter').value;
+        const num = numon;
+        const content = {
+          toupd : parameterToChange,
+          value_toupd : value,
+          eq:'num',
+          value_eq:num
+        };
+        console.log(content);
+        const fromServer = await fetcher('editcompte', content, 'POST', sessionStorage.getItem('session_id'));
+        setTimeout(() => {
+        document.getElementById(`C${numon}`).click();
+        }, 500);
+        showToast(`Modification enregistrée (Compte n°${numon} - ${affSelecter}) !`);
+        document.getElementById('editeurLightCompte').style.display = 'none';
+        selecter.selectedIndex = 0;
+        document.getElementById('inpSelecter').value = "";
+        document.getElementById('filtrerComptes').click();
+      }
     </script>
     <style>
       #toast-container {
