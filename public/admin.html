@@ -709,12 +709,12 @@ const benDatas = {};
       setInterval(checkWebSocket, 15*1000);
 
       async function resizeMap () {
-        setTimeout(() => {
+    
         document.getElementById('panel').style.display = "flex";
-        }, 50);
+
         setTimeout(() => {
         document.getElementById('panel').style.display = "none";
-        }, 100);
+        }, 10);
       }
       resizeMap();
 
