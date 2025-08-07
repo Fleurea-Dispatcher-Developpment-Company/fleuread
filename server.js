@@ -551,3 +551,50 @@ async function allDatas () {
   return await readDatabase('cereales', '*');
 }
 
+// Gestion de la Static Map
+const optionsStat = {
+  width:600,
+  height:400
+}
+const mapStat = new StaticMaps(optionsStat);
+async function generateMap(latitude, longitude, zoom = 14); {
+  mapStat.clearMarkers();
+
+  mapStat.addMarker({
+    coord: [parseFloat(longitude), parseFloat(latitude)],
+    color: '#ff0000',
+    size: 48,
+    anchor: { x: 24, y: 48 },
+  })
+
+  await mapStat.render([parseFloat(longitude), parseFloat(latitude)], parseInt(zoom)) 
+
+  const filename = `map_${latitude}_${longitude}_${zoom}.png`;
+  const filepath = path.join(__dirname, filename);
+
+  await mapStat.save(filepath);
+
+  return filepath;
+}
+
+// Cette fonction est copiée
+app.get('/staticmap', async (req, res) => {
+  const { lat, lon, zoom } = req.query;
+
+  if (!lat || !lon) {
+    return res.status(400).send('Params lat et lon obligatoires.');
+  }
+
+  try {
+    const imagePath = await generateMap(lat, lon, zoom);
+    res.sendFile(imagePath, err => {
+      if (!err) {
+        // Optionnel : supprime l'image après envoi pour éviter d'encombrer
+        fs.unlink(imagePath, () => {});
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erreur lors de la génération de la carte.');
+  }
+});
