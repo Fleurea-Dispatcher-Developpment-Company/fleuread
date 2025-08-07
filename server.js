@@ -588,7 +588,7 @@ async function getComptes(thisid) {
         name:benne.NOM,
         first_name:benne.first_name,
         last_connection:benne.lastconnect,
-        auth:benne.auth
+        auth:benne.auth,
         link:benne.link
       }
     })
