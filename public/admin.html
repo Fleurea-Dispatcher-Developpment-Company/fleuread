@@ -674,6 +674,7 @@ const benDatas = {};
               button.textContent = opt.name;
               button.onclick = `document.getElementById('inpSelecter').value = ${opt.value}; document.getElementById('registerPop').click();`;
               button.style.color = opt.color;
+              document.getElementById('suggester').append(button);
             }
           } else {
             document.getElementById('inpSelecter').style.display = "flex"
