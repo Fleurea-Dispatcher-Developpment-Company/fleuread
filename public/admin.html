@@ -949,6 +949,33 @@ comDatas[ben.id] = ben;
       async function getComptes() {
         return await fetcher('getcomptes',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
       }
+
+         document.getElementById('createCompte').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = await Object.fromEntries(formData.entries());
+        const content = {
+          name:name,
+          first_name:first_name
+        };
+        const fromServer = await fetcher('createcompte', content, 'POST', sessionStorage.getItem('session_id'));
+        showToast(`Création du compte n°${data.num} !`);
+        putComptes('no');
+        document.getElementById('createCompte').reset();
+      });
+
+      async function deleteCompte(num) {
+        console.log(numon)
+        if (confirm(`Supprimer la compte n°${numon} ?`)) {
+          if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
+        const content = {
+          num:num
+        };
+        const fromServer = await fetcher('deletecompte', content, 'POST', sessionStorage.getItem('session_id'));
+            showToast(`Suppression effective (Compte n°${numon}) !`);
+        putComptes('no');
+          }}
+      }
     </script>
   </body>
 </html>
