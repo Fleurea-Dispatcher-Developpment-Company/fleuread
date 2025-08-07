@@ -553,13 +553,6 @@ async function allDatas () {
 
 // Gestion de la Static Map
 
-
-const tileProvider = {
-  getTileUrl: function (x, y, z) {
-    return `https://a.tile.openstreetmap.org/${z}/${x}/${y}.png`;
-  },
-};
-
 async function generateMap(latitude, longitude, zoom = 14) {
   const optionsStat = {
   width:600,
