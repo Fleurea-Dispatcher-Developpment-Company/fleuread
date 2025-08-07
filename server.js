@@ -587,6 +587,7 @@ async function generateMap(latitude, longitude, zoom = 14) {
 
 // Cette fonction est copiée
 app.get('/staticmap', async (req, res) => {
+  try {
   const { lat, lon, zoom } = req.query;
 
   if (!lat || !lon) {
@@ -604,5 +605,8 @@ app.get('/staticmap', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Erreur lors de la génération de la carte.');
+  }
+  } catch (err) {
+    console.log(err);
   }
 });
