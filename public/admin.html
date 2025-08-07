@@ -519,7 +519,7 @@ benDatas[ben.id] = ben;
         document.getElementById('imagePop').src = ben.link;
          document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
          document.getElementById('lightPB').textContent =  ben.volume + " T | " + ben.notes;
-        const statusReadable = await toread(ben.statut);
+        const statusReadable = toread(ben.statut);
         console.log(statusReadable);
         document.getElementById('lightPB3').textContent =  statusReadable.charAt(0).toUpperCase() + statusReadable.slice(1) + " chez " + "GAEC Chèvre" + " en " + "Blé";
          popAdresse(ben.latitude, ben.longitude);
