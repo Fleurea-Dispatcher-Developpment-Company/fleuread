@@ -562,7 +562,7 @@ async function generateMap(latitude, longitude, zoom = 14) {
   const mapStat = new StaticMaps(optionsStat);
 
   mapStat.addMarker({
-    coord: [parseFloat(longitude), parseFloat(latitude)],
+    coord: [parseFloat(latitude), parseFloat(longitude)],
     color: '#ff0000',
     size: 48,
     anchor: { x: 24, y: 48 },
