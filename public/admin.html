@@ -680,6 +680,7 @@ const benDatas = {};
               const button = document.createElement('button');
               button.textContent = opt.name;
               button.onclick = () => {
+                selecter.selectedIndex = 5;
                 document.getElementById('inpSelecter').value = opt.value;
                 document.getElementById('registerPop').click();
               }
