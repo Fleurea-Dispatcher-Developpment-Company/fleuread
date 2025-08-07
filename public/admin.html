@@ -94,9 +94,20 @@
         </form>
       </div>
       <div style="display:none" id="comptesSearch">
+        <div id="searcherCompte">
+                <input class='input_search' type="text" id="text_searcherCompte" placeholder="Recherchez un compte ici...">
+                <button id="filtrerComptes" onclick="putClients(document.getElementById('text_searcherCompte').value);">Filtrer</button>
+                <button onclick="putClients('no'); document.getElementById('text_searcherCompte').value = '';">Réinitialiser</button>
+                <progress id="compte_progress" value="0" max="100"></progress>
+              </div>
         <div class="scroll-container" id="comptesScroller">
           <div id="comptesContent"></div> <!-- C'est ici qu'on va insérer les comptes. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
         </div>
+         <form id="createCompte">
+          <input class="input_search" type="text" name="first_name" placeholder="Prénom">
+          <input class="input_search" type="text" name="name" placeholder="NOM">
+          <button type="submit">Créer un compte</button>
+        </form>
       </div>
       <div style="display:none" id="clientsSearch">
         <div class="scroll-container" id="clientsScroller">
