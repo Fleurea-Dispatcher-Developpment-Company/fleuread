@@ -672,8 +672,11 @@ const benDatas = {};
             for (const opt of statusOpt) {
               const button = document.createElement('button');
               button.textContent = opt.name;
-              button.onclick = `document.getElementById('inpSelecter').value = ${opt.value}; document.getElementById('registerPop').click();`;
-              button.style.color = "white";
+              button.onclick = () => {
+                document.getElementById('inpSelecter').value = opt.value;
+                document.getElementById('registerPop').click();
+              }
+              button.style.color = "black";
               button.classList.add("button_status");
               button.style.backgroundColor = opt.color;
               document.getElementById('suggester').append(button);
