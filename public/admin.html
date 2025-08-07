@@ -649,5 +649,16 @@ const benDatas = {};
           document.getElementById('inpSelecter').value = benDatas[numon][value];
         });
     </script>
+    <script>
+      async function checkWebSocket() {
+        if (!socket || socket.readyState == WebSocket.CLOSED ||  socket.readyState == WebSocket.CLOSING) {
+          console.log("WebSocket Inactif !");
+          connectWebSocket();
+        } else {
+          console.log("WebSocket Actif !");
+        }
+      }
+      setInterval(checkWebSocket, 15*1000);
+    </script>
   </body>
 </html>
