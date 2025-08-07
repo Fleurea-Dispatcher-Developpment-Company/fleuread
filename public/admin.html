@@ -673,7 +673,9 @@ const benDatas = {};
               const button = document.createElement('button');
               button.textContent = opt.name;
               button.onclick = `document.getElementById('inpSelecter').value = ${opt.value}; document.getElementById('registerPop').click();`;
-              button.style.color = opt.color;
+              button.style.color = "white";
+              button.classList.add("button_status");
+              button.style.backgroundColor = opt.color;
               document.getElementById('suggester').append(button);
             }
           } else {
@@ -757,8 +759,11 @@ const benDatas = {};
 
       #suggester {
         display:flex;
-        flex-direction:column;
+       /* flex-direction:column; */
         justify-content: space-between;
+      }
+      .button_status:hover {
+        background:grey;
       }
     </style>
     <script>
