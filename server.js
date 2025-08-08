@@ -618,8 +618,11 @@ app.post('/createcompte', async (req, res) => {
     const thisid = req.headers.auth;
     const first_name = req.body.first_name;
     const name = req.body.name;
+    const gen_num = Math.floor(100000 + Math.random() * 900000);
+    const gen_password = crypto.randomBytes(3).toString('hex');
+    const gen_date = new Date();
     if (await checkRole('admin',thisid)) {
-      addDatabase ('comptes', '', {num:crypto.randomBytes(6).toString('hex'), password:crypto.randomBytes(3).toString('hex'),creation:new Date(), first_name:first_name, name:name}); // 45.72191877191547, 4.227417998761897
+      await addDatabase ('comptes', '', {num:gen_num, password:gen_password,creation:gen_date, first_name:first_name, name:name}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
     } else {
       res.status(401);
