@@ -509,6 +509,12 @@ let nowStatCom;
 let totalStatCli;
 let nowStatCli;
 
+let totalStatCer;
+let nowStatCer;
+
+let totalStatPar;
+let nowStatPar;
+
 
 async function benneStatus (thisid) {
   nowStatBen += 1;
@@ -523,6 +529,16 @@ async function compteStatus (thisid) {
 async function clientStatus (thisid) {
   nowStatCli += 1;
   broadcastToAdmins({action:'clistatus', value:(nowStatCli/totalStatCli), who:thisid});
+}
+
+async function cerealeStatus (thisid) {
+  nowStatCli += 1;
+  broadcastToAdmins({action:'cerstatus', value:(nowStatCer/totalStatCer), who:thisid});
+}
+
+async function paramStatus (thisid) {
+  nowStatPar += 1;
+  broadcastToAdmins({action:'parstatus', value:(nowStatPar/totalStatPar), who:thisid});
 }
 
 app.post('/deletebenne', async (req, res) => {
@@ -587,7 +603,7 @@ app.post('/getcomptes', async (req, res) => {
 
 async function getComptes(thisid) {
   let comptes = await readDatabase('comptes', '*');
-  comptes.sort((a, b) => a.NOM - b.NOM);
+  comptes.sort((a, b) => a.name - b.name);
   totalStatCom = comptes.length;
   nowStatCom = 0;
   const formatted = await Promise.all(
@@ -670,7 +686,7 @@ app.post('/getclients', async (req, res) => {
 
 async function getClients(thisid) {
   let comptes = await readDatabase('clients', '*');
-  comptes.sort((a, b) => a.NOM - b.NOM);
+  comptes.sort((a, b) => a.name - b.name);
   totalStatCli = comptes.length;
   nowStatCli = 0;
   const formatted = await Promise.all(
@@ -732,6 +748,85 @@ app.post('/editclient', async (req, res) => {
     const value_eq = req.body.value_eq;
     if (await checkRole('admin',thisid)) {
       editDatabase ('clients', toupd, value_toupd, eq, value_eq);
+      res.send("Édition enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/getcereales', async (req, res) => {
+  console.log("Réception d'un GET céréale");
+  try {
+    const thisid = req.headers.auth;
+    if (await checkRole('admin',thisid)) {
+      const jsonme = await getCereales(thisid);
+    res.json(jsonme);
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+async function getCereales(thisid) {
+  let comptes = await readDatabase('cereales', '*');
+  comptes.sort((a, b) => a.name - b.name);
+  totalStatCer = comptes.length;
+  nowStatCer = 0;
+  const formatted = await Promise.all(
+    comptes.map(async (compte) => {
+      console.log("Lancement de la requête n°", nowStatCer);
+      cerealeStatus(thisid);
+      return {
+        id:compte.num,
+       code:compte.code,
+        name:compte.name,
+        photo:compte.photo
+      }
+    })
+  );
+  console.log(formatted);
+  return formatted;
+}
+
+app.post('/deletecereale', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const value_eq = req.body.num;
+    if (await checkRole('admin',thisid)) {
+      deleteDatabase ('cereales', 'num', value_eq);
+      res.send("Suppression enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/createcereale', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const phonenumber = req.body.phonenumber;
+    const name = req.body.name;
+    const gen_num = Math.floor(100000 + Math.random() * 900000);
+    const gen_date = new Date();
+    if (await checkRole('admin',thisid)) {
+      await addDatabase ('cereales', '', {num:gen_num, name:name}); // 45.72191877191547, 4.227417998761897
+      res.send("Création enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/editcereale', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const toupd = req.body.toupd;
+    const value_toupd = req.body.value_toupd;
+    const eq = req.body.eq;
+    const value_eq = req.body.value_eq;
+    if (await checkRole('admin',thisid)) {
+      editDatabase ('cereales', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
     } else {
       res.status(401);
