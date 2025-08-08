@@ -42,7 +42,7 @@
           </div>
         </div>
         <button onclick="if (document.getElementById('editeurLightBenne').style.display == 'none') {document.getElementById('editeurLightBenne').style.display = 'flex'} else {document.getElementById('editeurLightBenne').style.display = 'none'}">Éditer</button>
-        <button onclick="deleteBenne(numon)">Supprimer</button>
+        <button id="deleter" onclick="deleteBenne(numon)">Supprimer</button>
       </div>
     </div>
    <div class="head" id="head">
@@ -699,9 +699,12 @@ let what;
         statusOpt = [
         {name:"Posée", value:"A", color:'yellow'},
         {name:"Prête",value:"B", color:'red'},
-        {name:"En dépôt", value:"C", color:'blue'}
+        {name:"En dépôt", value:"C", color:'blue'} // <button id="deleter" onclick="deleteBenne(numon)">Supprimer</button>
       ];
         setEditable();
+        document.getElementById('deleter').onclick = () => {
+          deleteBenne(numon)
+        }
       }
 
         async function setForComptes () {
@@ -717,6 +720,9 @@ let what;
         {name:"Administrateur",value:"admin", color:'blue'},
       ];
           setEditable();
+          document.getElementById('deleter').onclick = () => {
+          deleteCompte(numon)
+        }
       }
       
       const selecter = document.getElementById('modifierSelecter');
@@ -1018,7 +1024,7 @@ comDatas[ben.id] = ben;
 
       async function deleteCompte(num) {
         console.log(numon)
-        if (confirm(`Supprimer la compte n°${numon} ?`)) {
+        if (confirm(`Supprimer le compte n°${numon} ?`)) {
           if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
         const content = {
           num:num
