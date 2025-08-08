@@ -431,7 +431,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
             document.getElementById('cereale_progress').value = parseFloat(mes.value)*100;
           }
         }
-            if (mes.action === 'paramstatus') {
+            if (mes.action === 'parstatus') {
           if (mes.who === sessionStorage.getItem('session_id')) {
             console.log(parseFloat(mes.value)*100);
             document.getElementById('param_progress').value = parseFloat(mes.value)*100;
