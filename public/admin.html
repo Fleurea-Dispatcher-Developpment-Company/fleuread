@@ -654,7 +654,7 @@ benDatas[ben.id] = ben;
           return 'Prénom';
         }
          if (statut == "name") {
-          return 'NOM';
+          return 'Nom';
         }
         if (statut == "phonenumber") {
           return 'Informations de contact';
@@ -836,6 +836,8 @@ let what;
           document.getElementById('inpSelecter').value = benDatas[numon][value];
           } else if (what == "compte") {
            document.getElementById('inpSelecter').value = comDatas[numon][value]; 
+          } else if (what == "client") {
+           document.getElementById('inpSelecter').value = cliDatas[numon][value]; 
           }
         });
     </script>
