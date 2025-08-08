@@ -446,7 +446,7 @@ async function getNameAndIcon (thisid) {
   const accounts = await readDatabase('comptes', '*');
   for (const compte of accounts) {
     if (compte.num === sessions[thisid].id) {
-      toret = {icon:compte.link, name:compte.NOM, first_name:compte.first_name, role:translate(compte.auth)};
+      toret = {icon:compte.link, name:compte.name, first_name:compte.first_name, role:translate(compte.auth)};
     }
   }
   return JSON.stringify(toret);
