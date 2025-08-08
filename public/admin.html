@@ -778,7 +778,7 @@ let what;
               const button = document.createElement('button');
               button.textContent = opt.name;
               button.onclick = () => {
-                selecter.selectedIndex = 5;
+                selecter.selectedIndex = 4;
                 document.getElementById('inpSelecter').value = opt.value;
                 document.getElementById('registerPop').click();
               }
@@ -861,7 +861,7 @@ let what;
         document.getElementById(`C${numon}`).click();
         }, 500);
         showToast(`Modification enregistrée (Compte n°${numon} - ${affSelecter}) !`);
-        document.getElementById('editeurLightCompte').style.display = 'none';
+        document.getElementById('editeurLightBenne').style.display = 'none';
         selecter.selectedIndex = 0;
         document.getElementById('inpSelecter').value = "";
         document.getElementById('filtrerComptes').click();
