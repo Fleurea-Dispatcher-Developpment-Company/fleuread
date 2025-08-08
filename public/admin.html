@@ -1177,7 +1177,7 @@ comDatas[ben.id] = ben;
           num.textContent = ben.id;
           line.append(num);
           const status = document.createElement('p');
-          status.textContent = ben.first_name + " " + ben.name + " | " + toreadOpt(ben.auth);
+          status.innerHTML = ben.first_name + " " + ben.name + " <br> " + toreadOpt(ben.auth);
           line.append(status);
           const notes = document.createElement('p');
           notes.textContent = ben.password;
