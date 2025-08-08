@@ -678,7 +678,7 @@ async function getClients(thisid) {
       console.log("Lancement de la requête n°", nowStatCli);
       clientStatus(thisid);
       return {
-        id:compte.id,
+        id:compte.num,
         phonenumber:compte.phonenumber,
         notes:compte.notes,
         creation:compte.creation,
