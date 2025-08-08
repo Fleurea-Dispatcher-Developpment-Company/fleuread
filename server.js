@@ -715,7 +715,7 @@ app.post('/createclient', async (req, res) => {
     const gen_num = Math.floor(100000 + Math.random() * 900000);
     const gen_date = new Date();
     if (await checkRole('admin',thisid)) {
-      await addDatabase ('clients', '', {id:gen_num, creation:gen_date, name:name, phonenumber:phonenumber}); // 45.72191877191547, 4.227417998761897
+      await addDatabase ('clients', '', {num:gen_num, creation:gen_date, name:name, phonenumber:phonenumber}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
     } else {
       res.status(401);
@@ -728,7 +728,7 @@ app.post('/editclient', async (req, res) => {
     const thisid = req.headers.auth;
     const toupd = req.body.toupd;
     const value_toupd = req.body.value_toupd;
-    const eq = "id";
+    const eq = req.body.eq;
     const value_eq = req.body.value_eq;
     if (await checkRole('admin',thisid)) {
       editDatabase ('clients', toupd, value_toupd, eq, value_eq);
