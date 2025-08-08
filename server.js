@@ -728,7 +728,7 @@ app.post('/editclient', async (req, res) => {
     const thisid = req.headers.auth;
     const toupd = req.body.toupd;
     const value_toupd = req.body.value_toupd;
-    const eq = req.body.eq;
+    const eq = "id";
     const value_eq = req.body.value_eq;
     if (await checkRole('admin',thisid)) {
       editDatabase ('clients', toupd, value_toupd, eq, value_eq);
