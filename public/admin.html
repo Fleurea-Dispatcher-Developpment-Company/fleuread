@@ -88,8 +88,8 @@
           <div id="bennesContent"></div> <!-- C'est ici qu'on va insérer les bennes. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
         </div>
         <form id="createBenne">
-          <input class="input_search" type="text" name="num" placeholder="N° de la Benne">
-          <input class="input_search" type="number" name="volume" placeholder="Capacité (T)">
+          <input class="input_search" type="text" name="num" placeholder="N° de la Benne" required>
+          <input class="input_search" type="number" name="volume" placeholder="Capacité (T)" required>
           <button type="submit">Créer une benne</button>
         </form>
       </div>
@@ -104,15 +104,26 @@
           <div id="comptesContent"></div> <!-- C'est ici qu'on va insérer les comptes. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
         </div>
          <form id="createCompte">
-          <input class="input_search" type="text" name="first_name" placeholder="Prénom">
-          <input class="input_search" type="text" name="name" placeholder="NOM">
+          <input class="input_search" type="text" name="first_name" placeholder="Prénom" required>
+          <input class="input_search" type="text" name="name" placeholder="NOM" required>
           <button type="submit">Créer un compte</button>
         </form>
       </div>
       <div style="display:none" id="clientsSearch">
+        <div id="searcherClient">
+                <input class='input_search' type="text" id="text_searcherClient" placeholder="Recherchez un client ici...">
+                <button id="filtrerComptes" onclick="putClients(document.getElementById('text_searcherClient').value);">Filtrer</button>
+                <button onclick="putClients('no'); document.getElementById('text_searcherClient').value = '';">Réinitialiser</button>
+                <progress id="client_progress" value="0" max="100"></progress>
+              </div>
         <div class="scroll-container" id="clientsScroller">
           <div id="clientsContent"></div> <!-- C'est ici qu'on va insérer les clients. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
         </div>
+        <form id="createClient">
+          <input class="input_search" type="text" name="name" placeholder="Nom de l'exploitation" required>
+          <input class="input_search" type="tel" name="phonenumber" placeholder="N° de Tel." required>
+          <button type="submit">Créer un client</button>
+        </form>
       </div>
       <div style="display:none" id="cerealesSearch">
         <div class="scroll-container" id="cerealesScroller">
@@ -159,7 +170,7 @@
         height:85vh;
         flex-direction:column;
       }
-      #selecter, #searcherBenne, #createBenne, #createCompte, #searcherCompte {
+      #selecter, #searcherBenne, #createBenne, #createCompte, #searcherCompte, #createClient, #searcherClient {
         width:100%;
         height:5%;
         background:linear-gradient(90deg, black, grey);
@@ -645,6 +656,9 @@ benDatas[ben.id] = ben;
          if (statut == "name") {
           return 'NOM';
         }
+        if (statut == "phonenumber") {
+          return 'Informations de contact';
+        }
          if (statut == "auth") {
           return 'Rôle dans la société';
         }
@@ -722,6 +736,25 @@ let what;
           setEditable();
           document.getElementById('deleter').onclick = () => {
           deleteCompte(numon)
+        }
+      }
+
+      async function setForClients () {
+        what = "client";
+        selecterInput = [
+        "phonenumber",
+        "name",
+        "latitude",
+        "longitude",
+        "notes"
+        ];
+          statusOpt = [
+        {name:"Conducteur", value:"driver", color:'green'},
+        {name:"Administrateur",value:"admin", color:'blue'},
+      ];
+          setEditable();
+          document.getElementById('deleter').onclick = () => {
+          deleteClient(numon)
         }
       }
       
@@ -871,6 +904,29 @@ let what;
         selecter.selectedIndex = 0;
         document.getElementById('inpSelecter').value = "";
         document.getElementById('filtrerComptes').click();
+      }
+      async function logModificationC () {
+        const parameterToChange = selecter.value;
+        const affSelecter = selecter.options[selecter.selectedIndex].text;
+        console.log("affSelecter :", affSelecter);
+        const value = document.getElementById('inpSelecter').value;
+        const num = numon;
+        const content = {
+          toupd : parameterToChange,
+          value_toupd : value,
+          eq:'num',
+          value_eq:num
+        };
+        console.log(content);
+        const fromServer = await fetcher('editclient', content, 'POST', sessionStorage.getItem('session_id'));
+        setTimeout(() => {
+        document.getElementById(`D{numon}`).click();
+        }, 500);
+        showToast(`Modification enregistrée (Client n°${numon} - ${affSelecter}) !`);
+        document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+        document.getElementById('inpSelecter').value = "";
+        document.getElementById('filtrerClients').click();
       }
     </script>
     <style>
@@ -1032,6 +1088,110 @@ comDatas[ben.id] = ben;
         const fromServer = await fetcher('deletecompte', content, 'POST', sessionStorage.getItem('session_id'));
             showToast(`Suppression effective (Compte n°${numon}) !`);
         putComptes('no');
+          }}
+      }
+
+        async function putClients(filtre) {
+              await setForClients ();
+              document.getElementById("registerPop").onclick = () => logModificationC();
+        console.log("Appel d'un putClients...");
+        const bennes = await getClients();
+        console.log(bennes);
+        let filtered = [];
+        if (filtre !== 'no') {
+        filtered = await filter(bennes, filtre);
+        } else {
+        filtered = bennes;
+        }
+        console.log("Le système a filtré la liste :");
+        console.log(filtered);
+        const bennesContainer = document.getElementById('clientsContent');
+        bennesContainer.innerHTML = "";
+        console.log("On va traiter l'ajout...");
+        for (const ben of filtered) {
+          console.log("Création d'un client :", ben);
+          const line = document.createElement('div');
+          line.classList.add('line');
+          line.id = `D${ben.id}`;
+cliDatas[ben.id] = ben;
+       const lightbox = document.getElementById('lightboxB');
+       const closeBtn = document.getElementById('close-btnB');
+        const imagePop = document.getElementById('lightImgB');
+      console.log("LIGHTBOX");
+      line.addEventListener('click', () => {
+         lightbox.style.display = 'flex';
+        console.log("Lien image :", ben.link);
+        document.getElementById('imagePop').src = ben.link;
+         document.getElementById('lightH2B').textContent = "Client n°" + ben.id;
+         document.getElementById('lightPB').textContent =  ben.name;
+        // document.getElementById('lightPB2').textContent =  "Euréa Coop";
+        document.getElementById('lightPB3').innerHTML =  "Contact : <strong>" + ben.phonenumber + "</strong>" ;
+        popAdresse(ben.latitude, ben.longitude);
+        numon = ben.id;
+        console.log(numon);
+        document.getElementById('editeurLightBenne').style.display == 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+       });
+        closeBtn.addEventListener('click', () => {
+         lightbox.style.display = 'none';
+        document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+       });
+       lightbox.addEventListener('click', (e) => {
+         if (e.target === lightbox) {
+           lightbox.style.display = 'none';
+             document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+         }
+       });
+    
+          
+          const num = document.createElement('p');
+          num.textContent = ben.id;
+          line.append(num);
+          const status = document.createElement('p');
+          status.textContent = ben.name + " | " + ben.phonenumber;
+          line.append(status);
+          const notes = document.createElement('p');
+          notes.textContent = ben.notes;
+          line.append(notes);
+          const pds = document.createElement('p');
+          pds.textContent = ben.adresse;
+          line.append(pds);
+          bennesContainer.append(line);
+        }
+      }
+      async function getClients() {
+        return await fetcher('getclients',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
+      }
+
+         document.getElementById('createClient').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = await Object.fromEntries(formData.entries());
+        const content = {
+          phonenumber:data.phonenumber,
+          name:data.name
+        };
+        const fromServer = await fetcher('createclient', content, 'POST', sessionStorage.getItem('session_id'));
+        showToast(`Création du client ${data.name} !`);
+        putComptes('no');
+        document.getElementById('createClient').reset();
+      });
+
+      async function deleteClient(num) {
+        console.log(numon)
+        if (confirm(`Supprimer le client n°${numon} ?`)) {
+          if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
+        const content = {
+          num:num
+        };
+        const fromServer = await fetcher('deleteclient', content, 'POST', sessionStorage.getItem('session_id'));
+            showToast(`Suppression effective (Client n°${numon}) !`);
+        putClients('no');
           }}
       }
       
