@@ -598,7 +598,7 @@ benDatas[ben.id] = ben;
         console.log("Appel d'un filtre");
         console.log("Avant :", what);
         const query = filtre.toLowerCase();
-        return what.filter(obj => Object.values(obj).some(val => String(val).toLowerCase().startsWith(query)));
+        return what.filter(obj => Object.values(obj).some(val => String(val).toLowerCase().includes(query)));
       }
 
       function short(str) {
