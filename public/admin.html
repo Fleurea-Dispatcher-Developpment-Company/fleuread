@@ -731,7 +731,7 @@ const comDatas = {};
         {name:"Prête",value:"B", color:'red'},
         {name:"En dépôt", value:"C", color:'blue'}
       ];
-      async setEditable() {
+      async function setEditable() {
         selecter.innerHTML = "";
         const option = document.createElement('option');
           option.value = "no";
