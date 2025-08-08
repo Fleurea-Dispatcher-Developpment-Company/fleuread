@@ -587,7 +587,7 @@ async function getComptes(thisid) {
       compteStatus(thisid);
       return {
         id:compte.num,
-        name:compte.NOM,
+        name:compte.name,
         first_name:compte.first_name,
         last_connection:compte.lastconnect,
         auth:compte.auth,
@@ -619,7 +619,7 @@ app.post('/createcompte', async (req, res) => {
     const first_name = req.body.first_name;
     const name = req.body.name;
     if (await checkRole('admin',thisid)) {
-      addDatabase ('comptes', '', {num:crypto.randomBytes(6).toString('hex'), password:crypto.randomBytes(3).toString('hex'),creation:new Date(), first_name:first_name, NOM:name}); // 45.72191877191547, 4.227417998761897
+      addDatabase ('comptes', '', {num:crypto.randomBytes(6).toString('hex'), password:crypto.randomBytes(3).toString('hex'),creation:new Date(), first_name:first_name, name:name}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
     } else {
       res.status(401);
