@@ -1019,8 +1019,8 @@ comDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
         console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
-         document.getElementById('lightH2B').textContent = "Compte n°" + ben.id;
-         document.getElementById('lightPB').textContent =  ben.first_name + " " + ben.name + " | " + toreadOpt(ben.auth);
+         document.getElementById('lightH2B').textContent = ben.first_name + " " + ben.name + " | " + toreadOpt(ben.auth);
+         document.getElementById('lightPB').textContent =  "Compte n°" + ben.id; // 
         document.getElementById('lightPB2').textContent =  "Euréa Coop";
         document.getElementById('lightPB3').innerHTML =  "Dernière connexion : <strong>" + formatTimestamp(ben.last_connection) + "</strong>" ;
   
@@ -1123,8 +1123,8 @@ cliDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
         console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
-         document.getElementById('lightH2B').textContent = "Client n°" + ben.id;
-         document.getElementById('lightPB').textContent =  ben.name;
+         document.getElementById('lightH2B').textContent =  ben.name;
+         document.getElementById('lightPB').textContent = "Client n°" + ben.id; // 
         // document.getElementById('lightPB2').textContent =  "Euréa Coop";
         document.getElementById('lightPB3').innerHTML =  "Contact : <strong>" + ben.phonenumber + "</strong>" ;
         popAdresse(ben.latitude, ben.longitude);
