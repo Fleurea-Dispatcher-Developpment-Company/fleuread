@@ -1390,7 +1390,7 @@ cerDatas[ben.id] = ben;
         return await fetcher('getcereales',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
       }
 
-         document.getElementById('createCereales').addEventListener('submit', async (e) => {
+         document.getElementById('createCereale').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = await Object.fromEntries(formData.entries());
