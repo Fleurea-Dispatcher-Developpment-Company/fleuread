@@ -929,7 +929,7 @@ let what;
         console.log(content);
         const fromServer = await fetcher('editclient', content, 'POST', sessionStorage.getItem('session_id'));
         setTimeout(() => {
-        document.getElementById(`D{numon}`).click();
+        document.getElementById(`D${numon}`).click();
         }, 500);
         showToast(`Modification enregistrée (Client n°${numon} - ${affSelecter}) !`);
         document.getElementById('editeurLightBenne').style.display = 'none';
