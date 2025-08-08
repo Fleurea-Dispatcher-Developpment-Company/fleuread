@@ -686,8 +686,9 @@ benDatas[ben.id] = ben;
 
 const benDatas = {};
 const comDatas = {};
-
+let what;
       async function setForBennes () {
+        what = "benne";
         selecterInput = [
         "volume",
         "notes",
@@ -704,6 +705,7 @@ const comDatas = {};
       }
 
         async function setForComptes () {
+        what = "compte";
         selecterInput = [
         "password",
         "name",
