@@ -790,7 +790,11 @@ const comDatas = {};
             document.getElementById('suggester').style.display = "none";
             document.getElementById('suggester').innerHTML = "";
           }
+          if (what == "benne") {
           document.getElementById('inpSelecter').value = benDatas[numon][value];
+          } else if (what == "compte") {
+           document.getElementById('inpSelecter').value = comDatas[numon][value]; 
+          }
         });
     </script>
     <script>
