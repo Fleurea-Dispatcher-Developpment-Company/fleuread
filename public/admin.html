@@ -74,8 +74,8 @@
         <button onclick="document.getElementById('bennesSearch').style.display='flex';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; putBennes('no'); document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none'; setForBennes();" id="btnBennes">Bennes</button>
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='flex';document.getElementById('clientsSearch').style.display='none';  putComptes('no'); document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none'; setForComptes();" id="btnComptes">Comptes</button>
         <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='flex'; putClients('no'); document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='none'; setForClients();" id="btnClients">Clients</button>
-        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; document.getElementById('cerealesSearch').style.display='flex';document.getElementById('infosSearch').style.display='none';" id="btnCereales">Céréales</button>
-        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='flex';" id="btnInfos">Paramètres</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; putCereales('no'); document.getElementById('cerealesSearch').style.display='flex';document.getElementById('infosSearch').style.display='none'; setForCereales();" id="btnCereales">Céréales</button>
+        <button onclick="document.getElementById('bennesSearch').style.display='none';document.getElementById('comptesSearch').style.display='none';document.getElementById('clientsSearch').style.display='none'; putParams('no'); document.getElementById('cerealesSearch').style.display='none';document.getElementById('infosSearch').style.display='flex'; setForParams();" id="btnInfos">Paramètres</button>
       </div>
       <div id="bennesSearch">
               <div id="searcherBenne">
@@ -126,11 +126,27 @@
         </form>
       </div>
       <div style="display:none" id="cerealesSearch">
+        <div id="searcherCereale">
+                <input class='input_search' type="text" id="text_searcherCereale" placeholder="Recherchez une céréale ici...">
+                <button id="filtrerCereales" onclick="putCereales(document.getElementById('text_searcherCereale').value);">Filtrer</button>
+                <button onclick="putCereales('no'); document.getElementById('text_searcherCereale').value = '';">Réinitialiser</button>
+                <progress id="cereale_progress" value="0" max="100"></progress>
+              </div>
         <div class="scroll-container" id="cerealesScroller">
           <div id="cerealesContent"></div> <!-- C'est ici qu'on va insérer les céréales. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
         </div>
+        <form id="createCereale">
+          <input class="input_search" type="text" name="name" placeholder="Nom de la céréale" required>
+          <button type="submit">Créer une céréale</button>
+        </form>
       </div>
       <div style="display:none" id="infosSearch">
+        <div id="searcherParam">
+                <input class='input_search' type="text" id="text_searcherParam" placeholder="Recherchez un paramètre ici...">
+                <button id="filtrerParams" onclick="putParams(document.getElementById('text_searcherParam').value);">Filtrer</button>
+                <button onclick="putParams('no'); document.getElementById('text_searcherParam').value = '';">Réinitialiser</button>
+                <progress id="param_progress" value="0" max="100"></progress>
+              </div>
         <div class="scroll-container" id="infosScroller">
           <div id="infosContent"></div> <!-- C'est ici qu'on va insérer les informations. Il faut savoir qu'on doit récupérer les bennes sous forme de liste, les insérer et quand on fait une recherche, on refait le protocole d'insertion sans le filtre-->
         </div>
@@ -707,6 +723,8 @@ benDatas[ben.id] = ben;
 const benDatas = {};
 const comDatas = {};
 const cliDatas = {};
+      const cerDatas = {};
+      const paramDatas = {};
 let what;
       async function setForBennes () {
         what = "benne";
@@ -764,6 +782,39 @@ let what;
           deleteClient(numon)
         }
       }
+
+            async function setForCereales () {
+        what = "cereale";
+        selecterInput = [
+        "photo",
+        "name",
+        "code"
+        ];
+          statusOpt = [
+        {name:"Conducteur", value:"driver", color:'green'},
+        {name:"Administrateur",value:"admin", color:'blue'},
+      ];
+          setEditable();
+          document.getElementById('deleter').onclick = () => {
+          deleteCereale(numon)
+        }
+      }
+
+         async function setForParams () {
+        what = "param";
+        selecterInput = [
+        "value"
+        ];
+          statusOpt = [
+        {name:"Conducteur", value:"driver", color:'green'},
+        {name:"Administrateur",value:"admin", color:'blue'},
+      ];
+          setEditable();
+          document.getElementById('deleter').onclick = () => {
+          deleteParam(numon)
+        }
+      }
+      
       
       const selecter = document.getElementById('modifierSelecter');
         let selecterInput = [
@@ -936,6 +987,52 @@ let what;
         selecter.selectedIndex = 0;
         document.getElementById('inpSelecter').value = "";
         document.getElementById('filtrerClients').click();
+      }
+      async function logModificationD () {
+        const parameterToChange = selecter.value;
+        const affSelecter = selecter.options[selecter.selectedIndex].text;
+        console.log("affSelecter :", affSelecter);
+        const value = document.getElementById('inpSelecter').value;
+        const num = numon;
+        const content = {
+          toupd : parameterToChange,
+          value_toupd : value,
+          eq:'num',
+          value_eq:num
+        };
+        console.log(content);
+        const fromServer = await fetcher('editcereale', content, 'POST', sessionStorage.getItem('session_id'));
+        setTimeout(() => {
+        document.getElementById(`E${numon}`).click();
+        }, 500);
+        showToast(`Modification enregistrée (Céréale n°${numon} - ${affSelecter}) !`);
+        document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+        document.getElementById('inpSelecter').value = "";
+        document.getElementById('filtrerCereales').click();
+      }
+      async function logModificationE () {
+        const parameterToChange = selecter.value;
+        const affSelecter = selecter.options[selecter.selectedIndex].text;
+        console.log("affSelecter :", affSelecter);
+        const value = document.getElementById('inpSelecter').value;
+        const num = numon;
+        const content = {
+          toupd : parameterToChange,
+          value_toupd : value,
+          eq:'num',
+          value_eq:num
+        };
+        console.log(content);
+        const fromServer = await fetcher('editparam', content, 'POST', sessionStorage.getItem('session_id'));
+        setTimeout(() => {
+        document.getElementById(`F${numon}`).click();
+        }, 500);
+        showToast(`Modification enregistrée (Paramètre n°${numon} - ${affSelecter}) !`);
+        document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+        document.getElementById('inpSelecter').value = "";
+        document.getElementById('filtrerParams').click();
       }
     </script>
     <style>
@@ -1217,6 +1314,107 @@ cliDatas[ben.id] = ben;
   return `${jour}/${mois}/${annee} à ${heures}h${minutes}`;
 }
 
+      async function putCereales(filtre) {
+              await setForCereales ();
+              document.getElementById("registerPop").onclick = () => logModificationD();
+        console.log("Appel d'un putCereales...");
+        const bennes = await getCereales();
+        console.log(bennes);
+        let filtered = [];
+        if (filtre !== 'no') {
+        filtered = await filter(bennes, filtre);
+        } else {
+        filtered = bennes;
+        }
+        console.log("Le système a filtré la liste :");
+        console.log(filtered);
+        const bennesContainer = document.getElementById('clientsContent');
+        bennesContainer.innerHTML = "";
+        console.log("On va traiter l'ajout...");
+        for (const ben of filtered) {
+          console.log("Création d'un client :", ben);
+          const line = document.createElement('div');
+          line.classList.add('line');
+          line.id = `E${ben.id}`;
+cerDatas[ben.id] = ben;
+       const lightbox = document.getElementById('lightboxB');
+       const closeBtn = document.getElementById('close-btnB');
+        const imagePop = document.getElementById('lightImgB');
+      console.log("LIGHTBOX");
+      line.addEventListener('click', () => {
+         lightbox.style.display = 'flex';
+        console.log("Lien image :", ben.photo);
+        document.getElementById('imagePop').src = ben.photo;
+         document.getElementById('lightH2B').textContent =  ben.name;
+         document.getElementById('lightPB').textContent = "Code :" + ben.code; // 
+        document.getElementById('lightPB2').textContent =  "Euréa Coop";
+        document.getElementById('lightPB3').innerHTML =  "Céréale" ;
+        numon = ben.id;
+        console.log(numon);
+        document.getElementById('editeurLightBenne').style.display == 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+       });
+        closeBtn.addEventListener('click', () => {
+         lightbox.style.display = 'none';
+        document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+       });
+       lightbox.addEventListener('click', (e) => {
+         if (e.target === lightbox) {
+           lightbox.style.display = 'none';
+             document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+         }
+       });
+    
+          
+          const num = document.createElement('p');
+          num.textContent = ben.id;
+          line.append(num);
+          const status = document.createElement('p');
+          status.textContent = ben.name;
+          line.append(status);
+          const notes = document.createElement('p');
+          notes.textContent = ben.code;
+          line.append(notes);
+         // const pds = document.createElement('p');
+         // pds.textContent = ben.adresse;
+         // line.append(pds);
+          bennesContainer.append(line);
+        }
+      }
+      async function getCereales() {
+        return await fetcher('getcereales',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
+      }
+
+         document.getElementById('createCereales').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = await Object.fromEntries(formData.entries());
+        const content = {
+          name:data.name
+        };
+        const fromServer = await fetcher('createcereale', content, 'POST', sessionStorage.getItem('session_id'));
+        showToast(`Création de la céréale ${data.name} !`);
+        putCereales('no');
+        document.getElementById('createCereale').reset();
+      });
+
+      async function deleteCereale(num) {
+        console.log(numon)
+        if (confirm(`Supprimer la céréale n°${numon} ?`)) {
+          if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
+        const content = {
+          num:num
+        };
+        const fromServer = await fetcher('deletecereale', content, 'POST', sessionStorage.getItem('session_id'));
+            showToast(`Suppression effective (Céréale n°${numon}) !`);
+        putCereales('no');
+          }}
+      }
     </script>
   </body>
 </html>
