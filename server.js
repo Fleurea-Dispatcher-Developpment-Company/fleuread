@@ -805,7 +805,7 @@ app.post('/deletecereale', async (req, res) => {
 app.post('/createcereale', async (req, res) => {
   try {
     const thisid = req.headers.auth;
-    const phonenumber = req.body.phonenumber;
+  //  const phonenumber = req.body.phonenumber;
     const name = req.body.name;
     const gen_num = Math.floor(100000 + Math.random() * 900000);
     const gen_date = new Date();
