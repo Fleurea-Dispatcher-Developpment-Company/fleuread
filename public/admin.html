@@ -403,6 +403,12 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
             document.getElementById('compte_progress').value = parseFloat(mes.value)*100;
           }
         }
+           if (mes.action === 'clistatus') {
+          if (mes.who === sessionStorage.getItem('session_id')) {
+            console.log(parseFloat(mes.value)*100);
+            document.getElementById('client_progress').value = parseFloat(mes.value)*100;
+          }
+        }
         });
       }
 
