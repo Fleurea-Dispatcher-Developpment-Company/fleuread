@@ -850,11 +850,11 @@ app.post('/getparams', async (req, res) => {
 async function getParams(thisid) {
   let comptes = await readDatabase('informations', '*');
   comptes.sort((a, b) => a.name - b.name);
-  totalStatCer = comptes.length;
-  nowStatCer = 0;
+  totalStatPar = comptes.length;
+  nowStatPar = 0;
   const formatted = await Promise.all(
     comptes.map(async (compte) => {
-      console.log("Lancement de la requête n°", nowStatCer);
+      console.log("Lancement de la requête n°", nowStatPar);
       paramStatus(thisid);
       return {
         id:compte.num,
