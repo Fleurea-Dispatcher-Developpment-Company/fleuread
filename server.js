@@ -833,3 +833,53 @@ app.post('/editcereale', async (req, res) => {
     }
   } catch (err) {console.error(err);}
 });
+
+app.post('/getparams', async (req, res) => {
+  console.log("Réception d'un GET params");
+  try {
+    const thisid = req.headers.auth;
+    if (await checkRole('admin',thisid)) {
+      const jsonme = await getParams(thisid);
+    res.json(jsonme);
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+async function getParams(thisid) {
+  let comptes = await readDatabase('informations', '*');
+  comptes.sort((a, b) => a.name - b.name);
+  totalStatCer = comptes.length;
+  nowStatCer = 0;
+  const formatted = await Promise.all(
+    comptes.map(async (compte) => {
+      console.log("Lancement de la requête n°", nowStatCer);
+      paramStatus(thisid);
+      return {
+        id:compte.num,
+        donnee:compte.donnee,
+        value:compte.value,
+        photo:compte.photo
+      }
+    })
+  );
+  console.log(formatted);
+  return formatted;
+}
+
+app.post('/editparam', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const toupd = req.body.toupd;
+    const value_toupd = req.body.value_toupd;
+    const eq = req.body.eq;
+    const value_eq = req.body.value_eq;
+    if (await checkRole('admin',thisid)) {
+      editDatabase ('informations', toupd, value_toupd, eq, value_eq);
+      res.send("Édition enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
