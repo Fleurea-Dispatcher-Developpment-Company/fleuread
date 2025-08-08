@@ -507,6 +507,7 @@ let generalDatas;
       }
 
       async function putBennes(filtre) {
+        await setForBennes ();
         console.log("Appel d'un putBennes...");
         const bennes = await getBennes();
         console.log(bennes);
@@ -907,6 +908,7 @@ const comDatas = {};
     </script>
     <script>
             async function putComptes(filtre) {
+              await setForComptes ();
         console.log("Appel d'un putComptes...");
         const bennes = await getComptes();
         console.log(bennes);
@@ -962,7 +964,7 @@ comDatas[ben.id] = ben;
        });
     
           
-          const num = document.createElement('h1');
+          const num = document.createElement('p');
           num.textContent = ben.id;
           line.append(num);
           const status = document.createElement('p');
