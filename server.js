@@ -532,7 +532,7 @@ async function clientStatus (thisid) {
 }
 
 async function cerealeStatus (thisid) {
-  nowStatCli += 1;
+  nowStatCer += 1;
   broadcastToAdmins({action:'cerstatus', value:(nowStatCer/totalStatCer), who:thisid});
 }
 
