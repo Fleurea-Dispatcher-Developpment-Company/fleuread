@@ -1469,8 +1469,8 @@ cerDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
         console.log("Lien image :", ben.photo);
         document.getElementById('imagePop').src = ben.photo;
-         document.getElementById('lightH2B').textContent =  ben.name;
-         document.getElementById('lightPB').textContent = "Code : " + ben.code; // 
+         document.getElementById('lightH2B').textContent =  ben.donnee;
+         document.getElementById('lightPB').textContent = ben.value; // 
         document.getElementById('lightPB2').textContent =  "Euréa Coop";
         document.getElementById('lightPB3').innerHTML =  "Paramètre" ;
         numon = ben.id;
@@ -1499,10 +1499,10 @@ cerDatas[ben.id] = ben;
           num.textContent = ben.id;
           line.append(num);
           const status = document.createElement('p');
-          status.textContent = ben.name;
+          status.textContent = ben.donnee;
           line.append(status);
           const notes = document.createElement('p');
-          notes.textContent = ben.code;
+          notes.textContent = ben.value;
           line.append(notes);
          // const pds = document.createElement('p');
          // pds.textContent = ben.adresse;
