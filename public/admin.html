@@ -1437,6 +1437,82 @@ cerDatas[ben.id] = ben;
         putCereales('no');
           }}
       }
+
+       async function putParams(filtre) {
+              await setForParams ();
+              document.getElementById("registerPop").onclick = () => logModificationE();
+        console.log("Appel d'un putCereales...");
+        const bennes = await getParams();
+        console.log(bennes);
+        let filtered = [];
+        if (filtre !== 'no') {
+        filtered = await filter(bennes, filtre);
+        } else {
+        filtered = bennes;
+        }
+        console.log("Le système a filtré la liste :");
+        console.log(filtered);
+        const bennesContainer = document.getElementById('paramsContent');
+        bennesContainer.innerHTML = "";
+        console.log("On va traiter l'ajout...");
+        for (const ben of filtered) {
+          console.log("Création d'un paramètre :", ben);
+          const line = document.createElement('div');
+          line.classList.add('line');
+          line.id = `F${ben.id}`;
+cerDatas[ben.id] = ben;
+       const lightbox = document.getElementById('lightboxB');
+       const closeBtn = document.getElementById('close-btnB');
+        const imagePop = document.getElementById('lightImgB');
+      console.log("LIGHTBOX");
+      line.addEventListener('click', () => {
+         lightbox.style.display = 'flex';
+        console.log("Lien image :", ben.photo);
+        document.getElementById('imagePop').src = ben.photo;
+         document.getElementById('lightH2B').textContent =  ben.name;
+         document.getElementById('lightPB').textContent = "Code : " + ben.code; // 
+        document.getElementById('lightPB2').textContent =  "Euréa Coop";
+        document.getElementById('lightPB3').innerHTML =  "Paramètre" ;
+        numon = ben.id;
+        console.log(numon);
+        document.getElementById('editeurLightBenne').style.display == 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+       });
+        closeBtn.addEventListener('click', () => {
+         lightbox.style.display = 'none';
+        document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+       });
+       lightbox.addEventListener('click', (e) => {
+         if (e.target === lightbox) {
+           lightbox.style.display = 'none';
+             document.getElementById('editeurLightBenne').style.display = 'none';
+        selecter.selectedIndex = 0;
+         document.getElementById('inpSelecter').value = "";
+         }
+       });
+    
+          
+          const num = document.createElement('p');
+          num.textContent = ben.id;
+          line.append(num);
+          const status = document.createElement('p');
+          status.textContent = ben.name;
+          line.append(status);
+          const notes = document.createElement('p');
+          notes.textContent = ben.code;
+          line.append(notes);
+         // const pds = document.createElement('p');
+         // pds.textContent = ben.adresse;
+         // line.append(pds);
+          bennesContainer.append(line);
+        }
+      }
+      async function getParams() {
+        return await fetcher('getparams',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
+      }
     </script>
   </body>
 </html>
