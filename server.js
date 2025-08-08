@@ -591,7 +591,8 @@ async function getComptes(thisid) {
         first_name:compte.first_name,
         last_connection:compte.lastconnect,
         auth:compte.auth,
-        link:compte.link
+        link:compte.link,
+        password:compte.password
       }
     })
   );
