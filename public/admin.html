@@ -1146,7 +1146,7 @@ comDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
         console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
-         document.getElementById('lightH2B').textContent = ben.first_name + " " + ben.name + " | " + toreadOpt(ben.auth);
+         document.getElementById('lightH2B').innerHTML = ben.first_name + " " + ben.name + " <br> " + toreadOpt(ben.auth);
          document.getElementById('lightPB').textContent =  "Compte n°" + ben.id; // 
         document.getElementById('lightPB2').textContent =  "Euréa Coop";
         document.getElementById('lightPB3').innerHTML =  "Dernière connexion : <strong>" + formatTimestamp(ben.last_connection) + "</strong>" ;
