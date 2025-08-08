@@ -506,6 +506,10 @@ let nowStatBen;
 let totalStatCom;
 let nowStatCom;
 
+let totalStatCli;
+let nowStatCli;
+
+
 async function benneStatus (thisid) {
   nowStatBen += 1;
   broadcastToAdmins({action:'benstatus', value:(nowStatBen/totalStatBen), who:thisid});
@@ -514,6 +518,11 @@ async function benneStatus (thisid) {
 async function compteStatus (thisid) {
   nowStatCom += 1;
   broadcastToAdmins({action:'comstatus', value:(nowStatCom/totalStatCom), who:thisid});
+}
+
+async function clientStatus (thisid) {
+  nowStatCli += 1;
+  broadcastToAdmins({action:'clistatus', value:(nowStatCli/totalStatCli), who:thisid});
 }
 
 app.post('/deletebenne', async (req, res) => {
@@ -639,6 +648,89 @@ app.post('/editcompte', async (req, res) => {
     const value_eq = req.body.value_eq;
     if (await checkRole('admin',thisid)) {
       editDatabase ('comptes', toupd, value_toupd, eq, value_eq);
+      res.send("Édition enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/getclients', async (req, res) => {
+  console.log("Réception d'un GET client");
+  try {
+    const thisid = req.headers.auth;
+    if (await checkRole('admin',thisid)) {
+      const jsonme = await getClients(thisid);
+    res.json(jsonme);
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+async function getClients(thisid) {
+  let comptes = await readDatabase('clients', '*');
+  comptes.sort((a, b) => a.NOM - b.NOM);
+  totalStatCli = comptes.length;
+  nowStatCli = 0;
+  const formatted = await Promise.all(
+    comptes.map(async (compte) => {
+      console.log("Lancement de la requête n°", nowStatCli);
+      clientStatus(thisid);
+      return {
+        id:compte.id,
+        phonenumber:compte.phonenumber,
+        notes:compte.notes,
+        creation:compte.creation,
+        link:compte.link,
+        adresse:compte.adresse,
+        latitude:compte.latitude,
+        longitude:compte.longitude
+      }
+    })
+  );
+  console.log(formatted);
+  return formatted;
+}
+
+app.post('/deleteclient', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const value_eq = req.body.num;
+    if (await checkRole('admin',thisid)) {
+      deleteDatabase ('clients', 'num', value_eq);
+      res.send("Suppression enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/createclient', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const phonenumber = req.body.phonenumber;
+    const name = req.body.name;
+    const gen_num = Math.floor(100000 + Math.random() * 900000);
+    const gen_date = new Date();
+    if (await checkRole('admin',thisid)) {
+      await addDatabase ('comptes', '', {num:gen_num, creation:gen_date, name:name, phonenumber:phonenumber}); // 45.72191877191547, 4.227417998761897
+      res.send("Création enregistrée avec succès !");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/editclient', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const toupd = req.body.toupd;
+    const value_toupd = req.body.value_toupd;
+    const eq = req.body.eq;
+    const value_eq = req.body.value_eq;
+    if (await checkRole('admin',thisid)) {
+      editDatabase ('clients', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
     } else {
       res.status(401);
