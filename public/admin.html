@@ -1181,7 +1181,7 @@ cliDatas[ben.id] = ben;
         };
         const fromServer = await fetcher('createclient', content, 'POST', sessionStorage.getItem('session_id'));
         showToast(`Création du client ${data.name} !`);
-        putComptes('no');
+        putClients('no');
         document.getElementById('createClient').reset();
       });
 
