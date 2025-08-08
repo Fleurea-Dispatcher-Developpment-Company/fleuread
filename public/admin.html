@@ -507,6 +507,7 @@ let generalDatas;
       }
 
       async function putBennes(filtre) {
+        document.getElementById("registerPop").onclick = () => logModification();
         await setForBennes ();
         console.log("Appel d'un putBennes...");
         const bennes = await getBennes();
@@ -909,6 +910,7 @@ const comDatas = {};
     <script>
             async function putComptes(filtre) {
               await setForComptes ();
+              document.getElementById("registerPop").onclick = () => logModificationB();
         console.log("Appel d'un putComptes...");
         const bennes = await getComptes();
         console.log(bennes);
