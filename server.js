@@ -685,7 +685,8 @@ async function getClients(thisid) {
         link:compte.link,
         adresse:compte.adresse,
         latitude:compte.latitude,
-        longitude:compte.longitude
+        longitude:compte.longitude,
+        name:compte.name
       }
     })
   );
