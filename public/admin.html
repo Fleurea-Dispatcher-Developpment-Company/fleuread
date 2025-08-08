@@ -694,6 +694,7 @@ const comDatas = {};
         {name:"Prête",value:"B", color:'red'},
         {name:"En dépôt", value:"C", color:'blue'}
       ];
+        setEditable();
       }
 
         async function setForComptes () {
@@ -707,6 +708,7 @@ const comDatas = {};
         {name:"Conducteur", value:"driver", color:'green'},
         {name:"Administrateur",value:"admin", color:'blue'},
       ];
+          setEditable();
       }
       
       const selecter = document.getElementById('modifierSelecter');
@@ -723,6 +725,8 @@ const comDatas = {};
         {name:"Prête",value:"B", color:'red'},
         {name:"En dépôt", value:"C", color:'blue'}
       ];
+      async setEditable() {
+        selecter.innerHTML = "";
         const option = document.createElement('option');
           option.value = "no";
           option.text = "Sélectionnez un paramètre";
@@ -734,6 +738,7 @@ const comDatas = {};
           option.text = toreadOpt(item);
           selecter.append(option);
         }
+      }
         selecter.addEventListener('change', (event) => {
           console.log(benDatas);
           const value = event.target.value;
