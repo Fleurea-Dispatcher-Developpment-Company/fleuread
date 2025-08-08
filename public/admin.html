@@ -994,7 +994,7 @@ comDatas[ben.id] = ben;
           first_name:data.first_name
         };
         const fromServer = await fetcher('createcompte', content, 'POST', sessionStorage.getItem('session_id'));
-        showToast(`Création du compte n°${data.num} !`);
+        showToast(`Création du compte de ${data.NOM} !`);
         putComptes('no');
         document.getElementById('createCompte').reset();
       });
