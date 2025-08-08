@@ -648,6 +648,12 @@ benDatas[ben.id] = ben;
          if (statut == "auth") {
           return 'Rôle dans la société';
         }
+          if (statut == "admin") {
+          return 'Administrateur';
+        }
+          if (statut == "driver") {
+          return 'Conducteur';
+        }
       }
 
  let numon;
@@ -945,7 +951,7 @@ comDatas[ben.id] = ben;
         console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
          document.getElementById('lightH2B').textContent = "Compte n°" + ben.id;
-         document.getElementById('lightPB').textContent =  ben.first_name + " " + ben.name + " | " + ben.auth;
+         document.getElementById('lightPB').textContent =  ben.first_name + " " + ben.name + " | " + toreadOpt(ben.auth);
         document.getElementById('lightPB2').textContent =  "Euréa Coop";
         document.getElementById('lightPB3').innerHTML =  "Dernière connexion : <strong>" + formatTimestamp(ben.last_connection) + "</strong>" ;
   
@@ -975,7 +981,7 @@ comDatas[ben.id] = ben;
           num.textContent = ben.id;
           line.append(num);
           const status = document.createElement('p');
-          status.textContent = ben.first_name + " " + ben.name + " | " + ben.auth;
+          status.textContent = ben.first_name + " " + ben.name + " | " + toreadOpt(ben.auth);
           line.append(status);
           const notes = document.createElement('p');
           notes.textContent = ben.password;
