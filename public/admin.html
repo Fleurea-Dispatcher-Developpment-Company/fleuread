@@ -1444,7 +1444,7 @@ cerDatas[ben.id] = ben;
        async function putParams(filtre) {
               await setForParams ();
               document.getElementById("registerPop").onclick = () => logModificationE();
-        console.log("Appel d'un putCereales...");
+        console.log("Appel d'un putParams...");
         const bennes = await getParams();
         console.log(bennes);
         let filtered = [];
@@ -1463,7 +1463,7 @@ cerDatas[ben.id] = ben;
           const line = document.createElement('div');
           line.classList.add('line');
           line.id = `F${ben.id}`;
-cerDatas[ben.id] = ben;
+paramDatas[ben.id] = ben;
        const lightbox = document.getElementById('lightboxB');
        const closeBtn = document.getElementById('close-btnB');
         const imagePop = document.getElementById('lightImgB');
