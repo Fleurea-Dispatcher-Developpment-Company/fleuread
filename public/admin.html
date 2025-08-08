@@ -1121,7 +1121,7 @@ comDatas[ben.id] = ben;
           console.log("Création d'un client :", ben);
           const line = document.createElement('div');
           line.classList.add('line');
-          line.id = `D${ben.id}`;
+          line.id = `D${ben.num}`;
 cliDatas[ben.id] = ben;
        const lightbox = document.getElementById('lightboxB');
        const closeBtn = document.getElementById('close-btnB');
@@ -1132,7 +1132,7 @@ cliDatas[ben.id] = ben;
         console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
          document.getElementById('lightH2B').textContent =  ben.name;
-         document.getElementById('lightPB').textContent = "Client n°" + ben.id; // 
+         document.getElementById('lightPB').textContent = "Client n°" + ben.num; // 
         // document.getElementById('lightPB2').textContent =  "Euréa Coop";
         document.getElementById('lightPB3').innerHTML =  "Contact : <strong>" + ben.phonenumber + "</strong>" ;
         popAdresse(ben.latitude, ben.longitude);
@@ -1159,7 +1159,7 @@ cliDatas[ben.id] = ben;
     
           
           const num = document.createElement('p');
-          num.textContent = ben.id;
+          num.textContent = ben.num;
           line.append(num);
           const status = document.createElement('p');
           status.textContent = ben.name + " | " + ben.phonenumber;
