@@ -1022,16 +1022,16 @@ app.post('/registerbenne', async (req, res) => {
         console.log(latitude);
         let adresse = await getAdress([latitude, longitude]);
         let message = `Confirmation : la benne n°<strong>${benne}</strong> a bien été enregistrée à l'adresse <strong>${adresse}</strong> ! <br> Merci !`;
-        res.json({'icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
+        res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
       } else {
         // On renvoit le contenu de la page benne inconnue
-        res.json({'icon':'https://cdn.pixabay.com/photo/2013/07/12/12/40/abort-146072_1280.png', 'message':`La benne ${benne} est inconnue dans nos systèmes...`});
+        res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2013/07/12/12/40/abort-146072_1280.png', 'message':`La benne ${benne} est inconnue dans nos systèmes...`});
       }
     } else {
      // On renvoit le contenu de la page non autorisé
-      res.json({'icon':'https://cdn.pixabay.com/photo/2013/07/12/17/00/remove-151678_1280.png', 'message':'Accès non autorisé'});
+      res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2013/07/12/17/00/remove-151678_1280.png', 'message':'Accès non autorisé'});
     }
   } catch (err) {console.error(err);
-            res.json({'icon':'https://cdn.pixabay.com/photo/2012/04/13/00/22/red-31226_1280.png', 'message':`Erreur : ${err}`});     
+            res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2012/04/13/00/22/red-31226_1280.png', 'message':`Erreur : ${err}`});     
                 }
 });
