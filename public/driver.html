@@ -417,7 +417,7 @@ let mydatas = {};
         const message = fromServer.message;
         document.getElementById('lightH2B').textContent = "Terminé";
          document.getElementById('lightImgB').src = link;
-         document.getElementById('lightPB').textContent = message;
+         document.getElementById('lightPB').innerHTML = message;
         document.getElementById('register_benne').reset();
       }
 
@@ -425,7 +425,7 @@ let mydatas = {};
         lightboxB.style.display = 'flex';
          document.getElementById('lightH2B').textContent = "En attente";
          document.getElementById('lightImgB').src = "https://cdn.pixabay.com/photo/2013/07/13/10/44/card-157700_1280.png";
-         document.getElementById('lightPB').textContent = "Récupération des coordonnées GPS...";
+         document.getElementById('lightPB').innerHTML = "Récupération des coordonnées GPS... <br><strong>Ne fermez pas l'application jusqu'à la fin de l'opération, s'il vous plaît !</strong>";
       }
     </script>
   </body>
