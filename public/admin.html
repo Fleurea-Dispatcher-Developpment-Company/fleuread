@@ -569,6 +569,7 @@ async function translateColor (input) {
            for (const marker of markers) {
              map.removeLayer(marker);
            }
+        markers.length = 0;
         // 
         for (const benne of generalDatas.bennes) {
           console.log("Plotting de la benne n° ", benne.num);
