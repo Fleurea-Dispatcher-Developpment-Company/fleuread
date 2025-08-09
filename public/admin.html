@@ -572,6 +572,7 @@ async function translateColor (input) {
             });
         // 
         for (const benne of generalDatas.bennes) {
+          console.log("Plotting de la benne n° ", benne.num);
           const marker = L.circleMarker([benne.latitude, benne.longitude], {
             radius:10,
             color:await translateColor(benne.statut),
@@ -579,9 +580,9 @@ async function translateColor (input) {
             fillOpacity:0.8
           })
           .addTo(map)
-          .bindPopup(benne.id)
+          .bindPopup(benne.num)
           marker.on('click', function(e) {
-            console.log(`La benne n° ${benne.id} a été cliquée, nous allons afficher ses informations dans le panneau latéral`);
+            console.log(`La benne n° ${benne.num} a été cliquée, nous allons afficher ses informations dans le panneau latéral`);
           });
         }
       }
