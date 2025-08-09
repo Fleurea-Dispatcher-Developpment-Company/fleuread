@@ -1047,8 +1047,10 @@ app.post('/checkreferrer', async (req, res) => {
       const tocheck = new URL(url);
 
       if (tocheck.hostname === "fleuread.onrender.com" && tocheck.pathname === "/driver") {
+        console.log("TRUE");
         return res.json({ value: true });
       } else {
+        console.log("FALSE");
         return res.json({ value: false });
       }
 
