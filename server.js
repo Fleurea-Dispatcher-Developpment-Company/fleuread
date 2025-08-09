@@ -996,3 +996,18 @@ page.drawText(numberText, {
   fs.writeFileSync(filePath, pdfBytes);
   return filePath;
 }
+
+app.post('/registerbenne', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const benne = req.body.id;
+    const latitude = req.body.latitude;
+    const longitude = req.body.longitude;
+    const altitude = req.body.altitude;
+    if (await checkSession(thisid)) {
+      // On renvoit le contenu de la page OK
+    } else {
+     // On renvoit le contenu de la page non OK
+    }
+  } catch (err) {console.error(err);}
+});
