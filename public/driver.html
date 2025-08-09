@@ -467,9 +467,14 @@ let mydatas = {};
     <script>
       async function readParams () {
         showToast("Lecture des paramètres en cours...");
+        try {
         const urlParams = new URLSearchParams(window.location.search);
         const action = urlParams.get('action');
         const id = urlParams.get('id');
+          showToast(`Résult : ${id} / ${action}`);
+        } catch (err) {
+          showToast(err.message, red);
+        }
       
             if (action == "register") {
               console.log("register");
