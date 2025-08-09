@@ -989,7 +989,7 @@ page.drawText(numberText, {
   const maxWidthB = 320;
 
   const textWidthB = font.widthOfTextAtSize(explications, fontSizeB);
-  const xCenterB = (595 - Math.min(textWidthB, maxWidthB)) / 2;
+  const xCenterB = (400 - Math.min(textWidthB, maxWidthB)) / 2;
   
   page.drawText(explications, {x:xCenterB, y:250, size:fontSizeB, font, color:rgb(0,0,0), maxWidth:maxWidthB});
   const pdfBytes = await pdfDoc.save();
