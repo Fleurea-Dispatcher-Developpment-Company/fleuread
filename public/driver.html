@@ -357,8 +357,12 @@ let mydatas = {};
       });
 
       async function getPosition () {
+        console.log("Lancement d'un getPosition");
         navigator.geolocation.getCurrentPosition(
           (position) => {
+          console.log("Obtention d'une position GPS");
+          console.log(position);
+          console.log(position.coords.latitude, position.coords.longitude, position.coords.altitude);
           return position.coords.latitude, position.coords.longitude, position.coords.altitude;
         },
             (error) => {
