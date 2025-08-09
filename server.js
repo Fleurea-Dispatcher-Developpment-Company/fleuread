@@ -928,7 +928,7 @@ app.get('/generate', async (req, res) => {
   const id = req.query.id;
   try {
   const fileName = `QrCode_benne_${id}.pdf`;
-  const filePath = path.join(__dirname, 'tmp', fileName);
+  const filePath = path.join(__dirname, fileName);
   await pdfWithQr(id, filePath);
   res.sendFile(filePath, err => {
     if (err) {
