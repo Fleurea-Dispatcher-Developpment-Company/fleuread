@@ -420,6 +420,7 @@ let mydatas = {};
          document.getElementById('lightImgB').src = link;
          document.getElementById('lightPB').innerHTML = message;
         document.getElementById('register_benne').reset();
+        return fromServer.status;
       }
 
       async function showPopup () {
@@ -440,6 +441,10 @@ let mydatas = {};
               console.log("register");
               if (id) {
                 console.log(`Nous allons enregistrer la benne ${id}`);
+                const status = await registerBenne(id);
+                if (status = "400") {
+                  window.history.replaceState({}, document.title, window.location.pathname);
+                }
               }
             }
       }
