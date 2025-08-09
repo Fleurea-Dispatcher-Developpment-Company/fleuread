@@ -903,3 +903,10 @@ app.post('/editparam', async (req, res) => {
     }
   } catch (err) {console.error(err);}
 });
+
+async function setHistorique (who, what, content, table) {
+  // Il faut récupérer la cellule selectionnée dans public:table:what
+  // La convertir en tableau
+  // Ajouter la ligne who made content on the table what
+  // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
+}
