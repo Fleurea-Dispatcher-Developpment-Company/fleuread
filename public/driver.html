@@ -431,6 +431,18 @@ let mydatas = {};
     </script>
     <script>
       async function readParams {
+        const urlParams = new URLSearchParams(window.location.search);
+        const action = urlParams.get('action');
+        const id = urlParams.get('id');
+     
+      
+            if (action == "register") {
+              console.log("register");
+              if (id) {
+                console.log(`Nous allons enregistrer la benne ${id}`);
+              }
+            }
+          
         
       }
     </script>
