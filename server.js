@@ -985,13 +985,13 @@ page.drawText(numberText, {
   color: rgb(0.7, 0, 0), // rouge foncé
 });
   const explications = `Découpez le cadre rouge et collez-le à proximité de la plaque d'immatriculation de la benne n° ${id}`;
-  const fontSize = 10;
-  const maxWidth = 320;
+  const fontSizeB = 10;
+  const maxWidthB = 320;
 
-  const textWidth = font.widthOfTextAtSize(explications, fontSize);
-  const xCenter = (595 - Math.min(textWidth, maxWidth)) / 2;
+  const textWidthB = font.widthOfTextAtSize(explications, fontSizeB);
+  const xCenterB = (595 - Math.min(textWidthB, maxWidthB)) / 2;
   
-  page.drawText(explications, {x:xCenter, y:250, size:fontSize, font, color:rgb(0,0,0), maxWidth:maxWidth});
+  page.drawText(explications, {x:xCenterB, y:250, size:fontSizeB, font, color:rgb(0,0,0), maxWidth:maxWidthB});
   const pdfBytes = await pdfDoc.save();
   fs.writeFileSync(filePath, pdfBytes);
   return filePath;
