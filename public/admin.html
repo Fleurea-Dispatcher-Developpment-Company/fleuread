@@ -574,6 +574,7 @@ async function translateColor (input) {
         // 
         for (const benne of generalDatas.bennes) {
           console.log("Plotting de la benne n° ", benne.num);
+          if (benne.latitude && benne.longitude) {
           const marker = L.circleMarker([benne.latitude, benne.longitude], {
             radius:10,
             color:await translateColor(benne.statut),
@@ -586,7 +587,8 @@ async function translateColor (input) {
             console.log(`La benne n° ${benne.num} a été cliquée, nous allons afficher ses informations dans le panneau latéral`);
           });
         }
-      }
+        }
+      
 
       async function getBennes() {
         return await fetcher('getbennes',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
