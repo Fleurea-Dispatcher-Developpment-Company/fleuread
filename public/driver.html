@@ -35,6 +35,7 @@
    </div>
     <div id="main" class="menu">
       <button onclick="document.getElementById('register').style.display='flex';document.getElementById('main').style.display='none';">Enregistrer une benne manuellement</button>
+      <br>
       <button onclick="document.getElementById('find').style.display='flex';document.getElementById('main').style.display='none';">Trouver une benne</button>
     </div>
     <div id="register" style="display:none" class="menu"></div>
@@ -54,9 +55,8 @@
       }
       .menu {
         display:flex;
-        flex-direction:row;
-        background:grey;
-        opacity:0.5;
+        flex-direction:column;
+        background-color:rgba(128, 128, 128, 0.5);
       }
       .form-container {
           background: white;
