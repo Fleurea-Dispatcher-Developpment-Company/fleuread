@@ -471,15 +471,15 @@ let mydatas = {};
         const urlParams = new URLSearchParams(window.location.search);
         const action = urlParams.get('action');
         const id = urlParams.get('benne');
-          showToast(`Résult : ${id} / ${action}`);
+       //   showToast(`Résult : ${id} / ${action}`);
       
       
             if (action == "register") {
               console.log("register");
-              showToast("Demande d'enregistrement...");
+          //    showToast("Demande d'enregistrement...");
               if (id) {
                 console.log(`Nous allons enregistrer la benne ${id}`);
-                showToast(`Nous allons enregistrer la benne ${id}`);
+              //  showToast(`Nous allons enregistrer la benne ${id}`);
                 document.getElementById('register').style.display='flex';
                 document.getElementById('main').style.display='none';
                 document.getElementById('find').style.display='none';
