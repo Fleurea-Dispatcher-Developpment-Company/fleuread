@@ -932,9 +932,9 @@ app.get('/generate', async (req, res) => {
   await pdfWithQr(id, filePath);
   res.sendFile(filePath, err => {
     if (err) {
-      res.status(500).send("Erreur serveur : ", err);
+      res.status(500).send("Erreur serveur : " + err.message);
     } else {
-      fs.unlink(filePath);
+      fs.unlinkSync(filePath);
     }
   });
   } catch (err) {
@@ -969,7 +969,7 @@ async function pdfWithQr(id, filePath) {
   page.drawRectangle({x:100, y:300, width:200, height:200, borderColor:rgb(0,0,0), borderWidth:2});
 const qrImage = await pdfDoc.embedPng(base64Data);
   const qrDims = qrImage.scale(1);
-  page.drawImage(qrImage, {x:100 + (200 - qrDims.width) / 2, y : 300 + 40, font, color:rgb(0,0,0)});
+  page.drawImage(qrImage, {x:100 + (200 - qrDims.width) / 2, y : 300 + 40, width:qrDims.width, height:qrDims.height});
   const explications = "Ce QR Code permet au conducteur de signaler la position de sa benne en le scannant.";
   page.drawText(explications, {x:40, y:250, size:12, font, color:rgb(0,0,0), maxWidth:320});
   const pdfBytes = await pdfDoc.save();
