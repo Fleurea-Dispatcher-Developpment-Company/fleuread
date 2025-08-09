@@ -956,7 +956,7 @@ async function pdfWithQr(id, filePath) {
   console.log("QR CODE GÉNÉRÉ !");
   // PDF
   const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([595,842]);
+  const page = pdfDoc.addPage([400,600]);
 
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
