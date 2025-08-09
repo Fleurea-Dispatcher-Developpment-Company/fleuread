@@ -906,7 +906,15 @@ app.post('/editparam', async (req, res) => {
 
 async function setHistorique (who, what, content, table) {
   // Il faut récupérer la cellule selectionnée dans public:table:what
+  const from = await readDatabase(table, '*');
+  let cellule;
+  for (const cell of from) {
+    if (cell.num == what) {
+      cellule = cell;
+    }
+  }
   // La convertir en tableau
   // Ajouter la ligne who made content on the table what
+  cellule.push({who:who, content:content, what:what});
   // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
 }
