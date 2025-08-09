@@ -918,3 +918,19 @@ async function setHistorique (who, what, content, table) {
   cellule.push({who:who, content:content, what:what});
   // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
 }
+
+// generate?what=QR&id=42
+app.get('/generate', async (req, res) => {
+  console.log("Generate QR-Code");
+  const what = req.query.what;
+  const id = req.query.id;
+  try {
+  res.sendFile(await pdfWithQr(id));
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+async function pdfWithQr(id) {
+  
+}
