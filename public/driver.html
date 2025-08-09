@@ -466,6 +466,7 @@ let mydatas = {};
     </script>
     <script>
       async function readParams () {
+        showToast("Params are being read");
         const urlParams = new URLSearchParams(window.location.search);
         const action = urlParams.get('action');
         const id = urlParams.get('id');
