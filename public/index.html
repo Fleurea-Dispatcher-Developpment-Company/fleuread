@@ -71,19 +71,19 @@
             if (await checkReferrer(last_url)) {
               console.log("On renvoit tout en conservant le query...");
               showToast("Keep Query");
-             // window.location.href = document.referrer;
+              window.location.href = document.referrer;
             } else {
               console.log("Le referrer n'était pas le driver");
                showToast("Don't keep Query");
-           //  window.location.href = `https://${url.hostname}/driver`; 
+             window.location.href = `https://${url.hostname}/driver`; 
             }
           } else {
              showToast("No doc. referrer");
-         //   window.location.href = `https://${url.hostname}/driver`; 
+            window.location.href = `https://${url.hostname}/driver`; 
           }
         }
         if (data.role == 'admin') {
-       //   window.location.href = `https://${url.hostname}/admin`;
+          window.location.href = `https://${url.hostname}/admin`;
         }
       }
       
