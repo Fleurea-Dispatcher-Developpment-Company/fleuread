@@ -961,15 +961,29 @@ async function pdfWithQr(id, filePath) {
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
   const fontSizeHeader = 18;
-  const headerText = `Cadre noir a découper et à coller à proximité de la plaque d'immatriculation de la benne.`;
+  const headerText = `Benne n°${id}`;
+  const textWidth = font.widthOfTextAtSize(headerText, fontSizeHeader);
+  const xCenter = (page.getWidth() - textWidth) / 2;
+  
   page.drawText(headerText,{
-    x:50, y:550, size:18, font, color:rgb(0,0,0)
+    x:xCenter, y:550, size:fontSizeHeader, font, color:rgb(0,0,0)
   });
 
-  page.drawRectangle({x:100, y:300, width:200, height:200, borderColor:rgb(0,0,0), borderWidth:2});
+  page.drawRectangle({x:100, y:300, width:210, height:210, borderColor:rgb(0.8,0,0), borderWidth:4});
+  page.drawRectangle({x:100, y:300, width:200, height:200, borderColor:rgb(1,0,0), borderWidth:2});
 const qrImage = await pdfDoc.embedPng(base64Data);
   const qrDims = qrImage.scale(1);
   page.drawImage(qrImage, {x:100 + (200 - qrDims.width) / 2, y : 300 + 40, width:qrDims.width, height:qrDims.height});
+  const fontSizeNumber = 30;
+const numberText = String(id);
+const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
+page.drawText(numberText, {
+  x: 100 + (200 - numberWidth) / 2,
+  y: 300 - 40,
+  size: fontSizeNumber,
+  font,
+  color: rgb(0.7, 0, 0), // rouge foncé
+});
   const explications = "Ce QR Code permet au conducteur de signaler la position de sa benne en le scannant.";
   page.drawText(explications, {x:40, y:250, size:12, font, color:rgb(0,0,0), maxWidth:320});
   const pdfBytes = await pdfDoc.save();
