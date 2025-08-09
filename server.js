@@ -585,7 +585,7 @@ app.post('/editbenne', async (req, res) => {
 });
 
 async function allDatas () {
-  const table = [];
+  const table = {};
   table.cereales = await readDatabase('cereales', '*');
   table.clients = await readDatabase('clients', '*');
   table.bennes = await readDatabase('bennes', '*');
