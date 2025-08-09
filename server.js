@@ -8,6 +8,8 @@ const http = require('http');
 const urler = require('url');
 const StaticMaps = require('staticmaps');
 const fs = require('fs');
+const QRCode = require('qrcode');
+const {PDFDocument, rgb, StandardFonts} = require('pdf-lib');
 
 // On gère tous les app.something
 const app = express();
@@ -925,12 +927,52 @@ app.get('/generate', async (req, res) => {
   const what = req.query.what;
   const id = req.query.id;
   try {
-  res.sendFile(await pdfWithQr(id));
+  const fileName = `QrCode_benne_${id}.pdf`;
+  const filePath = path.join(__dirname, 'tmp', fileName);
+  await pdfWithQr(id, filePath);
+  res.sendFile(filePath, err => {
+    if (err) {
+      res.status(500).send("Erreur serveur : ", err);
+    } else {
+      fs.unlink(filePath);
+    }
+  });
   } catch (err) {
     console.error(err);
   }
 });
 
-async function pdfWithQr(id) {
-  
+async function pdfWithQr(id, filePath) {
+  const url = `https://fleuread.onrender.com/driver/register?benne=${id}`;
+  const qrDataUrl = await QRCode.toDataURL(String(url), {
+    margin:1,
+    width:150,
+    color:{
+      dark:'#000000',
+      light:'#FFFFFF'
+    }
+  });
+  const base64Data = qrDataUrl.split(',')[1];
+  console.log("QR CODE GÉNÉRÉ !");
+  // PDF
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([400,600]);
+
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+  const fontSizeHeader = 18;
+  const headerText = `Cadre noir a découper et à coller à proximité de la plaque d'immatriculation de la benne.`;
+  page.drawText(headerText,{
+    x:50, y:550, size:18, font, color:rgb(0,0,0)
+  });
+
+  page.drawRectangle({x:100, y:300, width:200, height:200, borderColor:rgb(0,0,0), borderWidth:2});
+const qrImage = await pdfDoc.embedPng(base64Data);
+  const qrDims = qrImage.scale(1);
+  page.drawImage(qrImage, {x:100 + (200 - qrDims.width) / 2, y : 300 + 40, font, color:rgb(0,0,0)});
+  const explications = "Ce QR Code permet au conducteur de signaler la position de sa benne en le scannant.";
+  page.drawText(explications, {x:40, y:250, size:12, font, color:rgb(0,0,0), maxWidth:320});
+  const pdfBytes = await pdfDoc.save();
+  fs.writeFileSync(filePath, pdfBytes);
+  return filePath;
 }
