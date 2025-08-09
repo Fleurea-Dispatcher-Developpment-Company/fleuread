@@ -417,6 +417,10 @@ let mydatas = {};
         const fromServer = await fetcher('registerbenne', content, 'POST', sessionStorage.getItem('session_id'));
         const link = fromServer.icon;
         const message = fromServer.message;
+        const status = fromServer.status;
+           if (status == "400") {
+                  window.history.replaceState({}, document.title, window.location.pathname);
+            }
         document.getElementById('lightH2B').textContent = "Terminé";
          document.getElementById('lightImgB').src = link;
          document.getElementById('lightPB').innerHTML = message;
@@ -445,9 +449,6 @@ let mydatas = {};
                 document.getElementById("init_register").click();
                 // On ouvre la bonne page
                 document.getElementById("input_id").value = id;
-                if (status == "400") {
-                  window.history.replaceState({}, document.title, window.location.pathname);
-                }
               }
             }
       }
