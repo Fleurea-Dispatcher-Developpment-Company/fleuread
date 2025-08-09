@@ -1006,7 +1006,7 @@ app.post('/registerbenne', async (req, res) => {
     const altitude = req.body.altitude;
     if (await checkSession(thisid)) {
       // On renvoit le contenu de la page OK
-      const bennes = readDatabase('bennes', '*');
+      const bennes = await readDatabase('bennes', '*');
       const found = false;
       for (const ben of bennes) {
         if (ben.num == benne) {
