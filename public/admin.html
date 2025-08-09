@@ -575,6 +575,8 @@ async function translateColor (input) {
         for (const benne of generalDatas.bennes) {
           console.log("Plotting de la benne n° ", benne.num);
           if (benne.latitude && benne.longitude) {
+            console.log("Coordonnées : ", benne.latitude, ", ", benne.longitude);
+            console.log(benne.statut, " → ", await translateColor(benne.statut));
           const marker = L.circleMarker([benne.latitude, benne.longitude], {
             radius:10,
             color:await translateColor(benne.statut),
