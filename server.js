@@ -984,8 +984,8 @@ page.drawText(numberText, {
   font,
   color: rgb(0.7, 0, 0), // rouge foncé
 });
-  const explications = "Ce QR Code permet au conducteur de signaler la position de sa benne en le scannant.";
-  page.drawText(explications, {x:40, y:250, size:12, font, color:rgb(0,0,0), maxWidth:320});
+  const explications = `Découpez le cadre rouge et collez-le à proximité de la plaque d'immatriculation de la benne n° ${id}`;
+  page.drawText(explications, {x:40, y:250, size:10, font, color:rgb(0,0,0), maxWidth:320});
   const pdfBytes = await pdfDoc.save();
   fs.writeFileSync(filePath, pdfBytes);
   return filePath;
