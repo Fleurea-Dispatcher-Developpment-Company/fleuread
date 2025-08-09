@@ -362,7 +362,7 @@ let mydatas = {};
           (position) => {
           console.log("Obtention d'une position GPS");
           console.log(position);
-          console.log(position.coords.latitude, position.coords.longitude, position.coords.altitude);
+          console.log(position.coords.latitude, position.coords.longitude, position.coords.altitude || "Inconnue");
           return position.coords.latitude, position.coords.longitude, position.coords.altitude;
         },
             (error) => {
