@@ -470,7 +470,7 @@ let mydatas = {};
         try {
         const urlParams = new URLSearchParams(window.location.search);
         const action = urlParams.get('action');
-        const id = urlParams.get('id');
+        const id = urlParams.get('benne');
           showToast(`Résult : ${id} / ${action}`);
         } catch (err) {
           showToast(err.message, red);
