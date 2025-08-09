@@ -358,21 +358,23 @@ let mydatas = {};
 
       async function getPosition () {
         console.log("Lancement d'un getPosition");
+        return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
           console.log("Obtention d'une position GPS");
           console.log(position);
-          console.log(position.coords.latitude, position.coords.longitude, position.coords.altitude || "Inconnue");
-          return position.coords.latitude, position.coords.longitude, position.coords.altitude;
+          resolve({position.coords.latitude, position.coords.longitude, position.coords.altitude ?? "Inconnue"});
         },
             (error) => {
           console.error("Erreur:", error.message);
+              reject(error);
         }, {
             enableHighAccuracy:true,
             timeout:10000,
             maximumAge:0
         }
       );
+        });
       }
 
       async function registerBenne(id) {
