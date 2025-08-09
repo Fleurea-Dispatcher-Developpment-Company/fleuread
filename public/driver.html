@@ -385,6 +385,7 @@ let mydatas = {};
           longitude:longitude,
           altitude:altitude
         };
+        console.log(content);
         const fromServer = await fetcher('registerbenne', content, 'POST', sessionStorage.getItem('session_id'));
         document.getElementById('register_benne').reset();
       }
