@@ -44,16 +44,16 @@
    </div>
    </div>
     <div id="main" class="menu">
-      <button class="button_driver" onclick="document.getElementById('register').style.display='flex';document.getElementById('main').style.display='none';">Enregistrer une benne manuellement</button>
+      <button id="init_register" class="button_driver" onclick="document.getElementById('register').style.display='flex';document.getElementById('main').style.display='none';">Enregistrer une benne manuellement</button>
     
       <button class="button_driver" onclick="document.getElementById('find').style.display='flex';document.getElementById('main').style.display='none';">Trouver une benne</button>
     </div>
     <div id="register" style="display:none" class="menu">
       <div class="head_small">
-     <button class="button_driver" onclick="document.getElementById('register').style.display='none';document.getElementById('main').style.display='flex';">Retour</button>
+     <button id="return" class="button_driver" onclick="document.getElementById('register').style.display='none';document.getElementById('main').style.display='flex';">Retour</button>
        </div>
       <form id="register_benne">
-        <input type="text" name="num" placeholder="N° Exact Benne" required>
+        <input id="input_id" type="text" name="num" placeholder="N° Exact Benne" required>
         <button class="button_driver submitter" type="submit()">Enregistrer</button>
       </form>
     </div>
