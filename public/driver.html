@@ -34,9 +34,9 @@
    </div>
    </div>
     <div id="main" class="menu">
-      <button onclick="document.getElementById('register').style.display='flex';document.getElementById('main').style.display='none';">Enregistrer une benne manuellement</button>
-      <br>
-      <button onclick="document.getElementById('find').style.display='flex';document.getElementById('main').style.display='none';">Trouver une benne</button>
+      <button class="button_driver" onclick="document.getElementById('register').style.display='flex';document.getElementById('main').style.display='none';">Enregistrer une benne manuellement</button>
+    
+      <button class="button_driver" onclick="document.getElementById('find').style.display='flex';document.getElementById('main').style.display='none';">Trouver une benne</button>
     </div>
     <div id="register" style="display:none" class="menu"></div>
     <div id="find" style="display:none" class="menu"></div>
@@ -80,8 +80,6 @@
         box-sizing:border-box; 
       }
       button {
-        
-        
         background-color:blue;
         color:white;
        
@@ -94,6 +92,10 @@
       }
       button:hover {
         background-color:red;
+      }
+      .button_driver {
+        height:10vh;
+        font-size:2rem;
       }
       .img {
         max-width:80%;
