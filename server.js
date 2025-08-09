@@ -979,7 +979,7 @@ const numberText = String(id);
 const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
 page.drawText(numberText, {
   x: 100 + (200 - numberWidth) / 2,
-  y: 300 - 40,
+  y: 310,
   size: fontSizeNumber,
   font,
   color: rgb(0.7, 0, 0), // rouge foncé
