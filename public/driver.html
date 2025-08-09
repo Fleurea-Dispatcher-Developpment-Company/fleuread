@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   <body>
+    <div id="toast-container"></div>
     <div id="lightbox">
       <div class="lightbox-content w3-center">
         <span id="close-btn">&times;</span>
@@ -331,6 +332,34 @@ let mydatas = {};
         cursor:pointer;
         color:red;
       }
+      #toast-container {
+        position:fixed;
+        bottom:2vh;
+        right:2vw;
+        z-index:9999;
+        display:flex;
+        flex-direction:column;
+        gap:1vh;
+      }
+      .toast {
+        background-color:#4CAF50;
+        color:white;
+        padding: 1rem 1.5rem;
+        border-radius:5px;
+        font-size:1rem;
+        box-shadow: 0 0 10px;
+        animation:fadein 0.5s, fadeout 0.5s 14.5s;
+        opacity:0;
+        animation-fill-mode:forwards;
+      }
+      @keyframes fadein {
+        from {opacity:0; transform:translateX(50%);}
+        to {opacity:1; transform:translateX(0);}
+      }
+      @keyframes fadeout {
+        from {opacity:1; transform:translateX(0);}
+        to {opacity:0; transform:translateX(50%);}
+      }
     </style>
      <script>
        const profilePic = document.getElementById('compte');
@@ -453,6 +482,17 @@ let mydatas = {};
                 document.getElementById("input_id").value = id;
               }
             }
+      }
+
+      function showToast(message, color = '#4CAF50') {
+        const toast = document.createElement('div');
+        toast.classList.add('toast');
+        toast.textContent = message;
+        toast.style.backgroundColor = color;
+        document.getElementById('toast-container').append(toast);
+        setTimeout(() => {
+          toast.remove();
+        }, 15000)
       }
     </script>
   </body>
