@@ -585,7 +585,7 @@ async function translateColor (input) {
           .addTo(map)
           .bindPopup(benne.num)
           marker.on('click', function(e) {
-            console.log(`La benne n° ${benne.num} a été cliquée, nous allons afficher ses informations dans le panneau latéral`);
+            console.log(`La benne n° ${e.target} a été cliquée, nous allons afficher ses informations dans le panneau latéral`);
           });
             markers.push(marker);
         }
