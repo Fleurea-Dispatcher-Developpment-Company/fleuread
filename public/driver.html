@@ -422,6 +422,17 @@ let mydatas = {};
           resolve({latitude:position.coords.latitude, longitude:position.coords.longitude, altitude:position.coords.altitude ?? "Inconnue"});
         },
             (error) => {
+              let message;
+              switch (error.code) {
+                case error.PERMISSION_DENIED:
+                  message = "❌ Autorisez la localisation";
+                  break;
+                  case error.POSITION_UNAVAILABLE:
+                  message = "⚠️ Activez la localisation";
+                  break;
+                default:message = "❓Erreur inconnue...";
+              }
+              showToast(message,"red");
           console.error("Erreur:", error.message);
               reject(error);
         }, {
