@@ -18,7 +18,7 @@
         <button onclick="localStorage.removeItem('offtoken'); sessionStorage.removeItem('session_id'); start();">Se déconnecter</button>
       </div>
     </div>
-    <div id="lightboxB">
+    <div style="display:none" id="lightboxB">
       <div class="lightbox-content w3-center">
         <span id="close-btnB">&times;</span>
         <div class="circleB" style="top:50%; left:50%; transform:translate(-50%,-50%)">
@@ -404,6 +404,7 @@ let mydatas = {};
       }
 
       async function registerBenne(id) {
+        showPopup();
         const {latitude, longitude, altitude} = await getPosition();
           const content = {
           id:id,
@@ -413,7 +414,7 @@ let mydatas = {};
         };
         console.log(content);
         const fromServer = await fetcher('registerbenne', content, 'POST', sessionStorage.getItem('session_id'));
-        const link = fromServer.link;
+        const link = fromServer.icon;
         const message = fromServer.message;
         document.getElementById('lightH2B').textContent = "Terminé";
          document.getElementById('lightImgB').src = link;
