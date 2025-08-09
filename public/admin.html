@@ -572,7 +572,7 @@ async function translateColor (input) {
             });
         // 
         for (const benne of generalDatas.bennes) {
-          const marker = L.circleMaker([benne.latitude, benne.longitude], {
+          const marker = L.circleMarker([benne.latitude, benne.longitude], {
             radius:10,
             color:await translateColor(benne.statut),
             fillColor:await translateColor(benne.statut),
