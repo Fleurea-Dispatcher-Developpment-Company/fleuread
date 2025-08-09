@@ -442,7 +442,9 @@ let mydatas = {};
               console.log("register");
               if (id) {
                 console.log(`Nous allons enregistrer la benne ${id}`);
-                const status = await registerBenne(id);
+                document.getElementById("init_register").click();
+                // On ouvre la bonne page
+                document.getElementById("input_id").value = id;
                 if (status == "400") {
                   window.history.replaceState({}, document.title, window.location.pathname);
                 }
