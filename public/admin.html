@@ -1229,9 +1229,9 @@ comDatas[ben.id] = ben;
        });
     
           
-          const num = document.createElement('p');
-          num.textContent = ben.id;
-          line.append(num);
+         // const num = document.createElement('p');
+         // num.textContent = ben.id;
+        //  line.append(num);
           const status = document.createElement('p');
           status.innerHTML = ben.first_name + " " + ben.name + " <br> " + toreadOpt(ben.auth);
           line.append(status);
@@ -1333,9 +1333,9 @@ cliDatas[ben.id] = ben;
        });
     
           
-        //  const num = document.createElement('p');
-        //  num.textContent = ben.id;
-        //  line.append(num);
+        const num = document.createElement('p');
+        num.textContent = ben.id;
+        line.append(num);
           const status = document.createElement('p');
           status.innerHTML = ben.name + " <br> " + ben.phonenumber;
           line.append(status);
@@ -1449,18 +1449,18 @@ cerDatas[ben.id] = ben;
        });
     
           
-          const num = document.createElement('p');
-          num.textContent = ben.id;
-          line.append(num);
+        //  const num = document.createElement('p');
+        //  num.textContent = ben.id;
+         // line.append(num);
           const status = document.createElement('p');
           status.textContent = ben.name;
           line.append(status);
           const notes = document.createElement('p');
           notes.textContent = ben.code;
           line.append(notes);
-         // const pds = document.createElement('p');
-         // pds.textContent = ben.adresse;
-         // line.append(pds);
+         const pds = document.createElement('p');
+        pds.textContent = ben.adresse;
+         line.append(pds);
           bennesContainer.append(line);
         }
       }
