@@ -1018,7 +1018,7 @@ app.post('/registerbenne', async (req, res) => {
       await editDatabase ('bennes', 'latitude', longitude, 'num', benne);
       await editDatabase ('bennes', 'altitude', altitude, 'num', benne);
       socketReload ("benne");
-        let adresse = await getAdress(latitude, longitude);
+        let adresse = await getAdress(longitude, latitude);
         let message = `Confirmation : la benne n°<strong>${benne}</strong> a bien été enregistrée à l'adresse <strong>${adresse}</strong> ! <br> Merci !`;
         res.json({'icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
       } else {
