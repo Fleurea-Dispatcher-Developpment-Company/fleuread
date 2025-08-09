@@ -1043,6 +1043,7 @@ app.post('/checkreferrer', async (req, res) => {
     const url = req.body.url;
 
     if (await checkSession(thisid)) {
+      console.log(url);
       const tocheck = new URL(url);
 
       if (tocheck.hostname === "fleuread.onrender.com" && tocheck.pathname === "/driver") {
