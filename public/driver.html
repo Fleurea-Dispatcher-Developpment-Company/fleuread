@@ -55,7 +55,7 @@
        </div>
       <form id="register_benne">
         <input id="input_id" type="text" name="num" placeholder="N° Exact Benne" required>
-        <button class="button_driver submitter" type="submit()">Enregistrer</button>
+        <button id="submitter_benne"class="button_driver submitter" type="submit()">Enregistrer</button>
       </form>
     </div>
     <div id="find" style="display:none" class="menu">
@@ -485,6 +485,7 @@ let mydatas = {};
                 document.getElementById('find').style.display='none';
                 // On ouvre la bonne page
                 document.getElementById("input_id").value = id;
+                document.getElementById('submitter_benne').click();
               }
             }
       }
