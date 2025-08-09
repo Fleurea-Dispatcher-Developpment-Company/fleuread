@@ -670,6 +670,12 @@ benDatas[ben.id] = ben;
           const pds = document.createElement('p');
           pds.textContent = `${ben.volume} T`;
           line.append(pds);
+          const but = document.createElement('button');
+          but.textContent = `QR-Code`;
+          but.onclick = () => {
+            window.open(`https://fleuread.onrender.com/generate?what=QR&id=${ben.id}`,'_blank');
+            }
+          line.append(but);
           bennesContainer.append(line);
         }
       }
