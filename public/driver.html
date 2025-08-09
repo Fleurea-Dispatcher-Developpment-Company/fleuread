@@ -308,6 +308,15 @@ let mydatas = {};
          }
        });
        });
+       async function checkWebSocket() {
+        if (!socket || socket.readyState == WebSocket.CLOSED ||  socket.readyState == WebSocket.CLOSING) {
+          console.log("WebSocket Inactif !");
+          window.location.reload();
+        } else {
+          console.log("WebSocket Actif !");
+        }
+      }
+      setInterval(checkWebSocket, 15*1000);
      </script>
   </body>
 </html>
