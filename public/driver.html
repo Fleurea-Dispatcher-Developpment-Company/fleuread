@@ -443,7 +443,7 @@ let mydatas = {};
               if (id) {
                 console.log(`Nous allons enregistrer la benne ${id}`);
                 const status = await registerBenne(id);
-                if (status = "400") {
+                if (status == "400") {
                   window.history.replaceState({}, document.title, window.location.pathname);
                 }
               }
