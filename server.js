@@ -943,7 +943,7 @@ app.get('/generate', async (req, res) => {
 });
 
 async function pdfWithQr(id, filePath) {
-  const url = `https://fleuread.onrender.com/driver/?action=register&benne=${id}`;
+  const url = `https://fleuread.onrender.com/driver?action=register&benne=${id}`;
   const qrDataUrl = await QRCode.toDataURL(String(url), {
     margin:1,
     width:150,
