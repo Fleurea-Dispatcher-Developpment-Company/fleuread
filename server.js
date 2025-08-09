@@ -585,7 +585,11 @@ app.post('/editbenne', async (req, res) => {
 });
 
 async function allDatas () {
-  return await readDatabase('cereales', '*');
+  const table = [];
+  table.cereales = await readDatabase('cereales', '*');
+  table.clients = await readDatabase('clients', '*');
+  table.bennes = await readDatabase('bennes', '*');
+  return table;
 }
 
 app.post('/getcomptes', async (req, res) => {
