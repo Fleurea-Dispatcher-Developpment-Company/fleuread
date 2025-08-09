@@ -356,7 +356,7 @@ let mydatas = {};
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = await Object.fromEntries(formData.entries());
-        registerBenne(data.id);
+        registerBenne(data.num);
       });
 
       async function getPosition () {
