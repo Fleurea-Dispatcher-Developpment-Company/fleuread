@@ -58,11 +58,15 @@
         };
         const data = await fetcher('getrole', content, 'POST', sessionId);
         console.log(data.role);
+        console.log("Nous allons procéder à l'analyse du parcours...");
         if (data.role == 'driver') {
+          console.log("Conducteur");
           if (document.referrer) {
             console.warn(document.referrer);
             const last_url = new URL (document.referrer);
+            console.log(last_url);
             if (last_url.hostname == "fleurea.onrender.com" && last_url.pathname == "/driver") {
+              console.log("On renvoit tout en conservant le query...");
               window.location.href = document.referrer;
             } else {
              window.location.href = `https://${url.hostname}/driver`; 
