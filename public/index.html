@@ -68,7 +68,7 @@
             console.warn(document.referrer);
             const last_url = new URL (document.referrer);
             console.log(last_url);
-            if (last_url.hostname == "fleuread.onrender.com" && last_url.pathname == "/driver") {
+            if (await checkReferrer(last_url)) {
               console.log("On renvoit tout en conservant le query...");
               showToast("Keep Query");
              // window.location.href = document.referrer;
@@ -91,6 +91,14 @@
         document.getElementById('connected').hidden = true;
         document.getElementById('unconnected').hidden = false;
         autoConnect();
+      }
+
+      async checkReferrer(url) {
+        const content = {
+          url:url
+        }
+         const answer = await fetcher('checkreferrer',content,'POST','noauth');
+        return answer.value;
       }
       
       async function check(id) {
