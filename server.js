@@ -1014,8 +1014,8 @@ app.post('/registerbenne', async (req, res) => {
         }
       }
       if (found) {
-      await editDatabase ('bennes', 'latitude', latitude, 'num', benne);
-      await editDatabase ('bennes', 'longitude', longitude, 'num', benne);
+      await editDatabase ('bennes', 'longitude', latitude, 'num', benne);
+      await editDatabase ('bennes', 'latitude', longitude, 'num', benne);
       await editDatabase ('bennes', 'altitude', altitude, 'num', benne);
       socketReload ("benne");
         let adresse = await getAdress(latitude, longitude);
