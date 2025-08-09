@@ -425,12 +425,12 @@ let mydatas = {};
               let message;
               switch (error.code) {
                 case error.PERMISSION_DENIED:
-                  message = "❌ Autorisez la localisation";
+                  message = "Autorisez la localisation";
                   break;
                   case error.POSITION_UNAVAILABLE:
-                  message = "⚠️ Activez la localisation";
+                  message = "Activez la localisation";
                   break;
-                default:message = "❓Erreur inconnue...";
+                default:message = "Erreur inconnue";
               }
               showToast(message,"red");
           console.error("Erreur:", error.message);
