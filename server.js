@@ -515,6 +515,9 @@ let nowStatCer;
 let totalStatPar;
 let nowStatPar;
 
+async function socketReload (what) {
+  broadcastToAdmins({action:'reload', what:what});
+}
 
 async function benneStatus (thisid) {
   nowStatBen += 1;
@@ -548,6 +551,7 @@ app.post('/deletebenne', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       deleteDatabase ('bennes', 'num', value_eq);
       res.send("Suppression enregistrée avec succès !");
+      socketReload ("benne");
     } else {
       res.status(401);
     }
@@ -562,6 +566,7 @@ app.post('/createbenne', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       addDatabase ('bennes', '', {num:num, volume:vol, creation:new Date(), longitude:"45.72191877191547", latitude:"4.227417998761897", statut:"C"}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
+      socketReload ("benne");
     } else {
       res.status(401);
     }
@@ -578,6 +583,7 @@ app.post('/editbenne', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('bennes', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
+      socketReload ("benne");
     } else {
       res.status(401);
     }
@@ -636,6 +642,7 @@ app.post('/deletecompte', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       deleteDatabase ('comptes', 'num', value_eq);
       res.send("Suppression enregistrée avec succès !");
+      socketReload ("compte");
     } else {
       res.status(401);
     }
@@ -653,6 +660,7 @@ app.post('/createcompte', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       await addDatabase ('comptes', '', {num:gen_num, password:gen_password,creation:gen_date, first_name:first_name, name:name}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
+      socketReload ("compte");
     } else {
       res.status(401);
     }
@@ -669,6 +677,7 @@ app.post('/editcompte', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('comptes', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
+      socketReload ("compte");
     } else {
       res.status(401);
     }
@@ -721,6 +730,7 @@ app.post('/deleteclient', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       deleteDatabase ('clients', 'num', value_eq);
       res.send("Suppression enregistrée avec succès !");
+      socketReload ("client");
     } else {
       res.status(401);
     }
@@ -737,6 +747,7 @@ app.post('/createclient', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       await addDatabase ('clients', '', {num:gen_num, creation:gen_date, name:name, phonenumber:phonenumber}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
+      socketReload ("client");
     } else {
       res.status(401);
     }
@@ -753,6 +764,7 @@ app.post('/editclient', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('clients', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
+      socketReload ("client");
     } else {
       res.status(401);
     }
@@ -800,6 +812,7 @@ app.post('/deletecereale', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       deleteDatabase ('cereales', 'num', value_eq);
       res.send("Suppression enregistrée avec succès !");
+      socketReload ("cereale");
     } else {
       res.status(401);
     }
@@ -816,6 +829,7 @@ app.post('/createcereale', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       await addDatabase ('cereales', '', {num:gen_num, name:name}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
+      socketReload ("cereale");
     } else {
       res.status(401);
     }
@@ -832,6 +846,7 @@ app.post('/editcereale', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('cereales', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
+      socketReload ("cereale");
     } else {
       res.status(401);
     }
@@ -882,6 +897,7 @@ app.post('/editparam', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('informations', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
+      socketReload ("param");
     } else {
       res.status(401);
     }
