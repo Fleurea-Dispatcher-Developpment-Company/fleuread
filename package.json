@@ -8,7 +8,9 @@
     "express": "^4.18.2",
     "@supabase/supabase-js": "^2.53.0",
     "cors":"^2.8.5",
-    "staticmaps":"latest"
+    "staticmaps":"latest",
+    "pdf-lib":"latest",
+    "qrcode":"latest"
   },
   "bugs":{
     "url":"https://github.com/Fleurea-Dispatcher-Developpment-Company/project/issues",
