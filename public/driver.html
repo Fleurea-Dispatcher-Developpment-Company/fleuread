@@ -42,6 +42,10 @@
       <div class="head_small">
      <button class="button_driver" onclick="document.getElementById('register').style.display='none';document.getElementById('main').style.display='flex';">Retour</button>
        </div>
+      <form id="register_benne">
+        <input type="text" name="num" placeholder="N° Exact Benne" required>
+        <button type="submit()">Enregistrer</button>
+      </form>
     </div>
     <div id="find" style="display:none" class="menu">
       <div class="head_small">
@@ -344,5 +348,40 @@ let mydatas = {};
       }
       setInterval(checkWebSocket, 15*1000);
      </script>
+    <script>
+         document.getElementById('register_benne').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = await Object.fromEntries(formData.entries());
+        registerBenne(data.id);
+      });
+
+      async function getPosition () {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+          return position.coords.latitude, position.coords.longitude, position.coords.altitude;
+        },
+            (error) => {
+          console.error("Erreur:", error.message);
+        }, {
+            enableHighAccuracy:true,
+            timeout:10000,
+            maximumAge:0
+        }
+      );
+      }
+
+      async function registerBenne(id) {
+        const {latitude, longitude, altitude} = await getPosition();
+          const content = {
+          id:id,
+          latitude:latitude,
+          longitude:longitude,
+          altitude:altitude
+        };
+        const fromServer = await fetcher('registerbenne', content, 'POST', sessionStorage.getItem('session_id'));
+        document.getElementById('register_benne').reset();
+      }
+    </script>
   </body>
 </html>
