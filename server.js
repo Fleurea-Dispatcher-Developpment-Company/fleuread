@@ -1035,3 +1035,29 @@ app.post('/registerbenne', async (req, res) => {
             res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2012/04/13/00/22/red-31226_1280.png', 'message':`Erreur : ${err}`});     
                 }
 });
+
+app.post('/checkreferrer', async (req, res) => {
+  console.log("CheckReferrer");
+  try {
+    const thisid = req.headers.auth;
+    const url = req.body.url;
+
+    if (await checkSession(thisid)) {
+      const tocheck = new URL(url);
+
+      if (tocheck.hostname === "fleuread.onrender.com" && tocheck.pathname === "/driver") {
+        return res.json({ value: true });
+      } else {
+        return res.json({ value: false });
+      }
+
+    } else {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
