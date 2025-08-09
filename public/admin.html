@@ -566,11 +566,9 @@ async function translateColor (input) {
         // On possède les données
         await getGeneralDatas();
         // On enlève d'abord tous les marqueurs
-            map.eachLayer(function(layer) {
-                if (layer instanceof L.Marker) {
-                map.removeLayer(layer);
-                }
-            });
+           for (const marker of markers) {
+             map.removeLayer(marker);
+           }
         // 
         for (const benne of generalDatas.bennes) {
           console.log("Plotting de la benne n° ", benne.num);
@@ -588,6 +586,7 @@ async function translateColor (input) {
           marker.on('click', function(e) {
             console.log(`La benne n° ${benne.num} a été cliquée, nous allons afficher ses informations dans le panneau latéral`);
           });
+            markers.push(marker);
         }
         }
       }
