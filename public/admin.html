@@ -547,6 +547,45 @@ let generalDatas;
       map.invalidateSize();
       }, 300);
 
+async function translateColor (input) {
+  if (input == "A") {
+    return "yellow";
+  }
+  if (input == "B") {
+    return "red";
+  }
+  if (input == "C") {
+    return "blue";
+  }
+}
+      
+    const markers = [];
+      
+      async function plotPoints () {
+        // On possède les données
+        await getGeneralDatas();
+        // On enlève d'abord tous les marqueurs
+            map.eachLayer(function(layer) {
+                if (layer instanceof L.Marker) {
+                map.removeLayer(layer);
+                }
+            });
+        // 
+        for (const benne of generalDatas.bennes) {
+          const marker = L.circleMaker([benne.latitude, benne.longitude], {
+            radius:10,
+            color:await translateColor(benne.statut),
+            fillColor:await translateColor(benne.statut),
+            fillOpacity:0.8
+          })
+          .addTo(map)
+          .bindPopup(benne.id)
+          marker.on('click', function(e) {
+            console.log(`La benne n° ${benne.id} a été cliquée, nous allons afficher ses informations dans le panneau latéral`);
+          });
+        }
+      }
+
       async function getBennes() {
         return await fetcher('getbennes',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
       }
@@ -744,9 +783,10 @@ benDatas[ben.id] = ben;
 const benDatas = {};
 const comDatas = {};
 const cliDatas = {};
-      const cerDatas = {};
-      const paramDatas = {};
+const cerDatas = {};
+const paramDatas = {};
 let what;
+      
       async function setForBennes () {
         what = "benne";
         selecterInput = [
