@@ -984,7 +984,7 @@ page.drawText(numberText, {
   font,
   color: rgb(0.7, 0, 0), // rouge foncé
 });
-  const explications = `Découpez le cadre rouge et collez-le à proximité de la plaque d'immatriculation de la benne n°${id}. Scannez ce Qr-Code avec un compte conducteur pour signaler automatiquement la position de cette benne au système Fleuréa Dispatcher`;
+  const explications = `Découpez le cadre rouge et collez-le à proximité de la plaque d'immatriculation de la benne n°${id}. Scannez ce Qr-Code avec un compte conducteur pour signaler automatiquement la position de cette benne au système Fleuréa Dispatcher.`;
   const fontSizeB = 10;
   const maxWidthB = 320;
 
@@ -1007,7 +1007,7 @@ app.post('/registerbenne', async (req, res) => {
     if (await checkSession(thisid)) {
       // On renvoit le contenu de la page OK
       const bennes = await readDatabase('bennes', '*');
-      const found = false;
+      let found = false;
       for (const ben of bennes) {
         if (ben.num == benne) {
           found = true;
