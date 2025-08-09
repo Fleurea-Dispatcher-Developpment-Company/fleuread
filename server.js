@@ -969,7 +969,7 @@ async function pdfWithQr(id, filePath) {
     x:xCenter, y:550, size:fontSizeHeader, font, color:rgb(0,0,0)
   });
 
-  page.drawRectangle({x:100, y:300, width:210, height:210, borderColor:rgb(0.8,0,0), borderWidth:4});
+  page.drawRectangle({x:95, y:295, width:210, height:210, borderColor:rgb(0.8,0,0), borderWidth:4});
   page.drawRectangle({x:100, y:300, width:200, height:200, borderColor:rgb(1,0,0), borderWidth:2});
 const qrImage = await pdfDoc.embedPng(base64Data);
   const qrDims = qrImage.scale(1);
