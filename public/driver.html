@@ -275,7 +275,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
         });
         socket.addEventListener("message", (event) => {
         mes = JSON.parse(event.data);
-        if (mes.action = 'time') {
+        if (mes.action == 'time') {
           document.getElementById('time').textContent = mes.value;
         }
       });
