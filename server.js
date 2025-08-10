@@ -1115,13 +1115,13 @@ app.post('/findbenne', async (req, res) => {
         let ferme_notes = await getNotes(ferme);
         cereale = await getCereale(cereale);
         let message = `Informations concernant la benne n°<strong>${benne}</strong> : <br>
-        Ferme : ${fermefull} (${phonenumber})<br>
-        Adresse : ${adresse} <br>
+        Ferme : ${fermefull} (<strong>${phonenumber}</strong>)<br>
+        Adresse : <i>${adresse}</i> <br>
         <a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">Ouvrir sur Google Maps</a><br>
         Céréale : ${cereale}<br>
         Indications benne : ${notes}<br>
         Indications livraison : ${ferme_notes}<br>
-        Posée par ${conducteur}, ${await formatTime(new Date(depose),off)}.
+        Posée par <strong>${conducteur}</strong>, ${await formatTime(new Date(depose),off)}.
         `;
         res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
       } else {
