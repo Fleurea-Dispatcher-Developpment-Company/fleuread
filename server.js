@@ -1021,7 +1021,7 @@ app.post('/registerbenne', async (req, res) => {
         console.log(longitude);
         console.log(latitude);
         let adresse = await getAdress([latitude, longitude]);
-        let message = `Confirmation : la benne n°<strong>${benne}</strong> a bien été enregistrée à l'adresse <strong>${adresse}</strong> ! <br> Merci !`;
+        let message = `Confirmation : la benne n°<strong>${benne}</strong> a bien été enregistrée à l'adresse <strong>${adresse}</strong>.<br> Merci !`;
         res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
       } else {
         // On renvoit le contenu de la page benne inconnue
