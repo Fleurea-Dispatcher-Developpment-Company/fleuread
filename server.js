@@ -1138,47 +1138,67 @@ app.post('/findbenne', async (req, res) => {
 });
 
 async function getConducteur(conducteur) {
+  try {
   const conducteurs = await readDatabase('comptes', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == conducteur) {
       return `${conduc.name} ${conduc.first_name}`;
     }
   }
+  } catch (err) {
+    return "X";
+  }
 }
 
 async function getFerme(conducteur) {
+  try {
   const conducteurs = await readDatabase('clients', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == conducteur) {
       return `${conduc.name}`;
     }
   }
+     } catch (err) {
+    return "X";
+  }
 }
 
 async function getPhoneNumber(conducteur) {
+  try {
   const conducteurs = await readDatabase('clients', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == conducteur) {
       return `${conduc.phonenumber}`;
     }
   }
+     } catch (err) {
+    return "X";
+  }
 }
 
 async function getNotes(conducteur) {
+  try {
   const conducteurs = await readDatabase('clients', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == conducteur) {
       return `${conduc.notes}`;
     }
   }
+     } catch (err) {
+    return "X";
+  }
 }
 
 async function getCereale(id) {
+  try {
   const conducteurs = await readDatabase('cereales', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == id) {
       return `${conduc.name}`;
     }
+  }
+     } catch (err) {
+    return "X";
   }
 }
 
