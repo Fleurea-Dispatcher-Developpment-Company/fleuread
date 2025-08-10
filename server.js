@@ -1064,3 +1064,133 @@ app.post('/checkreferrer', async (req, res) => {
   }
 });
 
+app.post('/findbenne', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const benne = req.body.id;
+    const off = req.body.offset;
+    if (await checkSession(thisid)) {
+      // On renvoit le contenu de la page OK
+      const bennes = await readDatabase('bennes', '*');
+      let found = false;
+      for (const ben of bennes) {
+        if (ben.num == benne) {
+          found = true;
+        }
+      }
+      if (found) {
+        let latitude;
+        let longitude;
+        let altitude;
+        let notes;
+        let ferme;
+        let adresse;
+        let cereale;
+        let conducteur;
+            for (const ben of bennes) {
+                if (ben.num == benne) {
+                  latitude = ben.longitude,
+                  longitude = ben.latitude,
+                  altitude = ben.altitude ?? "x",
+                  notes = ben.notes,
+                  ferme = ben.id_client,
+                  adresse = await getAdresse([longitude, latitude]),
+                  cereale = ben.céréale,
+                  conducteur = ben.dernierconducteur,
+                  depose = ben.depose
+                }
+              }
+        conducteur = await getConducteur(conducteur);
+        ferme = await getFerme(ferme);
+        let phonenumber = await getPhoneNumber(ferme);
+        let ferme_notes = await getNotes(ferme);
+        cereale = await getCereale(conducteur);
+        let message = `Informations concernant la benne n°<strong>${benne}</strong> : <br>
+        Ferme : ${ferme} (${phonenumber})<br>
+        Adresse : ${adresse} <br>
+        <a href="https://www.google.com/maps?q=${latitude},${longitude}">Ouvrir sur Google Maps</a><br>
+        Céréale : ${cereale}<br>
+        Indications benne : ${notes}<br>
+        Indications livraison : ${ferme_notes}<br>
+        Posée par ${conducteur}, ${await formatTime(depose,off)}.
+        `;
+        res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
+      } else {
+        // On renvoit le contenu de la page benne inconnue
+        res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2013/07/12/12/40/abort-146072_1280.png', 'message':`La benne ${benne} est inconnue dans nos systèmes...`});
+      }
+    } else {
+     // On renvoit le contenu de la page non autorisé
+      res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2013/07/12/17/00/remove-151678_1280.png', 'message':'Accès non autorisé'});
+    }
+  } catch (err) {console.error(err);
+            res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2012/04/13/00/22/red-31226_1280.png', 'message':`Erreur : ${err}`});     
+                }
+});
+
+async function getConducteur(conducteur) {
+  const conducteurs = await getDatabase('comptes', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == conducteur) {
+      return `${conduc.name} ${conduc.first_name}`;
+    }
+  }
+}
+
+async function getFerme(conducteur) {
+  const conducteurs = await getDatabase('clients', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == conducteur) {
+      return `${conduc.name}`;
+    }
+  }
+}
+
+async function getPhoneNumber(conducteur) {
+  const conducteurs = await getDatabase('clients', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == conducteur) {
+      return `${conduc.phonenumber}`;
+    }
+  }
+}
+
+async function getNotes(conducteur) {
+  const conducteurs = await getDatabase('clients', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == conducteur) {
+      return `${conduc.notes}`;
+    }
+  }
+}
+
+async function getCereale(id) {
+  const conducteurs = await getDatabase('cereales', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == conducteur) {
+      return `${conduc.name}`;
+    }
+  }
+}
+
+function formatTime (time, offseter) {
+  console.log("offseter", offseter);
+  const offset = offseter || 0;
+  console.log("Entrée :", time, "+",offset);
+  console.log(offset);
+  const now = new Date(time.getTime() + offset * 60 * 60 *1000);
+  console.log(now);
+  let hour = now.getHours();
+  //if (offset > 0) {
+  //  hour = hour + offset;
+  // }
+  hour = hour.toString().padStart(2, '0');
+  const minute = now.getMinutes().toString().padStart(2, '0');
+  const date = now.getDate().toString().padStart(2, '0');
+  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+  const year = now.getFullYear();
+  let toret = `${date}/${month}/${year} ${hour}h${minute}`;
+  console.log("Sortie :", toret);
+  console.log(toret);
+  return toret;
+}
