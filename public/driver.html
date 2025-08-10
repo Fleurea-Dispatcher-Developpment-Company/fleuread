@@ -320,7 +320,7 @@ let mydatas = {};
       }
     </script>
     <style>
-      #lightbox, #lightboxB, #resultContainer {
+      #lightbox, #lightboxB {
         position:fixed;
         top:0;
         left:0;
@@ -328,6 +328,17 @@ let mydatas = {};
         width:100vw;
         background:rgba(100,100,100,0.7);
         display:none;
+        justify-content:center;
+        align-items:center;
+        z-index:1000;
+      }
+      #resultContainer {
+        position:fixed;
+        top:0;
+        left:0;
+        height:100vh;
+        width:100vw;
+        background:rgba(100,100,100,0.7);
         justify-content:center;
         align-items:center;
         z-index:1000;
