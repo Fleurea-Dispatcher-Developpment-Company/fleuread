@@ -1227,6 +1227,7 @@ async function getAdresseBenneEdit(id) {
   const conducteurs = await readDatabase('bennes', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == id) {
+      console.error("BenneEdit", {latitude:conduc.latitude, longitude:conduc.longitude});
       return {latitude:conduc.latitude, longitude:conduc.longitude};
     }
   }
@@ -1240,6 +1241,7 @@ async function getAdresseFermeEdit(id) {
   const conducteurs = await readDatabase('clients', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == id) {
+      console.error("FermeEdit", {latitude:conduc.latitude, longitude:conduc.longitude});
       return {latitude:conduc.latitude, longitude:conduc.longitude};
     }
   }
