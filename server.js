@@ -1095,6 +1095,7 @@ app.post('/findbenne', async (req, res) => {
         let adresse;
         let cereale;
         let conducteur;
+        let depose;
             for (const ben of bennes) {
                 if (ben.num == benne) {
                   latitude = ben.longitude,
