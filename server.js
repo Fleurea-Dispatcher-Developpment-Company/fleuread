@@ -592,7 +592,7 @@ app.post('/editbenne', async (req, res) => {
       res.send("Édition enregistrée avec succès !");
       const {latitude, longitude} = await getAdresseBenneEdit(value_eq);
       console.log("Entrée adresse benne", latitude, "*", longitude);
-      const adresse = await getAdress(latitude, longitude);
+      const adresse = await getAdress([latitude, longitude]);
       editDatabase ('bennes', 'adresse', adresse, 'num', value_eq);
       socketReload ("benne");
     } else {
@@ -777,7 +777,7 @@ app.post('/editclient', async (req, res) => {
       res.send("Édition enregistrée avec succès !");
       const {latitude, longitude} = await getAdresseFermeEdit(value_eq);
       console.log("Entrée adresse client", latitude, "*", longitude);
-      const adresse = await getAdress(latitude, longitude);
+      const adresse = await getAdress([latitude, longitude]);
       editDatabase ('clients', 'adresse', adresse, 'num', value_eq);
       socketReload ("client");
     } else {
