@@ -590,7 +590,8 @@ app.post('/editbenne', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('bennes', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
-      const adresse = await getAdresseBenne(value_eq);
+      const {latitude, longitude} = await getAdresseBenneEdit(value_eq)
+      const adresse = await getAdress(latitude, longitude);
       editDatabase ('bennes', 'adresse', adresse, 'num', value_eq);
       socketReload ("benne");
     } else {
@@ -773,7 +774,8 @@ app.post('/editclient', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('clients', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
-      const adresse = await getAdresseFerme(value_eq);
+      const {latitude, longitude} = await getAdresseFermeEdit(value_eq)
+      const adresse = await getAdress(latitude, longitude);
       editDatabase ('clients', 'adresse', adresse, 'num', value_eq);
       socketReload ("client");
     } else {
@@ -1219,6 +1221,34 @@ async function getAdresseBenne(id) {
     return "X";
   }
 }
+
+async function getAdresseBenneEdit(id) {
+  try {
+  const conducteurs = await readDatabase('bennes', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == id) {
+      return {latitude:conduc.latitude, longitude:conduc.longitude};
+    }
+  }
+     } catch (err) {
+    return "X";
+  }
+}
+
+async function getAdresseFermeEdit(id) {
+  try {
+  const conducteurs = await readDatabase('clients', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == id) {
+      return {latitude:conduc.latitude, longitude:conduc.longitude};
+    }
+  }
+     } catch (err) {
+    return "X";
+  }
+}
+
+
 
 async function getAdresseFerme(id) {
   try {
