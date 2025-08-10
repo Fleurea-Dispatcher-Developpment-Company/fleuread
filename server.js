@@ -1121,7 +1121,7 @@ app.post('/findbenne', async (req, res) => {
         Céréale : ${cereale}<br>
         Indications benne : ${notes}<br>
         Indications livraison : ${ferme_notes}<br>
-        Posée par ${conducteur}, ${await formatTime(depose,off)}.
+        Posée par ${conducteur}, ${await formatTime(new Date(depose),off)}.
         `;
         res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
       } else {
