@@ -1203,6 +1203,7 @@ async function getCereale(id) {
 }
 
 function formatTime (time, offseter) {
+  console.log("FORMAT TIME");
   console.log("offseter", offseter);
   const offset = offseter || 0;
   console.log("Entrée :", time, "+",offset);
