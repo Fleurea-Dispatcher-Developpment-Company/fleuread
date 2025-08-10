@@ -1137,7 +1137,7 @@ app.post('/findbenne', async (req, res) => {
 });
 
 async function getConducteur(conducteur) {
-  const conducteurs = await getDatabase('comptes', '*');
+  const conducteurs = await readDatabase('comptes', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == conducteur) {
       return `${conduc.name} ${conduc.first_name}`;
@@ -1146,7 +1146,7 @@ async function getConducteur(conducteur) {
 }
 
 async function getFerme(conducteur) {
-  const conducteurs = await getDatabase('clients', '*');
+  const conducteurs = await readDatabase('clients', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == conducteur) {
       return `${conduc.name}`;
@@ -1155,7 +1155,7 @@ async function getFerme(conducteur) {
 }
 
 async function getPhoneNumber(conducteur) {
-  const conducteurs = await getDatabase('clients', '*');
+  const conducteurs = await readDatabase('clients', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == conducteur) {
       return `${conduc.phonenumber}`;
@@ -1164,7 +1164,7 @@ async function getPhoneNumber(conducteur) {
 }
 
 async function getNotes(conducteur) {
-  const conducteurs = await getDatabase('clients', '*');
+  const conducteurs = await readDatabase('clients', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == conducteur) {
       return `${conduc.notes}`;
