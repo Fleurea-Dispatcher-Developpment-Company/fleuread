@@ -1025,6 +1025,7 @@ app.post('/registerbenne', async (req, res) => {
       await editDatabase ('bennes', 'altitude', altitude, 'num', benne);
       await editDatabase ('bennes', 'depose', new Date(), 'num', benne);
       await editDatabase ('bennes', 'dernierconducteur', lastdriver, 'num', benne);
+      await editDatabase ('bennes', 'adresse', await getAdress([latitude, longitude]), 'num', benne);
       socketReload ("benne");
         console.log(longitude);
         console.log(latitude);
@@ -1103,7 +1104,7 @@ app.post('/findbenne', async (req, res) => {
                   altitude = ben.altitude ?? "x",
                   notes = ben.notes,
                   ferme = ben.id_client,
-                  adresse = await getAdress([latitude, longitude]),
+                  adresse = ben.adresse,
                   cereale = ben.céréale,
                   conducteur = ben.dernierconducteur,
                   depose = ben.depose
