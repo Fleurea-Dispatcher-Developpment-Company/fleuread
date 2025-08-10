@@ -59,9 +59,28 @@
       </form>
     </div>
     <div id="find" style="display:none" class="menu">
+      <div id= "searchBar">
       <div class="head_small">
      <button class="button_driver" onclick="document.getElementById('find').style.display='none';document.getElementById('main').style.display='flex';">Retour</button>
        </div>
+      <form id="find_benne">
+        <input id="input_find" type="text" name="num" placeholder="N° Exact Benne" required>
+        <button id="submitter_find "class="button_driver submitter" type="submit()">Trouver</button>
+      </form>
+      </div>
+      <div style="display:none" id="resultBar">
+        <div class="head_small">
+     <button class="button_driver" onclick="document.getElementById('resultBar').style.display='none';document.getElementById('searchBar').style.display='flex';">Retour</button>
+       </div>
+        <div id="resultContainer">
+          <div class="circleB" style="top:50%; left:50%; transform:translate(-50%,-50%)">
+          <img id="resultContainer_img" src="" alt="Témoin du résultat">
+          </div>
+          <div id="resultContainer_text">
+            
+          </div>
+        </div>
+      </div>
     </div>
     <style>
       body {
@@ -412,6 +431,13 @@ let mydatas = {};
         registerBenne(data.num);
       });
 
+       document.getElementById('find_benne').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = await Object.fromEntries(formData.entries());
+        findBenne(data.num);
+      });
+
       async function getPosition () {
         console.log("Lancement d'un getPosition");
         return new Promise((resolve, reject) => {
@@ -474,6 +500,12 @@ let mydatas = {};
          document.getElementById('lightImgB').src = "https://cdn.pixabay.com/photo/2013/07/13/10/44/card-157700_1280.png";
          document.getElementById('lightPB').innerHTML = "Récupération des coordonnées GPS... <br><strong>Ne fermez pas l'application jusqu'à la fin de l'opération, s'il vous plaît !</strong>";
       }
+
+      async function showResult () {
+        resultBar.style.display = 'flex';
+        searchBar.style.display = 'none';
+        document.getElementById('resultContainer_text').innerHTML = "<strong>En attente...</strong>";
+        document.getElementById('resultContainer_img').src = "https://cdn.pixabay.com/photo/2016/05/30/14/23/detective-1424831_1280.png";
     </script>
     <script>
       async function readParams () {
@@ -510,6 +542,22 @@ let mydatas = {};
         setTimeout(() => {
           toast.remove();
         }, 15000)
+      }
+
+         async function findBenne(id) {
+        showResult();
+          const content = {
+          id:id
+        };
+        console.log(content);
+        const fromServer = await fetcher('findbenne', content, 'POST', sessionStorage.getItem('session_id'));
+        const link = fromServer.icon;
+        const message = fromServer.message;
+        const status = fromServer.status;
+         document.getElementById('resultContainer_img').src = link;
+         document.getElementById('resultContainer_text').innerHTML = message;
+        document.getElementById('find_benne').reset();
+        return fromServer.status;
       }
     </script>
   </body>
