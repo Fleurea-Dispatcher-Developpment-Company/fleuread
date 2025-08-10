@@ -1230,7 +1230,7 @@ async function getAdresseBenneEdit(id) {
   for (const conduc of conducteurs) {
     if (conduc.num == id) {
       console.error("BenneEdit", {latitude:conduc.latitude, longitude:conduc.longitude});
-      return {latitude:conduc.latitude, longitude:conduc.longitude};
+      return {latitude:parseFloat(conduc.latitude), longitude:parseFloat(conduc.longitude)};
     }
   }
      } catch (err) {
@@ -1244,7 +1244,7 @@ async function getAdresseFermeEdit(id) {
   for (const conduc of conducteurs) {
     if (conduc.num == id) {
       console.error("FermeEdit", {latitude:conduc.latitude, longitude:conduc.longitude});
-      return {latitude:conduc.latitude, longitude:conduc.longitude};
+      return {latitude:parseFloat(conduc.latitude), longitude:parseFloat(conduc.longitude)};
     }
   }
      } catch (err) {
