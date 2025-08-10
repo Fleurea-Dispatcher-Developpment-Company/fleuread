@@ -773,6 +773,8 @@ app.post('/editclient', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('clients', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
+      const adresse = await getAdresseFerme(value_eq);
+      editDatabase ('clients', 'adresse', adresse, 'num', value_eq);
       socketReload ("client");
     } else {
       res.status(401);
@@ -1208,6 +1210,19 @@ async function getCereale(id) {
 async function getAdresseBenne(id) {
   try {
   const conducteurs = await readDatabase('bennes', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == id) {
+      return `${conduc.adresse}`;
+    }
+  }
+     } catch (err) {
+    return "X";
+  }
+}
+
+async function getAdresseFerme(id) {
+  try {
+  const conducteurs = await readDatabase('clients', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == id) {
       return `${conduc.adresse}`;
