@@ -547,7 +547,8 @@ let mydatas = {};
          async function findBenne(id) {
         showResult();
           const content = {
-          id:id
+          id:id,
+            offset:offset
         };
         console.log(content);
         const fromServer = await fetcher('findbenne', content, 'POST', sessionStorage.getItem('session_id'));
