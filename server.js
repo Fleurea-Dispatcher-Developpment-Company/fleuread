@@ -590,6 +590,8 @@ app.post('/editbenne', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('bennes', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
+      const adresse = await getAdresseBenne(value_eq);
+      editDatabase ('bennes', 'adresse', adresse, 'num', value_eq);
       socketReload ("benne");
     } else {
       res.status(401);
@@ -1196,6 +1198,19 @@ async function getCereale(id) {
   for (const conduc of conducteurs) {
     if (conduc.num == id) {
       return `${conduc.name}`;
+    }
+  }
+     } catch (err) {
+    return "X";
+  }
+}
+
+async function getAdresseBenne(id) {
+  try {
+  const conducteurs = await readDatabase('bennes', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == id) {
+      return `${conduc.adresse}`;
     }
   }
      } catch (err) {
