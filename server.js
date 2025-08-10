@@ -1110,12 +1110,12 @@ app.post('/findbenne', async (req, res) => {
                 }
               }
         conducteur = await getConducteur(conducteur);
-        ferme = await getFerme(ferme);
+        let fermefull = await getFerme(ferme);
         let phonenumber = await getPhoneNumber(ferme);
         let ferme_notes = await getNotes(ferme);
         cereale = await getCereale(conducteur);
         let message = `Informations concernant la benne n°<strong>${benne}</strong> : <br>
-        Ferme : ${ferme} (${phonenumber})<br>
+        Ferme : ${fermefull} (${phonenumber})<br>
         Adresse : ${adresse} <br>
         <a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">Ouvrir sur Google Maps</a><br>
         Céréale : ${cereale}<br>
