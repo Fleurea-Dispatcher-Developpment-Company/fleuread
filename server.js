@@ -1175,7 +1175,7 @@ async function getNotes(conducteur) {
 async function getCereale(id) {
   const conducteurs = await readDatabase('cereales', '*');
   for (const conduc of conducteurs) {
-    if (conduc.num == conducteur) {
+    if (conduc.num == id) {
       return `${conduc.name}`;
     }
   }
