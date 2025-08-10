@@ -1113,7 +1113,7 @@ app.post('/findbenne', async (req, res) => {
         let fermefull = await getFerme(ferme);
         let phonenumber = await getPhoneNumber(ferme);
         let ferme_notes = await getNotes(ferme);
-        cereale = await getCereale(conducteur);
+        cereale = await getCereale(cereale);
         let message = `Informations concernant la benne n°<strong>${benne}</strong> : <br>
         Ferme : ${fermefull} (${phonenumber})<br>
         Adresse : ${adresse} <br>
