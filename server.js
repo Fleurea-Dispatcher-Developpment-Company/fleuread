@@ -209,6 +209,11 @@ async function addDatabase (store, select, jsontoinsert) {
 
 // Gestion des sessions
 const sessions = []; // Format sessions.id = id
+
+async function getIdFromSession(id) {
+  return sessions[id].id;
+}
+
 app.post('/checksession', async (req, res) => {
   try {
   const data = req.body;
@@ -1014,9 +1019,12 @@ app.post('/registerbenne', async (req, res) => {
         }
       }
       if (found) {
+      let lastdriver = await getIdFromSession(thisid);
       await editDatabase ('bennes', 'longitude', latitude, 'num', benne);
       await editDatabase ('bennes', 'latitude', longitude, 'num', benne);
       await editDatabase ('bennes', 'altitude', altitude, 'num', benne);
+      await editDatabase ('bennes', 'depose', new Date(), 'num', benne);
+      await editDatabase ('bennes', 'dernierconducteur', lastdriver, 'num', benne);
       socketReload ("benne");
         console.log(longitude);
         console.log(latitude);
