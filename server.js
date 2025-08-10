@@ -1117,7 +1117,7 @@ app.post('/findbenne', async (req, res) => {
         let message = `Informations concernant la benne n°<strong>${benne}</strong> : <br>
         Ferme : ${ferme} (${phonenumber})<br>
         Adresse : ${adresse} <br>
-        <a href="https://www.google.com/maps?q=${latitude},${longitude}">Ouvrir sur Google Maps</a><br>
+        <a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">Ouvrir sur Google Maps</a><br>
         Céréale : ${cereale}<br>
         Indications benne : ${notes}<br>
         Indications livraison : ${ferme_notes}<br>
