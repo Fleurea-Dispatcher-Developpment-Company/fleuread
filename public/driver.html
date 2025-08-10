@@ -73,11 +73,13 @@
      <button class="button_driver" onclick="document.getElementById('resultBar').style.display='none';document.getElementById('searchBar').style.display='flex';">Retour</button>
        </div>
         <div id="resultContainer">
+          <div class="lightbox-content">
           <div class="circleB" style="top:50%; left:50%; transform:translate(-50%,-50%)">
           <img id="resultContainer_img" src="" alt="Témoin du résultat">
           </div>
           <div id="resultContainer_text">
             
+          </div>
           </div>
         </div>
       </div>
@@ -318,7 +320,7 @@ let mydatas = {};
       }
     </script>
     <style>
-      #lightbox, #lightboxB {
+      #lightbox, #lightboxB, #resultContainer {
         position:fixed;
         top:0;
         left:0;
