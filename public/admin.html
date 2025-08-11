@@ -62,7 +62,9 @@
    </div>
 
     <div id="map">
-      <div id="panel"></div>
+      <div id="panel">
+        <button onclick="document.getElementById('panel').style.display='none'">Fermer le panneau latéral</button>
+      </div>
       <div id="view">
         <div id="mapSearch">
           <input id="mapSearch_input" placeholder="Entrez un numéro de benne ou une adresse pour commencer à chercher...">
@@ -603,6 +605,7 @@ async function translateColor (input) {
           .bindPopup(benne.num.toString())
           marker.on('click', function(e) {
             console.log(`La benne n° ${e.target} a été cliquée, nous allons afficher ses informations dans le panneau latéral`);
+            pushPanel(e.target);
           });
             markers.push(marker);
         }
@@ -611,8 +614,8 @@ async function translateColor (input) {
 
       async function focusOn(text, position) {
              map.flyTo([position.lat, position.lon], 12, {
-                  duration: 3,        // animation duration in seconds
-                  easeLinearity: 0.25 // how linear the animation is
+                  duration: 3,        
+                  easeLinearity: 0.25 
                 });
         const focus = L.marker([position.lat, position.lon]).addTo(map);
         focus.bindPopup(text).openPopup();
@@ -1628,6 +1631,11 @@ paramDatas[ben.id] = ben;
         }
         }, 500);
       });
+    </script>
+    <script>
+      async function pushPanel(id) {
+        
+      }
     </script>
   </body>
 </html>
