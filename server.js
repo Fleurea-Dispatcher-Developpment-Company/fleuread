@@ -123,7 +123,7 @@ async function getAdress(coords) {
   try {
   const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${coords[0]}&lon=${coords[1]}&format=json`, {
     headers:{
-      'User-Agent': 'FleureaDispatcher/1.0 (fleureadispatcher@gmail.com)'
+      'User-Agent': 'FleureaDispatcher_Adresser/1.0 (fleureadispatcher@gmail.com)'
     }
   });
   const result = await response.json();
@@ -1311,7 +1311,7 @@ app.post('/smartsearchmap', async (req, res) => {
       try {
   const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(value)}&format=json&addressdetails=1`, {
     headers:{
-      'User-Agent': 'FleureaDispatcher/1.0 (fleureadispatcher@gmail.com)'
+      'User-Agent': 'FleureaDispatcher_Searcher/1.0 (fleureadispatcher@gmail.com)'
     }
   });
   const result = await response.json();
