@@ -1600,10 +1600,11 @@ paramDatas[ben.id] = ben;
         resultContainer.innerHTML = "";
         if (answer.length > 1) {
         for (const item of answer) {
-          const button = document.createElement('button');
+          const button = document.createElement('div');
+          button.style.width = "100 %";
           button.innerHTML = `${item.text}<br>${item.position}`;
           button.onclick = () => {
-            input.value = item.text;
+            input.value = item.search;
           }
           resultContainer.append(button);
         }
