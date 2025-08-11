@@ -1299,6 +1299,7 @@ app.post('/smartsearchmap', async (req, res) => {
       const options = [];
       // Dans la fonction on va :
       // 1. Interroger Nominatim
+      console.log("Interrogation de NOMINATIM");
       try {
   const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${value}&format=json&addressdetails=1`, {
     headers:{
@@ -1310,9 +1311,11 @@ app.post('/smartsearchmap', async (req, res) => {
           options.push({text:opt.display_name, position:{lat:opt.lat, lon:opt.lon}});
         }
       } catch (err) {
-        console.err(err);
+        console.error(err);
         res.send(err);
       }
+      console.log(options);
+      console.log("Le système parcourt les bennes");
       // 2. Chercher dans les bennes (n° et id client)
       try {
       const bennes = await readDatabase('bennes', '*');
@@ -1326,9 +1329,11 @@ app.post('/smartsearchmap', async (req, res) => {
         }
       }
       } catch (err) {
-        console.err(err);
+        console.error(err);
         res.send(err);
       }
+      console.log(options);
+      console.log("Le système parcourt les clients");
       // 3. Chercher dans les clients
        try {
       const bennes = await readDatabase('clients', '*');
@@ -1340,7 +1345,7 @@ app.post('/smartsearchmap', async (req, res) => {
         }
       }
       } catch (err) {
-        console.err(err);
+        console.error(err);
         res.send(err);
       }
       // On envoie les résultat, maintenant qu'on a tout scanné...
