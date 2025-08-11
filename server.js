@@ -1294,6 +1294,10 @@ app.post('/smartsearchmap', async (req, res) => {
   try {
     const thisid = req.headers.auth;
     const value = req.body.value;
+    if (value == "") {
+      res.json({});
+      return;
+    }
     console.log("SMART SEARCH MAP");
     if (await checkSession(thisid)) {
       const options = [];
