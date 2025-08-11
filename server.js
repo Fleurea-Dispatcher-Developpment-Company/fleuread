@@ -1313,7 +1313,7 @@ app.post('/smartsearchmap', async (req, res) => {
         }
       } catch (err) {
         console.error(err);
-        res.send(err);
+       // res.send(err);
       }
       }
       console.log(options);
@@ -1332,7 +1332,7 @@ app.post('/smartsearchmap', async (req, res) => {
       }
       } catch (err) {
         console.error(err);
-        res.send(err);
+       // res.send(err);
       }
       console.log(options);
       console.log("Le système parcourt les clients");
@@ -1348,7 +1348,7 @@ app.post('/smartsearchmap', async (req, res) => {
       }
       } catch (err) {
         console.error(err);
-        res.send(err);
+       // res.send(err);
       }
       // On envoie les résultat, maintenant qu'on a tout scanné...
       res.json(options.reverse());
