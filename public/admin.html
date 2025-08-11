@@ -614,6 +614,8 @@ async function translateColor (input) {
                   duration: 3,        // animation duration in seconds
                   easeLinearity: 0.25 // how linear the animation is
                 });
+        const focus = L.marker([position.lat, position.lon]).addTo(map);
+        focus.bindPopup(position.text).openPopup();
       };
 
       async function getBennes() {
