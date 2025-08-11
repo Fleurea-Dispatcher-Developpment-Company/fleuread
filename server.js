@@ -1319,13 +1319,13 @@ app.post('/smartsearchmap', async (req, res) => {
       // 2. Chercher dans les bennes (n° et id client)
       try {
       const bennes = await readDatabase('bennes', '*');
-      for (ben of bennes) {
+      for (const ben of bennes) {
         if (ben.num.includes(value)) {
-          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
         } else if (await getAdresseFerme(ben.id_client).includes(value)) {
-          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
         } else if (ben.adresse.includes(value)) {
-          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
         }
       }
       } catch (err) {
@@ -1337,11 +1337,11 @@ app.post('/smartsearchmap', async (req, res) => {
       // 3. Chercher dans les clients
        try {
       const bennes = await readDatabase('clients', '*');
-      for (ben of bennes) {
+      for (const ben of bennes) {
         if (ben.name.includes(value)) {
-          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
         } else if (await getAdresseFerme(ben.num).includes(value)) {
-          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
         }
       }
       } catch (err) {
