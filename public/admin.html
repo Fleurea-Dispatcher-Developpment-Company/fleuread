@@ -1609,10 +1609,11 @@ paramDatas[ben.id] = ben;
         for (const item of answer) {
           const button = document.createElement('div');
           button.style.width = "100 %";
-          button.innerHTML = `${item.text}<br>${item.position}`;
+          button.innerHTML = `${item.text}<br>${item.position.lat} ${item.position.lon}`;
           button.onclick = () => {
-            input.value = item.search;
+            input.value = item.text;
             input.dispatchEvent(new Event('input', { bubbles: true }));
+            focusOn(item.text,item.position);
           }
           resultContainer.append(button);
         }
