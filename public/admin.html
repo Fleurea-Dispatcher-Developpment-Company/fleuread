@@ -610,7 +610,10 @@ async function translateColor (input) {
       }
 
       async function focusOn(text, position) {
-        
+             map.flyTo([position.lat, position.lon], 12, {
+                  duration: 3,        // animation duration in seconds
+                  easeLinearity: 0.25 // how linear the animation is
+                });
       };
 
       async function getBennes() {
@@ -1594,7 +1597,11 @@ paramDatas[ben.id] = ben;
       const input =  document.getElementById('mapSearch_input');
       const resultContainer = document.getElementById('result_mapSearch');
       let thisvalue;
+      let debounceTimer;
+      
       input.addEventListener('input', async () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(async () => {
         thisvalue = input.value;
         const answer = await fetcher('smartsearchmap',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id'));
         resultContainer.innerHTML = "";
@@ -1605,6 +1612,7 @@ paramDatas[ben.id] = ben;
           button.innerHTML = `${item.text}<br>${item.position}`;
           button.onclick = () => {
             input.value = item.search;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
           }
           resultContainer.append(button);
         }
@@ -1615,7 +1623,8 @@ paramDatas[ben.id] = ben;
         } else {
           focusOn(answer[0].text,answer[0].position);
         }
-      })
+        }, 500);
+      });
     </script>
   </body>
 </html>
