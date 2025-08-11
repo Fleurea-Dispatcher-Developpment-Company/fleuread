@@ -660,7 +660,7 @@ benDatas[ben.id] = ben;
          document.getElementById('lightPB').textContent =  ben.volume + " T | " + ben.notes;
         const statusReadable = toread(ben.status);
         console.log(statusReadable);
-        document.getElementById('lightPB3').innerHTML =  "<strong>" + statusReadable.charAt(0).toUpperCase() + statusReadable.slice(1) + "</strong> chez <strong>" + ben.ferme + "</strong> en <strong>" + ben.cereale_formatted + "</strong>";
+        document.getElementById('lightPB3').innerHTML =  "<strong>" + statusReadable.charAt(0).toUpperCase() + statusReadable.slice(1) + "</strong> chez <strong>" + ben.ferme + "</strong> en <strong>" + ben.formatted_cereale + "</strong>";
          popAdresse(ben.adresse);
         numon = ben.id;
         console.log(numon);
