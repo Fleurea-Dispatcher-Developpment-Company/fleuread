@@ -1590,9 +1590,9 @@ paramDatas[ben.id] = ben;
       const input =  document.getElementById('mapSearch_input');
       const resultContainer = document.getElementById('result_mapSearch');
       let thisvalue;
-      input.addEventListener('change', {
+      input.addEventListener('input', async () => {
         thisvalue = input.value;
-        const answer = await fetcher('smartsearchmap',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id));
+        const answer = await fetcher('smartsearchmap',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id'));
         resultContainer.innerHTML = "";
         if (answer.length > 1) {
         for (const item of answer) {
