@@ -64,6 +64,10 @@
     <div id="map">
       <div id="panel"></div>
       <div id="view">
+        <div id="mapSearch">
+          <input id="mapSearch_input" placeholder="Entrez un numéro de benne ou une adresse pour commencer à chercher...">
+          <div id="result_mapSearch"></div>
+        </div>
         <div id="mapA">
           
         </div>
@@ -187,6 +191,16 @@
         top:15vh;
         height:85vh;
         flex-direction:column;
+      }
+      # mapSearch {
+        position:absolute;
+        top:2vh;
+        left:2vh;
+        width:15vh;
+      }
+      # result_mapSearch {
+        max-height:20vh;
+        overflow-y:auto;
       }
       #selecter, #searcherBenne, #createBenne, #createCompte, #searcherCompte, #createClient, #searcherClient, #createCereale, #searcherCereale, #createParam, #searcherParam, #searcherParamB {
         width:100%;
@@ -1571,6 +1585,32 @@ paramDatas[ben.id] = ben;
       async function getParams() {
         return await fetcher('getparams',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
       }
+    </script>
+    <script>
+      const input =  document.getElementById('mapSearch_input');
+      const resultContainer = document.getElementById('result_mapSearch');
+      let thisvalue;
+      input.addEventListener('change', {
+        thisvalue = input.value;
+        const answer = await fetcher('smartsearchmap',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id));
+        resultContainer.innerHTML = "";
+        if (answer.length > 1) {
+        for (const item of answer) {
+          const button = document.createElement('button');
+          button.innerHTML = `${item.text}<br>${item.position}`;
+          button.onclick = () => {
+            input.value = item.text;
+          }
+          resultContainer.append(button);
+        }
+        } else if (answer.length < 1) {
+          const button = document.createElement('button');
+          button.innerHTML = `Aucun élément ne correspond à votre recherche.`;
+          resultContainer.append(button);
+        } else {
+          focusOn(answer[0].position);
+        }
+      })
     </script>
   </body>
 </html>
