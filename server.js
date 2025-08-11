@@ -1361,3 +1361,132 @@ app.post('/smartsearchmap', async (req, res) => {
     }
   } catch (err) {console.error(err);}
 });
+
+app.post('/getbenneinformations', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const benne = req.body.id;
+    const off = req.body.offset;
+    if (await checkSession(thisid)) {
+      // On renvoit le contenu de la page OK
+      const bennes = await readDatabase('bennes', '*');
+      let found = false;
+      for (const ben of bennes) {
+        if (ben.num == benne) {
+          found = true;
+        }
+      }
+      if (found) {
+        let latitude;
+        let longitude;
+        let altitude;
+        let notes;
+        let ferme;
+        let adresse;
+        let cereale;
+        let cere;
+        let conducteur;
+        let condu;
+        let depose;
+            for (const ben of bennes) {
+                if (ben.num == benne) {
+                  latitude = ben.longitude,
+                  longitude = ben.latitude,
+                  altitude = ben.altitude ?? "x",
+                  notes = ben.notes,
+                  ferme = ben.id_client,
+                  adresse = ben.adresse,
+                  cereale = ben.céréale,
+                  cere = ben.céréale;
+                  conducteur = ben.dernierconducteur,
+                  condu = ben.dernierconducteur,
+                  depose = ben.depose
+                }
+              }
+        conducteur = await getConducteur(conducteur);
+        let fermefull = await getFerme(ferme);
+        let phonenumber = await getPhoneNumber(ferme);
+        let ferme_notes = await getNotes(ferme);
+        cereale = await getCereale(cereale);
+        let message = {
+          a : benne, 
+          b : benne.statut,
+          c : fermefull,
+          d : phonenumber,
+          e : adresse,
+          eb : `https://www.google.com/maps?q=${latitude},${longitude}`,
+          f : cereale,
+          g : notes,
+          h : ferme_notes,
+          i : conducteur,
+          j : await formatTime(new Date(depose),off),
+          k : await getIcon_conducteur(condu),
+          l : await getIcon_cereale(cere),
+          m : await getIcon_ferme(ferme),
+          n : await getIcon_benne(benne)
+        };
+        res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
+      } else {
+        // On renvoit le contenu de la page benne inconnue
+        res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2013/07/12/12/40/abort-146072_1280.png', 'message':`La benne ${benne} est inconnue dans nos systèmes...`});
+      }
+    } else {
+     // On renvoit le contenu de la page non autorisé
+      res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2013/07/12/17/00/remove-151678_1280.png', 'message':'Accès non autorisé'});
+    }
+  } catch (err) {console.error(err);
+            res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2012/04/13/00/22/red-31226_1280.png', 'message':`Erreur : ${err}`});     
+                }
+});
+
+async function getIcon_conducteur(id) {
+  try {
+  const conducteurs = await readDatabase('comptes', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == id) {
+      return `${conduc.link}`;
+    }
+  }
+     } catch (err) {
+    return "X";
+  }
+}
+
+async function getIcon_cereale(id) {
+  try {
+  const conducteurs = await readDatabase('cereales', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == id) {
+      return `${conduc.photo}`;
+    }
+  }
+     } catch (err) {
+    return "X";
+  }
+}
+
+async function getIcon_ferme(id) {
+  try {
+  const conducteurs = await readDatabase('clients', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == id) {
+      return `${conduc.link}`;
+    }
+  }
+     } catch (err) {
+    return "X";
+  }
+}
+
+async function getIcon_benne(id) {
+  try {
+  const conducteurs = await readDatabase('bennes', '*');
+  for (const conduc of conducteurs) {
+    if (conduc.num == id) {
+      return `${conduc.link}`;
+    }
+  }
+     } catch (err) {
+    return "X";
+  }
+}
