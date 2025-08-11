@@ -1299,6 +1299,7 @@ app.post('/smartsearchmap', async (req, res) => {
       const options = [];
       // Dans la fonction on va :
       // 1. Interroger Nominatim
+      if (value.length > 2) {
       console.log("Interrogation de NOMINATIM");
       try {
   const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${value}&format=json&addressdetails=1`, {
@@ -1314,17 +1315,18 @@ app.post('/smartsearchmap', async (req, res) => {
         console.error(err);
         res.send(err);
       }
+      }
       console.log(options);
       console.log("Le système parcourt les bennes");
       // 2. Chercher dans les bennes (n° et id client)
       try {
       const bennes = await readDatabase('bennes', '*');
       for (const ben of bennes) {
-        if (ben.num.includes(value)) {
+        if (String(ben.num || "").includes(value)) {
           options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
-        } else if (await getAdresseFerme(ben.id_client).includes(value)) {
+        } else if (String(await getAdresseFerme(ben.id_client) || "").includes(value)) {
           options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
-        } else if (ben.adresse.includes(value)) {
+        } else if (String(ben.adresse || "").includes(value)) {
           options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
         }
       }
@@ -1338,10 +1340,10 @@ app.post('/smartsearchmap', async (req, res) => {
        try {
       const bennes = await readDatabase('clients', '*');
       for (const ben of bennes) {
-        if (ben.name.includes(value)) {
-          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
-        } else if (await getAdresseFerme(ben.num).includes(value)) {
-          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lon:ben.latitude}});
+        if (String(ben.name || "").includes(value)) {
+          options.push({text:ben.name, position:{lat:ben.longitude, lon:ben.latitude}});
+        } else if (String(await getAdresseFerme(ben.num) || "").includes(value)) {
+          options.push({text:ben.name, position:{lat:ben.longitude, lon:ben.latitude}});
         }
       }
       } catch (err) {
