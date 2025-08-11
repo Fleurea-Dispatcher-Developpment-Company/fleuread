@@ -497,11 +497,12 @@ async function getBennes(thisid) {
         longitude:benne.longitude,
         altitude:benne.altitude,
         adresse:benne.adresse,
-        cereale:benne.céréale,
+        cereale:benne.cereale,
         status:benne.statut,
         link:benne.link,
         ferme:await getFerme(benne.id_client),
-        formatted_cereale:await getCereale(benne.céréale)
+        formatted_cereale:await getCereale(benne.cereale),
+        auth:'Authenticated request !'
       }
     })
   );
