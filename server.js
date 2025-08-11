@@ -1302,7 +1302,7 @@ app.post('/smartsearchmap', async (req, res) => {
       if (value.length > 2) {
       console.log("Interrogation de NOMINATIM");
       try {
-  const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${value}&format=json&addressdetails=1`, {
+  const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(value)}&format=json&addressdetails=1`, {
     headers:{
       'User-Agent': 'FleureaDispatcher/1.0 (fleureadispatcher@gmail.com)'
     }
@@ -1351,7 +1351,7 @@ app.post('/smartsearchmap', async (req, res) => {
         res.send(err);
       }
       // On envoie les résultat, maintenant qu'on a tout scanné...
-      res.json(options);
+      res.json(options.reverse());
     } else {
       res.status(401);
     }
