@@ -1289,3 +1289,64 @@ function formatTime (time, offseter) {
   console.log(toret);
   return toret;
 }
+
+app.post('/smartsearchmap', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const value = req.body.value;
+    console.log("SMART SEARCH MAP");
+    if (await checkSession(thisid)) {
+      const options = [];
+      // Dans la fonction on va :
+      // 1. Interroger Nominatim
+      try {
+  const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${value}&format=json&addressdetails=1`, {
+    headers:{
+      'User-Agent': 'FleureaDispatcher/1.0 (fleureadispatcher@gmail.com)'
+    }
+  });
+  const result = await response.json();
+        for (const opt of result) {
+          options.push({text:opt.display_name, position:{lat:opt.lat, lon:opt.lon}});
+        }
+      } catch (err) {
+        console.err(err);
+        res.send(err);
+      }
+      // 2. Chercher dans les bennes (n° et id client)
+      try {
+      const bennes = await readDatabase('bennes', '*');
+      for (ben of bennes) {
+        if (ben.num.includes(value)) {
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+        } else if (await getAdresseFerme(ben.id_client).includes(value)) {
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+        } else if (ben.adresse.includes(value)) {
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+        }
+      }
+      } catch (err) {
+        console.err(err);
+        res.send(err);
+      }
+      // 3. Chercher dans les clients
+       try {
+      const bennes = await readDatabase('clients', '*');
+      for (ben of bennes) {
+        if (ben.name.includes(value)) {
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+        } else if (await getAdresseFerme(ben.num).includes(value)) {
+          options.push({text:`Benne n°${ben.num}`, position:{lat:ben.longitude, lat:ben.latitude}});
+        }
+      }
+      } catch (err) {
+        console.err(err);
+        res.send(err);
+      }
+      // On envoie les résultat, maintenant qu'on a tout scanné...
+      res.json(options);
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
