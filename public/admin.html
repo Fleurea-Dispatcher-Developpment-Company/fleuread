@@ -192,13 +192,14 @@
         height:85vh;
         flex-direction:column;
       }
-      # mapSearch {
+      #mapSearch {
         position:absolute;
         top:2vh;
         left:2vh;
         width:15vh;
+        z-index:2000;
       }
-      # result_mapSearch {
+      #result_mapSearch {
         max-height:20vh;
         overflow-y:auto;
       }
@@ -607,7 +608,10 @@ async function translateColor (input) {
         }
         }
       }
-      
+
+      async function focusOn(text, position) {
+        
+      };
 
       async function getBennes() {
         return await fetcher('getbennes',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
@@ -1608,7 +1612,7 @@ paramDatas[ben.id] = ben;
           button.innerHTML = `Aucun élément ne correspond à votre recherche.`;
           resultContainer.append(button);
         } else {
-          focusOn(answer[0].position);
+          focusOn(answer[0].text,answer[0].position);
         }
       })
     </script>
