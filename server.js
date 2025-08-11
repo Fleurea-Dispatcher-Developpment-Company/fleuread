@@ -946,6 +946,7 @@ app.get('/generate', async (req, res) => {
   const fileName = `QrCode_benne_${id}.pdf`;
   const filePath = path.join(__dirname, fileName);
   await pdfWithQr(id, filePath);
+  res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
   res.sendFile(filePath, err => {
     if (err) {
       res.status(500).send("Erreur serveur : " + err.message);
