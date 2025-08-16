@@ -1322,7 +1322,7 @@ app.post('/smartsearchmap', async (req, res) => {
   });
   const result = await response.json();
         for (const opt of result) {
-          options.push({text:await transformAdress (opt), search:await transformAdress (opt), position:{lat:opt.lat, lon:opt.lon}});
+          options.push({text:await transformAdress (opt.address), search:await transformAdress (opt.address), position:{lat:opt.lat, lon:opt.lon}});
         }
       } catch (err) {
         console.error(err);
