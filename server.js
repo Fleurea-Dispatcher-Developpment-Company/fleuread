@@ -131,6 +131,13 @@ async function getAdress(coords) {
   console.log(result);
   const address = result.address;
   console.log(address);
+  return await transformAdress(address);
+  } catch (err) {
+    return err;
+  }
+}
+
+async function transformAdress (address) {
   const route = address.road || address.pedestrian || address.footway || address.cycleway || address.path || 'nodata';
   const hameau = address.hamlet || address.neighbourhood || address.suburb || address.village || 'nodata';
   const ville = address.city || address.town || address.village || address.hamlet || 'nodata';
@@ -144,9 +151,6 @@ async function getAdress(coords) {
  // console.log("keep :", keep);
   keep = keep.join(',');
   return keep;
-  } catch (err) {
-    return err;
-  }
 }
 
 // Configurations Supabase [background storage]
@@ -1317,7 +1321,7 @@ app.post('/smartsearchmap', async (req, res) => {
   });
   const result = await response.json();
         for (const opt of result) {
-          options.push({text:opt.display_name, search:opt.display_name, position:{lat:opt.lat, lon:opt.lon}});
+          options.push({text:await transformAdress (address), search:await transformAdress (address), position:{lat:opt.lat, lon:opt.lon}});
         }
       } catch (err) {
         console.error(err);
