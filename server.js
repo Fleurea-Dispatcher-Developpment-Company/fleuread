@@ -138,6 +138,7 @@ async function getAdress(coords) {
 }
 
 async function transformAdress (address) {
+  console.log("We have an adress as input :", address);
   const route = address.road || address.pedestrian || address.footway || address.cycleway || address.path || 'nodata';
   const hameau = address.hamlet || address.neighbourhood || address.suburb || address.village || 'nodata';
   const ville = address.city || address.town || address.village || address.hamlet || 'nodata';
