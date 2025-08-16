@@ -148,9 +148,9 @@ async function transformAdress (address) {
   console.log(keep);
   const tablekeep = keep.split(',');
  // console.log("tablekeep :", tablekeep);
-  keep = tablekeep.filter(item => item !== ' nodata');
+  keep = tablekeep.filter(item => item.trim() !== 'nodata');
  // console.log("keep :", keep);
-  keep = keep.join(',');
+  keep = keep.map(item => item.trim()).join(', ');
   return keep;
 }
 
