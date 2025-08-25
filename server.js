@@ -1436,7 +1436,9 @@ app.post('/getbenneinformations', async (req, res) => {
           k : await getIcon_conducteur(condu),
           l : await getIcon_cereale(cere),
           m : await getIcon_ferme(ferme),
-          n : await getIcon_benne(benne)
+          n : await getIcon_benne(benne),
+          o:latitude,
+          p:longitude
         };
         console.log("LOGI");
         console.log(message);
