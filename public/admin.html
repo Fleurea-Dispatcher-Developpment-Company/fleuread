@@ -1748,6 +1748,7 @@ paramDatas[ben.id] = ben;
     </script>
     <script>
       async function pushPanel(id) {
+        nowPanel = id;
         const panel = document.getElementById('panelcontent');
         document.getElementById('panel').style.display = "flex";
         document.getElementById('mapSearch').style.display = "none";
@@ -1822,6 +1823,64 @@ document.getElementById('editer_a').onclick = async () => {
           }
         }
 
+    </script>
+       <script>
+         let nowPanel;
+      const inputB =  document.getElementById('cereale_input_search');
+      // const resultContainer = document.getElementById('result_mapSearch');
+      let thisvalue;
+      let debounceTimer;
+      
+      inputB.addEventListener('input', async () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(async () => {
+        thisvalue = inputB.value;
+        const answer = await fetcher('smartsearchcereale',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id'));
+          
+        if (answer.length < 1) {
+         showToast("Aucune correspondance, consultez l'interface d'administration",'red');
+        } else {
+                 const content = {
+                toupd : 'céréale',
+                value_toupd : answer[0].num,
+                eq:'num',
+                value_eq:nowPanel
+              };
+              console.log(content);
+              const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+                pushPanel(nowPanel);
+        }
+        }, 500);
+      });
+    </script>
+    <script>
+         let nowPanel;
+      const inputA =  document.getElementById('farm_input_search');
+      // const resultContainer = document.getElementById('result_mapSearch');
+      let thisvalue;
+      let debounceTimer;
+      
+      inputA.addEventListener('input', async () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(async () => {
+        thisvalue = inputA.value;
+        const answer = await fetcher('smartsearchfarm',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id'));
+          
+        if (answer.length < 1) {
+         showToast("Aucune correspondance, consultez l'interface d'administration",'red');
+        } else {
+                 const content = {
+                toupd : 'id_client',
+                value_toupd : answer[0].num,
+                eq:'num',
+                value_eq:nowPanel
+              };
+              console.log(content);
+              const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+                pushPanel(nowPanel);
+        }
+        }, 500);
+      });
     </script>
   </body>
 </html>
