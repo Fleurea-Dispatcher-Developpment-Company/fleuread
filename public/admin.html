@@ -1739,7 +1739,8 @@ paramDatas[ben.id] = ben;
           id:id,
             offset:offset
         };
-        const fromServer = await fetcher ('getbenneinformations', content, 'POST', sessionStorage.getItem('session_id'));
+        let fromServer = await fetcher ('getbenneinformations', content, 'POST', sessionStorage.getItem('session_id'));
+        fromServer = fromServer.message;
         console.log(fromServer);
         document.getElementById('panel_A_img').src = fromServer.n;
         document.getElementById('panel_A_h1').textContent = fromServer.a;
