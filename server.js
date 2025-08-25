@@ -1527,7 +1527,7 @@ app.post('/smartsearchfarm', async (req, res) => {
        try {
       const bennes = await readDatabase('clients', '*');
       for (const ben of bennes) {
-        if (String(ben.name || "").includes(value)) {
+        if (String(ben.name.trim() || "").includes(value.trim())) {
           options.push({text:ben.name, search:ben.num});
         } else if (String(ben.num || "").includes(value)) {
           options.push({text:ben.name, search:ben.num});
@@ -1564,7 +1564,7 @@ app.post('/smartsearchcereale', async (req, res) => {
        try {
       const bennes = await readDatabase('cereales', '*');
       for (const ben of bennes) {
-        if (String(ben.name || "").includes(value)) {
+        if (String(ben.name.trim() || "").includes(value.trim())) {
           options.push({text:ben.name, search:ben.num});
         } else if (String(ben.code || "").includes(value)) {
           options.push({text:ben.name, search:ben.num});
