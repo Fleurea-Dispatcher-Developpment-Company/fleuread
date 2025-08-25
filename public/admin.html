@@ -1829,11 +1829,11 @@ document.getElementById('editer_a').onclick = async () => {
       const inputB =  document.getElementById('cereale_input_search');
       // const resultContainer = document.getElementById('result_mapSearch');
       let thisvalueB;
-      let debounceTimer;
+      let debounceTimerB;
       
       inputB.addEventListener('input', async () => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(async () => {
+        clearTimeout(debounceTimerB);
+        debounceTimerB = setTimeout(async () => {
         thisvalueB = inputB.value;
         const answer = await fetcher('smartsearchcereale',{value:thisvalueB}, 'POST', sessionStorage.getItem('session_id'));
           
@@ -1858,11 +1858,11 @@ document.getElementById('editer_a').onclick = async () => {
       const inputA =  document.getElementById('farm_input_search');
       // const resultContainer = document.getElementById('result_mapSearch');
       let thisvalueA;
-      let debounceTimer;
+      let debounceTimerA;
       
       inputA.addEventListener('input', async () => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(async () => {
+        clearTimeout(debounceTimerA);
+        debounceTimerA = setTimeout(async () => {
         thisvalueA = inputA.value;
         const answer = await fetcher('smartsearchfarm',{value:thisvalueA}, 'POST', sessionStorage.getItem('session_id'));
           
