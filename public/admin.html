@@ -1763,6 +1763,39 @@ document.getElementById('editer_b').textContent = toread("B");
 document.getElementById('editer_b').style.backgroundColor = tocolor("B");
 document.getElementById('editer_c').textContent = toread("C");
 document.getElementById('editer_c').style.backgroundColor = tocolor("C");
+
+document.getElementById('editer_a').onclick = () => {
+        const content = {
+          toupd : 'statut',
+          value_toupd : 'A',
+          eq:'num',
+          value_eq:fromServer.a
+        };
+        console.log(content);
+        const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+}
+
+        document.getElementById('editer_b').onclick = () => {
+        const content = {
+          toupd : 'statut',
+          value_toupd : 'B',
+          eq:'num',
+          value_eq:fromServer.a
+        };
+        console.log(content);
+        const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+}
+
+        document.getElementById('editer_c').onclick = () => {
+        const content = {
+          toupd : 'statut',
+          value_toupd : 'C',
+          eq:'num',
+          value_eq:fromServer.a
+        };
+        console.log(content);
+        const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+}
         
          document.getElementById('panel_D_i').textContent = fromServer.e;
         document.getElementById('panel_D_i').href = `https://www.google.com/maps?q=${fromServer.o},${fromServer.p}`;
