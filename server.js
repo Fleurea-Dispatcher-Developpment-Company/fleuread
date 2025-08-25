@@ -139,12 +139,14 @@ async function getAdress(coords) {
 
 async function transformAdress (address) {
   console.log("We have an adress as input :", address);
+  const infrastructure = address.amenity || address.railway || address.building || address.farm || address.farmyard || 'nodata';
+  const numrue = address.housenumber || address.house_number || 'nodata';
   const route = address.road || address.pedestrian || address.footway || address.cycleway || address.path || 'nodata';
   const hameau = address.hamlet || address.neighbourhood || address.suburb || address.village || 'nodata';
   const ville = address.city || address.town || address.village || address.hamlet || 'nodata';
   const code_postal = address.postcode || 'nodata';
   const departement = address.state_district ||address.county || address.state || 'nodata';
-  let keep = `${route}, ${hameau}, ${ville} (${code_postal}), ${departement}`;
+  let keep = `${infrastructure}, ${numrue}, ${route}, ${hameau}, ${ville} (${code_postal}), ${departement}`;
   console.log(keep);
   const tablekeep = keep.split(',');
  // console.log("tablekeep :", tablekeep);
