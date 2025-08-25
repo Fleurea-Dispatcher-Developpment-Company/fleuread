@@ -1741,6 +1741,10 @@ paramDatas[ben.id] = ben;
         };
         const fromServer = await fetcher ('getbenneinformations', content, 'POST', sessionStorage.getItem('session_id'));
         console.log(fromServer);
+        document.getElementById('panel_A_img').src = fromServer.n;
+        document.getElementById('panel_A_p').textContent = fromServer.a;
+        document.getElementById('panel_B_p').textContent = toread(fromServer.b);
+        document.getElementById('panel_B').style.backgroundColor = tocolor(fromServer.b);
       }
     </script>
   </body>
