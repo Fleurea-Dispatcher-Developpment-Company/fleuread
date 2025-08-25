@@ -1773,6 +1773,7 @@ document.getElementById('editer_a').onclick = async () => {
         };
         console.log(content);
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+          pushPanel(fromServer.a);
 }
 
         document.getElementById('editer_b').onclick = async () => {
@@ -1784,6 +1785,7 @@ document.getElementById('editer_a').onclick = async () => {
         };
         console.log(content);
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+          pushPanel(fromServer.a);
 }
 
         document.getElementById('editer_c').onclick = async () => {
@@ -1795,6 +1797,7 @@ document.getElementById('editer_a').onclick = async () => {
         };
         console.log(content);
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+          pushPanel(fromServer.a);
 }
         
          document.getElementById('panel_D_i').textContent = fromServer.e;
