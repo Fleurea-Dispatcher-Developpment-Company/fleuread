@@ -1758,8 +1758,10 @@ paramDatas[ben.id] = ben;
         document.getElementById('panel_F_img').src = fromServer.k;
         document.getElementById('panel_F_p').textContent = "Posée par " + fromServer.i;
         document.getElementById('panel_F_pb').textContent = fromServer.j;
-        document.getElementById('panel_G_button').onclick = `window.open('fleuread.onrender.com/historique?type=benne&id=${fromServer.a}', '_blank');`;
-      }
+        document.getElementById('panel_G_button').onclick = () => {
+          window.open(`https://fleuread.onrender.com/historique?type=benne&id=${fromServer.a}`, '_blank');
+          }
+        }
     </script>
   </body>
 </html>
