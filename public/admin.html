@@ -1649,8 +1649,6 @@ paramDatas[ben.id] = ben;
         };
         const fromServer = await fetcher ('getbenneinformations', content, 'POST', sessionStorage.getItem('session_id'));
         console.log(fromServer);
-        const data = await fromServer.json();
-        console.log(data);
       }
     </script>
   </body>
