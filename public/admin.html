@@ -84,13 +84,13 @@
             <a id="panel_D_i" href="maps.google.com" target="_blank">29, chemin du lavoir, Périgneux</a>
           </div>
            <div id="panel_E">
-             <div id="panel_E_circle" class="circle">
+             <div id="panel_E_circle" class="circleC">
             <img id="panel_E_img" src="https://cdn.pixabay.com/photo/2016/07/26/15/33/soybeans-1543071_1280.jpg" alt="photocereale">
              </div>
             <h1 id="panel_E_h1">Blé</h1>
           </div>
           <div id="panel_F">
-            <div id="panel_F_circle" class="circle">
+            <div id="panel_F_circle" class="circleC">
             <img id="panel_F_img" src="https://cdn.pixabay.com/photo/2012/04/02/12/33/truck-24360_1280.png" alt="photoconduc">
              </div>
             <p id="panel_F_p">Posée par MONIER B.</p>
@@ -220,7 +220,7 @@
         color:white;
       }
       .cropped-image {
-      height: 20vh;
+      height: 15vh;
       object-fit: cover;      /* croppe l'image pour remplir le conteneur */
       object-position: center; /* zone visible centrée */
       }
@@ -383,6 +383,14 @@
       .circle {
         width:5vh;
         height:5vh;
+        border-radius:50%;
+        overflow:hidden;
+        position:relative;
+      }
+
+           .circleC {
+        height: 100%;         /* prend toute la hauteur disponible */
+        aspect-ratio: 1 / 1;
         border-radius:50%;
         overflow:hidden;
         position:relative;
