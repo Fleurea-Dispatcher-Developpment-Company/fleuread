@@ -1849,6 +1849,7 @@ document.getElementById('editer_a').onclick = async () => {
               console.log(content);
               const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
                 pushPanel(nowPanel);
+          showToast("Modification enregistrée !",'blue');
         }
         }, 500);
       });
@@ -1878,6 +1879,7 @@ document.getElementById('editer_a').onclick = async () => {
               console.log(content);
               const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
                 pushPanel(nowPanel);
+          showToast("Modification enregistrée !",'blue');
         }
         }, 500);
       });
