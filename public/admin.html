@@ -1742,9 +1742,20 @@ paramDatas[ben.id] = ben;
         const fromServer = await fetcher ('getbenneinformations', content, 'POST', sessionStorage.getItem('session_id'));
         console.log(fromServer);
         document.getElementById('panel_A_img').src = fromServer.n;
-        document.getElementById('panel_A_p').textContent = fromServer.a;
+        document.getElementById('panel_A_h1').textContent = fromServer.a;
         document.getElementById('panel_B_p').textContent = toread(fromServer.b);
         document.getElementById('panel_B').style.backgroundColor = tocolor(fromServer.b);
+        document.getElementById('panel_C_p').textContent = fromServer.c;
+        document.getElementById('panel_C_i').textContent = fromServer.d;
+         document.getElementById('panel_V_p').textContent = fromServer.g;
+        document.getElementById('panel_V_pb').textContent = fromServer.h;
+         document.getElementById('panel_D_i').textContent = fromServer.e;
+        document.getElementById('panel_D_i').href = `https://www.google.com/maps?q=${fromServer.o},${fromServer.p}`;
+         document.getElementById('panel_E_img').src = fromServer.l;
+        document.getElementById('panel_E_h1').textContent = fromServer.f;
+        document.getElementById('panel_F_img').src = fromServer.k;
+        document.getElementById('panel_F_p').textContent = fromServer.i;
+        document.getElementById('panel_F_pb').textContent = fromServer.j;
       }
     </script>
   </body>
