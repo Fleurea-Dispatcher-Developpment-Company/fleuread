@@ -1616,7 +1616,7 @@ paramDatas[ben.id] = ben;
           button.style.backgroundColor = "lightblue";
           button.style.border = "1px solid black";
           button.style.width = "100 %";
-          button.innerHTML = `${item.text}<br>${item.position.lat} ${item.position.lon}`;
+          button.innerHTML = `${item.text}`;
           button.onclick = () => {
             input.value = item.text;
             input.dispatchEvent(new Event('input', { bubbles: true }));
