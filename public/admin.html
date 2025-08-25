@@ -63,7 +63,7 @@
 
     <div id="map">
       <div id="panel">
-        <button onclick="document.getElementById('panel').style.display='none'">Fermer le panneau latéral</button>
+        <button onclick="document.getElementById('panel').style.display='none';  document.getElementById('mapSearch').style.display = 'flex';">Fermer le panneau latéral</button>
         <div id="panelcontent"></div>
       </div>
       <div id="view">
@@ -1644,6 +1644,7 @@ paramDatas[ben.id] = ben;
       async function pushPanel(id) {
         const panel = document.getElementById('panelcontent');
         document.getElementById('panel').style.display = "flex";
+        document.getElementById('mapSearch').style.display = "none";
         const content = {
           id:id,
             offset:offset
