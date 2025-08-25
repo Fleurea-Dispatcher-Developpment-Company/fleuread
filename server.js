@@ -1507,3 +1507,78 @@ async function getIcon_benne(id) {
     return "X";
   }
 }
+
+// SMART SEARCHS
+
+app.post('/smartsearchfarm', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const value = req.body.value;
+    if (value == "") {
+      res.json({});
+      return;
+    }
+    console.log("SMART SEARCH FARM");
+    if (await checkSession(thisid)) {
+      const options = [];
+      // Dans la fonction on va :
+     
+      // III) Chercher dans les clients
+       try {
+      const bennes = await readDatabase('clients', '*');
+      for (const ben of bennes) {
+        if (String(ben.name || "").includes(value)) {
+          options.push({text:ben.name, search:ben.num});
+        } else if (String(ben.num || "").includes(value)) {
+          options.push({text:ben.name, search:ben.num});
+        } else if (String(ben.adresse || "").includes(value)) {
+          options.push({text:ben.name, search:ben.num});
+        }
+      }
+      } catch (err) {
+        console.error(err);
+       // res.send(err);
+      }
+      // On envoie les résultat, maintenant qu'on a tout scanné...
+      res.json(options.reverse());
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+app.post('/smartsearchcereale', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const value = req.body.value;
+    if (value == "") {
+      res.json({});
+      return;
+    }
+    console.log("SMART SEARCH CEREALE");
+    if (await checkSession(thisid)) {
+      const options = [];
+      // Dans la fonction on va :
+     
+      // III) Chercher dans les clients
+       try {
+      const bennes = await readDatabase('cereales', '*');
+      for (const ben of bennes) {
+        if (String(ben.name || "").includes(value)) {
+          options.push({text:ben.name, search:ben.CODE});
+        } else if (String(ben.CODE || "").includes(value)) {
+          options.push({text:ben.name, search:ben.CODE});
+        }
+      }
+      } catch (err) {
+        console.error(err);
+       // res.send(err);
+      }
+      // On envoie les résultat, maintenant qu'on a tout scanné...
+      res.json(options.reverse());
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
