@@ -1613,7 +1613,7 @@ paramDatas[ben.id] = ben;
         if (answer.length > 1) {
         for (const item of answer) {
           const button = document.createElement('div');
-          button.style.backgroundColor = "lightblue";
+          button.style.backgroundColor = "rgba(173, 216, 230, 0.5)";
           button.style.border = "1px solid black";
           button.style.width = "100 %";
           button.innerHTML = `${item.text}`;
@@ -1631,7 +1631,7 @@ paramDatas[ben.id] = ben;
         } else {
           focusOn(answer[0].text,answer[0].position);
         }
-        }, 900);
+        }, 500);
       });
     </script>
     <script>
