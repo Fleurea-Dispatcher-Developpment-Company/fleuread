@@ -1839,7 +1839,7 @@ document.getElementById('editer_a').onclick = async () => {
           
         if (answer.length < 1) {
          showToast("Aucune correspondance, consultez l'interface d'administration",'red');
-        } else {
+        } else if (answer.length == 1) {
                  const content = {
                 toupd : 'céréale',
                 value_toupd : answer[0].search,
@@ -1870,7 +1870,7 @@ document.getElementById('editer_a').onclick = async () => {
           
         if (answer.length < 1) {
          showToast("Aucune correspondance, consultez l'interface d'administration",'red');
-        } else {
+        } else if (answer.length == 1) {
                  const content = {
                 toupd : 'id_client',
                 value_toupd : answer[0].search,
