@@ -139,7 +139,7 @@ async function getAdress(coords) {
 
 async function transformAdress (address) {
   console.log("We have an adress as input :", address);
-  const infrastructure = address.amenity || address.railway || address.building || address.farm || address.farmyard || 'nodata';
+  const infrastructure = address.amenity || adress.shop || address.railway || address.harbour || address.building || address.farm || address.farmyard || 'nodata';
   const numrue = address.housenumber || address.house_number || 'nodata';
   const route = address.road || address.pedestrian || address.footway || address.cycleway || address.path || 'nodata';
   const hameau = address.hamlet || address.neighbourhood || address.suburb || address.village || 'nodata';
