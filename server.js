@@ -1399,6 +1399,7 @@ app.post('/getbenneinformations', async (req, res) => {
         let conducteur;
         let condu;
         let depose;
+        let statusA;
             for (const ben of bennes) {
                 if (ben.num == benne) {
                   latitude = ben.longitude,
@@ -1406,6 +1407,7 @@ app.post('/getbenneinformations', async (req, res) => {
                   altitude = ben.altitude ?? "x",
                   notes = ben.notes,
                   ferme = ben.id_client,
+                   statusA = ben.statut, 
                   adresse = ben.adresse,
                   cereale = ben.céréale,
                   cere = ben.céréale;
@@ -1421,7 +1423,7 @@ app.post('/getbenneinformations', async (req, res) => {
         cereale = await getCereale(cereale);
         let message = {
           a : benne, 
-          b : benne.statut,
+          b : statusA,
           c : fermefull,
           d : phonenumber,
           e : adresse,
