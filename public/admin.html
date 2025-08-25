@@ -66,7 +66,7 @@
         <button onclick="document.getElementById('panel').style.display='none';  document.getElementById('mapSearch').style.display = 'flex';">Fermer le panneau latéral</button>
         <div class="w3-center" id="panelcontent">
           <div id="panel_A">
-            <img id="panel_A_img" src="https://cdn.pixabay.com/photo/2025/05/15/18/28/field-9602521_1280.jpg" alt="photobenne">
+            <img class="cropped_image" id="panel_A_img" src="https://cdn.pixabay.com/photo/2025/05/15/18/28/field-9602521_1280.jpg" alt="photobenne">
             <h1 id="panel_A_h1">521</h1>
           </div>
            <div class="w3-center" id="panel_B">
@@ -218,6 +218,11 @@
         left:50%;
         transform:translate(-50%,-50%);
         color:white;
+      }
+      .cropped-image {
+      height: 20vh;
+      object-fit: cover;      /* croppe l'image pour remplir le conteneur */
+      object-position: center; /* zone visible centrée */
       }
       #map {
         position:fixed;
