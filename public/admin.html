@@ -1828,14 +1828,14 @@ document.getElementById('editer_a').onclick = async () => {
          let nowPanel;
       const inputB =  document.getElementById('cereale_input_search');
       // const resultContainer = document.getElementById('result_mapSearch');
-      let thisvalue;
+      let thisvalueB;
       let debounceTimer;
       
       inputB.addEventListener('input', async () => {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(async () => {
-        thisvalue = inputB.value;
-        const answer = await fetcher('smartsearchcereale',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id'));
+        thisvalueB = inputB.value;
+        const answer = await fetcher('smartsearchcereale',{value:thisvalueB}, 'POST', sessionStorage.getItem('session_id'));
           
         if (answer.length < 1) {
          showToast("Aucune correspondance, consultez l'interface d'administration",'red');
@@ -1857,14 +1857,14 @@ document.getElementById('editer_a').onclick = async () => {
          let nowPanel;
       const inputA =  document.getElementById('farm_input_search');
       // const resultContainer = document.getElementById('result_mapSearch');
-      let thisvalue;
+      let thisvalueA;
       let debounceTimer;
       
       inputA.addEventListener('input', async () => {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(async () => {
-        thisvalue = inputA.value;
-        const answer = await fetcher('smartsearchfarm',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id'));
+        thisvalueA = inputA.value;
+        const answer = await fetcher('smartsearchfarm',{value:thisvalueA}, 'POST', sessionStorage.getItem('session_id'));
           
         if (answer.length < 1) {
          showToast("Aucune correspondance, consultez l'interface d'administration",'red');
