@@ -64,6 +64,7 @@
     <div id="map">
       <div id="panel">
         <button onclick="document.getElementById('panel').style.display='none'">Fermer le panneau latéral</button>
+        <div id="panelcontent"></div>
       </div>
       <div id="view">
         <div id="mapSearch">
@@ -235,6 +236,10 @@
        .leaflet-control-layers {
       z-index:1001;
     }
+
+      #mapSearch_input {
+        background-color:rgba(255,255,255,0.5);
+      }
       
       body {
           margin: 0;
@@ -1636,7 +1641,16 @@ paramDatas[ben.id] = ben;
     </script>
     <script>
       async function pushPanel(id) {
-        
+        const panel = document.getElementById('panelcontent');
+        panel.style.display = "flex";
+        const content = {
+          id:id,
+            offset:offset
+        };
+        const fromServer = await fetcher ('getbenneinformations', content, 'POST', sessionStorage.getItem('session_id'));
+        console.log(fromServer);
+        const data = await fromServer.json();
+        console.log(data);
       }
     </script>
   </body>
