@@ -1565,9 +1565,9 @@ app.post('/smartsearchcereale', async (req, res) => {
       const bennes = await readDatabase('cereales', '*');
       for (const ben of bennes) {
         if (String(ben.name || "").includes(value)) {
-          options.push({text:ben.name, search:ben.CODE});
-        } else if (String(ben.CODE || "").includes(value)) {
-          options.push({text:ben.name, search:ben.CODE});
+          options.push({text:ben.name, search:ben.code});
+        } else if (String(ben.code || "").includes(value)) {
+          options.push({text:ben.name, search:ben.code});
         }
       }
       } catch (err) {
