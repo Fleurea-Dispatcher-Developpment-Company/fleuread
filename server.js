@@ -1436,6 +1436,8 @@ app.post('/getbenneinformations', async (req, res) => {
           m : await getIcon_ferme(ferme),
           n : await getIcon_benne(benne)
         };
+        console.log("LOGI");
+        console.log(message);
         res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
       } else {
         // On renvoit le contenu de la page benne inconnue
