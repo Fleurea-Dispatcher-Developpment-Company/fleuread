@@ -1764,7 +1764,7 @@ document.getElementById('editer_b').style.backgroundColor = tocolor("B");
 document.getElementById('editer_c').textContent = toread("C");
 document.getElementById('editer_c').style.backgroundColor = tocolor("C");
 
-document.getElementById('editer_a').onclick = () => {
+document.getElementById('editer_a').onclick = async () => {
         const content = {
           toupd : 'statut',
           value_toupd : 'A',
@@ -1775,7 +1775,7 @@ document.getElementById('editer_a').onclick = () => {
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
 }
 
-        document.getElementById('editer_b').onclick = () => {
+        document.getElementById('editer_b').onclick = async () => {
         const content = {
           toupd : 'statut',
           value_toupd : 'B',
@@ -1786,7 +1786,7 @@ document.getElementById('editer_a').onclick = () => {
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
 }
 
-        document.getElementById('editer_c').onclick = () => {
+        document.getElementById('editer_c').onclick = async () => {
         const content = {
           toupd : 'statut',
           value_toupd : 'C',
