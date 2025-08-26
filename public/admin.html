@@ -1733,6 +1733,7 @@ paramDatas[ben.id] = ben;
             input.value = item.text;
             input.dispatchEvent(new Event('input', { bubbles: true }));
             focusOn(item.text,item.position);
+            setTimeout(() => {resultContainer.innerHTML = "";}, 2000);
           }
           resultContainer.append(button);
         }
