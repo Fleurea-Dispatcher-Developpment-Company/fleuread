@@ -1309,6 +1309,10 @@ app.post('/smartsearchmap', async (req, res) => {
       res.json({});
       return;
     }
+    if (value.startsWith("Benne n°")) {
+      res.json({});
+      return;
+    }
     console.log("SMART SEARCH MAP");
     if (await checkSession(thisid)) {
       const options = [];
