@@ -506,6 +506,7 @@ async function getBennes(thisid) {
         adresse:benne.adresse,
         cereale:benne.céréale,
         status:benne.statut,
+        search_status:await convertToSearch(benne.statut),
         link:benne.link,
         ferme:await getFerme(benne.id_client),
         formatted_cereale:await getCereale(benne.céréale),
@@ -1586,3 +1587,14 @@ app.post('/smartsearchcereale', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
+async function convertToSearch(tosearch) {
+  if (tosearch == "A") {
+    return "STAT$POS";
+  } else if (tosearch == "B") {
+    return "STAT$PRE";
+  } else if (tosearch == "C") {
+    return "STAT$END";
+  } else {
+    return "STAT$UNK";
+  }
+}
