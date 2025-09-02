@@ -806,15 +806,18 @@ benDatas[ben.id] = ben;
           num.style.backgroundColor = tocolor(ben.status);
           line.append(num);
           const status = document.createElement('p');
-          status.textContent = toread(ben.status);
-          status.style.backgroundColor = tocolor(ben.status);
+          status.textContent = ben.ferme;
+          // status.style.backgroundColor = tocolor(ben.status);
           line.append(status);
+          
+          const pds = document.createElement('p');
+          pds.textContent = ben.formatted_cereale;
+          line.append(pds);
+          
           const notes = document.createElement('p');
           notes.textContent = short(ben.notes);
           line.append(notes);
-          const pds = document.createElement('p');
-          pds.textContent = `${ben.volume} T`;
-          line.append(pds);
+          
           const but = document.createElement('button');
           but.textContent = `QR-Code`;
           but.onclick = () => {
