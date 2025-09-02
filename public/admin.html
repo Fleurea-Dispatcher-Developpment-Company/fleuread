@@ -139,6 +139,11 @@
       <div id="bennesSearch">
               <div id="searcherBenne">
                 <input class='input_search' type="text" id="text_searcherBenne" placeholder="Recherchez une benne ici...">
+                <div>
+                  <button style="background-color:yellow;" onclick="document.getElementById('text_searcherBenne').value = 'STAT$POS'; putBennes(document.getElementById('text_searcherBenne').value);">Posée(s)</button>
+                  <button style="background-color:red;" onclick="document.getElementById('text_searcherBenne').value = 'STAT$PRE'; putBennes(document.getElementById('text_searcherBenne').value);">Prête(s)</button>
+                  <button style="background-color:blue;" onclick="document.getElementById('text_searcherBenne').value = 'STAT$END'; putBennes(document.getElementById('text_searcherBenne').value);">En dépôt</button>
+                </div>
                 <button id="filtrerBennes" onclick="putBennes(document.getElementById('text_searcherBenne').value);">Filtrer</button>
                 <button onclick="putBennes('no'); document.getElementById('text_searcherBenne').value = '';">Réinitialiser</button>
                 <progress id="benne_progress" value="0" max="100"></progress>
