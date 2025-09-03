@@ -269,9 +269,9 @@ app.post('/logout', async (req, res) => {
   for (const compte of accounts) {
     if (compte.num == searched_num) {
       console.log(compte);
-      console.log(compte.first_name, "", compte.NOM, " est en cours de déconnexion");
+      console.log(compte.first_name, "", compte.name, " est en cours de déconnexion");
       let token_container = compte.auto_token || [];
-      token_container.slice(indexOf(permatoken), 1);
+      token_container.slice(token_container.indexOf(permatoken), 1);
       await editDatabase('comptes', 'auto_token', token_container, 'password', password);
       res.json({'status':'ok'});
       broadcast (JSON.stringify({action:'disconnect', who:permatoken}));
