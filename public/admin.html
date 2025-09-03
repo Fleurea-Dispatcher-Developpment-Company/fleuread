@@ -1907,7 +1907,9 @@ document.getElementById('editer_a').onclick = async () => {
         console.log("DISCONNECTION");
         sessionStorage.removeItem('session_id');
         sessionStorage.removeItem('off_token');
+        setTimeout(() => {
         start();
+        }, 1000);
       }
     </script>
   </body>
