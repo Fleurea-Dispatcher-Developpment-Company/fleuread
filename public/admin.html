@@ -1906,10 +1906,10 @@ document.getElementById('editer_a').onclick = async () => {
       async function disconnect () {
         console.log("DISCONNECTION");
         sessionStorage.removeItem('session_id');
-        sessionStorage.removeItem('off_token');
-        setTimeout(() => {
+        localStorage.removeItem('offtoken');
+        
         start();
-        }, 1000);
+      
       }
     </script>
   </body>
