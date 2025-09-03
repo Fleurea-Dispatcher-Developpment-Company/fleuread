@@ -16,7 +16,7 @@
         </div>
         <h2 id="lightH2"></h2>
         <p id="lightP"></p>
-        <button onclick="localStorage.removeItem('offtoken'); sessionStorage.removeItem('session_id'); start();">Se déconnecter</button>
+        <button onclick="fetcher('logout',{'session_id':sessionStorage.getItem('session_id'), 'token':localStorage.getItem('offtoken')},'POST',sessionStorage.getItem('session_id'));">Se déconnecter</button>
       </div>
     </div>
     <div style="display:none" id="lightboxB">
@@ -306,6 +306,14 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
         if (mes.action == 'time') {
           document.getElementById('time').textContent = mes.value;
         }
+          if (mes.action === 'disconnect') {
+              console.log("A/B");
+              console.log(mes.who);
+          if (mes.who === localStorage.getItem('offtoken')) {
+            console.log("B/B");
+          disconnect();
+          }
+        }
       });
       }
 
@@ -586,6 +594,15 @@ let mydatas = {};
          document.getElementById('resultContainer_text').innerHTML = message;
         document.getElementById('find_benne').reset();
         return fromServer.status;
+      }
+
+           async function disconnect () {
+        console.log("DISCONNECTION");
+        sessionStorage.removeItem('session_id');
+        localStorage.removeItem('offtoken');
+        
+        start();
+      
       }
     </script>
   </body>
