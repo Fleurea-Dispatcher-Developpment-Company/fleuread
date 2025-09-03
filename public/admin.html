@@ -575,7 +575,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
           }
         }
             if (mes.action === 'disconnect') {
-          if (mes.who === sessionStorage.getItem('session_id')) {
+          if (mes.who === sessionStorage.getItem('offtoken')) {
           disconnect();
           }
         }
@@ -1901,6 +1901,7 @@ document.getElementById('editer_a').onclick = async () => {
       });
 
       async function disconnect () {
+        console.log("DISCONNECTION");
         sessionStorage.removeItem('session_id');
         sessionStorage.removeItem('off_token');
         start();
