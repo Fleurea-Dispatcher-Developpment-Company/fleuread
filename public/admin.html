@@ -717,7 +717,7 @@ async function translateColor (input) {
         markers.length = 0;
         // 
         for (const benne of pointBennes) {
-          console.log("Plotting de la benne n° ", benne.num);
+          console.log("Plotting de la benne n° ", benne.id);
           if (benne.longitude && benne.latitude) {
             console.log("Coordonnées : ", benne.longitude, ", ", benne.latitude);
             console.log(benne.statut, " → ", await translateColor(benne.statut));
@@ -728,7 +728,7 @@ async function translateColor (input) {
             fillOpacity:0.8
           })
           .addTo(map)
-          .bindPopup(benne.num.toString())
+          .bindPopup(benne.id.toString())
           marker.on('click', function(e) {
             console.log(`La benne n° ${e.target.getPopup().getContent()} a été cliquée, nous allons afficher ses informations dans le panneau latéral`);
             pushPanel(e.target.getPopup().getContent());
