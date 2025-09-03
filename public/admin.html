@@ -600,7 +600,7 @@ let generalDatas;
         mydatas["first_name"] = first_name;
         mydatas["name"] = name;
         mydatas["role"] = role;
-        getGeneralDatas();
+       // getGeneralDatas();
       }
 
        async function getGeneralDatas() {
@@ -708,7 +708,7 @@ async function translateColor (input) {
       
       async function plotPoints () {
         // On possède les données
-        await getGeneralDatas();
+        // await getGeneralDatas();
         const pointBennes = await getBennes();
         // On enlève d'abord tous les marqueurs
            for (const marker of markers) {
