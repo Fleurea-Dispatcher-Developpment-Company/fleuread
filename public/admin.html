@@ -709,13 +709,14 @@ async function translateColor (input) {
       async function plotPoints () {
         // On possède les données
         await getGeneralDatas();
+        const pointBennes = await readDatabase('bennes','*');
         // On enlève d'abord tous les marqueurs
            for (const marker of markers) {
              map.removeLayer(marker);
            }
         markers.length = 0;
         // 
-        for (const benne of generalDatas.bennes) {
+        for (const benne of pointBennes) {
           console.log("Plotting de la benne n° ", benne.num);
           if (benne.longitude && benne.latitude) {
             console.log("Coordonnées : ", benne.longitude, ", ", benne.latitude);
