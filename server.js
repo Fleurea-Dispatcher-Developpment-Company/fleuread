@@ -251,6 +251,25 @@ app.post('/login', async (req, res) => {
       res.json({off:token});
     }
   }
+
+app.post('/logout', async (req, res) => { // Cette fonction est à inverser...
+  try {
+  const data = req.body;
+  const password = data.password;
+  const accounts = await readDatabase('comptes','*');
+  console.log(accounts);
+  for (const compte of accounts) {
+    if (compte.password == password) {
+      console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
+      const token = crypto.randomBytes(32).toString('hex');
+      let nowtoken = await readDatabase('comptes');
+      nowtoken = nowtoken.auto_token;
+      nowtoken.push(token);
+      await editDatabase('comptes', 'auto_token', nowtoken, 'password', password);
+      res.json({off:token});
+    }
+  }
+    
     res.send({status:'no', off:"Le mot de passe est incorrect"});
   } catch (err) {console.error(err);}
 });
