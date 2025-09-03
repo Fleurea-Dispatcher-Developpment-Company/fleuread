@@ -575,7 +575,10 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
           }
         }
             if (mes.action === 'disconnect') {
-          if (mes.who === sessionStorage.getItem('offtoken')) {
+              console.log("A/B");
+              console.log(mes.who);
+          if (mes.who === localStorage.getItem('offtoken')) {
+            console.log("B/B");
           disconnect();
           }
         }
