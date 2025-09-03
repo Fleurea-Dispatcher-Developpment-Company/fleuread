@@ -244,8 +244,7 @@ app.post('/login', async (req, res) => {
     if (compte.password == password) {
       console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const token = crypto.randomBytes(32).toString('hex');
-      let nowtoken = await readDatabase('comptes');
-      nowtoken = nowtoken.auto_token;
+      let nowtoken = compte.auto_token;
       nowtoken.push(token);
       await editDatabase('comptes', 'auto_token', nowtoken, 'password', password);
       res.json({off:token});
@@ -256,7 +255,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.post('/logout', async (req, res) => { // Cette fonction est à inverser...
+app.post('/logout', async (req, res) => {
   try {
   const data = req.body;
   const password = data.password;
@@ -266,16 +265,15 @@ app.post('/logout', async (req, res) => { // Cette fonction est à inverser...
     if (compte.password == password) {
       console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const token = crypto.randomBytes(32).toString('hex');
-      let nowtoken = await readDatabase('comptes');
-      nowtoken = nowtoken.auto_token;
+      let nowtoken = compte.auto_token;
       nowtoken.push(token);
       await editDatabase('comptes', 'auto_token', nowtoken, 'password', password);
       res.json({off:token});
     }
   }
-    
-    res.send({status:'no', off:"Le mot de passe est incorrect"});
-  } catch (err) {console.error(err);}
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 app.post('/getsessionid', async (req, res) => {
