@@ -251,6 +251,10 @@ app.post('/login', async (req, res) => {
       res.json({off:token});
     }
   }
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 app.post('/logout', async (req, res) => { // Cette fonction est à inverser...
   try {
