@@ -236,12 +236,14 @@ app.post('/checksession', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   try {
+  console.log("Login");
   const data = req.body;
   const password = data.password;
   const accounts = await readDatabase('comptes','*');
   console.log(accounts);
   for (const compte of accounts) {
     if (compte.password == password) {
+      console.log(compte);
       console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const token = crypto.randomBytes(32).toString('hex');
       let token_container = compte.auto_token || [];
