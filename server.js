@@ -274,7 +274,7 @@ app.post('/logout', async (req, res) => {
       token_container.slice(token_container.indexOf(permatoken), 1);
       await editDatabase('comptes', 'auto_token', token_container, 'password', password);
       res.json({'status':'ok'});
-      broadcast (JSON.stringify({action:'disconnect', who:permatoken}));
+      broadcast ({action:'disconnect', who:permatoken});
     }
   }
     res.send({status:'no', off:"Le mot de passe est incorrect"});
