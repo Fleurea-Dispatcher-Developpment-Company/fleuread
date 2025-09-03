@@ -18,7 +18,7 @@
         </div>
         <h2 id="lightH2"></h2>
         <p id="lightP"></p>
-        <button onclick="localStorage.removeItem('offtoken'); sessionStorage.removeItem('session_id'); start();">Se déconnecter</button>
+        <button onclick="fetcher('logout', {}, 'POST', sessionStorage.getItem('session_id'));">Se déconnecter</button>
       </div>
     </div>
      <div id="lightboxB">
