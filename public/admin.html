@@ -574,6 +574,11 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
             document.getElementById('param_progress').value = parseFloat(mes.value)*100;
           }
         }
+            if (mes.action === 'disconnect') {
+          if (mes.who === sessionStorage.getItem('session_id')) {
+          disconnect();
+          }
+        }
         });
       }
 
@@ -1894,6 +1899,12 @@ document.getElementById('editer_a').onclick = async () => {
         }
         }, 500);
       });
+
+      async function disconnect () {
+        sessionStorage.removeItem('session_id');
+        sessionStorage.removeItem('off_token');
+        start();
+      }
     </script>
   </body>
 </html>
