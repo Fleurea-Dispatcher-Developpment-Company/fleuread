@@ -244,36 +244,12 @@ app.post('/login', async (req, res) => {
     if (compte.password == password) {
       console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const token = crypto.randomBytes(32).toString('hex');
-      let nowtoken = compte.auto_token;
-      nowtoken.push(token);
-      await editDatabase('comptes', 'auto_token', nowtoken, 'password', password);
+      await editDatabase('comptes', 'auto_token', token, 'password', password);
       res.json({off:token});
     }
   }
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-app.post('/logout', async (req, res) => {
-  try {
-  const data = req.body;
-  const password = data.password;
-  const accounts = await readDatabase('comptes','*');
-  console.log(accounts);
-  for (const compte of accounts) {
-    if (compte.password == password) {
-      console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
-      const token = crypto.randomBytes(32).toString('hex');
-      let nowtoken = compte.auto_token;
-      nowtoken.push(token);
-      await editDatabase('comptes', 'auto_token', nowtoken, 'password', password);
-      res.json({off:token});
-    }
-  }
-  } catch (err) {
-    console.error(err);
-  }
+    res.send({status:'no', off:"Le mot de passe est incorrect"});
+  } catch (err) {console.error(err);}
 });
 
 app.post('/getsessionid', async (req, res) => {
