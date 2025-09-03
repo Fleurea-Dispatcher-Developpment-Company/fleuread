@@ -244,7 +244,9 @@ app.post('/login', async (req, res) => {
     if (compte.password == password) {
       console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const token = crypto.randomBytes(32).toString('hex');
-      await editDatabase('comptes', 'auto_token', token, 'password', password);
+      const nowtoken = await readDatabase('comptes');
+      nowtoken.push(token);
+      await editDatabase('comptes', 'auto_token', nowtoken, 'password', password);
       res.json({off:token});
     }
   }
