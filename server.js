@@ -256,6 +256,31 @@ app.post('/login', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
+app.post('/logout', async (req, res) => {
+  try {
+  console.log("Logout");
+  const data = req.body;
+  const password = data.session_id;
+  const permatoken = data.token;
+  const accounts = await readDatabase('comptes','*');
+  console.log(accounts);
+    // sessions[sessionId].id = compte.num;
+    let searched_num = sessions[password].id;
+  for (const compte of accounts) {
+    if (compte.num == searched_num) {
+      console.log(compte);
+      console.log(compte.first_name, "", compte.NOM, " est en cours de déconnexion");
+      let token_container = compte.auto_token || [];
+      token_container.slice(indexOf(permatoken), 1);
+      await editDatabase('comptes', 'auto_token', token_container, 'password', password);
+      res.json({'status':'ok'});
+      broadcast (JSON.stringify({action:'disconnect', who:permatoken}));
+    }
+  }
+    res.send({status:'no', off:"Le mot de passe est incorrect"});
+  } catch (err) {console.error(err);}
+});
+
 app.post('/getsessionid', async (req, res) => {
   try {
   const data = req.body;
