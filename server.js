@@ -86,6 +86,7 @@ async function autoPing () {
     const response = await fetch(`https://${url}/ping`);
     const data = await response.json();
     console.log(data);
+    readDatabase('bennes', '*'); // Cette ligne permet de maintenir Supabase en éveil
   } catch (err) {
     console.error(err);
   }
