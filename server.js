@@ -262,7 +262,7 @@ app.post('/getsessionid', async (req, res) => {
   const accounts = await readDatabase('comptes','*');
   console.log(accounts);
   for (const compte of accounts) {
-    if (compte.auto_token == token) {
+    if (compte.auto_token.includes(token)) {
       console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const sessionId = crypto.randomBytes(32).toString('hex');
       sessions[sessionId] = {};
