@@ -709,7 +709,7 @@ async function translateColor (input) {
       async function plotPoints () {
         // On possède les données
         await getGeneralDatas();
-        const pointBennes = await getBennes;
+        const pointBennes = await getBennes();
         // On enlève d'abord tous les marqueurs
            for (const marker of markers) {
              map.removeLayer(marker);
