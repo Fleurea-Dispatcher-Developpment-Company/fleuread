@@ -1732,3 +1732,38 @@ app.post('/registerafile', upload.single('media'), async (req, res) => {
     }
   } catch (err) {console.error(err);}
 });
+
+app.get('/media', async (req, res) => {
+  try {
+    const fleuread_id = req.query.id;
+    const docs = await readDatabase('storage', '*');
+    let true_url;
+    for (const doc of docs) {
+      if (doc.fleuread_id == fleuread_id) {
+        true_url = doc.link;
+        console.log(true_url);
+      }
+    }
+    const client = true_url.startsWith('https') ? https : http;
+    const tempFilePath = path.join(__dirname, `temp_file_${fleuread_id}`);
+
+const fileStream = fs.createWriteStream(tempFilePath);
+    client.get(true_url, (fileRes) => {
+      fileRes.pipe(fileStream);
+      fileStream.on('finish', () => {
+        fileStream.close();
+        res.sendFile(tempFilePath, (err) => {
+          if (err) {
+            res.status(500).send("Erreur lors de l'envoi du fichier !");
+          }
+          
+          fs.unlink(tempFilePath, () => {});
+        });
+      });
+    }).on('error', (err) => {
+      res.status(500).send("Erreur lors de la récupération du fichier !");
+    });
+  } catch (err) {
+    console.error(err);
+  }
+});
