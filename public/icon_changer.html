@@ -150,7 +150,7 @@
 
       async function transformToUrl (file) {
           const formData = new FormData();
-          formData.append("file", file); // clé "file"
+          formData.append("media", file); // clé "file"
           const dataAns = await filefetcher('registerafile', formData, 'POST', sessionStorage.getItem('session_id'));
           console.log(dataAns.url);
         document.getElementById('ab').hidden = 'true'; document.getElementById('cd').hidden = 'false';
