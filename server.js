@@ -1759,7 +1759,7 @@ app.get('/media', async (req, res) => {
         console.log(true_url);
       }
     }
-    const client = true_url.startsWith('https') ? https : http;
+    const client = true_url;
     const tempFilePath = path.join(__dirname, `temp_file_${fleuread_id}`);
 
 const fileStream = fs.createWriteStream(tempFilePath);
@@ -1781,4 +1781,16 @@ const fileStream = fs.createWriteStream(tempFilePath);
   } catch (err) {
     console.error(err);
   }
+});
+
+app.post('/gethistorique', async (req, res) => {
+  console.log("Get Historique");
+  try {
+    const thisid = req.headers.auth;
+    if (await checkRole('admin', thisid)) {
+     // On récupère l'historique
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
 });
