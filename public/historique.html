@@ -94,6 +94,7 @@
           line.style.marginBottom = "1vh";
           const a = document.createElement('p');
           a.textContent = `${item.who} a ${await convertToWords(item.content)} l'élément n°${item.what} des n°${item.table} (${item.type} → ${item.value})`;
+          a.classList.add('w3-center');
           line.append(a);
           document.getElementById('histocontainer').append(line);
         }
