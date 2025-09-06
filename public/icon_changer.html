@@ -10,7 +10,7 @@
   </head>
   <body>
      <div id="toast-container"></div>
-      <div class="form-container w3-center">
+      <div id="ab" class="form-container w3-center">
         <p id="data_known" class="w3-center"></p>
         <img id="img_known" class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
         <br>
@@ -18,6 +18,13 @@
         <button id="from_computer">Importer une image</button>
         <button id="return" onclick="window.history.back();">Retour</button>
         <input hidden class="display:none" id="file_input" accept="image/*" type="file">
+      </div>
+    <div hidden id="cd" class="form-container w3-center">
+        <p class="w3-center">Confirmez la modification</p>
+        <img id="img_preview" class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
+        <br>
+        <button id="confirm_preview">Confirmer</button>
+        <button onclick="document.getElementById('ab').hidden = 'false'; document.getElementById('cd').hidden = 'true';">Annuler</button>
       </div>
     <script>
       const offset = -((new Date().getTimezoneOffset()) / 60);
@@ -100,18 +107,21 @@
         const urlParams = new URLSearchParams(window.location.search);
         const type = urlParams.get('type');
         const id = urlParams.get('id');
+            sessionStorage.setItem('type', type);
        //   showToast(`Résult : ${id} / ${action}`);
         getImageData(type, id);
       }
       
       const imager = document.getElementById('img_known');
       const data_known = document.getElementById('data_known');
+
       
       async function getImageData(type, id) {
         const datas = await fetcher('getimagedata', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
         console.log(datas);
         imager.src = datas.icon;
         data_known.textContent = datas.id;
+        sessionStorage.setItem('true_id', datas.id);
       }
       
       async function changeImageData(type, url, id) {
@@ -122,6 +132,11 @@
 
       document.getElementById('from_computer').addEventListener('click', function () {
         document.getElementById('file_input').click();
+      });
+
+      document.getElementById('confirm_preview').addEventListener('click', function () {
+        const urlL = document.getElementById('img_preview').src;
+        changeImageData(sessionStorage.getItem('type'), urlL, sessionStorage.getItem('true_id'));
       });
 
      document.getElementById('file_input').addEventListener('change', function () { // Autosubmit du formulaire
@@ -138,6 +153,8 @@
           formData.append("file", file); // clé "file"
           const dataAns = await filefetcher('registerafile', formData, 'POST', sessionStorage.getItem('session_id'));
           console.log(dataAns.url);
+        document.getElementById('ab').hidden = 'true'; document.getElementById('cd').hidden = 'false';
+        document.getElementById('img_preview').src = dataAns.url;
       }
     </script>
     <style>
