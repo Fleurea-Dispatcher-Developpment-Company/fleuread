@@ -729,21 +729,13 @@ let generalDatas;
      showToast("Nouvelle position enregistrée.", "green");
 
      const content = {
-                toupd : 'longitude',
-                value_toupd : lat,
-                eq:'num',
-                value_eq:nowPanel
+                  altitude:"Inconnue",
+                  latitude:lon,
+                 longitude:lat,
+                 id:nowPanel
               };
               console.log(content);
-              fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
-     const contentB = {
-                toupd : 'latitude',
-                value_toupd : lon,
-                eq:'num',
-                value_eq:nowPanel
-              };
-              console.log(content);
-              fetcher('editbenne', contentB, 'POST', sessionStorage.getItem('session_id'));
+              fetcher('registerbenne', content, 'POST', sessionStorage.getItem('session_id'));
      changerState = false;
    }
   });
