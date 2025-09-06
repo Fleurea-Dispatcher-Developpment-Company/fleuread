@@ -21,15 +21,15 @@ cloudinary.config({
 });
 
 // Le système stocke en flash storage
-const storage = multer.diskStorage({
-  destination: 'uploads/',
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
+//const storage = multer.diskStorage({
+//  destination: 'uploads/',
+//  filename: (req, file, cb) => {
+//    cb(null, Date.now() + '-' + file.originalname);
+//  }
+//});
 
 // Création du middleware upload
-const upload = multer({ storage: storage });
+const upload = multer({dest: 'uploads/'});
 
 // On gère tous les app.something
 const app = express();
