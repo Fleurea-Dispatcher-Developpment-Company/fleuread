@@ -1755,7 +1755,7 @@ app.get('/media', async (req, res) => {
     let true_url;
     for (const doc of docs) {
       if (doc.fleuread_id == fleuread_id) {
-        true_url = doc.link;
+        true_url = String(doc.link);
         console.log(true_url);
       }
     }
