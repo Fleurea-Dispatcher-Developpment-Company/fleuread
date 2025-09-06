@@ -72,7 +72,7 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/icon_changer', async (req, res) => {
+app.get('/icon', async (req, res) => {
   try {
   res.sendFile(path.join(__dirname, 'public', 'icon_changer.html'));
   } catch (err) {
