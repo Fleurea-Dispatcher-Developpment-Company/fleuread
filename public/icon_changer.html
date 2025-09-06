@@ -128,6 +128,7 @@
         const datas = await fetcher('changeimagedata', {id:id, url:url, type:type}, 'POST', sessionStorage.getItem('session_id'));
         console.log(datas);
         showToast(datas.message, datas.color);
+        document.getElementById('return').click();
       }
 
       document.getElementById('from_computer').addEventListener('click', function () {
