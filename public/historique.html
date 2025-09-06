@@ -89,7 +89,7 @@
         for (const item of datas) {
           const line = document.createElement('div');
           const a = document.createElement('p');
-          a.textContent = `${item.who} a ${await convertToWords(item.content)} la ${item.table} n°${item.what} (${item.type} → ${item.value})`;
+          a.textContent = `${item.who} a ${await convertToWords(item.content)} l'élément n°${item.what} des n°${item.table} (${item.type} → ${item.value})`;
           line.append(a);
           document.getElementById('histocontainer').append(line);
         }
