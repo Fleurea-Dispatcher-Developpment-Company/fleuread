@@ -39,6 +39,18 @@
       }
             readParams();
       }
+      async function check(id) {
+        const answer = await fetcher('checksession',{'id':id},'POST','noauth');
+        const bool = answer.value;
+        console.warn(bool);
+        if (bool) {
+          console.warn("true");
+          return true;
+        } else {
+          console.warn("false");
+          return false;
+        }
+      }
       
       start();
       async function fetcher (endpoint, body, method, auth) {
