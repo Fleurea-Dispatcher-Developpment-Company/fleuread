@@ -1525,7 +1525,8 @@ app.post('/getbenneinformations', async (req, res) => {
           m : await getIcon_ferme(ferme),
           n : await getIcon_benne(benne),
           o:latitude,
-          p:longitude
+          p:longitude,
+          q:altitude
         };
         console.log("LOGI");
         console.log(message);
