@@ -1010,7 +1010,7 @@ async function setHistorique (who, what, content, table, value, type) {
   let cellule;
   for (const cell of from) {
     if (cell.num == what) {
-      cellule = cell;
+      cellule = cell.historique || [];
     }
   }
   // La convertir en tableau
