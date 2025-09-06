@@ -114,13 +114,17 @@
         const file = this.files[0];
         const reader = new FileReader();
         reader.onload = function () { // Vérification du chargement et soumission instantanée
-                const formData = new FormData();
-                formData.append("file", file); // clé "file"
-          const dataAns = await fetcher('registerafile', formData, 'POST', sessionStorage.getItem('session_id'));
-          console.log(dataAns.url);
+                transformToUrl(file);
         }
         reader.readAsDataURL(file);
     });
+
+      async function transformToUrl (file) {
+          const formData = new FormData();
+          formData.append("file", file); // clé "file"
+          const dataAns = await fetcher('registerafile', formData, 'POST', sessionStorage.getItem('session_id'));
+          console.log(dataAns.url);
+      }
     </script>
     <style>
       body {
