@@ -88,6 +88,10 @@
         const datas = await fetcher('gethistorique', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
         for (const item of datas) {
           const line = document.createElement('div');
+          line.style.width = '100%';
+          line.style.backgroundColor = 'white';
+          line.style.border = '1px solid black';
+          line.style.marginBottom = "1vh";
           const a = document.createElement('p');
           a.textContent = `${item.who} a ${await convertToWords(item.content)} l'élément n°${item.what} des n°${item.table} (${item.type} → ${item.value})`;
           line.append(a);
