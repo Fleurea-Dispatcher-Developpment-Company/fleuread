@@ -729,7 +729,7 @@ let generalDatas;
                 value_eq:nowPanel
               };
               console.log(content);
-              const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+              fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
      const contentB = {
                 toupd : 'latitude',
                 value_toupd : lon,
@@ -737,7 +737,7 @@ let generalDatas;
                 value_eq:nowPanel
               };
               console.log(content);
-              const responseServer = await fetcher('editbenne', contentB, 'POST', sessionStorage.getItem('session_id'));
+              fetcher('editbenne', contentB, 'POST', sessionStorage.getItem('session_id'));
    }
   });
       
