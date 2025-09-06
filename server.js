@@ -1636,3 +1636,34 @@ async function convertToSearch(tosearch) {
     return "STAT$UNK";
   }
 }
+
+// Changer l'image
+app.post('/getimagedata', async (req, res) => {
+  console.log("Réception d'un GET Image Data");
+  try {
+    const thisid = req.headers.auth;
+    const type = req.body.type;
+    const id = req.body.id;
+    if (await checkSession(thisid)) {
+      // compte
+          if (type == "comptes") {
+            if (await checkRole ('admin',thisid)) {
+              res.json(await imageData(type, id));
+            } else {
+              if (id == thisid) {
+                res.json(await imageData(type, id));
+              }
+            }
+          }
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+async function imageData (type, id) {
+// 1. Obtenir l'id du conducteur
+  const num = sessions[id].id;
+// 2. Obtenir l'image
+  return {id:num, icon:await getIcon_conducteur(num)};
+}
