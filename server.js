@@ -1773,7 +1773,7 @@ if (!response.ok) {
 await new Promise((resolve, reject) => {
   const nodeStream = Readable.fromWeb(response.body);
   nodeStream.pipe(fileStream);
-  response.body.on("error", reject);
+  // response.body.on("error", reject);
   fileStream.on("finish", resolve);
 });
 
