@@ -1011,13 +1011,17 @@ async function setHistorique (who, what, content, table, value, type) {
   for (const cell of from) {
     if (cell.num == what) {
       cellule = cell.historique || [];
+      console.log(cellule);
     }
   }
   // La convertir en tableau
   // Ajouter la ligne who made content on the table what
+    console.log({who:who, content:content, what:what, value:value, type:type});
   cellule.push({who:who, content:content, what:what, value:value, type:type});
   // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
+    console.log("Lancement de l'édition en cours...");
   await editDatabase (table, 'historique', cellule, 'num', what);
+    console.log("Opération terminée avec succès !");
   } catch (err) {
     console.error(err);
   }
