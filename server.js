@@ -72,6 +72,14 @@ app.get('/', async (req, res) => {
   }
 });
 
+app.get('/icon_changer', async (req, res) => {
+  try {
+  res.sendFile(path.join(__dirname, 'public', 'icon_changer.html'));
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 app.get('/ping', async (req, res) => {
   try {
   res.json({'status':'on'});
