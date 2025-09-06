@@ -80,6 +80,14 @@ app.get('/icon', async (req, res) => {
   }
 });
 
+app.get('/historique', async (req, res) => {
+  try {
+  res.sendFile(path.join(__dirname, 'public', 'historique.html'));
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 app.get('/ping', async (req, res) => {
   try {
   res.json({'status':'on'});
