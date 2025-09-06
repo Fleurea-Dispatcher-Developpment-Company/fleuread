@@ -1713,26 +1713,145 @@ app.post('/changeimagedata', async (req, res) => {
   return {message:answer, color:'yellow'};
  }
 
-app.post('/registerafile', async (req, res) => {
-  console.log("Changement de l'image");
+app.post('/registerafile', upload.single('media'), async (req, res) => {
+  console.log("Enregistrement d'une image");
   try {
     const thisid = req.headers.auth;
-    const type = req.body.type;
-    const id = req.body.id;
-    const urlAb = req.body.url
     if (await checkSession(thisid)) {
-      // compte
-          if (type == "comptes") {
-            if (await checkRole ('admin',thisid)) {
-              res.json(await changeImage(id, type, urlAb));
-            } else {
-              if (id == thisid) {
-                res.json(await changeImage(id, type, urlAb));
-              }
-            }
-          }
+              const filePath = req.file.path;
+               const result = await cloudinary.uploader.upload (filePath, {
+                    folder:'users', 
+                    resource_type:'image'
+               }
+              fs.unlinkSync(filePath);
+      
+     await addDatabase ('storage', '', {fleuread_id:crypto.randomBytes(64).toString('hex'),link:result.secure_url});
     } else {
       res.status(401);
     }
   } catch (err) {console.error(err);}
 });
+
+// Données d'exemple
+
+// Ici nous essayons d'uploader des fichiers...
+app.post('/messagefile', upload.single('media'), async (req, res) => {
+//  console.log("Réception d'un message avec un fichier...");
+  const sesId = req.headers['key'];
+  const convId = req.headers['idconv'];
+//  console.log(sesId);
+  if (checkSession(sesId)) {
+  const idclient = sessions[sesId];
+//  console.log("Id du client à partir de la session :");
+//  console.log(idclient);
+
+  const dataId = req.body;
+ // console.log(dataId);
+ // console.log("Demande de l'id avec : ");
+ // console.log(convId);
+  if (checkAuth(convId, idclient)) {
+   // console.log("BigUpload");
+// Début d'importation, le but est de récupérer un lien sans limite de taille de code
+    const filePath = req.file.path;
+    // const originalName = req.file.originalName;
+     let contentMessage;
+    let fileType = req.file.mimetype.split('/')[0];
+    let extension = req.file.mimetype.split('/')[1];
+    //console.log(fileType);
+    typeObj = {image:"IMG",video:"VDO", audio:"AUD", application:"FIL"};
+    //console.log(typeObj[fileType]);
+    linktoreturn = await getLink(filePath, typeObj[fileType], extension);
+    if(linktoreturn == "unavailable") {
+      res.json({'status':'unavailable', 'message':'Payload too large !'});
+      return;
+    }
+    contentMessage = `[${typeObj[fileType]}]{"url":"${linktoreturn}"}`;
+  //  console.log(contentMessage);
+  // Avant toute chose il faut récupérer le lien...
+  const answ = await register(contentMessage, convId, idclient);
+    addFile(idclient,linktoreturn);
+    res.json({'status':'ok', 'message':answ})
+  } else {
+    res.json({'status':'forbidden'});
+  }
+  } else {
+    res.json({'status':'forbidden'});
+  }
+});
+
+async function getLink(filePath, type, extension) {
+ // console.log("getLink");
+  let sizeFile;
+  const limitIMG = 10 * 1024 * 1024;
+  const limitVDO = 100 * 1024 * 1024;
+ sizeFile = await getSize(filePath) || 5 * 1024 * 1024;
+ // console.log(sizeFile);
+ if (type == "IMG") {
+   //console.log("Image");
+   if (sizeFile < limitIMG) {
+    // console.log("OK");
+     return await uploadCloudinary (filePath, "image", extension);
+   }
+ }
+  if (type == "AUD") {
+ //  console.log("Audio");
+   if (sizeFile < limitIMG) {
+   //  console.log("OK");
+     return await uploadCloudinary (filePath, "video", extension);
+   }
+ }
+    if (type == "VDO") {
+//   console.log("Video");
+   if (sizeFile < limitVDO) {
+   //  console.log("OK");
+     return await uploadCloudinary (filePath, "video", extension);
+   }
+    }
+       if (type == "FIL") {
+  // console.log("Fichier");
+   if (sizeFile < limitIMG) {
+   //  console.log("OK");
+     return await uploadCloudinary (filePath, "raw", extension);
+   }
+ }
+}
+
+async function uploadCloudinary (filePath, type, extension) {
+  try {
+   // console.log("Cloudinary");
+    let supposedfilename = path.basename(filePath);
+    let format = extension;
+    //console.log(format);
+    // if (type == "raw") {
+      // supposedfilename += ".pdf";
+   // }
+ //   console.log(supposedfilename);
+ //   console.log(type);
+ ///   console.log(format);
+ //   console.log(filePath);
+  const result = await cloudinary.uploader.upload (filePath, {
+    folder:'liferon', 
+    resource_type:type,
+    // public_id:supposedfilename,
+  // format:format,
+   // use_filename:true,
+   // unique_filename:true
+  });
+//  console.log(result);
+  fs.unlinkSync(filePath);
+  return result.secure_url;
+  } catch (error) {
+  //  console.log(error);
+    return "unavailable";
+  }
+}
+
+// async function uploadSupabase (path) {
+  
+// }
+
+async function getSize (filePath) {
+   fs.stat(filePath, (err, stats) => {
+    return stats.size;
+  });
+}
