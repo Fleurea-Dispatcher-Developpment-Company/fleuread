@@ -1675,3 +1675,56 @@ async function imageData (type, id) {
 // 2. Obtenir l'image
   return {id:num, icon:await getIcon_conducteur(num)};
 }
+
+app.post('/changeimagedata', async (req, res) => {
+  console.log("Changement de l'image");
+  try {
+    const thisid = req.headers.auth;
+    const type = req.body.type;
+    const id = req.body.id;
+    const urlAb = req.body.url
+    if (await checkSession(thisid)) {
+      // compte
+          if (type == "comptes") {
+            if (await checkRole ('admin',thisid)) {
+              res.json(await changeImage(id, type, urlAb));
+            } else {
+              if (id == thisid) {
+                res.json(await changeImage(id, type, urlAb));
+              }
+            }
+          }
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
+
+ async function changeImage (id, type, url) {
+  const answer = editDatabase (type, 'link', url, 'num', id);
+  return {message:answer, color:'yellow'};
+ }
+
+app.post('/registerafile', async (req, res) => {
+  console.log("Changement de l'image");
+  try {
+    const thisid = req.headers.auth;
+    const type = req.body.type;
+    const id = req.body.id;
+    const urlAb = req.body.url
+    if (await checkSession(thisid)) {
+      // compte
+          if (type == "comptes") {
+            if (await checkRole ('admin',thisid)) {
+              res.json(await changeImage(id, type, urlAb));
+            } else {
+              if (id == thisid) {
+                res.json(await changeImage(id, type, urlAb));
+              }
+            }
+          }
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
