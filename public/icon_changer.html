@@ -92,7 +92,7 @@
         const datas = await fetcher('getimagedata', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
         console.log(datas);
         imager.src = datas.icon;
-        data_known = datas.id;
+        data_known.textContent = datas.id;
       }
     </script>
     <style>
