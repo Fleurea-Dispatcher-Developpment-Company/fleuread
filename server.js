@@ -1739,7 +1739,7 @@ app.post('/registerafile', upload.single('media'), async (req, res) => {
               fs.unlinkSync(filePath);
      const cryptoid = crypto.randomBytes(64).toString('hex');
      await addDatabase ('storage', '', {fleuread_id:cryptoid,link:result.secure_url});
-      res.json({url:`fleuread.onrender.com/media?id=${cryptoid}`});
+      res.json({url:`/media?id=${cryptoid}`});
     } else {
       res.status(401);
     }
