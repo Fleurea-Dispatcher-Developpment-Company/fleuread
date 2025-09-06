@@ -15,6 +15,30 @@
         <img class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
       </div>
     <script>
+      const offset = -((new Date().getTimezoneOffset()) / 60);
+      console.log(offset);
+      
+          async function start() {
+      url = new URL(window.location.href);
+      sessionId = await sessionStorage.getItem('session_id');
+      if (!sessionId) {
+        console.log("Not connected");
+        window.location.href = `https://${url.hostname}`; 
+      } else {
+        if (await check(sessionId)) {
+        console.log("Connected");
+       await connectWebSocket();
+          await getMe();
+        } else {
+        sessionStorage.removeItem('session_id');
+        console.log("Not connected");
+        window.location.href = `https://${url.hostname}`; 
+        }
+      }
+            readParams();
+      }
+      
+      start();
       async function fetcher (endpoint, body, method, auth) {
         try {
         const response = await fetch(`https://${url.host}/${endpoint}`,{
@@ -55,8 +79,6 @@
         const datas = await fetcher('getimagedata', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
         console.log(datas);
       }
-
-      readParams();
     </script>
     <style>
       body {
