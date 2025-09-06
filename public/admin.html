@@ -719,6 +719,26 @@ let generalDatas;
 
     // Afficher les coordonnées
   console.log(`Latitude: ${lat.toFixed(6)}, Longitude: ${lng.toFixed(6)}`);
+   if (changerState) {
+     showToast("Nouvelle position enregistrée.", "green");
+
+     const content = {
+                toupd : 'longitude',
+                value_toupd : lat,
+                eq:'num',
+                value_eq:nowPanel
+              };
+              console.log(content);
+              const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+     const contentB = {
+                toupd : 'latitude',
+                value_toupd : lon,
+                eq:'num',
+                value_eq:nowPanel
+              };
+              console.log(content);
+              const responseServer = await fetcher('editbenne', contentB, 'POST', sessionStorage.getItem('session_id'));
+   }
   });
       
 async function translateColor (input) {
