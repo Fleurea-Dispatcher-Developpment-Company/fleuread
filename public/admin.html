@@ -1949,7 +1949,7 @@ document.getElementById('editer_a').onclick = async () => {
       document.getElementById('move_benne').addEventListener('click', function () {
         changerState = true;
         console.log(changerState);
-        showToast("Cliquez sur la carte pour placer la benne dans moins de 15 secondes.", blue);
+        showToast("Cliquez sur la carte pour placer la benne dans moins de 15 secondes.", 'blue');
         setTimeout(() => {
           changerState = false;
         }, 15000);
