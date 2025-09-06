@@ -1711,7 +1711,7 @@ app.post('/changeimagedata', async (req, res) => {
             if (await checkRole ('admin',thisid)) {
               res.json(await changeImage(id, type, urlAb));
             } else {
-              if (id == thisid) {
+              if (id == sessions[id].id) {
                 res.json(await changeImage(id, type, urlAb));
               }
             }
