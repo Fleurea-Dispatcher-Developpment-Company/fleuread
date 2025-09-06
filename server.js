@@ -1001,7 +1001,7 @@ app.post('/editparam', async (req, res) => {
 
 async function setHistorique (who, what, content, table, value, type) {
   // Il faut récupérer la cellule selectionnée dans public:table:what
-  console.warn("SET HISTORIQUE");
+  console.log("SET HISTORIQUE");
   console.log(who, what, content, table, value, type);
   const from = await readDatabase(table, '*');
   let cellule;
