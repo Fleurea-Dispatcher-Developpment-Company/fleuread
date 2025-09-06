@@ -12,6 +12,7 @@ const QRCode = require('qrcode');
 const {PDFDocument, rgb, StandardFonts} = require('pdf-lib');
 const cloudinary = require("cloudinary").v2;
 const multer = require('multer');
+const { Readable } = require('stream');
 
 cloudinary.config({
   cloud_name : process.env.CLOUDINARY_NAME,
@@ -1770,7 +1771,8 @@ if (!response.ok) {
 
 // Copier le flux dans le fichier temporaire
 await new Promise((resolve, reject) => {
-  response.body.pipe(fileStream);
+  const nodeStream = Readable.fromWeb(response.body);
+  nodeStream.pipe(fileStream);
   response.body.on("error", reject);
   fileStream.on("finish", resolve);
 });
