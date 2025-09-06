@@ -10,9 +10,8 @@
   </head>
   <body>
      <div id="toast-container"></div>
-      <div class="form-container w3-center">
-        <p class="w3-center"></p>
-        <img class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
+      <div id="histocontainer" w3-center">
+        
       </div>
     <script>
       const offset = -((new Date().getTimezoneOffset()) / 60);
@@ -87,6 +86,12 @@
 
       async function getHistorique(type, id) {
         const datas = await fetcher('gethistorique', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
+        for (const item of datas) {
+          const line = document.createElement('div');
+          const a = document.createElement('h1');
+          a.textContent = item.who;
+          document.getElementById('histocontainer').append(div);
+        }
       }
     </script>
     <style>
