@@ -1759,25 +1759,29 @@ app.get('/media', async (req, res) => {
         console.log(true_url);
       }
     }
-    const client = true_url;
     const tempFilePath = path.join(__dirname, `temp_file_${fleuread_id}`);
-
 const fileStream = fs.createWriteStream(tempFilePath);
-    client.get(true_url, (fileRes) => {
-      fileRes.pipe(fileStream);
-      fileStream.on('finish', () => {
-        fileStream.close();
-        res.sendFile(tempFilePath, (err) => {
-          if (err) {
-            res.status(500).send("Erreur lors de l'envoi du fichier !");
-          }
-          
-          fs.unlink(tempFilePath, () => {});
-        });
-      });
-    }).on('error', (err) => {
-      res.status(500).send("Erreur lors de la récupération du fichier !");
-    });
+
+// Télécharger le fichier avec fetch
+const response = await fetch(true_url);
+if (!response.ok) {
+  return res.status(500).send("Erreur lors de la récupération du fichier !");
+}
+
+// Copier le flux dans le fichier temporaire
+await new Promise((resolve, reject) => {
+  response.body.pipe(fileStream);
+  response.body.on("error", reject);
+  fileStream.on("finish", resolve);
+});
+
+// Envoyer le fichier au client
+res.sendFile(tempFilePath, (err) => {
+  if (err) {
+    res.status(500).send("Erreur lors de l'envoi du fichier !");
+  }
+  fs.unlink(tempFilePath, () => {}); // supprimer le fichier temporaire
+});
   } catch (err) {
     console.error(err);
   }
