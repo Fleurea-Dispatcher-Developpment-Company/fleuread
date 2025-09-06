@@ -1016,8 +1016,8 @@ async function setHistorique (who, what, content, table, value, type) {
   }
   // La convertir en tableau
   // Ajouter la ligne who made content on the table what
-    console.log({who:who, content:content, what:what, value:value, type:type});
-  cellule.push({who:who, content:content, what:what, value:value, type:type});
+    console.log({who:who, content:content, what:what, value:value, table:table, type:type});
+  cellule.push({who:who, content:content, what:what, value:value, table:table, type:type});
   // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
     console.log("Lancement de l'édition en cours...");
   await editDatabase (table, 'historique', cellule, 'num', what);
