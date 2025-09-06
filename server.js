@@ -668,8 +668,10 @@ app.post('/editbenne', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('bennes', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
+      console.log("AVANT");
       setHistorique (session[thisid].id, value_eq, "1", "bennes", value_toupd, toupd); // Affectation à l'historique de la benne
       setHistorique (value_eq, session[thisid].id, "1", "bennes", value_toupd, toupd); // Affectation à l'historique de l'actionneur
+      console.log("APRÈS");
       const {latitude, longitude} = await getAdresseBenneEdit(value_eq);
       console.log("Entrée adresse benne", latitude, "*", longitude);
       const adresse = await getAdress([longitude, latitude]);
