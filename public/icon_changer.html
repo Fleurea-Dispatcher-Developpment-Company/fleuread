@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fleuréa Dispatcher | Icon Changer</title>
+    <link rel="shortcut icon" href="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  </head>
+  <body>
+    <div id="toast-container"></div>
+    <div id="lightbox">
+      <div class="lightbox-content w3-center">
+        <span id="close-btn">&times;</span>
+        <div class="circleB" style="top:50%; left:50%; transform:translate(-50%,-50%)">
+          <img id="lightImg" onclick="window.open(`fleuread.onrender.com/icon_changer?type=comptes&id=${sessionStorage.getItem('session_id')}`, '_blank');" src="" alt="Profil">
+        </div>
+        <h2 id="lightH2"></h2>
+        <p id="lightP"></p>
+        <button onclick="fetcher('logout',{'session_id':sessionStorage.getItem('session_id'), 'token':localStorage.getItem('offtoken')},'POST',sessionStorage.getItem('session_id'));">Se déconnecter</button>
+      </div>
+    </div>
+    <div style="display:none" id="lightboxB">
+      <div class="lightbox-content w3-center">
+        <span id="close-btnB">&times;</span>
+        <div class="circleB" style="top:50%; left:50%; transform:translate(-50%,-50%)">
+          <img id="lightImgB" src="" alt="Profil">
+        </div>
+        <h2 id="lightH2B"></h2>
+        <p id="lightPB"></p>
+      </div>
+    </div>
+   <div class="head" id="head">
+     <div id="heure"><p id="time">N/A</p></div>
+     <div id="portal"><p>Portail Conducteur</p></div>
+     <!--  <button id="visuBtn">Voir la carte</button>
+       <button id="adminBtn">Administration</button> -->
+     <div id="logo_eurea">
+       <img src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" onclick="window.location.href = 'https://www.groupe-eurea.com/';" alt="Logo Euréa">
+       </div>
+   <div id="compte">
+      <div class="circle"> 
+      <img id="myPict" src="" alt="Icône du propriétaire du compte">
+      </div>
+     <p id="myName">DRIVER</p>
+   </div>
+   </div>
+        <div id="main" class="menu">
+      <button id="init_register" class="button_driver" onclick="document.getElementById('register').style.display='flex';document.getElementById('main').style.display='none';">Enregistrer une benne manuellement</button>
+    
+      <button class="button_driver" onclick="document.getElementById('find').style.display='flex';document.getElementById('main').style.display='none';">Trouver une benne</button>
+    </div>
+    <div id="register" style="display:none" class="menu">
+      <div class="head_small">
+     <button id="return" class="button_driver" onclick="document.getElementById('register').style.display='none';document.getElementById('main').style.display='flex';">Retour</button>
+       </div>
+      <form id="register_benne">
+        <input id="input_id" type="text" name="num" placeholder="N° Exact Benne" required>
+        <button id="submitter_benne"class="button_driver submitter" type="submit()">Enregistrer</button>
+      </form>
+    </div>
+    <div id="find" style="display:none" class="menu">
+      <div id= "searchBar">
+      <div class="head_small">
+     <button class="button_driver" onclick="document.getElementById('find').style.display='none';document.getElementById('main').style.display='flex';">Retour</button>
+       </div>
+      <form id="find_benne">
+        <input id="input_find" type="text" name="num" placeholder="N° Exact Benne" required>
+        <button id="submitter_find"class="button_driver submitter" type="submit">Trouver</button>
+      </form>
+      </div>
+      <div style="display:none" id="resultBar">
+        <div class="head_small">
+     <button class="button_driver" onclick="document.getElementById('resultBar').style.display='none';document.getElementById('searchBar').style.display='flex';">Retour</button>
+       </div>
+        <div id="resultContainer">
+          <div class="lightbox-content">
+          <div class="circleB" style="top:50%; left:50%; transform:translate(-50%,-50%)">
+          <img id="resultContainer_img" src="" alt="Témoin du résultat">
+          </div>
+          <div id="resultContainer_text">
+            
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <style>
+      body {
+          margin: 0;
+          padding:1rem;
+          height: 100vh;
+          width: 100vw;
+          display:flex;
+          justify-content:center; /* aligné à l'horizontal */
+          align-items:center; /* aligné en vertical */
+          background: linear-gradient(135deg, green, blue);
+          font-family: Arial, sans-serif;
+           box-sizing:border-box; 
+      }
+      .menu {
+        display:flex;
+        flex-direction:column;
+        justify-content:space-around;
+        width:90%;
+        height:90%;
+      }
+      .thispage {
+        top:10vh;
+        height:90vh;
+        position:absolute;
+      }
+      .form-container {
+          background: white;
+          padding: 2rem;
+          border-radius: 1rem;
+          width:100%;
+          height:auto;
+          max-width:400px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+         box-sizing:border-box;
+      }
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        box-sizing:border-box; 
+      }
+      button {
+        background-color:blue;
+        color:white;
+       
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor:pointer;
+        transition:background 0.3s ease;
+       box-sizing:border-box;
+      }
+      button:hover {
+        background-color:red;
+      }
+      .button_driver {
+        height:5vh;
+        font-size:clamp(1rem, 1.25rem, 1.5rem);
+      }
+      .img {
+        max-width:80%;
+        height:auto;
+       box-sizing:border-box;
+        margin:0.5rem;
+      }
+      .head {
+        background:linear-gradient(90deg, black, grey);
+        display:flex;
+        position:fixed; /* Fixed is better than absolute as it fix the position even when scolling */
+        top:0;
+        left:0; /* We'll take the left side as a spot better than the right one */
+        width:100%;
+        height:10vh;
+        align-items:center; /* We center everything in height */
+        justify-content:space-between; /* Distribue l'espace horizontalement */
+        padding:0 1rem; /* Espace entre bordure et contenu */
+        box-sizing:border-box;
+        color:white;
+        font-weight:bold; /* Police d'écriture en gras */
+        z-index:1000;
+      }
+      .head_small {
+        background:linear-gradient(90deg, black, grey);
+        display:flex;
+        position:fixed; /* Fixed is better than absolute as it fix the position even when scolling */
+        top:10vh;
+        left:0; /* We'll take the left side as a spot better than the right one */
+        width:100%;
+        height:5vh;
+        align-items:center; /* We center everything in height */
+        justify-content:center; /* Distribue l'espace horizontalement */
+        padding:0 1rem; /* Espace entre bordure et contenu */
+        box-sizing:border-box;
+        color:white;
+        font-weight:bold; /* Police d'écriture en gras */
+        z-index:1000;
+      }
+      .circle {
+        width:5vh;
+        height:5vh;
+        border-radius:50%;
+        overflow:hidden;
+        position:relative;
+      }
+
+      .circleB {
+        width:15vh;
+        height:15vh;
+        border-radius:50%;
+        overflow:hidden;
+        position:relative;
+      }
+       .circle img, .circleB img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+      }
+      #heure, #portal, #logo_eurea, #compte, #visuBtn, #adminBtn {
+        display:flex;
+        align-items:center;
+        white-space:nowrap; /* Forcer le texte à rester sur une seule ligne */
+      }
+  
+      #logo_eurea img {
+        height:6vh;
+        cursor:pointer;
+      }
+
+      #compte p {
+        margin:0;
+        font-size:1rem;
+        margin-left:2vh;
+      }
+
+      @media (max-width: 680px) { /* Ce qui se cache sur la version mobile */
+        #portal {
+           display:none;
+         }
+        button {
+          font-size:0.75rem;
+        } 
+      }
+    </style>
+    <script>
+const offset = -((new Date().getTimezoneOffset()) / 60);
+      console.log(offset);
+      
+          async function start() {
+      url = new URL(window.location.href);
+      sessionId = await sessionStorage.getItem('session_id');
+      if (!sessionId) {
+        console.log("Not connected");
+        window.location.href = `https://${url.hostname}`; 
+      } else {
+        if (await check(sessionId)) {
+        console.log("Connected");
+       await connectWebSocket();
+          await getMe();
+        } else {
+        sessionStorage.removeItem('session_id');
+        console.log("Not connected");
+        window.location.href = `https://${url.hostname}`; 
+        }
+      }
+            readParams();
+      }
+      
+      start();
+
+      
+      async function check(id) {
+        const answer = await fetcher('checksession',{'id':id},'POST','noauth');
+        const bool = answer.value;
+        console.warn(bool);
+        if (bool) {
+          console.warn("true");
+          return true;
+        } else {
+          console.warn("false");
+          return false;
+        }
+      }
+
+      async function fetcher (endpoint, body, method, auth) {
+        try {
+        const response = await fetch(`https://${url.host}/${endpoint}`,{
+          'method':method,
+          'headers' : {
+            'Content-Type':'application/json',
+            'auth': auth
+          }, 
+          'body' : JSON.stringify(body)
+        });
+        const data = await response.json();
+          return data;
+        } catch (err) {return err;}
+      }
+
+      let socket;
+      // Ici on gère la technologie websocket
+      async function connectWebSocket() {
+        if (socket && socket.readyState === WebSocket.OPEN) {
+          return;
+        }
+        socket = new WebSocket (`wss://${url.host}?key=${sessionStorage.getItem('session_id')}&offset=${offset}`);
+        socket.addEventListener('open', () => {
+               // console.log("Connecté au serveur websocket !");
+          socket.send(JSON.stringify({action:"SET", offset:offset}));
+        });
+        socket.addEventListener("message", (event) => {
+        mes = JSON.parse(event.data);
+        if (mes.action == 'time') {
+          document.getElementById('time').textContent = mes.value;
+        }
+          if (mes.action === 'disconnect') {
+              console.log("A/B");
+              console.log(mes.who);
+          if (mes.who === localStorage.getItem('offtoken')) {
+            console.log("B/B");
+          disconnect();
+          }
+        }
+      });
+      }
+
+let mydatas = {};
+      
+      async function getMe() {
+        const answer = await fetcher('getme',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
+        const icon = answer.icon;
+        const first_name = answer.first_name;
+        const name = answer.name;
+        const role = answer.role;
+        document.getElementById('myPict').src = icon;
+        document.getElementById('myName').textContent = `${first_name} ${name}`;
+        mydatas["icon"] = icon;
+        mydatas["first_name"] = first_name;
+        mydatas["name"] = name;
+        mydatas["role"] = role;
+      }
+    </script>
+    <style>
+      #lightbox, #lightboxB {
+        position:fixed;
+        top:0;
+        left:0;
+        height:100vh;
+        width:100vw;
+        background:rgba(100,100,100,0.7);
+        display:none;
+        justify-content:center;
+        align-items:center;
+        z-index:1000;
+      }
+      #resultContainer {
+        position:absolute;
+        top:10vh;
+        left:0;
+        height:90vh;
+        width:100vw;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index:1;
+      }
+      .submitter{
+        width:100%;
+      }
+       .lightbox-content {
+       background:white;
+        padding:2em;
+         border-radius:12px;
+         text-align:center;
+         max-width:400px;
+         width:80%;
+         position:relative;
+         box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      }
+      #close-btn, #close-btnB {
+        position:absolute;
+        top:10px;
+        right:15px;
+        font-size:1.8em;
+        cursor:pointer;
+        color:red;
+      }
+      #searchBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+}
+      #toast-container {
+        position:fixed;
+        bottom:2vh;
+        right:2vw;
+        z-index:9999;
+        display:flex;
+        flex-direction:column;
+        gap:1vh;
+      }
+      .toast {
+        background-color:#4CAF50;
+        color:white;
+        padding: 1rem 1.5rem;
+        border-radius:5px;
+        font-size:1rem;
+        box-shadow: 0 0 10px;
+        animation:fadein 0.5s, fadeout 0.5s 14.5s;
+        opacity:0;
+        animation-fill-mode:forwards;
+      }
+      @keyframes fadein {
+        from {opacity:0; transform:translateX(50%);}
+        to {opacity:1; transform:translateX(0);}
+      }
+      @keyframes fadeout {
+        from {opacity:1; transform:translateX(0);}
+        to {opacity:0; transform:translateX(50%);}
+      }
+    </style>
+     <script>
+       const profilePic = document.getElementById('compte');
+       const lightbox = document.getElementById('lightbox');
+       const closeBtn = document.getElementById('close-btn');
+       document.addEventListener('DOMContentLoaded', () => {
+       profilePic.addEventListener('click', () => {
+         lightbox.style.display = 'flex';
+         document.getElementById('lightH2').textContent = mydatas["first_name"] + " " + mydatas["name"];
+         document.getElementById('lightImg').src =  mydatas["icon"];
+         document.getElementById('lightP').textContent =  mydatas["role"];
+       });
+        closeBtn.addEventListener('click', () => {
+         lightbox.style.display = 'none';
+       });
+       lightbox.addEventListener('click', (e) => {
+         if (e.target === lightbox) {
+           lightbox.style.display = 'none';
+         }
+       });
+       });
+
+       const lightboxB = document.getElementById('lightboxB');
+       const closeBtnB = document.getElementById('close-btnB');
+       document.addEventListener('DOMContentLoaded', () => {
+        closeBtnB.addEventListener('click', () => {
+         lightboxB.style.display = 'none';
+       });
+       lightboxB.addEventListener('click', (e) => {
+         if (e.target === lightboxB) {
+           lightboxB.style.display = 'none';
+         }
+       });
+       });
+       async function checkWebSocket() {
+        if (!socket || socket.readyState == WebSocket.CLOSED ||  socket.readyState == WebSocket.CLOSING) {
+          console.log("WebSocket Inactif !");
+          window.location.reload();
+        } else {
+          console.log("WebSocket Actif !");
+        }
+      }
+      setInterval(checkWebSocket, 15*1000);
+     </script>
+    <script>
+         document.getElementById('register_benne').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = await Object.fromEntries(formData.entries());
+        registerBenne(data.num);
+      });
+
+       document.getElementById('find_benne').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = await Object.fromEntries(formData.entries());
+        findBenne(data.num);
+      });
+
+      async function getPosition () {
+        console.log("Lancement d'un getPosition");
+        return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+          console.log("Obtention d'une position GPS");
+          console.log(position);
+          resolve({latitude:position.coords.latitude, longitude:position.coords.longitude, altitude:position.coords.altitude ?? "Inconnue"});
+        },
+            (error) => {
+              let message;
+              switch (error.code) {
+                case error.PERMISSION_DENIED:
+                  message = "Autorisez la localisation";
+                  break;
+                  case error.POSITION_UNAVAILABLE:
+                  message = "Activez la localisation";
+                  break;
+                default:message = "Erreur inconnue";
+              }
+              showToast(message,"red");
+          console.error("Erreur:", error.message);
+              reject(error);
+        }, {
+            enableHighAccuracy:true,
+            timeout:10000,
+            maximumAge:0
+        }
+      );
+        });
+      }
+
+      async function registerBenne(id) {
+        showPopup();
+        const {latitude, longitude, altitude} = await getPosition();
+          const content = {
+          id:id,
+          latitude:latitude,
+          longitude:longitude,
+          altitude:altitude
+        };
+        console.log(content);
+        const fromServer = await fetcher('registerbenne', content, 'POST', sessionStorage.getItem('session_id'));
+        const link = fromServer.icon;
+        const message = fromServer.message;
+        const status = fromServer.status;
+           if (status == "400") {
+                  window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        document.getElementById('lightH2B').textContent = "Terminé";
+         document.getElementById('lightImgB').src = link;
+         document.getElementById('lightPB').innerHTML = message;
+        document.getElementById('register_benne').reset();
+        return fromServer.status;
+      }
+
+      async function showPopup () {
+        lightboxB.style.display = 'flex';
+         document.getElementById('lightH2B').textContent = "En attente";
+         document.getElementById('lightImgB').src = "https://cdn.pixabay.com/photo/2013/07/13/10/44/card-157700_1280.png";
+         document.getElementById('lightPB').innerHTML = "Récupération des coordonnées GPS... <br><strong>Ne fermez pas l'application jusqu'à la fin de l'opération, s'il vous plaît !</strong>";
+      }
+
+      async function showResult () {
+        document.getElementById('resultBar').style.display = 'flex';
+        document.getElementById('searchBar').style.display = 'none';
+        document.getElementById('resultContainer_text').innerHTML = "<strong>En attente...</strong>";
+        document.getElementById('resultContainer_img').src = "https://cdn.pixabay.com/photo/2016/05/30/14/23/detective-1424831_1280.png";
+      }
+    </script>
+    <script>
+      async function readParams () {
+        showToast("Lecture des paramètres en cours...");
+       
+        const urlParams = new URLSearchParams(window.location.search);
+        const action = urlParams.get('action');
+        const id = urlParams.get('benne');
+       //   showToast(`Résult : ${id} / ${action}`);
+      
+      
+            if (action == "register") {
+              console.log("register");
+          //    showToast("Demande d'enregistrement...");
+              if (id) {
+                console.log(`Nous allons enregistrer la benne ${id}`);
+              //  showToast(`Nous allons enregistrer la benne ${id}`);
+                document.getElementById('register').style.display='flex';
+                document.getElementById('main').style.display='none';
+                document.getElementById('find').style.display='none';
+                // On ouvre la bonne page
+                document.getElementById("input_id").value = id;
+                document.getElementById('submitter_benne').click();
+              }
+            }
+      }
+
+      function showToast(message, color = '#4CAF50') {
+        const toast = document.createElement('div');
+        toast.classList.add('toast');
+        toast.textContent = message;
+        toast.style.backgroundColor = color;
+        document.getElementById('toast-container').append(toast);
+        setTimeout(() => {
+          toast.remove();
+        }, 15000)
+      }
+
+         async function findBenne(id) {
+        showResult();
+          const content = {
+          id:id,
+            offset:offset
+        };
+        console.log(content);
+        const fromServer = await fetcher('findbenne', content, 'POST', sessionStorage.getItem('session_id'));
+        const link = fromServer.icon;
+        const message = fromServer.message;
+        const status = fromServer.status;
+         document.getElementById('resultContainer_img').src = link;
+         document.getElementById('resultContainer_text').innerHTML = message;
+        document.getElementById('find_benne').reset();
+        return fromServer.status;
+      }
+
+           async function disconnect () {
+        console.log("DISCONNECTION");
+        sessionStorage.removeItem('session_id');
+        localStorage.removeItem('offtoken');
+        
+        start();
+      
+      }
+    </script>
+  </body>
+</html>
