@@ -24,7 +24,7 @@
         <img id="img_preview" class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
         <br>
         <button id="confirm_preview">Confirmer</button>
-        <button onclick="document.getElementById('ab').hidden = 'false'; document.getElementById('cd').hidden = 'true';">Annuler</button>
+        <button onclick="document.getElementById('ab').hidden = false; document.getElementById('cd').hidden = true;">Annuler</button>
       </div>
     <script>
       const offset = -((new Date().getTimezoneOffset()) / 60);
@@ -153,7 +153,7 @@
           formData.append("media", file); // clé "file"
           const dataAns = await filefetcher('registerafile', formData, 'POST', sessionStorage.getItem('session_id'));
           console.log(dataAns.url);
-        document.getElementById('ab').hidden = 'true'; document.getElementById('cd').hidden = 'false';
+        document.getElementById('ab').hidden = true; document.getElementById('cd').hidden = false;
         document.getElementById('img_preview').src = dataAns.url;
       }
     </script>
