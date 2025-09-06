@@ -1747,8 +1747,10 @@ app.post('/registerafile', upload.single('media'), async (req, res) => {
 });
 
 app.get('/media', async (req, res) => {
+  console.log("Media");
   try {
     const fleuread_id = req.query.id;
+    console.log(fleuread_id);
     const docs = await readDatabase('storage', '*');
     let true_url;
     for (const doc of docs) {
