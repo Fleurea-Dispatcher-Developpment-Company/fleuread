@@ -1779,6 +1779,7 @@ await new Promise((resolve, reject) => {
 
 // Envoyer le fichier au client
 res.setHeader("Content-Type", "image/png");
+res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
 res.sendFile(tempFilePath, (err) => {
   if (err) {
     res.status(500).send("Erreur lors de l'envoi du fichier !");
