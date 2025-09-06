@@ -54,6 +54,8 @@
       async function getImageData(type, id) {
         const datas = await fetcher('getimagedata', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
       }
+
+      readParams();
     </script>
     <style>
       body {
