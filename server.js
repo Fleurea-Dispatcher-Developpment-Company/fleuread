@@ -1785,10 +1785,18 @@ const fileStream = fs.createWriteStream(tempFilePath);
 
 app.post('/gethistorique', async (req, res) => {
   console.log("Get Historique");
+  const id = req.query.id;
+  const type = req.query.type;
   try {
     const thisid = req.headers.auth;
     if (await checkRole('admin', thisid)) {
      // On récupère l'historique
+      const datas = await readDatabase(`${type}s`,'*');
+      for (const item of datas) {
+        if (item.num == id) {
+          res.json(item.historique);
+        }
+      }
     } else {
       res.status(401);
     }
