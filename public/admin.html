@@ -63,7 +63,7 @@
 
     <div id="map">
       <div id="panel">
-        <button onclick="document.getElementById('panel').style.display='none';  document.getElementById('mapSearch').style.display = 'flex';">Fermer le panneau latéral</button>
+        <button onclick="document.getElementById('panel').style.display='none';  document.getElementById('mapSearch').style.display = 'flex'; onshow=false;">Fermer le panneau latéral</button>
         <div class="w3-center" id="panelcontent">
           <div id="panel_A">
             <img class="cropped-image" id="panel_A_img" src="https://cdn.pixabay.com/photo/2025/05/15/18/28/field-9602521_1280.jpg" alt="photobenne">
@@ -1814,6 +1814,7 @@ paramDatas[ben.id] = ben;
     </script>
     <script>
       async function pushPanel(id) {
+        onshow = true;
         nowPanel = id;
         const panel = document.getElementById('panelcontent');
         document.getElementById('panel').style.display = "flex";
@@ -1964,6 +1965,7 @@ document.getElementById('editer_a').onclick = async () => {
       }
     </script>
     <script>
+      let onshow = false;
       let changerState = false;
       document.getElementById('move_benne').addEventListener('click', function () {
         changerState = true;
@@ -1977,7 +1979,9 @@ document.getElementById('editer_a').onclick = async () => {
       async function reloadBenne () {
         document.getElementById('filtrerBennes').click();
         plotPoints();
+        if (onshow) {
         pushPanel(nowPanel);
+        }
       }
     </script>
   </body>
