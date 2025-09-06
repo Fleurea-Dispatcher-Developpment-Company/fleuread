@@ -1722,7 +1722,7 @@ app.post('/registerafile', upload.single('media'), async (req, res) => {
                const result = await cloudinary.uploader.upload (filePath, {
                     folder:'users', 
                     resource_type:'image'
-               }
+               });
               fs.unlinkSync(filePath);
      const cryptoid = crypto.randomBytes(64).toString('hex');
      await addDatabase ('storage', '', {fleuread_id:cryptoid,link:result.secure_url});
