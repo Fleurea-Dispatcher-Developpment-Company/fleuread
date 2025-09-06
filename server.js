@@ -1724,7 +1724,7 @@ app.post('/changeimagedata', async (req, res) => {
 
  async function changeImage (id, type, url) {
   const answer = editDatabase (type, 'link', url, 'num', id);
-  return {message:answer, color:'yellow'};
+  return {message:"Confirmation du changement d'image.", color:'yellow'};
  }
 
 app.post('/registerafile', upload.single('media'), async (req, res) => {
