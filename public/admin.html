@@ -715,7 +715,7 @@ let generalDatas;
 
  map.on('click', function(e) {
     const lat = e.latlng.lat;
-    const lng = e.latlng.lng;
+    const lon = e.latlng.lng;
 
     // Afficher les coordonnées
   console.log(`Latitude: ${lat.toFixed(6)}, Longitude: ${lng.toFixed(6)}`);
@@ -738,6 +738,7 @@ let generalDatas;
               };
               console.log(content);
               fetcher('editbenne', contentB, 'POST', sessionStorage.getItem('session_id'));
+     changerState = false;
    }
   });
       
