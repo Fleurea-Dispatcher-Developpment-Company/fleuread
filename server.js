@@ -20,8 +20,13 @@ cloudinary.config({
   secure:true
 });
 
-// Configuration simple : stockage en mémoire (pas de fichier sur disque)
-const storage = multer.memoryStorage();
+// Le système stocke en flash storage
+const storage = multer.diskStorage({
+  destination: 'uploads/',
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
 
 // Création du middleware upload
 const upload = multer({ storage: storage });
