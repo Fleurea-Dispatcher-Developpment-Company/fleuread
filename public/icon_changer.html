@@ -10,24 +10,10 @@
   </head>
   <body>
      <div id="toast-container"></div>
-    <div id="unconnected" hidden>
       <div class="form-container w3-center">
-      <h1 class="w3-center">Bienvenue</h1>
-      <p class="w3-center">Fleuréa Dispatcher</p>
-      <img class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
-      <form class="w3-center" id="login">
-        <input class="w3-center" name="password" type="password" placeholder="Entrez votre mot de passe" required>
-        <button class="w3-center" type="submit()">Se connecter</button>
-      </form>
-      </div> 
-    </div>
-    <div id="connected" hidden>
-      <div class="form-container w3-center">
-        <p class="w3-center">Fleuréa Dispatcher</p>
-      <img class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
-        <p class="w3-center">Redirection vers le bon service en cours...</p>
+        <p class="w3-center"></p>
+        <img class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
       </div>
-    </div>
     <script>
       async function fetcher (endpoint, body, method, auth) {
         try {
@@ -44,34 +30,6 @@
         } catch (err) {return err;}
       }
 
-      document.getElementById('login').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = await Object.fromEntries(formData.entries());
-        const content = {
-          password:data.password
-        };
-        const fromServer = await fetcher('login', content, 'POST', 'noauth');
-        if (fromServer.status == "no") {
-          alert("Le mot de passe est incorrect !");
-          return;
-        }
-        localStorage.setItem('offtoken', fromServer.off);
-        autoConnect();
-      });
-
-      async function autoConnect () {
-        if (localStorage.getItem('offtoken')) {
-        const content = {
-          token:localStorage.getItem('offtoken')
-        };
-         const fromServer = await fetcher('getsessionid', content, 'POST', 'noauth');
-          sessionStorage.setItem('session_id', fromServer.id);
-          start();
-        }
-      }
-      autoConnect();
-
       function showToast(message, color = '#4CAF50') {
         const toast = document.createElement('div');
         toast.classList.add('toast');
@@ -81,6 +39,20 @@
         setTimeout(() => {
           toast.remove();
         }, 15000)
+      }
+
+          async function readParams () {
+        showToast("Lecture des paramètres en cours...");
+       
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get('type');
+        const id = urlParams.get('id');
+       //   showToast(`Résult : ${id} / ${action}`);
+        getImageData(type, id);
+      }
+
+      async function getImageData(type, id) {
+        const datas = await fetcher('getimagedata', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
       }
     </script>
     <style>
