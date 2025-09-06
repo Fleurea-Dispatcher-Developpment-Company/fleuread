@@ -1807,8 +1807,8 @@ res.sendFile(tempFilePath, (err) => {
 
 app.post('/gethistorique', async (req, res) => {
   console.log("Get Historique");
-  const id = req.query.id;
-  const type = req.query.type;
+  const id = req.body.id;
+  const type = req.body.type;
   console.log(id, type);
   try {
     const thisid = req.headers.auth;
