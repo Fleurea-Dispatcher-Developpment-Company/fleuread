@@ -93,7 +93,7 @@
           line.style.border = '1px solid black';
           line.style.marginBottom = "1vh";
           const a = document.createElement('p');
-          a.textContent = `${item.who} a ${await convertToWords(item.content)} l'élément n°${item.what} des n°${item.table} (${item.type} → ${item.value})`;
+          a.textContent = `${item.who} a ${await convertToWords(item.content)} l'élément n°${item.what} des ${item.table} (${item.type} → ${item.value})`;
           a.classList.add('w3-center');
           line.append(a);
           document.getElementById('histocontainer').append(line);
@@ -154,7 +154,7 @@
       button:hover {
         background-color:red;
       }
-      # histocontainer {width:100%;}
+      #histocontainer {width:100%;}
       img {
         max-width:80%;
         height:auto;
