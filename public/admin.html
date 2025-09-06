@@ -1844,9 +1844,9 @@ document.getElementById('editer_a').onclick = async () => {
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
           pushPanel(fromServer.a);
 }
-        document.getElementbyId('panel_I_lat').textContent = fromServer.o;
-        document.getElementbyId('panel_I_lon').textContent = fromServer.p;
-        document.getElementbyId('panel_I_alt').textContent = fromServer.q;
+        document.getElementById('panel_I_lat').textContent = fromServer.o;
+        document.getElementById('panel_I_lon').textContent = fromServer.p;
+        document.getElementById('panel_I_alt').textContent = fromServer.q;
          document.getElementById('panel_D_i').textContent = `${fromServer.e} m`;
         document.getElementById('panel_D_i').href = `https://www.google.com/maps?q=${fromServer.o},${fromServer.p}`;
          document.getElementById('panel_E_img').src = fromServer.l;
