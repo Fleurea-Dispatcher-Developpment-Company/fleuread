@@ -603,6 +603,12 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
           disconnect();
           }
         }
+
+                            if (mes.action === 'reload') {
+                        if (mes.what === "benne") {
+                          reloadBenne();
+                        }
+                      }
         });
       }
 
@@ -1975,6 +1981,12 @@ document.getElementById('editer_a').onclick = async () => {
           changerState = false;
         }, 15000);
       })
+
+      async function reloadBenne () {
+        document.getElementById('filtrerBennes').click();
+        plotPoints();
+        pushPanel(nowPanel);
+      }
     </script>
   </body>
 </html>
