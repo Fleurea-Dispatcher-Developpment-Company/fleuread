@@ -128,6 +128,11 @@
             <p id="panel_I_alt">453 m</p>
             </div>
           </div>
+
+          
+          <div id="panel_J">
+            <button id="move_benne">Déplacer la benne</button>
+          </div>
           
           <div id="panel_G">
             <button id="panel_G_button" onclick="window.open('fleuread.onrender.com/historique?type=benne&id=455', '_blank');">Voir l'historique</button>
@@ -1930,6 +1935,13 @@ document.getElementById('editer_a').onclick = async () => {
         start();
       
       }
+    </script>
+    <script>
+      let changerState = false;
+      document.getElementById('move_benne').addEventListener('click', function () {
+        changerState = true;
+        console.log(changerState);
+      })
     </script>
   </body>
 </html>
