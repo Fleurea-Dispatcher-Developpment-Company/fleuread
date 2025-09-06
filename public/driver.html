@@ -70,7 +70,7 @@
       </div>
       <div style="display:none" id="resultBar">
         <div class="head_small">
-     <button class="button_driver" onclick="document.getElementById('resultBar').style.display='none';document.getElementById('searchBar').style.display='flex';">Retour</button>
+     <button class="button_driver" onclick="document.getElementById('resultBar').style.display='none';document.getElementById('searchBar').style.display='flex'; onshow = false;">Retour</button>
        </div>
         <div id="resultContainer">
           <div class="lightbox-content">
@@ -314,6 +314,13 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
           disconnect();
           }
         }
+           if (mes.action === 'reload') {
+                        if (mes.what === "benne") {
+                          if (onshow) {
+                            findBenne(onlive);
+                          }
+                        }
+                      }
       });
       }
 
@@ -464,12 +471,13 @@ let mydatas = {};
         const data = await Object.fromEntries(formData.entries());
         registerBenne(data.num);
       });
-
+let onlive;
        document.getElementById('find_benne').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = await Object.fromEntries(formData.entries());
         findBenne(data.num);
+         onlive = data.num;
       });
 
       async function getPosition () {
@@ -578,8 +586,9 @@ let mydatas = {};
           toast.remove();
         }, 15000)
       }
-
+let onshow = false;
          async function findBenne(id) {
+           onshow = true;
         showResult();
           const content = {
           id:id,
