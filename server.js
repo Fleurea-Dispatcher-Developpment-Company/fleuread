@@ -1009,6 +1009,7 @@ async function setHistorique (who, what, content, table) {
   // Ajouter la ligne who made content on the table what
   cellule.push({who:who, content:content, what:what});
   // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
+  await editDatabase (table, 'historique', cellule, 'num', what);
 }
 
 // generate?what=QR&id=42
