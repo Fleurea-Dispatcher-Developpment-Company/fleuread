@@ -713,6 +713,14 @@ let generalDatas;
       map.invalidateSize();
       }, 300);
 
+ map.on('click', function(e) {
+    const lat = e.latlng.lat;
+    const lng = e.latlng.lng;
+
+    // Afficher les coordonnées
+  console.log(`Latitude: ${lat.toFixed(6)}, Longitude: ${lng.toFixed(6)}`);
+  });
+      
 async function translateColor (input) {
   if (input == "A") {
     return "yellow";
@@ -1941,6 +1949,9 @@ document.getElementById('editer_a').onclick = async () => {
       document.getElementById('move_benne').addEventListener('click', function () {
         changerState = true;
         console.log(changerState);
+        setTimeout(() => {
+          changerState = false;
+        }, 15000);
       })
     </script>
   </body>
