@@ -11,8 +11,10 @@
   <body>
      <div id="toast-container"></div>
       <div class="form-container w3-center">
-        <p class="w3-center"></p>
-        <img class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
+        <p id="data_known" class="w3-center"></p>
+        <img id="img_known" class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
+        <button>Utiliser une image d'internet</button>
+        <button>Importer une image</button>
       </div>
     <script>
       const offset = -((new Date().getTimezoneOffset()) / 60);
@@ -74,10 +76,13 @@
        //   showToast(`Résult : ${id} / ${action}`);
         getImageData(type, id);
       }
-
+      const imager = document.getElementById('img_known');
+      const data_known = document.getElementById('data_known');
       async function getImageData(type, id) {
         const datas = await fetcher('getimagedata', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
         console.log(datas);
+        imager.src = datas.icon;
+        data_known = datas.id;
       }
     </script>
     <style>
