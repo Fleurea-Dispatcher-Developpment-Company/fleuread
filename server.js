@@ -11,6 +11,7 @@ const fs = require('fs');
 const QRCode = require('qrcode');
 const {PDFDocument, rgb, StandardFonts} = require('pdf-lib');
 const cloudinary = require("cloudinary").v2;
+const multer = require('multer');
 
 cloudinary.config({
   cloud_name : process.env.CLOUDINARY_NAME,
@@ -18,6 +19,12 @@ cloudinary.config({
   api_secret : process.env.CLOUDINARY_SECRET,
   secure:true
 });
+
+// Configuration simple : stockage en mémoire (pas de fichier sur disque)
+const storage = multer.memoryStorage();
+
+// Création du middleware upload
+const upload = multer({ storage: storage });
 
 // On gère tous les app.something
 const app = express();
