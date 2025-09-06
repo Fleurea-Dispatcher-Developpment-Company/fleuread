@@ -669,8 +669,8 @@ app.post('/editbenne', async (req, res) => {
       editDatabase ('bennes', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
       console.log("AVANT");
-      setHistorique (sessions[thisid].id, value_eq, "1", "bennes", value_toupd, toupd); // Affectation à l'historique de la benne
-      setHistorique (value_eq, sessions[thisid].id, "1", "comptes", value_toupd, toupd); // Affectation à l'historique de l'actionneur
+      await setHistorique (sessions[thisid].id, value_eq, "1", "bennes", value_toupd, toupd); // Affectation à l'historique de la benne
+      await setHistorique (value_eq, sessions[thisid].id, "1", "comptes", value_toupd, toupd); // Affectation à l'historique de l'actionneur
       console.log("APRÈS");
       const {latitude, longitude} = await getAdresseBenneEdit(value_eq);
       console.log("Entrée adresse benne", latitude, "*", longitude);
