@@ -11,7 +11,8 @@
     "staticmaps":"latest",
     "pdf-lib":"latest",
     "qrcode":"latest",
-    "cloudinary": "latest"
+    "cloudinary": "latest",
+    "multer":"latest"
   },
   "bugs":{
     "url":"https://github.com/Fleurea-Dispatcher-Developpment-Company/project/issues",
