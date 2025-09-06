@@ -1002,6 +1002,7 @@ app.post('/editparam', async (req, res) => {
 });
 
 async function setHistorique (who, what, content, table, value, type) {
+  try {
   // Il faut récupérer la cellule selectionnée dans public:table:what
   console.log("Gamma");
   console.log(who, what, content, table, value, type);
@@ -1017,6 +1018,9 @@ async function setHistorique (who, what, content, table, value, type) {
   cellule.push({who:who, content:content, what:what, value:value, type:type});
   // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
   await editDatabase (table, 'historique', cellule, 'num', what);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 // generate?what=QR&id=42
