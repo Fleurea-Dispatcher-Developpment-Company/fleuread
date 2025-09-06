@@ -17,7 +17,7 @@
         <button id="from_internet">Utiliser une image d'internet</button>
         <button id="from_computer">Importer une image</button>
         <button hidden id="return" onclick="window.history.back();">Retour</button>
-        <input class="display:none" id="file_input" type="file">
+        <input class="display:none" id="file_input" accept="image/*" type="file">
       </div>
     <script>
       const offset = -((new Date().getTimezoneOffset()) / 60);
