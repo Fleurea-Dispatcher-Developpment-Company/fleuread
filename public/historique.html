@@ -89,7 +89,7 @@
         for (const item of datas) {
           const line = document.createElement('div');
           const a = document.createElement('p');
-          a.textContent = `${item.who} a ${await convertToWords(item.content)} la ${item.benne}${item.what} (${item.type} → ${item.type})`;
+          a.textContent = `${item.who} a ${await convertToWords(item.content)} la ${item.table} n°${item.what} (${item.type} → ${item.value})`;
           line.append(a);
           document.getElementById('histocontainer').append(line);
         }
@@ -110,7 +110,7 @@
           display:flex;
           justify-content:center; /* aligné à l'horizontal */
           align-items:center; /* aligné en vertical */
-          background: linear-gradient(135deg, yellow, red);
+          background: linear-gradient(135deg, blue, red);
           font-family: Arial, sans-serif;
            box-sizing:border-box; 
       }
