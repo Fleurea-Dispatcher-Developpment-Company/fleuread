@@ -10,7 +10,8 @@
     "cors":"^2.8.5",
     "staticmaps":"latest",
     "pdf-lib":"latest",
-    "qrcode":"latest"
+    "qrcode":"latest",
+    "cloudinary": "latest"
   },
   "bugs":{
     "url":"https://github.com/Fleurea-Dispatcher-Developpment-Company/project/issues",
