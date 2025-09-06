@@ -109,6 +109,18 @@
       document.getElementById('from_computer').addEventListener('click', () {
         document.getElementById('file_input').click();
       });
+
+     document.getElementById('file_input').addEventListener('change', function () { // Autosubmit du formulaire
+        const file = this.files[0];
+        const reader = new FileReader();
+        reader.onload = function () { // Vérification du chargement et soumission instantanée
+                const formData = new FormData();
+                formData.append("file", file); // clé "file"
+          const dataAns = await fetcher('registerafile', formData, 'POST', sessionStorage.getItem('session_id'));
+          console.log(dataAns.url);
+        }
+        reader.readAsDataURL(file);
+    });
     </script>
     <style>
       body {
