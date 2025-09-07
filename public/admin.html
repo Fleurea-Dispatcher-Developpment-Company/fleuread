@@ -2043,10 +2043,15 @@ document.getElementById('editer_a').onclick = async () => {
       async function showMap (id) {
         // nowPanel
         document.getElementById('close-btnB').click(); // Fermer Pop-up
+        console.log("Step 1");
         document.getElementById('visuBtn').click(); // Afficher la carte
+        console.log("Step 2");
         setTimeout(() => {
         document.getElementById('mapSearch_input').value = `FOCUS:${id}`;
+          document.getElementById('mapSearch_input').dispatchEvent(new Event('input', { bubbles: true }));
+          console.log("Step 3");
         pushPanel(id);
+          console.log("Step 4");
         }, 1000);
       }
     </script>
