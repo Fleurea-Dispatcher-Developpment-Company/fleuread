@@ -1642,6 +1642,7 @@ app.post('/smartsearchcereale', async (req, res) => {
   try {
     const thisid = req.headers.auth;
     const value = req.body.value;
+    const biobool = req.body.biobool;
     if (value == "") {
       res.json({});
       return;
@@ -1655,10 +1656,26 @@ app.post('/smartsearchcereale', async (req, res) => {
        try {
       const bennes = await readDatabase('cereales', '*');
       for (const ben of bennes) {
+        if (biobool) {
         if (String(ben.name.toLowerCase() || "").includes(value.toLowerCase())) {
-          options.push({text:ben.name, search:ben.num});
+                if (ben.name.toLowerCase().includes("BIO".toLowerCase()) {
+                options.push({text:ben.name, search:ben.num});
+                }
         } else if (String(ben.code || "").includes(value)) {
-          options.push({text:ben.name, search:ben.num});
+                if (ben.name.toLowerCase().includes("BIO".toLowerCase()) {
+                options.push({text:ben.name, search:ben.num});
+                }
+        }
+        } else {
+          if (String(ben.name.toLowerCase() || "").includes(value.toLowerCase())) {
+          if (!ben.name.toLowerCase().includes("BIO".toLowerCase()) {
+                options.push({text:ben.name, search:ben.num});
+                }
+        } else if (String(ben.code || "").includes(value)) {
+          if (!ben.name.toLowerCase().includes("BIO".toLowerCase()) {
+                options.push({text:ben.name, search:ben.num});
+                }
+        }
         }
       }
       } catch (err) {
