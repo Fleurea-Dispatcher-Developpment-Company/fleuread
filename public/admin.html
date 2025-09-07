@@ -153,6 +153,10 @@
           <div id="panel_G">
             <button id="panel_G_button" onclick="window.open('fleuread.onrender.com/historique?type=benne&id=455', '_blank');">Voir l'historique</button>
           </div>
+
+          <div id="panel_K">
+            <button onclick="showAdmin()">Voir dans la console d'administration</button>
+          </div>
         </div>
       </div>
       <div id="view">
@@ -2009,6 +2013,15 @@ document.getElementById('editer_a').onclick = async () => {
           document.getElementById('bio_temoin').textContent = "Non";
         }
       });
+    </script>
+    <script>
+      async function showAdmin () {
+        // nowPanel
+        document.getElementById('adminBtn').click();
+        document.getElementById('btnBennes').click();
+        document.getElementById('text_searcherBenne').value = `B${nowPanel}`;
+        document.getElementById('filtrerBennes').click();
+      }
     </script>
   </body>
 </html>
