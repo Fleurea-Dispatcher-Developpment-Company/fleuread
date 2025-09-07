@@ -1790,7 +1790,7 @@ paramDatas[ben.id] = ben;
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(async () => {
         thisvalue = input.value;
-        const answer = await fetcher('smartsearchmap',{value:thisvalue, biobool:(document.getElementById('bioounon').value === 'on') ? true : false}, 'POST', sessionStorage.getItem('session_id'));
+        const answer = await fetcher('smartsearchmap',{value:thisvalue, biobool:document.getElementById('bioounon').checked}, 'POST', sessionStorage.getItem('session_id'));
         resultContainer.innerHTML = "";
         if (answer.length > 1) {
         for (const item of answer) {
@@ -1990,7 +1990,7 @@ document.getElementById('editer_a').onclick = async () => {
       }
 
       document.getElementById('bioounon').addEventListener('change', async function () {
-        const value = (document.getElementById('bioounon').value === 'on') ? true : false;
+        const value = document.getElementById('bioounon').checked;
         console.log(value);
         if (value) {
           document.getElementById('bio_temoin').textContent = "Oui";
