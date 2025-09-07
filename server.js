@@ -1434,7 +1434,7 @@ app.post('/smartsearchmap', async (req, res) => {
           options.push({text:`Benne n°${ben.num}`, search:ben.num, position:{lat:ben.longitude, lon:ben.latitude}});
         } else if (String(ben.adresse || "").includes(value)) {
           options.push({text:`Benne n°${ben.num}`, search:ben.num, position:{lat:ben.longitude, lon:ben.latitude}});
-        } else if (value).includes("FOCUS:")) {
+        } else if ((value).includes("FOCUS:")) {
           // str.split(":")[1]
             if (value.split(":")[1] == String(ben.num || "")) {
               options.push({text:`Benne n°${ben.num}`, search:ben.num, position:{lat:ben.longitude, lon:ben.latitude}});
