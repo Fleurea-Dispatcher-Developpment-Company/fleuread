@@ -766,12 +766,14 @@ let generalDatas;
     const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap' , maxZoom: 17});
       // https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=2ad4ef15e8df44f784baefc78de0e6c7
     const transport = L.tileLayer('https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=2ad4ef15e8df44f784baefc78de0e6c7', { attribution: 'Map data: © OpenStreetMap contributors | Map style: © Thunderforest' });
+    const landscape = L.tileLayer('https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=2ad4ef15e8df44f784baefc78de0e6c7', { attribution: 'Map data: © OpenStreetMap contributors | Map style: © Thunderforest' });
     
       const baseMaps = {
   "OpenStreetMap": osm,
   "Satellite": satellite,
       "Topographie":topo,
-      "Transport":transport
+      "Transport":transport,
+        "Landscape":landscape
   };
     
     const map = L.map('mapA').setView([45.72191877191547, 4.227417998761897], 15);
