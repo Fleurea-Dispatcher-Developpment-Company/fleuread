@@ -1790,7 +1790,7 @@ paramDatas[ben.id] = ben;
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(async () => {
         thisvalue = input.value;
-        const answer = await fetcher('smartsearchmap',{value:thisvalue, biobool:document.getElementById('bioounon').checked}, 'POST', sessionStorage.getItem('session_id'));
+        const answer = await fetcher('smartsearchmap',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id'));
         resultContainer.innerHTML = "";
         if (answer.length > 1) {
         for (const item of answer) {
@@ -1909,7 +1909,7 @@ document.getElementById('editer_a').onclick = async () => {
         clearTimeout(debounceTimerB);
         debounceTimerB = setTimeout(async () => {
         thisvalueB = inputB.value;
-        const answer = await fetcher('smartsearchcereale',{value:thisvalueB}, 'POST', sessionStorage.getItem('session_id'));
+        const answer = await fetcher('smartsearchcereale',{value:thisvalueB, biobool:document.getElementById('bioounon').checked}, 'POST', sessionStorage.getItem('session_id'));
           
         if (answer.length < 1) {
          showToast("Aucune correspondance, consultez l'interface d'administration",'red');
