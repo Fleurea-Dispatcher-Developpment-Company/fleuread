@@ -1988,6 +1988,16 @@ document.getElementById('editer_a').onclick = async () => {
         pushPanel(nowPanel);
         }
       }
+
+      document.getElementById('bioounon').addEventListener('change', async function () {
+        const value = document.getElementById('bioounon').value;
+        console.log(value);
+        if (value) {
+          document.getElementById('bio_temoin').textContent = "Oui";
+        } else {
+          document.getElementById('bio_temoin').textContent = "Non";
+        }
+      });
     </script>
   </body>
 </html>
