@@ -1110,7 +1110,10 @@ app.post('/registerbenne', async (req, res) => {
     const benne = req.body.id;
     const latitude = req.body.latitude;
     const longitude = req.body.longitude;
-    const altitude = req.body.altitude;
+    let altitude = req.body.altitude;
+    if (altitude == "Inconnue") {
+      altitude = await getAltitude (latitude, longitude);
+    }
     if (await checkSession(thisid)) {
       // On renvoit le contenu de la page OK
       const bennes = await readDatabase('bennes', '*');
@@ -1827,3 +1830,8 @@ app.post('/gethistorique', async (req, res) => {
     }
   } catch (err) {console.error(err);}
 });
+
+async function getAltitude (lat, lon) {
+  const data = await fetch(`https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lon}`);
+  return data.results[0].elevation;
+}
