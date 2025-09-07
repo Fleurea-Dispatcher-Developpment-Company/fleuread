@@ -1833,5 +1833,6 @@ app.post('/gethistorique', async (req, res) => {
 
 async function getAltitude (lat, lon) {
   const data = await fetch(`https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lon}`);
-  return data.results[0].elevation;
+  const elevation = await data.json();
+  return elevation.results[0].elevation;
 }
