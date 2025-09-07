@@ -763,7 +763,7 @@ let generalDatas;
     <script>
     const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' });
     const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: '© Esri' });
-    const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap' });
+    const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap' , maxZoom: 17});
       // https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=2ad4ef15e8df44f784baefc78de0e6c7
     const transport = L.tileLayer('https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=2ad4ef15e8df44f784baefc78de0e6c7', { attribution: 'Map data: © OpenStreetMap contributors | Map style: © Thunderforest' });
     
