@@ -897,16 +897,24 @@ benDatas[ben.id] = ben;
 
           const but2 = document.createElement('button');
           but2.textContent = `Carte`;
-          but2.onclick = () => {
-            showMap (ben.id);
-            }
+          but2.addEventListener('click', function (event) {
+            event.stopPropagation();
+            showMap(ben.id);
+          });
+        //  but2.onclick = () => {
+           // showMap (ben.id);
+           // }
           line.append(but2);
           
           const but = document.createElement('button');
           but.textContent = `QR-Code`;
-          but.onclick = () => {
+          but.addEventListener('click', function (event) {
+            event.stopPropagation();
             window.open(`https://fleuread.onrender.com/generate?what=QR&id=${ben.id}`,'_blank');
-            }
+          });
+          // but.onclick = () => {
+           // window.open(`https://fleuread.onrender.com/generate?what=QR&id=${ben.id}`,'_blank');
+           // }
           line.append(but);
           bennesContainer.append(line);
         }
