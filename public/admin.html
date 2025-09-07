@@ -9,6 +9,12 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   </head>
   <body>
+    <div id="legende" style="flex-direction:column;">
+      <div style="display:flex; align-items:center; flex-direction:row;">
+        <span class="dot" style=" background-color: yellow;"></span>
+        <i>Posée</i>
+      </div>
+    </div>
     <div id="toast-container"></div>
     <div id="lightbox">
       <div class="lightbox-content w3-center">
@@ -110,6 +116,23 @@
                     </div>
 
           <style>
+            #legende {
+              opacity:0.5;
+              display:flex;
+              position:absolute;
+              top:40%;
+              left:90%;
+              height:20%;
+              width:10%;
+            }
+            #legende:hover {
+              opacity:1;
+            }
+            .dot {
+              width: 10%;                /* Taille du point */
+              height: 10%;
+              border-radius: 50%; 
+            }
              #bio_block {
                 display: none;
               }
