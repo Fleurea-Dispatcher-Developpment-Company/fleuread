@@ -894,6 +894,13 @@ benDatas[ben.id] = ben;
           const notes = document.createElement('p');
           notes.textContent = short(ben.notes);
           line.append(notes);
+
+          const but2 = document.createElement('button');
+          but2.textContent = `Carte`;
+          but2.onclick = () => {
+            showMap (ben.id);
+            }
+          line.append(but2);
           
           const but = document.createElement('button');
           but.textContent = `QR-Code`;
@@ -2021,6 +2028,13 @@ document.getElementById('editer_a').onclick = async () => {
         document.getElementById('btnBennes').click();
         document.getElementById('text_searcherBenne').value = `B${nowPanel}A${nowPanel}`;
         document.getElementById('filtrerBennes').click();
+      }
+      async function showMap (id) {
+        // nowPanel
+        document.getElementById('close-btnB').click(); // Fermer Pop-up
+        document.getElementById('visuBtn').click(); // Afficher la carte
+        document.getElementById('mapSearch_input').value = `FOCUS:${id}`;
+        pushPanel(id);
       }
     </script>
   </body>
