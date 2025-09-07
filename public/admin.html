@@ -2041,8 +2041,10 @@ document.getElementById('editer_a').onclick = async () => {
         // nowPanel
         document.getElementById('close-btnB').click(); // Fermer Pop-up
         document.getElementById('visuBtn').click(); // Afficher la carte
+        setTimeout(() => {
         document.getElementById('mapSearch_input').value = `FOCUS:${id}`;
         pushPanel(id);
+        }, 1000);
       }
     </script>
   </body>
