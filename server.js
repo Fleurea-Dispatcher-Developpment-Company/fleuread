@@ -1405,6 +1405,7 @@ app.post('/smartsearchmap', async (req, res) => {
       const options = [];
       // Dans la fonction on va :
       // 1. Interroger Nominatim
+      if (!(value).includes("FOCUS:")) {
       if (value.length > 3) {
       console.log("Interrogation de NOMINATIM");
       try {
@@ -1420,6 +1421,7 @@ app.post('/smartsearchmap', async (req, res) => {
       } catch (err) {
         console.error(err);
        // res.send(err);
+      }
       }
       }
       console.log(options);
