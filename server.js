@@ -1658,21 +1658,21 @@ app.post('/smartsearchcereale', async (req, res) => {
       for (const ben of bennes) {
         if (biobool) {
         if (String(ben.name.toLowerCase() || "").includes(value.toLowerCase())) {
-                if (ben.name.toLowerCase().includes("BIO".toLowerCase()) {
+                if (ben.name.toLowerCase().includes("BIO".toLowerCase())) {
                 options.push({text:ben.name, search:ben.num});
                 }
         } else if (String(ben.code || "").includes(value)) {
-                if (ben.name.toLowerCase().includes("BIO".toLowerCase()) {
+                if (ben.name.toLowerCase().includes("BIO".toLowerCase())) {
                 options.push({text:ben.name, search:ben.num});
                 }
         }
         } else {
           if (String(ben.name.toLowerCase() || "").includes(value.toLowerCase())) {
-          if (!ben.name.toLowerCase().includes("BIO".toLowerCase()) {
+          if (!ben.name.toLowerCase().includes("BIO".toLowerCase())) {
                 options.push({text:ben.name, search:ben.num});
                 }
         } else if (String(ben.code || "").includes(value)) {
-          if (!ben.name.toLowerCase().includes("BIO".toLowerCase()) {
+          if (!ben.name.toLowerCase().includes("BIO".toLowerCase())) {
                 options.push({text:ben.name, search:ben.num});
                 }
         }
