@@ -1790,7 +1790,7 @@ paramDatas[ben.id] = ben;
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(async () => {
         thisvalue = input.value;
-        const answer = await fetcher('smartsearchmap',{value:thisvalue}, 'POST', sessionStorage.getItem('session_id'));
+        const answer = await fetcher('smartsearchmap',{value:thisvalue, biobool:document.getElementById('bioounon').value}, 'POST', sessionStorage.getItem('session_id'));
         resultContainer.innerHTML = "";
         if (answer.length > 1) {
         for (const item of answer) {
