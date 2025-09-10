@@ -93,7 +93,7 @@
           line.style.border = '1px solid black';
           line.style.marginBottom = "1vh";
           const a = document.createElement('p');
-          a.textContent = `${item.who} a ${await convertToWords(item.content)} l'élément n°${item.what} des ${item.table} (${item.type} → ${item.value})`;
+          a.textContent = `${formatTimestamp(item.when)} - ${item.who} a ${await convertToWords(item.content)} l'élément n°${item.what} des ${item.table} (${item.type} → ${item.value})`;
           a.classList.add('w3-center');
           line.append(a);
           document.getElementById('histocontainer').append(line);
@@ -108,6 +108,19 @@
           return "déplacé";
         }
       }
+
+      function formatTimestamp(timestamp) {
+  const date = new Date(timestamp);
+  date.setHours(date.getHours() + offset);
+  const jour = String(date.getDate()).padStart(2, '0');
+  const mois = String(date.getMonth() + 1).padStart(2, '0'); // +1 car les mois commencent à 0
+  const annee = String(date.getFullYear()).slice(-2); // Prend les 2 derniers chiffres
+
+  const heures = String(date.getHours() + offset).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${jour}/${mois}/${annee} à ${heures}h${minutes}`;
+}
     </script>
     <style>
       body {
