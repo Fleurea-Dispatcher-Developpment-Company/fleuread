@@ -11,6 +11,7 @@
   <body>
      <div id="toast-container"></div>
       <div id="histocontainer" w3-center">
+        <table id="tablehist"></table>
         
       </div>
     <script>
@@ -84,6 +85,8 @@
         getHistorique(type, id);
       }
 
+const tabler = document.getElementById("tablehisto");
+      
       async function getHistorique(type, id) {
         const datas = await fetcher('gethistorique', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
         for (const item of datas) {
@@ -97,6 +100,8 @@
           a.classList.add('w3-center');
           line.append(a);
           document.getElementById('histocontainer').append(line);
+
+          tabler.innerHTML = "<thead><tr><th>Nom</th><th>Âge</th><th>Ville</th></tr></thead>";
         }
       }
 
