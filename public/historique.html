@@ -113,6 +113,7 @@
   console.warn("Entrée :", timestamp);
   console.warn("Offset :", offset);
   const date = new Date(timestamp);
+  console.log(date);
   date.setHours(date.getHours() + offset);
   const jour = String(date.getDate()).padStart(2, '0');
   const mois = String(date.getMonth() + 1).padStart(2, '0'); // +1 car les mois commencent à 0
