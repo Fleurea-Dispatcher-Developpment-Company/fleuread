@@ -1017,8 +1017,9 @@ async function setHistorique (who, what, content, table, value, type) {
   }
   // La convertir en tableau
   // Ajouter la ligne who made content on the table what
-    console.log({who:who, content:content, what:what, value:value, table:table, type:type});
-  cellule.push({who:who, content:content, what:what, value:value, table:table, type:type});
+    const now = new Date();
+    console.log({who:who, when:now, content:content, what:what, value:value, table:table, type:type});
+  cellule.push({who:who, when:now, content:content, what:what, value:value, table:table, type:type});
   // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
     console.log("Lancement de l'édition en cours...");
   await editDatabase (table, 'historique', cellule, 'num', what);
@@ -1137,6 +1138,7 @@ app.post('/registerbenne', async (req, res) => {
         console.log(latitude);
         let adresse = await getAdresseBenne(benne);
         let message = `Confirmation : la benne n°<strong>${benne}</strong> a bien été enregistrée à l'adresse <strong>${adresse}</strong>.<br> Merci !`;
+        setHistorique ( await getIdFromSession(thisid), benne, "2", "bennes", [latitude, longitude], "Position GPS");
         res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
       } else {
         // On renvoit le contenu de la page benne inconnue
