@@ -110,6 +110,8 @@
       }
 
       function formatTimestamp(timestamp) {
+  console.warn("Entrée :", timestamp);
+  console.warn("Offset :", offset);
   const date = new Date(timestamp);
   date.setHours(date.getHours() + offset);
   const jour = String(date.getDate()).padStart(2, '0');
@@ -118,7 +120,7 @@
 
   const heures = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
-
+console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
   return `${jour}/${mois}/${annee} à ${heures}h${minutes}`;
 }
     </script>
