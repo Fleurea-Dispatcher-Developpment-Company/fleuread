@@ -118,7 +118,7 @@ const tabler = document.getElementById("tablehisto");
           td4.textContent = item.what;
           const td5 = document.createElement('td');
           tr.append(td5);
-          td5.textContent = item.table;
+          td5.textContent = formatStringB(item.table);
           const td6 = document.createElement('td');
           tr.append(td6);
           td6.textContent = item.type;
@@ -155,6 +155,17 @@ const tabler = document.getElementById("tablehisto");
   const minutes = String(date.getMinutes()).padStart(2, '0');
 console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
   return `${jour}/${mois}/${annee} à ${heures}h${minutes}`;
+}
+
+      function formatStringB(str) {
+  if (!str) return ""; // si chaîne vide
+  // Met la première lettre en majuscule
+  let formatted = str.charAt(0).toUpperCase() + str.slice(1);
+  // Supprime le "s" final si présent
+  if (formatted.endsWith("s")) {
+    formatted = formatted.slice(0, -1);
+  }
+  return formatted;
 }
     </script>
     <style>
