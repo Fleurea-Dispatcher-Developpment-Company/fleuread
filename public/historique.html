@@ -107,7 +107,7 @@ const tabler = document.getElementById("tablehisto");
           td1.textContent = formatTimestamp(item.when);
           const td2 = document.createElement('td');
           tr.append(td2);
-          const whohere = await fetcher('getname', {id:item.who}, 'POST', sessionStorage.getItem('session_id'));
+          const whohere = await fetcher('getidname', {id:item.who}, 'POST', sessionStorage.getItem('session_id'));
           td2.textContent = whohere.ans;
 
           const td3 = document.createElement('td');
