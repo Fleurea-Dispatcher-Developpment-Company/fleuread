@@ -1850,7 +1850,7 @@ app.post('/gethistorique', async (req, res) => {
       const datas = await readDatabase(`${type}s`,'*');
       for (const item of datas) {
         if (item.num == id) {
-          res.json(item.historique);
+          res.json(await toFormattedHistoriq (item.historique));
         }
       }
     } else {
@@ -1865,15 +1865,32 @@ async function getAltitude (lat, lon) {
   return elevation.results[0].elevation;
 }
 
-app.post('/getidname', async (req, res) => {
-  console.log("Get ID");
-  const id = req.body.id;
-  try {
-    const thisid = req.headers.auth;
-    if (await checkRole('admin', thisid)) {
-     res.json({ans:await getConducteur(id)});
-    } else {
-      res.status(401).send("Non autorisé");
+//app.post('/getidname', async (req, res) => {
+ // console.log("Get ID");
+ // const id = req.body.id;
+ // try {
+ //   const thisid = req.headers.auth;
+ //   if (await checkRole('admin', thisid)) {
+//     res.json({ans:await getConducteur(id)});
+//    } else {
+//      res.status(401).send("Non autorisé");
+//    }
+//  } catch (err) {console.error(err);}
+// });
+
+async function toFormattedHistoriq (table) {
+  const tableau = [];
+  for (const item of table) {
+    if (item.table == "bennes") {
+    tableau.push({who:await getConducteur(item.who), what:item.what, when:item.when, content:item.content, value:await convertValue(item.value,item.type), type:item.type, table:item.table});
     }
-  } catch (err) {console.error(err);}
-});
+    }
+  return tableau;
+}
+
+async function convertValue (input, criteria) {
+  if ("criteria" == "cereale") {
+    return await getCereale(input);
+  }
+  return input;
+}
