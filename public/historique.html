@@ -88,6 +88,7 @@
 const tabler = document.getElementById("tablehisto");
       
       async function getHistorique(type, id) {
+        tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Action</th><th>Élément</th><th>Type</th><th>Caractère</th><th>Affectation</th></tr></thead>";
         const datas = await fetcher('gethistorique', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
         for (const item of datas) {
           const line = document.createElement('div');
@@ -101,7 +102,7 @@ const tabler = document.getElementById("tablehisto");
           line.append(a);
           document.getElementById('histocontainer').append(line);
 
-          tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Action</th><th>Élément</th><th>Type</th><th>Caractère</th><th>Affectation</th></tr></thead>";
+          
           const tr = document.createElement('tr');
           tabler.append(tr);
           const td1 = document.createElement('td');
