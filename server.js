@@ -1882,15 +1882,28 @@ async function toFormattedHistoriq (table) {
   const tableau = [];
   for (const item of table) {
     if (item.table == "bennes") {
-    tableau.push({who:await getConducteur(item.who), what:item.what, when:item.when, content:item.content, value:await convertValue(item.value,item.type), type:item.type, table:item.table});
+    tableau.push({who:await getConducteur(item.who), what:item.what, when:item.when, content:item.content, value:await convertValue(item.value,item.type), type:await convertLabel(item.type), table:item.table});
     }
     }
   return tableau;
 }
 
 async function convertValue (input, criteria) {
-  if ("criteria" == "cereale") {
+  if (criteria == "céréale") {
     return await getCereale(input);
+  }
+   if (criteria == "id_client") {
+    return await getFerme(input);
+  }
+  return input;
+}
+
+async function convertLabel (input) {
+  if (input == "céréale") {
+    return "Céréale";
+  }
+   if (input == "id_client") {
+    return "Client";
   }
   return input;
 }
