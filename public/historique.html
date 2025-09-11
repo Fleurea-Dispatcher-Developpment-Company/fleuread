@@ -124,16 +124,20 @@ const tabler = document.getElementById("tablehisto");
           td6.textContent = item.type;
           const td7 = document.createElement('td');
           tr.append(td7);
+          if (item.content = "2") {
+          td7.innerHTML = `<a href="https://www.google.com/maps?q=${item.value}">${item.value}</a>`; 
+          } else {
           td7.textContent = item.value;
+          }
         }
       }
 
       async function convertToWords (input) {
         if (input == "1") {
-          return "changé";
+          return "Modification";
         }
         if (input == "2") {
-          return "déplacé";
+          return "Déplacement";
         }
       }
 
