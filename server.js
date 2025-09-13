@@ -1912,9 +1912,7 @@ async function convertLabel (input) {
 async function filtrerEnDetail (table, query) {
   console.log("Lancement d'un protocole de filtration en détail");
   let fulltable = table;
-  fulltable = await filtrerA (fulltable, query.a) {
-    
-  }
+  fulltable = await filtrerA (fulltable, query.a);
   return fulltable;
 }
 
