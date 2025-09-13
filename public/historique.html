@@ -167,8 +167,8 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
   }
   return formatted;
 }
-const a_plug = document.getElementById('dateinput'); // Date → Debut
-const b_plug = document.getElementById('timeinput'); // Heure → Fin
+const aplug = document.getElementById('dateinput'); // Date → Debut
+const bplug = document.getElementById('timeinput'); // Heure → Fin
       let debounceTimer;
       async function resetTable () {
         clearTimeout(debounceTime);
@@ -176,14 +176,14 @@ const b_plug = document.getElementById('timeinput'); // Heure → Fin
         console.log(a_plug.value);
         console.log(b_plug.value);
         const query = {
-          a:a_plug.value,
-          b:b_plug.value
+          a:aplug.value,
+          b:bplug.value
         };
         getHistorique(type, id, query);
         }, 1000);
       }
-      a_plug.addEventListener('click',resetTable);
-      b_plug.addEventListener('click', resetTable);
+      aplug.addEventListener('click', resetTable);
+      bplug.addEventListener('click', resetTable);
     </script>
     <style>
       #tablehisto th, 
