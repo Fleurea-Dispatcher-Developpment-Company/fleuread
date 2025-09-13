@@ -1919,8 +1919,8 @@ async function filtrerEnDetail (table, query) {
   let fulltable = table;
   fulltable = await filtrerA (fulltable, removeOffsetFromString(query.a, offset));
   fulltable = await filtrerB (fulltable, removeOffsetFromString(query.b, offset));
-  fulltable = await filtrerAllof (fulltable, removeOffsetFromString(query.c, offset));
-  fulltable = await filtrerAllof (fulltable, removeOffsetFromString(query.d, offset));
+  fulltable = await filtrerAllof (fulltable, query.c);
+  fulltable = await filtrerAllof (fulltable, query.d);
   return fulltable;
 }
 
@@ -1980,9 +1980,10 @@ function compareDates(date1, date2) {
 }
 
 function removeOffsetFromString(dateStr, offset) {
-    const date = new Date(dateStr);
-    date.setHours(date.getHours() - offset);
-    return date;
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  date.setHours(date.getHours() - offset);
+  return date.toISOString();
 }
 
 async function filtrerAllof (table, criteria) {
