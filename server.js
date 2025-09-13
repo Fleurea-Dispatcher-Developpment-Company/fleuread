@@ -1890,6 +1890,7 @@ async function toFormattedHistoriq (table) {
     tableau.push({who:await getConducteur(item.who), what:item.what, when:item.when, content:item.content, value:await convertValue(item.value,item.type), type:await convertLabel(item.type), table:item.table});
     }
     }
+
   return tableau;
 }
 
