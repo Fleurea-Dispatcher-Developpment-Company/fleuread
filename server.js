@@ -1911,6 +1911,12 @@ async function convertLabel (input) {
    if (input == "id_client") {
     return "Client";
   }
+  if (input == "statut") {
+    return "État";
+  }
+  if (input == "notes") {
+    return "Indications";
+  }
   return input;
 }
 
