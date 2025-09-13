@@ -72,6 +72,7 @@
         }, 15000)
       }
 let alltype;
+let allid;
           async function readParams () {
         showToast("Lecture des paramètres en cours...");
        
@@ -79,6 +80,7 @@ let alltype;
         const type = urlParams.get('type');
         alltype = urlParams.get('type');
         const id = urlParams.get('id');
+        allid = urlParams.get('id');
        //   showToast(`Résult : ${id} / ${action}`);
         getHistorique(type, id);
       }
@@ -100,7 +102,7 @@ const tabler = document.getElementById("tablehisto");
           a:aplug.value,
           b:bplug.value
         };
-        getHistorique(alltype, id, query);
+        getHistorique(alltype, allid, query);
         }, 1000);
       }
       }
