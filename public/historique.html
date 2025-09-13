@@ -10,7 +10,7 @@
   </head>
   <body>
      <div id="toast-container"></div>
-    <div style="border:2px solid white; overflow-y:auto; position:absolute; top:1vh; left:1vw; height:98vh; width:98vw;">
+    <div style="border:2px outset black; overflow-y:auto; position:absolute; top:1vh; left:1vw; height:98vh; width:98vw;">
      <table class="w3-center" style="width:100%; border:2px solid black; border-collapse:collapse; text-align:center;vertical-align:center;" id="tablehisto"></table>
     </div>
        <script>
@@ -88,7 +88,7 @@ let allid;
       }
  let debounceTimer;
 const tabler = document.getElementById("tablehisto");
-tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Action</th><th>Élément</th><th>Type</th><th>Caractère</th><th>Affectation</th></tr><tr><th style='display:flex; flex-direction:row; justify-content:space-around;'><input type='datetime-local' id='dateinput' placeholder='DÉBUT'><input type='datetime-local' id='timeinput' placeholder='FIN'></th><th><input type='text' id='whoinput' placeholder='ACTIONNEUR'></th><th><input type='text' id='contentinput' placeholder='ACTION'></th><th><input type='text' id='iteminput' placeholder='ÉLÉMENT'></th><th><input type='text' id='typeinput' placeholder='TYPE'></th><th><input type='text' id='carainput' placeholder='CARACTÈRE'></th><th><input type='text' id='affecinput' placeholder='AFFECTATION'></th></tr></thead>";
+tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Action</th><th>Élément</th><th>Type</th><th>Caractère</th><th>Affectation</th></tr><tr><th style='display:flex; flex-direction:column;'><input type='datetime-local' id='dateinput' placeholder='DÉBUT'><input type='datetime-local' id='timeinput' placeholder='FIN'></th><th><input type='text' id='whoinput' placeholder='ACTIONNEUR'></th><th><input type='text' id='contentinput' placeholder='ACTION'></th><th><input type='text' id='iteminput' placeholder='ÉLÉMENT'></th><th><input type='text' id='typeinput' placeholder='TYPE'></th><th><input type='text' id='carainput' placeholder='CARACTÈRE'></th><th><input type='text' id='affecinput' placeholder='AFFECTATION'></th></tr></thead>";
       const tbody = document.createElement('tbody');
       tabler.append(tbody);
       
@@ -249,7 +249,7 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
         width: 100%;
         height:2vh;
         padding: 0.75rem;
-        margin-bottom: 1rem;
+      /*  margin-bottom: 1rem; */
         border: 1px solid #ccc;
         border-radius: 0.5rem;
         font-size: 1rem;
