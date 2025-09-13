@@ -1917,6 +1917,7 @@ async function filtrerEnDetail (table, query) {
   console.log("Lancement d'un protocole de filtration en détail");
   let fulltable = table;
   fulltable = await filtrerA (fulltable, query.a);
+  fulltable = await filtrerB (fulltable, query.b);
   return fulltable;
 }
 
@@ -1932,6 +1933,26 @@ async function filtrerA (table, criteria) {
   console.log(criteria);
     for (const item of table) {
         if (compareDates(item.when, criteria) == 1) { // Ici nous voulons que la date comparée soit après → donc D1 (comparée) après D2 (critère)
+          toret.push(item);
+        }
+    }
+    return toret;
+  }
+  // Fin de la fonction
+}
+
+async function filtrerB (table, criteria) {
+  // Cette fonction filtre les occurences après une date
+  if (criteria == "") {
+    // On renvoie la table en l'absence de critère de filtrage
+    return table;
+  } else {
+    // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
+  let toret = [];
+  console.log("FILTRER B");
+  console.log(criteria);
+    for (const item of table) {
+        if (compareDates(item.when, criteria) == -1) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
         }
     }
