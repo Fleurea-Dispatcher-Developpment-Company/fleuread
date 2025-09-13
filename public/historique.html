@@ -171,10 +171,10 @@ const aplug = document.getElementById('dateinput'); // Date → Debut
 const bplug = document.getElementById('timeinput'); // Heure → Fin
       let debounceTimer;
       async function resetTable () {
-        clearTimeout(debounceTime);
-        debounceTime = setTimer(() => {
-        console.log(a_plug.value);
-        console.log(b_plug.value);
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+        console.log(aplug.value);
+        console.log(bplug.value);
         const query = {
           a:aplug.value,
           b:bplug.value
