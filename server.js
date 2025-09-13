@@ -1921,6 +1921,10 @@ async function filtrerEnDetail (table, query) {
   fulltable = await filtrerB (fulltable, removeOffsetFromString(query.b, offset));
   fulltable = await filtrerC (fulltable, query.c);
   fulltable = await filtrerD (fulltable, query.d);
+  fulltable = await filtrerE (fulltable, query.e);
+  fulltable = await filtrerF (fulltable, query.f);
+  fulltable = await filtrerG (fulltable, query.g);
+  fulltable = await filtrerH (fulltable, query.h);
   return fulltable;
 }
 
@@ -2018,6 +2022,86 @@ async function filtrerD (table, criteria) {
   console.log(criteria);
     for (const item of table) {
         if (String(item.content || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+          toret.push(item);
+        }
+    }
+    return toret;
+  }
+  // Fin de la fonction
+}
+
+async function filtrerE (table, criteria) {
+  // Cette fonction filtre les occurences après une date
+  if (!criteria) {
+    // On renvoie la table en l'absence de critère de filtrage
+    return table;
+  } else {
+    // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
+  let toret = [];
+  console.log("FILTRER ALL");
+  console.log(criteria);
+    for (const item of table) {
+        if (String(item.what || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+          toret.push(item);
+        }
+    }
+    return toret;
+  }
+  // Fin de la fonction
+}
+
+async function filtrerF (table, criteria) {
+  // Cette fonction filtre les occurences après une date
+  if (!criteria) {
+    // On renvoie la table en l'absence de critère de filtrage
+    return table;
+  } else {
+    // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
+  let toret = [];
+  console.log("FILTRER ALL");
+  console.log(criteria);
+    for (const item of table) {
+        if (String(item.table || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+          toret.push(item);
+        }
+    }
+    return toret;
+  }
+  // Fin de la fonction
+}
+
+async function filtrerG (table, criteria) {
+  // Cette fonction filtre les occurences après une date
+  if (!criteria) {
+    // On renvoie la table en l'absence de critère de filtrage
+    return table;
+  } else {
+    // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
+  let toret = [];
+  console.log("FILTRER ALL");
+  console.log(criteria);
+    for (const item of table) {
+        if (String(item.type || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+          toret.push(item);
+        }
+    }
+    return toret;
+  }
+  // Fin de la fonction
+}
+
+async function filtrerH (table, criteria) {
+  // Cette fonction filtre les occurences après une date
+  if (!criteria) {
+    // On renvoie la table en l'absence de critère de filtrage
+    return table;
+  } else {
+    // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
+  let toret = [];
+  console.log("FILTRER ALL");
+  console.log(criteria);
+    for (const item of table) {
+        if (String(item.value || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
         }
     }
