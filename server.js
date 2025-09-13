@@ -1841,6 +1841,7 @@ app.post('/gethistorique', async (req, res) => {
   console.log("Get Historique");
   const id = req.body.id;
   const type = req.body.type;
+  const query = req.body.query;
   console.log(id, type);
   try {
     const thisid = req.headers.auth;
@@ -1850,7 +1851,7 @@ app.post('/gethistorique', async (req, res) => {
       const datas = await readDatabase(`${type}s`,'*');
       for (const item of datas) {
         if (item.num == id) {
-          res.json(await toFormattedHistoriq (item.historique));
+          res.json(await filtrerEnDetail(await toFormattedHistoriq (item.historique), query));
         }
       }
     } else {
@@ -1906,4 +1907,8 @@ async function convertLabel (input) {
     return "Client";
   }
   return input;
+}
+
+async function filtrerEnDetail (table, query) {
+  console.log("Lancement d'un protocole de filtration en détail");
 }
