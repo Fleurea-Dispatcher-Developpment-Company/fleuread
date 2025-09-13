@@ -1919,6 +1919,8 @@ async function filtrerEnDetail (table, query) {
   let fulltable = table;
   fulltable = await filtrerA (fulltable, removeOffsetFromString(query.a, offset));
   fulltable = await filtrerB (fulltable, removeOffsetFromString(query.b, offset));
+  fulltable = await filtrerAllof (fulltable, removeOffsetFromString(query.c, offset));
+  fulltable = await filtrerAllof (fulltable, removeOffsetFromString(query.d, offset));
   return fulltable;
 }
 
@@ -1981,5 +1983,25 @@ function removeOffsetFromString(dateStr, offset) {
     const date = new Date(dateStr);
     date.setHours(date.getHours() - offset);
     return date;
+}
+
+async function filtrerAllof (table, criteria) {
+  // Cette fonction filtre les occurences après une date
+  if (criteria.length > 0) {
+    // On renvoie la table en l'absence de critère de filtrage
+    return table;
+  } else {
+    // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
+  let toret = [];
+  console.log("FILTRER ALL");
+  console.log(criteria);
+    for (const item of table) {
+        if (String(item.when || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+          toret.push(item);
+        }
+    }
+    return toret;
+  }
+  // Fin de la fonction
 }
 
