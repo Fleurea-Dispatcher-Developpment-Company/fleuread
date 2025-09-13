@@ -89,6 +89,7 @@ const tabler = document.getElementById("tablehisto");
 tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Action</th><th>Élément</th><th>Type</th><th>Caractère</th><th>Affectation</th></tr><tr><th style='display:flex; flex-direction:row; justify-content:space-around;'><input type='datetime-local' id='dateinput' placeholder='DÉBUT'><input type='datetime-local' id='timeinput' placeholder='FIN'></th><th><input type='text' id='whoinput' placeholder='ACTIONNEUR'></th><th><input type='text' id='contentinput' placeholder='ACTION'></th><th><input type='text' id='iteminput' placeholder='ÉLÉMENT'></th><th><input type='text' id='typeinput' placeholder='TYPE'></th><th><input type='text' id='carainput' placeholder='CARACTÈRE'></th><th><input type='text' id='affecinput' placeholder='AFFECTATION'></th></tr></thead>";
       const tbody = document.createElement('tbody');
       tabler.append(tbody);
+      
       async function setConstants () {
       tbody.innerHTML = "";
       const aplug = document.getElementById('dateinput');
@@ -111,8 +112,9 @@ tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Actio
       }
       
       async function getHistorique(type, id, query) {
-        setConstants();
+        
         const datas = await fetcher('gethistorique', {id:id, type:type, query:query}, 'POST', sessionStorage.getItem('session_id'));
+        setConstants();
         for (const item of datas) {
           // const line = document.createElement('div');
          // line.style.width = '100%';
