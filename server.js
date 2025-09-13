@@ -1919,8 +1919,8 @@ async function filtrerEnDetail (table, query) {
   let fulltable = table;
   fulltable = await filtrerA (fulltable, removeOffsetFromString(query.a, offset));
   fulltable = await filtrerB (fulltable, removeOffsetFromString(query.b, offset));
-  fulltable = await filtrerAllof (fulltable, query.c);
-  fulltable = await filtrerAllof (fulltable, query.d);
+  fulltable = await filtrerC (fulltable, query.c);
+  fulltable = await filtrerD (fulltable, query.d);
   return fulltable;
 }
 
@@ -1986,9 +1986,9 @@ function removeOffsetFromString(dateStr, offset) {
   return date.toISOString();
 }
 
-async function filtrerAllof (table, criteria) {
+async function filtrerC (table, criteria) {
   // Cette fonction filtre les occurences après une date
-  if (criteria.length == 0) {
+  if (!criteria) {
     // On renvoie la table en l'absence de critère de filtrage
     return table;
   } else {
@@ -1997,7 +1997,27 @@ async function filtrerAllof (table, criteria) {
   console.log("FILTRER ALL");
   console.log(criteria);
     for (const item of table) {
-        if (String(item.when || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+        if (String(item.who || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+          toret.push(item);
+        }
+    }
+    return toret;
+  }
+  // Fin de la fonction
+}
+
+async function filtrerD (table, criteria) {
+  // Cette fonction filtre les occurences après une date
+  if (!criteria) {
+    // On renvoie la table en l'absence de critère de filtrage
+    return table;
+  } else {
+    // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
+  let toret = [];
+  console.log("FILTRER ALL");
+  console.log(criteria);
+    for (const item of table) {
+        if (String(item.content || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
         }
     }
