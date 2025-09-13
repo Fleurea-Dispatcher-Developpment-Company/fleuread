@@ -1919,12 +1919,12 @@ async function filtrerEnDetail (table, query) {
   let fulltable = table;
   fulltable = await filtrerA (fulltable, removeOffsetFromString(query.a, offset));
   fulltable = await filtrerB (fulltable, removeOffsetFromString(query.b, offset));
-  fulltable = await filtrerC (fulltable, query.c);
-  fulltable = await filtrerD (fulltable, query.d);
-  fulltable = await filtrerE (fulltable, query.e);
-  fulltable = await filtrerF (fulltable, query.f);
-  fulltable = await filtrerG (fulltable, query.g);
-  fulltable = await filtrerH (fulltable, query.h);
+  fulltable = await filtrerC (fulltable, query.c.toLowerCase());
+  fulltable = await filtrerD (fulltable, query.d.toLowerCase());
+  fulltable = await filtrerE (fulltable, query.e.toLowerCase());
+  fulltable = await filtrerF (fulltable, query.f.toLowerCase());
+  fulltable = await filtrerG (fulltable, query.g.toLowerCase());
+  fulltable = await filtrerH (fulltable, query.h.toLowerCase());
   return fulltable;
 }
 
@@ -2001,7 +2001,7 @@ async function filtrerC (table, criteria) {
   console.log("FILTRER ALL");
   console.log(criteria);
     for (const item of table) {
-        if (String(item.who || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+        if (String(item.who || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
         }
     }
@@ -2021,7 +2021,7 @@ async function filtrerD (table, criteria) {
   console.log("FILTRER ALL");
   console.log(criteria);
     for (const item of table) {
-        if (String(item.content || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+        if (String(item.content || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
         }
     }
@@ -2041,7 +2041,7 @@ async function filtrerE (table, criteria) {
   console.log("FILTRER ALL");
   console.log(criteria);
     for (const item of table) {
-        if (String(item.what || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+        if (String(item.what || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
         }
     }
@@ -2061,7 +2061,7 @@ async function filtrerF (table, criteria) {
   console.log("FILTRER ALL");
   console.log(criteria);
     for (const item of table) {
-        if (String(item.table || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+        if (String(item.table || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
         }
     }
@@ -2081,7 +2081,7 @@ async function filtrerG (table, criteria) {
   console.log("FILTRER ALL");
   console.log(criteria);
     for (const item of table) {
-        if (String(item.type || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+        if (String(item.type || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
         }
     }
@@ -2101,7 +2101,7 @@ async function filtrerH (table, criteria) {
   console.log("FILTRER ALL");
   console.log(criteria);
     for (const item of table) {
-        if (String(item.value || "").includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
+        if (String(item.value || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
         }
     }
