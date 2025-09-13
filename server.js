@@ -1901,6 +1901,17 @@ async function convertValue (input, criteria) {
    if (criteria == "id_client") {
     return await getFerme(input);
   }
+  if (criteria == "statut") {
+        if (input == "A") {
+      return "Posée";
+    }
+    if (input == "B") {
+      return "Prête";
+    }
+    if (input == "C") {
+      return "En dépôt";
+    }
+  }
   return input;
 }
 
