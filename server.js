@@ -1911,4 +1911,6 @@ async function convertLabel (input) {
 
 async function filtrerEnDetail (table, query) {
   console.log("Lancement d'un protocole de filtration en détail");
+  const fulltable = table;
+  return fulltable;
 }
