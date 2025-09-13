@@ -1915,9 +1915,10 @@ async function convertLabel (input) {
 
 async function filtrerEnDetail (table, query) {
   console.log("Lancement d'un protocole de filtration en détail");
+  const offset = query.offset;
   let fulltable = table;
-  fulltable = await filtrerA (fulltable, query.a);
-  fulltable = await filtrerB (fulltable, query.b);
+  fulltable = await filtrerA (fulltable, removeOffsetFromString(query.a, offset));
+  fulltable = await filtrerB (fulltable, removeOffsetFromString(query.b, offset));
   return fulltable;
 }
 
@@ -1974,5 +1975,11 @@ function compareDates(date1, date2) {
   } else {
     return 0;  // dates ÉGALES
   }
+}
+
+function removeOffsetFromString(dateStr, offset) {
+    const date = new Date(dateStr);
+    date.setHours(date.getHours() - offset);
+    return date;
 }
 
