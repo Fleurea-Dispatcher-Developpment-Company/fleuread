@@ -1522,6 +1522,12 @@ comDatas[ben.id] = ben;
           const notes = document.createElement('p');
           notes.textContent = ben.password;
           line.append(notes);
+          const button = document.createElement('button');
+          button.textContent = "Historique";
+          button.addEventListener('click', () => {
+            window.open(`fleuread.onrender.com/historique?type=compte&id=${ben.num}`, '_blank');
+          });
+          line.append(button);
           const pds = document.createElement('p');
           pds.textContent = formatTimestamp(ben.last_connection);;
           line.append(pds);
