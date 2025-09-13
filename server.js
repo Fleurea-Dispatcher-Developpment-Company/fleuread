@@ -1911,6 +1911,45 @@ async function convertLabel (input) {
 
 async function filtrerEnDetail (table, query) {
   console.log("Lancement d'un protocole de filtration en détail");
-  const fulltable = table;
+  let fulltable = table;
+  fulltable = await filtrerA (fulltable, query.a) {
+    
+  }
   return fulltable;
 }
+
+async function filtrerA (table, criteria) {
+  // Cette fonction filtre les occurences après une date
+  if (criteria == "") {
+    // On renvoie la table en l'absence de critère de filtrage
+    return table;
+  } else {
+    // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
+  let toret = [];
+  console.log("FILTRER A");
+  console.log(criteria);
+    for (const item of table) {
+        if (compareDates(item.when, criteria) == 1) { // Ici nous voulons que la date comparée soit après → donc D1 (comparée) après D2 (critère)
+          toret.push(item);
+        }
+    }
+    return toret;
+  }
+  // Fin de la fonction
+}
+
+function compareDates(date1, date2) {
+// Par convention nous dirons que la date 1 correpond à la date à comparer et date 2 au critère
+  // Convertit en objets Date si ce sont des strings (ex: "2025-09-12T14:30")
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+
+  if (d1.getTime() < d2.getTime()) {
+    return -1; // date1 est AVANT date2
+  } else if (d1.getTime() > d2.getTime()) {
+    return 1;  // date1 est APRÈS date2
+  } else {
+    return 0;  // dates ÉGALES
+  }
+}
+
