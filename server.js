@@ -652,6 +652,8 @@ app.post('/createbenne', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       addDatabase ('bennes', '', {num:num, volume:vol, creation:new Date(), longitude:"45.71834595682258", latitude:"4.230362827178187", statut:"C"}); // 45.71834595682258, 4.230362827178187
       res.send("Création enregistrée avec succès !");
+      await setHistorique (sessions[thisid].id, num, "3", "bennes", vol, "Volume"); // Affectation à l'historique de la benne
+      await setHistorique (num, sessions[thisid].id, "3", "comptes", vol, "Volume"); // Affectation à l'historique de l'actionneur
       socketReload ("benne");
     } else {
       res.status(401);
