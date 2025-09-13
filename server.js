@@ -1926,7 +1926,7 @@ async function filtrerEnDetail (table, query) {
 
 async function filtrerA (table, criteria) {
   // Cette fonction filtre les occurences après une date
-  if (criteria.length > 0) {
+  if (criteria.length == 0) {
     // On renvoie la table en l'absence de critère de filtrage
     return table;
   } else {
@@ -1946,7 +1946,7 @@ async function filtrerA (table, criteria) {
 
 async function filtrerB (table, criteria) {
   // Cette fonction filtre les occurences après une date
-  if (criteria.length > 0) {
+  if (criteria.length == 0) {
     // On renvoie la table en l'absence de critère de filtrage
     return table;
   } else {
@@ -1987,7 +1987,7 @@ function removeOffsetFromString(dateStr, offset) {
 
 async function filtrerAllof (table, criteria) {
   // Cette fonction filtre les occurences après une date
-  if (criteria.length > 0) {
+  if (criteria.length == 0) {
     // On renvoie la table en l'absence de critère de filtrage
     return table;
   } else {
