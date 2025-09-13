@@ -12,6 +12,7 @@
      <div id="toast-container"></div>
     <div style="border:2px outset black; overflow-y:auto; position:absolute; top:1vh; left:1vw; height:98vh; width:98vw;">
      <table class="w3-center" style="width:100%; border:2px solid black; border-collapse:collapse; text-align:center;vertical-align:center;" id="tablehisto"></table>
+      <p id="result"></p>
     </div>
        <script>
       const offset = -((new Date().getTimezoneOffset()) / 60);
@@ -138,12 +139,9 @@ tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Actio
         
         const datas = await fetcher('gethistorique', {id:id, type:type, query:query}, 'POST', sessionStorage.getItem('session_id'));
         setConstants();
-        
+         document.getElementById('result').textContent = "";
         if (datas.length == 0) {
-          const tr = document.createElement('tr');
-          tbody.append(tr);
-          tr.textContent = "Aucun élément trouvé avec ces critères de recherche...";
-          tr.style.fontStyle = "italic";
+          document.getElementById('result').textContent = "Aucun élément ne correspond à votre recherche...";
         }
         
         for (const item of datas) {
