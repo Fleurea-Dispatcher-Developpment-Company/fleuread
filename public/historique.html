@@ -140,9 +140,10 @@ tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Actio
         setConstants();
         
         if (datas.length == 0) {
-          const tr = document.createElement('div');
+          const tr = document.createElement('tr');
           tbody.append(tr);
           tr.textContent = "Aucun élément trouvé avec ces critères de recherche...";
+          tr.style.fontStyle = "italic";
         }
         
         for (const item of datas) {
