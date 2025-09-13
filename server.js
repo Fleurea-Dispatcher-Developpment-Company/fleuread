@@ -1851,7 +1851,11 @@ app.post('/gethistorique', async (req, res) => {
       const datas = await readDatabase(`${type}s`,'*');
       for (const item of datas) {
         if (item.num == id) {
+          if (query) {
           res.json(await filtrerEnDetail(await toFormattedHistoriq (item.historique), query));
+          } else {
+          res.json(await toFormattedHistoriq (item.historique));  
+          }
         }
       }
     } else {
