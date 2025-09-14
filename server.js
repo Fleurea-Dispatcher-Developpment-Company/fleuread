@@ -2172,8 +2172,18 @@ async function deleteImageFromUrl(imageUrl) {
   try {
     // Exemple d'URL Cloudinary :
     // https://res.cloudinary.com/demo/image/upload/v1694567890/folder/myimage.jpg
+    const fleuread_id = imageUrl;
+    console.log(fleuread_id);
+    const docs = await readDatabase('storage', '*'); // On lit notre stockage
+    let true_url; 
+    for (const doc of docs) {
+      if (doc.fleuread_id == fleuread_id) {
+        true_url = String(doc.link); // On obtient la vraie url
+        console.log(true_url);
+      }
+    }
     
-    const parts = imageUrl.split('/');
+    const parts = fleuread_id.split('/');
     const publicIdWithExt = parts.slice(7).join('/'); // "folder/myimage.jpg"
     const publicId = publicIdWithExt.replace(/\.[^/.]+$/, ''); // supprime l'extension
 
