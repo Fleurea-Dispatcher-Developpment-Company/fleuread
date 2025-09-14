@@ -1833,7 +1833,9 @@ app.post('/changeimagedata', async (req, res) => {
 
  async function changeImage (id, type, url, lasturl) {
   const answer = editDatabase (type, 'link', url, 'num', id);
+   if (type == "comptes") {
   deleteImageFromUrl(lasturl);
+   }
   return {message:"Confirmation du changement d'image.", color:'yellow'};
  }
 
