@@ -894,6 +894,10 @@ benDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
         console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
+        // onclick="window.location.assign(`/icon?type=comptes&id=${sessionStorage.getItem('session_id')}`, '_blank');"
+        document.getElementById('imagePop').onclick = () => {
+          window.location.assign(`/icon?type=bennes&id=${ben.id}`, '_blank');
+        }
          document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
          document.getElementById('lightPB').textContent =  ben.volume + " T | " + ben.notes;
         const statusReadable = toread(ben.status);
