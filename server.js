@@ -675,7 +675,7 @@ app.post('/editbenne', async (req, res) => {
       await setHistorique (sessions[thisid].id, value_eq, "1", "bennes", value_toupd, toupd); // Affectation à l'historique de la benne
       await setHistorique (value_eq, sessions[thisid].id, "1", "comptes", value_toupd, toupd); // Affectation à l'historique de l'actionneur
         if (toupd == "id_client") {
-         await setHistorique (sessions[thisid].id, value_toupd, "1", "bennes", value_eq, toupd); // Affectation à l'historique de la benne
+         await setHistorique (sessions[thisid].id, value_toupd, "1", "clients", value_eq, toupd); // Affectation à l'historique de la benne
         }
       console.log("APRÈS");
       const {latitude, longitude} = await getAdresseBenneEdit(value_eq);
@@ -774,8 +774,10 @@ app.post('/editcompte', async (req, res) => {
     const eq = req.body.eq;
     const value_eq = req.body.value_eq;
     if (await checkRole('admin',thisid)) {
-      editDatabase ('comptes', toupd, value_toupd, eq, value_eq);
+      await editDatabase ('comptes', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
+      await setHistorique (sessions[thisid].id, value_eq, "1", "comptes", value_toupd, toupd); // Affectation à l'historique de lu compte
+      await setHistorique (value_eq, sessions[thisid].id, "1", "comptes", value_toupd, toupd); // Affectation à l'historique de l'actionneur
       socketReload ("compte");
     } else {
       res.status(401);
@@ -846,6 +848,7 @@ app.post('/createclient', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       await addDatabase ('clients', '', {num:gen_num, creation:gen_date, name:name, phonenumber:phonenumber}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
+      
       socketReload ("client");
     } else {
       res.status(401);
@@ -866,7 +869,9 @@ app.post('/editclient', async (req, res) => {
       const {latitude, longitude} = await getAdresseFermeEdit(value_eq);
       console.log("Entrée adresse client", latitude, "*", longitude);
       const adresse = await getAdress([longitude, latitude]);
-      editDatabase ('clients', 'adresse', adresse, 'num', value_eq);
+      await editDatabase ('clients', 'adresse', adresse, 'num', value_eq);
+      await setHistorique (sessions[thisid].id, value_eq, "1", "clients", value_toupd, toupd); // Affectation à l'historique de lu compte
+      await setHistorique (value_eq, sessions[thisid].id, "1", "comptes", value_toupd, toupd); // Affectation à l'historique de l'actionneur
       socketReload ("client");
     } else {
       res.status(401);
