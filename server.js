@@ -778,7 +778,7 @@ app.post('/editcompte', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       await editDatabase ('comptes', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
-      await setHistorique (sessions[thisid].id, value_eq, "1", "comptes", value_toupd, toupd); // Affectation à l'historique de lu compte
+      await setHistorique (sessions[thisid].id, value_eq, "1", "comptes", value_toupd, toupd, true); // Affectation à l'historique du compte
       await setHistorique (value_eq, sessions[thisid].id, "1", "comptes", value_toupd, toupd); // Affectation à l'historique de l'actionneur
       socketReload ("compte");
     } else {
