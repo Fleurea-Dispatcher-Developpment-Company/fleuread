@@ -761,8 +761,8 @@ app.post('/createcompte', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       await addDatabase ('comptes', '', {num:gen_num, password:gen_password,creation:gen_date, first_name:first_name, name:name}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
-      await setHistorique (sessions[thisid].id, gen_num, "3", "comptes", name, "Nom", true); // Affectation à l'historique de la benne
-      await setHistorique (gen_num, sessions[thisid].id, "3", "comptes", name, "Nom"); // Affectation à l'historique de l'actionneur
+      await setHistorique (sessions[thisid].id, gen_num, "3", "comptes", gen_password, "Automatique", true); // Affectation à l'historique de la benne
+      await setHistorique (gen_num, sessions[thisid].id, "3", "comptes", gen_password, "Automatique"); // Affectation à l'historique de l'actionneur
       socketReload ("compte");
     } else {
       res.status(401);
