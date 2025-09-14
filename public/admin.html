@@ -1632,6 +1632,12 @@ cliDatas[ben.id] = ben;
           const notes = document.createElement('p');
           notes.textContent = ben.notes;
           line.append(notes);
+          const button = document.createElement('button');
+          button.textContent = "Historique";
+          button.addEventListener('click', () => {
+            window.open(`/historique?type=client&id=${ben.id}`, '_blank');
+          });
+          line.append(button);
           const pds = document.createElement('p');
           pds.textContent = ben.adresse;
           line.append(pds);
