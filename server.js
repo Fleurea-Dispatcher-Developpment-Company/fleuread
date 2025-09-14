@@ -1825,6 +1825,33 @@ app.post('/changeimagedata', async (req, res) => {
               }
             }
           }
+      if (type == "bennes") {
+            if (await checkRole ('admin',thisid)) {
+              res.json(await changeImage(id, type, urlAb, lasturl));
+            } else {
+              if (id == sessions[thisid].id) {
+                res.json(await changeImage(id, type, urlAb, lasturl));
+              }
+            }
+          }
+        if (type == "cereales") {
+            if (await checkRole ('admin',thisid)) {
+              res.json(await changeImage(id, type, urlAb, lasturl));
+            } else {
+              if (id == sessions[thisid].id) {
+                res.json(await changeImage(id, type, urlAb, lasturl));
+              }
+            }
+          }
+        if (type == "clients") {
+            if (await checkRole ('admin',thisid)) {
+              res.json(await changeImage(id, type, urlAb, lasturl));
+            } else {
+              if (id == sessions[thisid].id) {
+                res.json(await changeImage(id, type, urlAb, lasturl));
+              }
+            }
+          }
     } else {
       res.status(401);
     }
