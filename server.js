@@ -2189,6 +2189,7 @@ async function deleteImageFromUrl(imageUrl) {
 
     const result = await cloudinary.uploader.destroy(publicId);
     console.log(result);
+    deleteDatabase ('storage', imageUrl, 'fleuread_id');
     return result;
   } catch (err) {
     console.error('Erreur suppression:', err);
