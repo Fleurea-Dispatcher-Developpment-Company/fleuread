@@ -2182,13 +2182,17 @@ async function deleteImageFromUrl(imageUrl) {
     for (const doc of docs) {
       if (doc.fleuread_id == fleuread_id) {
         true_url = String(doc.link); // On obtient la vraie url
+        console.log("TRUE URL:");
         console.log(true_url);
       }
     }
-    
-    const parts = fleuread_id.split('/');
+    console.log(true_url);
+    const parts = true_url.split('/');
+    console.log(parts);
     const publicIdWithExt = parts.slice(7).join('/'); // "folder/myimage.jpg"
+    console.log(publicIdWithExt);
     const publicId = publicIdWithExt.replace(/\.[^/.]+$/, ''); // supprime l'extension
+    console.log(publicId);
 
     const result = await cloudinary.uploader.destroy(publicId);
     console.log(result);
@@ -2207,7 +2211,7 @@ app.get('/documentexplicatif', async (req, res) => {
   try {
   const fileName = `QrCode_benne_${id}.pdf`;
   const filePath = path.join(__dirname, fileName);
-  await pdfWithQr(id, filePath);
+  await pdf2(id, filePath);
   res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
   res.sendFile(filePath, err => {
     if (err) {
@@ -2221,7 +2225,7 @@ app.get('/documentexplicatif', async (req, res) => {
   }
 });
 
-async function pdfWithQr(id, filePath) {
+async function pdf2(id, filePath) {
   const url = `https://fleuread.onrender.com/driver?action=register&benne=${id}`;
   const qrDataUrl = await QRCode.toDataURL(String(url), {
     margin:1,
