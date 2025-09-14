@@ -759,8 +759,8 @@ app.post('/createcompte', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       await addDatabase ('comptes', '', {num:gen_num, password:gen_password,creation:gen_date, first_name:first_name, name:name}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
-      await setHistorique (sessions[thisid].id, num, "3", "comptes", `${name} ${first_name}`, "Identité"); // Affectation à l'historique de la benne
-      await setHistorique (num, sessions[thisid].id, "3", "comptes", `${name} ${first_name}`, "Identité"); // Affectation à l'historique de l'actionneur
+      await setHistorique (sessions[thisid].id, gen_num, "3", "comptes", name, "Nom", true); // Affectation à l'historique de la benne
+      await setHistorique (gen_num, sessions[thisid].id, "3", "comptes", name, "Nom"); // Affectation à l'historique de l'actionneur
       socketReload ("compte");
     } else {
       res.status(401);
@@ -850,8 +850,8 @@ app.post('/createclient', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       await addDatabase ('clients', '', {num:gen_num, creation:gen_date, name:name, phonenumber:phonenumber}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
-      await setHistorique (sessions[thisid].id, num, "3", "clients", name, "Ferme"); // Affectation à l'historique de la benne
-      await setHistorique (num, sessions[thisid].id, "3", "comptes", name, "Ferme"); // Affectation à l'historique de l'actionneur
+      await setHistorique (sessions[thisid].id, gen_num, "3", "clients", name, "Ferme"); // Affectation à l'historique de la benne
+      await setHistorique (gen_num, sessions[thisid].id, "3", "comptes", name, "Ferme"); // Affectation à l'historique de l'actionneur
       socketReload ("client");
     } else {
       res.status(401);
