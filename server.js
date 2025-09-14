@@ -1017,11 +1017,11 @@ app.post('/editparam', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
-async function setHistorique (who, what, content, table, value, type) {
+async function setHistorique (who, what, content, table, value, type, bool) {
   try {
   // Il faut récupérer la cellule selectionnée dans public:table:what
   console.log("Gamma");
-  console.log(who, what, content, table, value, type);
+  console.log(who, what, content, table, value, type, bool);
   const from = await readDatabase(table, '*');
   let cellule;
   for (const cell of from) {
@@ -1034,7 +1034,7 @@ async function setHistorique (who, what, content, table, value, type) {
   // Ajouter la ligne who made content on the table what
     const now = new Date();
     console.log({who:who, when:now, content:content, what:what, value:value, table:table, type:type});
-  cellule.push({who:who, when:now, content:content, what:what, value:value, table:table, type:type});
+  cellule.push({who:who, when:now, content:content, what:what, value:value, table:table, type:type, passive:bool});
   // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
     console.log("Lancement de l'édition en cours...");
   await editDatabase (table, 'historique', cellule, 'num', what);
