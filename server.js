@@ -1908,7 +1908,7 @@ async function toFormattedHistoriq (table) {
     tableau.push({who:await getConducteur(item.what), what:item.who, when:item.when, content:item.content, value:await convertValue(item.value,item.type), type:await convertLabel(item.type), table:item.table});
     }
     if (item.table == "clients") {
-    tableau.push({who:await getConducteur(item.who), what:item.value, when:item.when, content:item.content, value:await convertValue(item.what, item.type), type:await convertLabel(item.type), table:item.table});
+    tableau.push({who:await getConducteur(item.who), what:item.value, when:item.when, content:item.content, value:await convertValue(item.what, item.type), type:await convertLabel(item.type), table:"bennes"});
     }
     }
 
