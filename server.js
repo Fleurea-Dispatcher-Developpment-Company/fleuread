@@ -1905,8 +1905,13 @@ async function toFormattedHistoriq (table) {
     tableau.push({who:await getConducteur(item.who), what:item.what, when:item.when, content:item.content, value:await convertValue(item.value,item.type), type:await convertLabel(item.type), table:item.table});
     }
     if (item.table == "comptes") {
-    tableau.push({who:await getConducteur(item.what), what:item.who, when:item.when, content:item.content, value:await convertValue(item.value,item.type), type:await convertLabel(item.type), table:item.table});
-    }
+      if (item.passive) 
+      // Forme passive → Le requester subit l'action
+      tableau.push({who:await getConducteur(item.who), what:await getConducteur(item.what), when:item.when, content:item.content, value:await convertValue(item.value,item.type), type:await convertLabel(item.type), table:item.table});
+      } else {
+      tableau.push({who:await getConducteur(item.what), what:item.who, when:item.when, content:item.content, value:await convertValue(item.value,item.type), type:await convertLabel(item.type), table:item.table});  
+      }
+      }
     if (item.table == "clients") {
     tableau.push({who:await getConducteur(item.who), what:item.value, when:item.when, content:item.content, value:await convertValue(item.what, item.type), type:await convertLabel(item.type), table:"bennes"});
     }
