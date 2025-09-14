@@ -1746,6 +1746,33 @@ app.post('/getimagedata', async (req, res) => {
               }
             }
           }
+      if (type == "bennes") {
+            if (await checkRole ('admin',thisid)) {
+              res.json(await imageData(type, id));
+            } else {
+              if (id == thisid) {
+                res.json(await imageData(type, id));
+              }
+            }
+          }
+       if (type == "clients") {
+            if (await checkRole ('admin',thisid)) {
+              res.json(await imageData(type, id));
+            } else {
+              if (id == thisid) {
+                res.json(await imageData(type, id));
+              }
+            }
+          }
+       if (type == "cereales") {
+            if (await checkRole ('admin',thisid)) {
+              res.json(await imageData(type, id));
+            } else {
+              if (id == thisid) {
+                res.json(await imageData(type, id));
+              }
+            }
+          }
     } else {
       res.status(401);
     }
