@@ -1861,7 +1861,11 @@ app.post('/changeimagedata', async (req, res) => {
 });
 
  async function changeImage (id, type, url, lasturl) {
-  const answer = editDatabase (type, 'link', url, 'num', id);
+   if (type = "cereales") {
+     const answer = editDatabase (type, 'photo', url, 'num', id);
+   } else {
+     const answer = editDatabase (type, 'link', url, 'num', id);
+   }
    if (type == "comptes") {
   deleteImageFromUrl(lasturl);
    }
