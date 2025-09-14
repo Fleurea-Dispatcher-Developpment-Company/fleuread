@@ -2173,7 +2173,9 @@ async function deleteImageFromUrl(imageUrl) {
   try {
     // Exemple d'URL Cloudinary :
     // https://res.cloudinary.com/demo/image/upload/v1694567890/folder/myimage.jpg
-    const fleuread_id = imageUrl;
+    let fleuread_id = imageUrl;
+    const url◄ = new URL(fleuread_id);
+    fleuread_id = url◄.searchParams.get("id");
     console.log(fleuread_id);
     const docs = await readDatabase('storage', '*'); // On lit notre stockage
     let true_url; 
