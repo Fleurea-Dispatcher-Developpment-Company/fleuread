@@ -2040,6 +2040,9 @@ async function convertLabel (input) {
   if (input == "auth") {
     return "Rôle";
   }
+  if (input == "password") {
+    return "Mot de passe";
+  }
   if (input == "notes") {
     return "Indications";
   }
