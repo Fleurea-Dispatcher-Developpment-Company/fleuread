@@ -1753,10 +1753,30 @@ app.post('/getimagedata', async (req, res) => {
 });
 
 async function imageData (type, id) {
+  if (type == 'comptes') {
 // 1. Obtenir l'id du conducteur
   const num = sessions[id].id;
 // 2. Obtenir l'image
   return {id:num, icon:await getIcon_conducteur(num)};
+  }
+  if (type == 'bennes') {
+// 1. Obtenir l'id du conducteur
+  const num = id;
+// 2. Obtenir l'image
+  return {id:num, icon:await getIcon_benne(num)};
+  }
+  if (type == 'cereales') {
+// 1. Obtenir l'id du conducteur
+  const num = id;
+// 2. Obtenir l'image
+  return {id:num, icon:await getIcon_cereale(num)};
+  }
+  if (type == 'clients') {
+// 1. Obtenir l'id du conducteur
+  const num = id;
+// 2. Obtenir l'image
+  return {id:num, icon:await getIcon_ferme(num)};
+  }
 }
 
 app.post('/changeimagedata', async (req, res) => {
