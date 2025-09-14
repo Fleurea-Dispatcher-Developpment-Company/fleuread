@@ -1927,6 +1927,14 @@ async function convertValue (input, criteria) {
    if (criteria == "id_client") {
     return await getFerme(input);
   }
+  if (criteria == "auth") {
+    if (input == "driver") {
+      return "Conducteur";
+    }
+    if (input == "admin") {
+      return "Administrateur";
+    }
+  }
   if (criteria == "statut") {
         if (input == "A") {
       return "Posée";
@@ -1950,6 +1958,9 @@ async function convertLabel (input) {
   }
   if (input == "statut") {
     return "État";
+  }
+  if (input == "auth") {
+    return "Rôle";
   }
   if (input == "notes") {
     return "Indications";
