@@ -1497,6 +1497,9 @@ comDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
         console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
+        document.getElementById('imagePop').onclick = () => {
+          window.location.assign(`/icon?type=comptes&id=${ben.id}`, '_blank');
+        }
          document.getElementById('lightH2B').innerHTML = ben.first_name + " " + ben.name + " <br> " + toreadOpt(ben.auth);
          document.getElementById('lightPB').textContent =  "Compte n°" + ben.id; // 
         document.getElementById('lightPB2').textContent =  "Euréa Coop";
@@ -1607,6 +1610,9 @@ cliDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
         console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
+        document.getElementById('imagePop').onclick = () => {
+          window.location.assign(`/icon?type=clients&id=${ben.id}`, '_blank');
+        }
          document.getElementById('lightH2B').textContent =  ben.name;
          document.getElementById('lightPB').textContent = "Client n°" + ben.id; // 
         // document.getElementById('lightPB2').textContent =  "Euréa Coop";
@@ -1730,6 +1736,9 @@ cerDatas[ben.id] = ben;
          lightbox.style.display = 'flex';
         console.log("Lien image :", ben.photo);
         document.getElementById('imagePop').src = ben.photo;
+        document.getElementById('imagePop').onclick = () => {
+          window.location.assign(`/icon?type=cereales&id=${ben.id}`, '_blank');
+        }
          document.getElementById('lightH2B').textContent =  ben.name;
          document.getElementById('lightPB').textContent = "Code : " + ben.code; // 
         document.getElementById('lightPB2').textContent =  "Euréa Coop";
