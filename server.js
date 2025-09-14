@@ -754,7 +754,9 @@ app.post('/createcompte', async (req, res) => {
     const first_name = req.body.first_name;
     const name = req.body.name;
     const gen_num = Math.floor(100000 + Math.random() * 900000);
-    const gen_password = crypto.randomBytes(3).toString('hex');
+    const gen_password =  `${first_name.charAt(0).toUpperCase()}.${name.slice(0, 6).toLowerCase()}${crypto.randomBytes(1).toString('hex')}`;
+      // crypto.randomBytes(3).toString('hex');
+   // `${firstname.charAt(0).toLowerCase()}.${name.slice(0, 6).toLowerCase()}${aleatoirenum}`
     const gen_date = new Date();
     if (await checkRole('admin',thisid)) {
       await addDatabase ('comptes', '', {num:gen_num, password:gen_password,creation:gen_date, first_name:first_name, name:name}); // 45.72191877191547, 4.227417998761897
