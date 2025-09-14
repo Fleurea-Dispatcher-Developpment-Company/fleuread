@@ -664,8 +664,15 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
                         if (mes.what === "benne") {
                           reloadBenne();
                         }
+                        if (mes.what === "client") {
+                          reloadClient();
+                        }
+                               if (mes.what === "cereale") {
+                          reloadCereale();
+                        }
                                if (mes.what === "compte") {
                           start();
+                                 reloadCompte();
                         }
                       }
         });
