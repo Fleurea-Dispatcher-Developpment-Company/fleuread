@@ -1766,14 +1766,15 @@ app.post('/changeimagedata', async (req, res) => {
     const type = req.body.type;
     const id = req.body.id;
     const urlAb = req.body.url
+    const lasturl = req.body.lasturl;
     if (await checkSession(thisid)) {
       // compte
           if (type == "comptes") {
             if (await checkRole ('admin',thisid)) {
-              res.json(await changeImage(id, type, urlAb));
+              res.json(await changeImage(id, type, urlAb, lasturl));
             } else {
               if (id == sessions[thisid].id) {
-                res.json(await changeImage(id, type, urlAb));
+                res.json(await changeImage(id, type, urlAb, lasturl));
               }
             }
           }
@@ -1783,8 +1784,9 @@ app.post('/changeimagedata', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
- async function changeImage (id, type, url) {
+ async function changeImage (id, type, url, lasturl) {
   const answer = editDatabase (type, 'link', url, 'num', id);
+  deleteImageFromUrl(lasturl);
   return {message:"Confirmation du changement d'image.", color:'yellow'};
  }
 
@@ -2163,5 +2165,23 @@ async function filtrerH (table, criteria) {
     return toret;
   }
   // Fin de la fonction
+}
+
+// Deleter d'images Cloudinary pour optimisation maximale du cloud...
+async function deleteImageFromUrl(imageUrl) {
+  try {
+    // Exemple d'URL Cloudinary :
+    // https://res.cloudinary.com/demo/image/upload/v1694567890/folder/myimage.jpg
+    
+    const parts = imageUrl.split('/');
+    const publicIdWithExt = parts.slice(7).join('/'); // "folder/myimage.jpg"
+    const publicId = publicIdWithExt.replace(/\.[^/.]+$/, ''); // supprime l'extension
+
+    const result = await cloudinary.uploader.destroy(publicId);
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error('Erreur suppression:', err);
+  }
 }
 
