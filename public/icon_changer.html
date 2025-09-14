@@ -115,7 +115,7 @@
       const imager = document.getElementById('img_known');
       const data_known = document.getElementById('data_known');
 
-      
+   
       async function getImageData(type, id) {
         const datas = await fetcher('getimagedata', {id:id, type:type}, 'POST', sessionStorage.getItem('session_id'));
         console.log(datas);
@@ -125,7 +125,7 @@
       }
       
       async function changeImageData(type, url, id) {
-        const datas = await fetcher('changeimagedata', {id:id, url:url, type:type}, 'POST', sessionStorage.getItem('session_id'));
+        const datas = await fetcher('changeimagedata', {id:id, lasturl:imager.src,url:url, type:type}, 'POST', sessionStorage.getItem('session_id'));
         console.log(datas);
         showToast(datas.message, datas.color);
         document.getElementById('return').click();
