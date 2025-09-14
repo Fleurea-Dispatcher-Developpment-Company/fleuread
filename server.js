@@ -2169,6 +2169,7 @@ async function filtrerH (table, criteria) {
 
 // Deleter d'images Cloudinary pour optimisation maximale du cloud...
 async function deleteImageFromUrl(imageUrl) {
+  console.log("DELETER !");
   try {
     // Exemple d'URL Cloudinary :
     // https://res.cloudinary.com/demo/image/upload/v1694567890/folder/myimage.jpg
