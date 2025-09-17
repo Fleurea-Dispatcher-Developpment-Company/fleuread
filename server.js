@@ -1084,7 +1084,7 @@ async function pdfWithQr(id, filePath) {
   console.log("QR CODE GÉNÉRÉ !");
   // PDF
   const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([400,600]);
+  const page = pdfDoc.addPage([595,842]);
 
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
@@ -1094,19 +1094,19 @@ async function pdfWithQr(id, filePath) {
   const xCenter = (page.getWidth() - textWidth) / 2;
   
   page.drawText(headerText,{
-    x:xCenter, y:550, size:fontSizeHeader, font, color:rgb(0,0,0)
+    x:xCenter, y:800, size:fontSizeHeader, font, color:rgb(0,0,0)
   });
 
-  page.drawRectangle({x:95, y:295, width:210, height:210, borderColor:rgb(0.8,0,0), borderWidth:4});
-  page.drawRectangle({x:100, y:300, width:200, height:200, borderColor:rgb(1,0,0), borderWidth:2});
+  page.drawRectangle({x:197.5, y:400, width:200, height:200, borderColor:rgb(0.8,0,0), borderWidth:4});
+  page.drawRectangle({x:200, y:403, width:195, height:195, borderColor:rgb(1,0,0), borderWidth:2});
 const qrImage = await pdfDoc.embedPng(base64Data);
   const qrDims = qrImage.scale(1);
-  page.drawImage(qrImage, {x:100 + (200 - qrDims.width) / 2, y : 300 + 40, width:qrDims.width, height:qrDims.height});
+  page.drawImage(qrImage, {x:200 + (195 - qrDims.width) / 2, y : 403 + 10, width:qrDims.width, height:qrDims.height});
   const fontSizeNumber = 30;
 const numberText = String(id);
 const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
 page.drawText(numberText, {
-  x: 100 + (200 - numberWidth) / 2,
+  x: 200 + (195 - numberWidth) / 2,
   y: 310,
   size: fontSizeNumber,
   font,
@@ -2292,11 +2292,13 @@ async function deleteImageFromUrl(imageUrl) {
 
 // Génération document explicatif
 app.get('/documentexplicatif', async (req, res) => {
-  console.log("Generate QR-Code");
-  const what = req.query.what;
+  console.log("Generate Document Explicatif");
+  // const what = req.query.what;
   const id = req.query.id;
+  const session_id = req.query.session;
   try {
-  const fileName = `QrCode_benne_${id}.pdf`;
+  if (await checkRole('admin', session_id)) {
+  const fileName = `Document_Explicatif_Conducteur_${id}.pdf`;
   const filePath = path.join(__dirname, fileName);
   await pdf2(id, filePath);
   res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
@@ -2307,8 +2309,10 @@ app.get('/documentexplicatif', async (req, res) => {
       fs.unlinkSync(filePath);
     }
   });
+  }
   } catch (err) {
     console.error(err);
+    res.status(501).send("Unauthorized");
   }
 });
 
