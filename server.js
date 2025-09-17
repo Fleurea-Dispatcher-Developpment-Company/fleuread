@@ -1054,6 +1054,7 @@ app.get('/generate', async (req, res) => {
   try {
   const fileName = `QrCode_benne_${id}.pdf`;
   const filePath = path.join(__dirname, fileName);
+    if (await isBenne(id)) {
   await pdfWithQr(id, filePath);
   res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
   res.sendFile(filePath, err => {
@@ -1063,6 +1064,7 @@ app.get('/generate', async (req, res) => {
       fs.unlinkSync(filePath);
     }
   });
+    }
   } catch (err) {
     console.error(err);
   }
@@ -2365,3 +2367,12 @@ page.drawText(numberText, {
   return filePath;
 }
 
+async isBenne(id) {
+  const benne = await readDatabase('bennes', '*');
+  for (const ben of benne) {
+    if (ben.id == id) {
+      return true;
+    }
+  }
+  return false;
+}
