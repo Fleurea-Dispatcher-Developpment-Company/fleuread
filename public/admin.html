@@ -150,16 +150,7 @@
                 display: none;
               }
 
-            .line {
-  display: grid;
-  grid-template-columns: 80px 1fr 1fr 2fr auto auto; 
-  /* Exemple : 6 colonnes → adapte selon ton contenu */
-  align-items: center;
-  gap: 1rem; /* espace entre colonnes */
-  padding: 0.5rem;
-  border-bottom: 1px solid #ccc;
-  background: white;
-}
+  
 
             
               /* afficher quand on survole #cereale_input */
@@ -750,13 +741,26 @@ let generalDatas;
         height:10vh;
         display:flex;
         flex-direction:row;
+        flex:1;
         background:linear-gradient(135deg, white, blue);
         border: 1vh solid black;
         margin-top:1vh;
         align-items:center;
-        justify-content: space-between;
+        /* justify-content: space-between; */
         padding: 0.5rem;
       }
+      /* .line {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+}
+
+.line > * {
+  flex: 1;              
+  text-align: center;   
+}
+*/
     </style>
      <script>
        const profilePic = document.getElementById('compte');
