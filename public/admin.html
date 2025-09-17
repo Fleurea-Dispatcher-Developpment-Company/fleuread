@@ -149,6 +149,18 @@
              #bio_block {
                 display: none;
               }
+
+            .line {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 2fr auto auto; 
+  /* Exemple : 6 colonnes → adapte selon ton contenu */
+  align-items: center;
+  gap: 1rem; /* espace entre colonnes */
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  background: white;
+}
+
             
               /* afficher quand on survole #cereale_input */
               #cereale_input:hover #bio_block {
