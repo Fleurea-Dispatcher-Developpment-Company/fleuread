@@ -2367,7 +2367,7 @@ page.drawText(numberText, {
   return filePath;
 }
 
-async isBenne(id) {
+async function isBenne(id) {
   const benne = await readDatabase('bennes', '*');
   for (const ben of benne) {
     if (ben.id == id) {
