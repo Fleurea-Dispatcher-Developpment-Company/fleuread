@@ -89,7 +89,7 @@ let allid;
       }
  let debounceTimer;
 const tabler = document.getElementById("tablehisto");
-tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Action</th><th>Élément</th><th>Type</th><th>Caractère</th><th>Affectation</th></tr><tr><th style='display:flex; flex-direction:column;'><input type='datetime-local' id='dateinput' placeholder='DÉBUT'><input type='datetime-local' id='timeinput' placeholder='FIN'></th><th><input type='text' id='whoinput' placeholder='ACTIONNEUR'></th><th><input type='number' id='contentinput' placeholder='ACTION'></th><th><input type='text' id='iteminput' placeholder='ÉLÉMENT'></th><th><input type='text' id='typeinput' placeholder='TYPE'></th><th><input type='text' id='carainput' placeholder='CARACTÈRE'></th><th><input type='text' id='affecinput' placeholder='AFFECTATION'></th></tr></thead>";
+tabler.innerHTML = "<thead><tr><th>Date / Heure</th><th>Actionneur</th><th>Action</th><th>Élément</th><th>Type</th><th>Caractère</th><th>Affectation</th></tr><tr><th style='display:flex; flex-direction:column;'><input type='datetime-local' id='dateinput' placeholder='DÉBUT'><input type='datetime-local' id='timeinput' placeholder='FIN'></th><th><input type='text' id='whoinput' placeholder='ACTIONNEUR'></th><th><input min='0' max='3' step='1' type='number' id='contentinput' placeholder='ACTION'></th><th><input type='text' id='iteminput' placeholder='ÉLÉMENT'></th><th><input type='text' id='typeinput' placeholder='TYPE'></th><th><input type='text' id='carainput' placeholder='CARACTÈRE'></th><th><input type='text' id='affecinput' placeholder='AFFECTATION'></th></tr></thead>";
       const tbody = document.createElement('tbody');
       tabler.append(tbody);
       
