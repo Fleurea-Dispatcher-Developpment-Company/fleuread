@@ -2335,7 +2335,7 @@ async function pdf2(id, filePath) {
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
   const fontSizeHeader = 18;
-  const headerText = `Benne n°${id}`;
+  const headerText = `Conducteur ${await getConducteur(id)}`;
   const textWidth = font.widthOfTextAtSize(headerText, fontSizeHeader);
   const xCenter = (page.getWidth() - textWidth) / 2;
   
