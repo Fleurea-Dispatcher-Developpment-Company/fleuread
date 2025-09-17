@@ -2370,7 +2370,7 @@ page.drawText(numberText, {
 async function isBenne(id) {
   const benne = await readDatabase('bennes', '*');
   for (const ben of benne) {
-    if (ben.id == id) {
+    if (ben.num == id) {
       return true;
     }
   }
