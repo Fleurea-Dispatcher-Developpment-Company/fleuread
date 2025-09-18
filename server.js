@@ -1097,8 +1097,8 @@ async function pdfWithQr(id, filePath) {
     x:xCenter, y:800, size:fontSizeHeader, font, color:rgb(0,0,0)
   });
 
-  page.drawRectangle({x:(595-400)/2, y:300, width:400, height:500, borderColor:rgb(0.8,0,0), borderWidth:4}); // Grand cadre
-  page.drawRectangle({x:(595-390)/2, y:305, width:390, height:490, borderColor:rgb(1,0,0), borderWidth:2}); // Petit cadre
+  page.drawRectangle({x:(595-400)/2, y:300, width:400, height:400, borderColor:rgb(0.8,0,0), borderWidth:4}); // Grand cadre
+  page.drawRectangle({x:(595-390)/2, y:305, width:390, height:390, borderColor:rgb(1,0,0), borderWidth:2}); // Petit cadre
 const qrImage = await pdfDoc.embedPng(base64Data);
   const qrDims = qrImage.scale(1);
   page.drawImage(qrImage, {x:200 + (195 - qrDims.width) / 2, y : 400, width:qrDims.width, height:qrDims.height});
@@ -1107,7 +1107,7 @@ const numberText = String(id);
 const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
 page.drawText(numberText, {
   x: 200 + (195 - numberWidth) / 2,
-  y: 395,
+  y: 375,
   size: fontSizeNumber,
   font,
   color: rgb(0.7, 0, 0), // rouge foncé
