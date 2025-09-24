@@ -966,6 +966,10 @@ benDatas[ben.id] = ben;
           status.textContent = ben.ferme;
           // status.style.backgroundColor = tocolor(ben.status);
           line.append(status);
+
+          const ab = document.createElement('p');
+          ab.textContent = ben.society;
+          line.append(ab);
           
           const pds = document.createElement('p');
           pds.textContent = ben.formatted_cereale;
