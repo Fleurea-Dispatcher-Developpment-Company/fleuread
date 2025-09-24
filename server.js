@@ -1818,12 +1818,17 @@ app.post('/changeimagedata', async (req, res) => {
     const id = req.body.id;
     const urlAb = req.body.url
     const lasturl = req.body.lasturl;
+    console.log({thisid, type, id, urlAb, lasturl});
     if (await checkSession(thisid)) {
+      console.log("Session vérifiée !");
       // compte
           if (type == "comptes") {
+            console.log("comptes");
             if (await checkRole ('admin',thisid)) {
+              console.log("Rôle vérifié");
               res.json(await changeImage(id, type, urlAb, lasturl));
             } else {
+              console.log("Rôle non vérifié");
               if (id == sessions[thisid].id) {
                 res.json(await changeImage(id, type, urlAb, lasturl));
               }
