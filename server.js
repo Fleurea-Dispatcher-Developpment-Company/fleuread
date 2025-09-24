@@ -1521,6 +1521,7 @@ app.post('/getbenneinformations', async (req, res) => {
         let condu;
         let depose;
         let statusA;
+        let society;
             for (const ben of bennes) {
                 if (ben.num == benne) {
                   latitude = ben.longitude,
@@ -1534,7 +1535,8 @@ app.post('/getbenneinformations', async (req, res) => {
                   cere = ben.céréale;
                   conducteur = ben.dernierconducteur,
                   condu = ben.dernierconducteur,
-                  depose = ben.depose
+                  depose = ben.depose,
+                    society = ben.society
                 }
               }
         conducteur = await getConducteur(conducteur);
@@ -1560,7 +1562,8 @@ app.post('/getbenneinformations', async (req, res) => {
           n : await getIcon_benne(benne),
           o:latitude,
           p:longitude,
-          q:altitude
+          q:altitude,
+          r:society
         };
         console.log("LOGI");
         console.log(message);
