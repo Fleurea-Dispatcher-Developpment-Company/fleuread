@@ -572,6 +572,7 @@ async function getBennes(thisid) {
         altitude:benne.altitude,
         adresse:benne.adresse,
         cereale:benne.céréale,
+        society:benne.society,
         flash_id:`B${benne.num}A${benne.num}`,
         status:benne.statut,
         search_status:await convertToSearch(benne.statut),
