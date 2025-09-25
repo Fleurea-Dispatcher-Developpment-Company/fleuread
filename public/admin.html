@@ -708,7 +708,7 @@ let generalDatas;
         const selections = answer.selections;
         const selecter_opt = document.getElementById('society_select');
         for (const item of selections) {
-          const option = document.create("option");
+          const option = document.createElement("option");
           option.text = item.value;
           option.value = item.value;
           option.disabled = item.value;
