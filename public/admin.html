@@ -705,6 +705,15 @@ let generalDatas;
         mydatas["first_name"] = first_name;
         mydatas["name"] = name;
         mydatas["role"] = role;
+        const selections = answer.selections;
+        const selecter_opt = document.getElementById('society_select');
+        for (const item of selections) {
+          const option = document.create("option");
+          option.text = item.value;
+          option.value = item.value;
+          option.disabled = item.value;
+          selecter_opt.append(option);
+        }
        // getGeneralDatas();
       }
 
