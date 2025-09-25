@@ -527,7 +527,7 @@ async function getNameAndIcon (thisid) {
   const accounts = await readDatabase('comptes', '*');
   for (const compte of accounts) {
     if (compte.num === sessions[thisid].id) {
-      toret = {icon:compte.link, name:compte.name, first_name:compte.first_name, role:translate(compte.auth)};
+      toret = {icon:compte.link, name:compte.name, first_name:compte.first_name, role:translate(compte.auth), selections:await getOptList()};
     }
   }
   return JSON.stringify(toret);
@@ -2388,4 +2388,21 @@ async function isBenne(id) {
     }
   }
   return false;
+}
+
+async function getOptList() {
+  const param = await readDatabase('informations','*');
+  let toexplot;
+  for (const item of param) {
+    if (item.num == "3") {
+      toexplot = item.value;
+    }
+  }
+  let toreturn = [];
+  toreturn.push({text:"Changer la société responsable...", value:"none", disabled:true});
+  toexplot = toexplot.split(",");
+  for (const item of toexplot) {
+    toreturn.push({text:item, value:item, disabled:false});
+  }
+  return(toreturn);
 }
