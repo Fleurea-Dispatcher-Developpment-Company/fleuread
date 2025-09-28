@@ -1993,6 +1993,7 @@ paramDatas[ben.id] = ben;
          document.getElementById('panel_V_p').textContent = fromServer.g;
         document.getElementById('panel_V_pb').textContent = fromServer.h;
         document.getElementById('panel_L_p').textContent = fromServer.r;
+        selectOptionByText(fromServer.r);
 
 document.getElementById('editer_a').textContent = toread("A");
 document.getElementById('editer_a').style.backgroundColor = tocolor("A");
@@ -2174,6 +2175,18 @@ document.getElementById('editer_a').onclick = async () => {
         pushPanel(id);
           console.log("Step 4");
         }, 1000);
+      }
+    </script>
+    <script>
+      async function selectOptionByText (text) {
+        const selecter = document.getElementById("society_select");
+        let counter = 0;
+        for (const opt of select.options) {
+          counter += 1;
+          if (opt.value == text) {
+            selecter.selectedIndex = counter;
+          }
+        }
       }
     </script>
   </body>
