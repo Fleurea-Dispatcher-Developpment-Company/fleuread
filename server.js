@@ -1089,13 +1089,13 @@ async function pdfWithQr(id, filePath) {
 
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
-  const fontSizeHeader = 40;
+  const fontSizeHeader = 30;
   const headerText = `Benne n°${id}`;
   const textWidth = font.widthOfTextAtSize(headerText, fontSizeHeader);
   const xCenter = (page.getWidth() - textWidth) / 2;
   
   page.drawText(headerText,{
-    x:xCenter, y:780, size:fontSizeHeader, font, color:rgb(0,0,0)
+    x:xCenter, y:765, size:fontSizeHeader, font, color:rgb(0,0,0)
   });
 
   page.drawRectangle({x:(595-400)/2, y:320, width:400, height:400, borderColor:rgb(0.8,0,0), borderWidth:4}); // Grand cadre
@@ -2328,6 +2328,11 @@ app.get('/documentexplicatif', async (req, res) => {
   }
 });
 
+async function getDriverDatas () {
+  // On obtient les données du client avant de les mettre en forme dans le PDF du client
+}
+
+// DÉBUT PDF CLIENT
 async function pdf2(id, filePath) {
   const url = `https://fleuread.onrender.com/driver?action=register&benne=${id}`;
   const qrDataUrl = await QRCode.toDataURL(String(url), {
@@ -2382,6 +2387,7 @@ page.drawText(numberText, {
   fs.writeFileSync(filePath, pdfBytes);
   return filePath;
 }
+// END PDF 2
 
 async function isBenne(id) {
   const benne = await readDatabase('bennes', '*');
