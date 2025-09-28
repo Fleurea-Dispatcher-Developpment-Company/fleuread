@@ -2182,10 +2182,10 @@ document.getElementById('editer_a').onclick = async () => {
         const selecter = document.getElementById("society_select");
         let counter = 0;
         for (const opt of selecter.options) {
-          counter += 1;
           if (opt.value == text) {
             selecter.selectedIndex = counter;
           }
+          counter += 1;
         }
       }
 
