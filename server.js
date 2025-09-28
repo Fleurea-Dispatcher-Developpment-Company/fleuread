@@ -1115,7 +1115,7 @@ page.drawText(numberText, {
 });
   const explications = `Lien : ${url}. Découpez le cadre rouge et collez-le à proximité de la plaque d'immatriculation de la benne n°${id}. Scannez ce QR-Code avec un compte conducteur pour signaler automatiquement la position de cette benne au système Fleuréa Dispatcher. Pensez à bien désactiver la localisation une fois l'enregistrement terminé afin d'économiser la batterie.`;
   const fontSizeB = 10;
-  const maxWidthB = 320;
+  const maxWidthB = 500;
 
   const textWidthB = font.widthOfTextAtSize(explications, fontSizeB);
   const xCenterB = (page.getWidth() - Math.min(textWidthB, maxWidthB)) / 2;
