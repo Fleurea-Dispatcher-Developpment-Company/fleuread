@@ -2415,3 +2415,87 @@ async function getOptList() {
   }
   return(toreturn);
 }
+
+// Génération de tous les pdf
+app.get('/generateall', async (req, res) => {
+  console.log("Generate QR-Code");
+ 
+  try {
+  const fileName = `QrCodes_bennes_${new Date()}.pdf`;
+  const filePath = path.join(__dirname, fileName);
+
+  await pdfWithQrAll(filePath);
+  res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
+  res.sendFile(filePath, err => {
+    if (err) {
+      res.status(500).send("Erreur serveur : " + err.message);
+    } else {
+      fs.unlinkSync(filePath);
+    }
+  });
+
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+async function pdfWithQrAll(filePath) {
+  
+  const pdfDoc = await PDFDocument.create();
+  const bennes = await readDatabase('bennes', '*');
+  
+  for (const ben of bennes) {
+    let id = ben.num;
+  const page = pdfDoc.addPage([595,842]); // On crée une nouvelle page
+
+  const url = `https://fleuread.onrender.com/driver?action=register&benne=${id}`;
+  const qrDataUrl = await QRCode.toDataURL(String(url), {
+    margin:1,
+    width:300,
+    color:{
+      dark:'#000000',
+      light:'#FFFFFF'
+    }
+  });
+  const base64Data = qrDataUrl.split(',')[1];
+  console.log("QR CODE GÉNÉRÉ !");
+
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+  const fontSizeHeader = 30;
+  const headerText = `Benne n°${id}`;
+  const textWidth = font.widthOfTextAtSize(headerText, fontSizeHeader);
+  const xCenter = (page.getWidth() - textWidth) / 2;
+  
+  page.drawText(headerText,{
+    x:xCenter, y:765, size:fontSizeHeader, font, color:rgb(0,0,0)
+  });
+
+  page.drawRectangle({x:(595-400)/2, y:320, width:400, height:400, borderColor:rgb(0.8,0,0), borderWidth:4}); // Grand cadre
+  page.drawRectangle({x:(595-390)/2, y:325, width:390, height:390, borderColor:rgb(1,0,0), borderWidth:2}); // Petit cadre
+const qrImage = await pdfDoc.embedPng(base64Data);
+  const qrDims = qrImage.scale(1);
+  page.drawImage(qrImage, {x:200 + (195 - qrDims.width) / 2, y : 400, width:qrDims.width, height:qrDims.height});
+  const fontSizeNumber = 30;
+const numberText = String(id);
+const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
+page.drawText(numberText, {
+  x: 200 + (195 - numberWidth) / 2,
+  y: 355,
+  size: fontSizeNumber,
+  font,
+  color: rgb(0.7, 0, 0), // rouge foncé
+});
+  const explications = `Lien : ${url}. Découpez le cadre rouge et collez-le à proximité de la plaque d'immatriculation de la benne n°${id}. Scannez ce QR-Code avec un compte conducteur pour signaler automatiquement la position de cette benne au système Fleuréa Dispatcher. Pensez à bien désactiver la localisation une fois l'enregistrement terminé afin d'économiser la batterie.`;
+  const fontSizeB = 10;
+  const maxWidthB = 500;
+
+  const textWidthB = font.widthOfTextAtSize(explications, fontSizeB);
+  const xCenterB = (page.getWidth() - Math.min(textWidthB, maxWidthB)) / 2;
+  
+  page.drawText(explications, {x:xCenterB, y:250, size:fontSizeB, font, color:rgb(0,0,0), maxWidth:maxWidthB});
+  }
+  const pdfBytes = await pdfDoc.save();
+  fs.writeFileSync(filePath, pdfBytes);
+  return filePath;
+}
