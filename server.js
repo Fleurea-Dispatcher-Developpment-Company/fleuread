@@ -2051,6 +2051,9 @@ async function convertLabel (input) {
    if (input == "id_client") {
     return "Client";
   }
+  if (input == "society") {
+    return "Société";
+  }
   if (input == "statut") {
     return "État";
   }
