@@ -1884,6 +1884,7 @@ paramDatas[ben.id] = ben;
        const closeBtn = document.getElementById('close-btnB');
         const imagePop = document.getElementById('lightImgB');
       console.log("LIGHTBOX");
+          if (ben.editable) {
       line.addEventListener('click', () => {
          lightbox.style.display = 'flex';
         console.log("Lien image :", ben.photo);
@@ -1898,6 +1899,7 @@ paramDatas[ben.id] = ben;
         selecter.selectedIndex = 0;
          document.getElementById('inpSelecter').value = "";
        });
+          }
         closeBtn.addEventListener('click', () => {
          lightbox.style.display = 'none';
         document.getElementById('editeurLightBenne').style.display = 'none';
