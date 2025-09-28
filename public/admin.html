@@ -2181,7 +2181,7 @@ document.getElementById('editer_a').onclick = async () => {
       async function selectOptionByText (text) {
         const selecter = document.getElementById("society_select");
         let counter = 0;
-        for (const opt of select.options) {
+        for (const opt of selecter.options) {
           counter += 1;
           if (opt.value == text) {
             selecter.selectedIndex = counter;
