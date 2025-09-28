@@ -2188,6 +2188,18 @@ document.getElementById('editer_a').onclick = async () => {
           }
         }
       }
+
+      document.getElementById("society_select").addEventListener('change', async function () {
+        const content = {
+          toupd : 'society',
+          value_toupd : document.getElementById("society_select").value,
+          eq:'num',
+          value_eq:nowPanel
+        };
+        console.log(content);
+        const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
+          pushPanel(nowPanel);
+      });
     </script>
   </body>
 </html>
