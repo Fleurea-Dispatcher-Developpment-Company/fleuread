@@ -995,7 +995,8 @@ async function getParams(thisid) {
         id:compte.num,
         donnee:compte.donnee,
         value:compte.value,
-        photo:compte.photo
+        photo:compte.photo,
+        editable:compte.editable
       }
     })
   );
