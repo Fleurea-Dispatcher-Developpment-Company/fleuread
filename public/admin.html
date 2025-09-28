@@ -149,7 +149,9 @@
              #bio_block, #selecterOptSociety {
                 display: none;
               }
-
+              #society_select {
+                width:100%;
+              }
   
 
             
@@ -709,9 +711,10 @@ let generalDatas;
         const selecter_opt = document.getElementById('society_select');
         for (const item of selections) {
           const option = document.createElement("option");
-          option.text = item.value;
+          option.text = item.text;
           option.value = item.value;
-          option.disabled = item.value;
+          option.disabled = item.disabled;
+          option.selected = item.selected;
           selecter_opt.append(option);
         }
        // getGeneralDatas();
