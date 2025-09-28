@@ -2399,10 +2399,10 @@ async function getOptList() {
     }
   }
   let toreturn = [];
-  toreturn.push({text:"Changer la société responsable...", value:"none", disabled:true});
+  toreturn.push({text:"Changer la société responsable...", value:"none", disabled:true, selected:true});
   toexplot = toexplot.split(",");
   for (const item of toexplot) {
-    toreturn.push({text:item, value:item, disabled:false});
+    toreturn.push({text:item, value:item, disabled:false, selected:false});
   }
   return(toreturn);
 }
