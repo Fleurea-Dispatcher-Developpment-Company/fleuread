@@ -146,7 +146,7 @@
               aspect-ratio: 1 / 1;
               border-radius: 50%; 
             }
-             #bio_block {
+             #bio_block, #selecterOptSociety {
                 display: none;
               }
 
@@ -154,13 +154,9 @@
 
             
               /* afficher quand on survole #cereale_input */
-              #cereale_input:hover #bio_block {
+              #cereale_input:hover #bio_block, #panel_L:hover #selecterOptSociety {
                 display: flex;
               }
-
-            #panel_L:hover #selecterOptSociety {
-              display:flex;
-            }
           </style>
           
           <div id="panel_F">
@@ -175,7 +171,7 @@
 
           <div id="panel_L">
             <p id="panel_L_p">EC</p>
-            <div id="selecterOptSociety" style="display:none">
+            <div id="selecterOptSociety">
               <select id="society_select">
               </select>
             </div>
