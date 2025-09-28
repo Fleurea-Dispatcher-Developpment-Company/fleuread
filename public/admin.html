@@ -1889,7 +1889,7 @@ paramDatas[ben.id] = ben;
         console.log("Lien image :", ben.photo);
         document.getElementById('imagePop').src = ben.photo;
          document.getElementById('lightH2B').textContent =  ben.donnee;
-         document.getElementById('lightPB').textContent = ben.value; // 
+         document.getElementById('lightPB').innerHTML = ben.value; // 
         document.getElementById('lightPB2').textContent =  "Euréa Coop";
         document.getElementById('lightPB3').innerHTML =  "Paramètre" ;
         numon = ben.id;
@@ -1921,7 +1921,7 @@ paramDatas[ben.id] = ben;
           status.textContent = ben.donnee;
           line.append(status);
           const notes = document.createElement('p');
-          notes.textContent = ben.value;
+          notes.innerHTML = ben.value;
           line.append(notes);
          // const pds = document.createElement('p');
          // pds.textContent = ben.adresse;
