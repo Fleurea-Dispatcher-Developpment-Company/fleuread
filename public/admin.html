@@ -866,6 +866,8 @@ async function translateColor (input) {
         const storagePoints = await fetcher('getstorage', content, 'POST', sessionStorage.getItem('session_id'));
         console.log(storagePoints);
       }
+
+      plotStorage();
       
       async function plotPoints () {
         // On possède les données
