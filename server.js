@@ -2173,7 +2173,7 @@ async function filtrerC (table, criteria) {
 
 async function filtrerD (table, criteria) {
   // Cette fonction filtre les occurences après une date
-  if (!criteria) {
+  if (!criteria || criteria == "0") {
     // On renvoie la table en l'absence de critère de filtrage
     return table;
   } else {
