@@ -1155,6 +1155,7 @@ app.post('/registerbenne', async (req, res) => {
       await editDatabase ('bennes', 'dernierconducteur', lastdriver, 'num', benne);
       await editDatabase ('bennes', 'adresse', await getAdress([latitude, longitude]), 'num', benne);
       socketReload ("benne");
+        autoChange(benne, longitude, latitude);
         console.log(longitude);
         console.log(latitude);
         let adresse = await getAdresseBenne(benne);
@@ -2525,4 +2526,42 @@ function removeWord(str, word) {
   let regex = new RegExp("\\b" + word + "\\b", "g");
   return str.replace(regex, "").trim();
 }
+
+async function autoChange(benne, longitude, latitude) {
+    const stores = await readDatabase('informations','*');
+      let storages = [];
+      for (const store of stores) {
+        if (store.donnee.includes("DPT")) {
+          const systemcoords = store.value.split(',');
+          storages.push({latitude:systemcoords[1], longitude:systemcoords[0], radius:systemcoords[2], name:removeWord(store.donnee, "DPT")});
+        }
+      }
+  for (const item of storages) {
+    const distance = haversineDistance({lat:item.latitude, lon:item.longitude}, {lat:latitude, lon:longitude});
+    if (distance < item.radius) {
+        await editDatabase ('bennes', 'status', 'C', 'num', benne);
+    }
+  }
+}
+
+function haversineDistance(coord1, coord2) {
+  const R = 6371; // Rayon de la Terre en km
+  const toRad = deg => deg * Math.PI / 180;
+
+  const lat1 = toRad(coord1.lat);
+  const lon1 = toRad(coord1.lon);
+  const lat2 = toRad(coord2.lat);
+  const lon2 = toRad(coord2.lon);
+
+  const dLat = lat2 - lat1;
+  const dLon = lon2 - lon1;
+
+  const a = Math.sin(dLat / 2) ** 2 +
+            Math.cos(lat1) * Math.cos(lat2) *
+            Math.sin(dLon / 2) ** 2;
+  const c = 2 * Math.asin(Math.sqrt(a));
+
+  return R * c; // Distance en km
+}
+
 
