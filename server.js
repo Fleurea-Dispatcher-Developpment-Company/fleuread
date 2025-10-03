@@ -2510,7 +2510,7 @@ app.post('/getstores', async (req, res) => {
       for (const store of stores) {
         if (store.donnee.includes("DPT")) {
           const systemcoords = store.value.split(',');
-          storages.push({latitude:systemcoords[0], longitude:systemcoords[1], radius:systemcoords[2], name:store.donnee});
+          storages.push({latitude:systemcoords[1], longitude:systemcoords[0], radius:systemcoords[2], name:store.donnee});
         }
       }
       res.json(storages);
