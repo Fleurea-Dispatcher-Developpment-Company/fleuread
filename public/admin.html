@@ -874,6 +874,15 @@ async function translateColor (input) {
                   })
                   .addTo(map)
                   .bindPopup(point.name.toString())
+                      circle.off("click");
+                  
+                      // Gérer le survol
+                      circle.on("mouseover", function (e) {
+                        this.openPopup();
+                      });
+                      circle.on("mouseout", function (e) {
+                        this.closePopup();
+                      });
         }
       }
 
