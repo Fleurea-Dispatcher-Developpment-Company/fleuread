@@ -2500,3 +2500,21 @@ page.drawText(numberText, {
   fs.writeFileSync(filePath, pdfBytes);
   return filePath;
 }
+
+app.post('/getstores', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    if (await checkRole('admin',thisid)) {
+      const stores = await readDatabase('informations','*');
+      let storages = [];
+      for (const store of stores) {
+        if (store.donnee.includes("DPT")) {
+          storages.push(store);
+        }
+      }
+      res.json(storages);
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
