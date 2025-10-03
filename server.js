@@ -1228,6 +1228,7 @@ app.post('/findbenne', async (req, res) => {
         let cereale;
         let conducteur;
         let depose;
+        let society;
             for (const ben of bennes) {
                 if (ben.num == benne) {
                   latitude = ben.longitude,
@@ -1238,7 +1239,8 @@ app.post('/findbenne', async (req, res) => {
                   adresse = ben.adresse,
                   cereale = ben.céréale,
                   conducteur = ben.dernierconducteur,
-                  depose = ben.depose
+                  depose = ben.depose,
+                  society = ben.society
                 }
               }
         conducteur = await getConducteur(conducteur);
@@ -1251,6 +1253,7 @@ app.post('/findbenne', async (req, res) => {
         <u>Adresse</u> : <i>${adresse}</i> <br>
         <a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">Ouvrir sur Google Maps</a><br>
         <u>Céréale</u> : ${cereale}<br>
+        <u>Société</u> : ${society}<br>
         <u>Indications benne</u> : ${notes}<br>
         <u>Indications livraison</u> : ${ferme_notes}<br>
         Posée par <strong>${conducteur}</strong>, ${await formatTime(new Date(depose),off)}.
