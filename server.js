@@ -2567,7 +2567,9 @@ function haversineDistance(coord1, coord2) {
             Math.sin(dLon / 2) ** 2;
   const c = 2 * Math.asin(Math.sqrt(a));
 console.log(R * c * 1000);
-  return R * c * 1000; // Distance en m
+  const result = R * c;
+  console.log(result);
+  return result; // Distance en m
 }
 
 
