@@ -2531,6 +2531,7 @@ function removeWord(str, word) {
 }
 
 async function autoChange(benne, longitude, latitude) {
+  console.log(autoChange);
     const stores = await readDatabase('informations','*');
       let storages = [];
       for (const store of stores) {
@@ -2539,6 +2540,7 @@ async function autoChange(benne, longitude, latitude) {
           storages.push({latitude:systemcoords[1], longitude:systemcoords[0], radius:systemcoords[2], name:removeWord(store.donnee, "DPT")});
         }
       }
+  console.log(storage);
   for (const item of storages) {
     const distance = haversineDistance({lat:item.latitude, lon:item.longitude}, {lat:latitude, lon:longitude});
     if (distance < item.radius) {
@@ -2548,6 +2550,7 @@ async function autoChange(benne, longitude, latitude) {
 }
 
 function haversineDistance(coord1, coord2) {
+  console.log("HAVERSINE");
   const R = 6371; // Rayon de la Terre en km
   const toRad = deg => deg * Math.PI / 180;
 
@@ -2563,8 +2566,8 @@ function haversineDistance(coord1, coord2) {
             Math.cos(lat1) * Math.cos(lat2) *
             Math.sin(dLon / 2) ** 2;
   const c = 2 * Math.asin(Math.sqrt(a));
-
-  return R * c; // Distance en km
+console.log(R * c * 1000);
+  return R * c * 1000; // Distance en m
 }
 
 
