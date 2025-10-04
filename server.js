@@ -1155,7 +1155,11 @@ app.post('/registerbenne', async (req, res) => {
       await editDatabase ('bennes', 'dernierconducteur', lastdriver, 'num', benne);
       await editDatabase ('bennes', 'adresse', await getAdress([latitude, longitude]), 'num', benne);
       socketReload ("benne");
+        try {
         autoChange(benne, longitude, latitude);
+        } catch (err) {
+          console.log(error);
+        }
         console.log(longitude);
         console.log(latitude);
         let adresse = await getAdresseBenne(benne);
@@ -2531,21 +2535,27 @@ function removeWord(str, word) {
 }
 
 async function autoChange(benne, longitude, latitude) {
-  console.log(autoChange);
+  try {
+  console.log(benne);
+  console.log(latitude);
+  console.log(longitude);
     const stores = await readDatabase('informations','*');
       let storages = [];
       for (const store of stores) {
         if (store.donnee.includes("DPT")) {
           const systemcoords = store.value.split(',');
-          storages.push({latitude:systemcoords[1], longitude:systemcoords[0], radius:systemcoords[2], name:removeWord(store.donnee, "DPT")});
+          storages.push({latitude:parseFloat(systemcoords[1]), longitude:parseFloat(systemcoords[0]), radius:parseFloat(systemcoords[2]), name:removeWord(store.donnee, "DPT")});
         }
       }
-  console.log(storage);
+  console.log(storages);
   for (const item of storages) {
     const distance = haversineDistance({lat:item.latitude, lon:item.longitude}, {lat:latitude, lon:longitude});
     if (distance < item.radius) {
         await editDatabase ('bennes', 'status', 'C', 'num', benne);
     }
+  }
+  } catch (err) {
+    console.log(err);
   }
 }
 
