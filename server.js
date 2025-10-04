@@ -2550,7 +2550,7 @@ async function autoChange(benne, longitude, latitude) {
       }
   console.log(storages);
   for (const item of storages) {
-    const distance = haversineDistance({lat:item.latitude, lon:item.longitude}, {lat:latitude, lon:longitude});
+    const distance = haversineDistance({lat:item.latitude, lon:item.longitude}, {lat:longitude, lon:latitude});
     if (distance < item.radius) {
         await editDatabase ('bennes', 'status', 'C', 'num', benne);
     }
