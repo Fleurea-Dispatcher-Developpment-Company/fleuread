@@ -2597,4 +2597,25 @@ function haversineDistance(coord1, coord2) {
   return result; // Distance en m
 }
 
+app.post('/createdepot', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const donnee = req.body.donnee;
+    const value = req.body.value;
+    // const gen_num = Math.floor(100000 + Math.random() * 900000);
+    // const gen_password =  `${first_name.charAt(0).toUpperCase()}.${name.slice(0, 6).toLowerCase()}${crypto.randomBytes(1).toString('hex')}`;
+      // crypto.randomBytes(3).toString('hex');
+   // `${firstname.charAt(0).toLowerCase()}.${name.slice(0, 6).toLowerCase()}${aleatoirenum}`
+    const gen_date = new Date();
+    if (await checkRole('admin',thisid)) {
+      await addDatabase ('informations', '', {donnee:donnee, value:value, editable:true, deletable:true}); // 45.72191877191547, 4.227417998761897
+      res.send("Création enregistrée avec succès !");
+    //  await setHistorique (sessions[thisid].id, gen_num, "3", "comptes", gen_password, "Automatique", true); // Affectation à l'historique de la benne
+      await setHistorique (gen_num, sessions[thisid].id, "3", "comptes", gen_password, "Automatique"); // Affectation à l'historique de l'actionneur
+      socketReload ("param");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
 
