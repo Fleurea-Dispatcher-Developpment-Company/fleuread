@@ -1923,10 +1923,10 @@ paramDatas[ben.id] = ben;
         document.getElementById('imagePop').src = ben.photo;
          document.getElementById('lightH2B').textContent =  ben.donnee;
          document.getElementById('lightPB').innerHTML = ben.value; // 
-        if (ben.deletable) {
-        document.getElementById('lightPB2').innerHTML =  "Euréa Coop";
+        if (!ben.deletable) {
+        document.getElementById('lightPB2').textContent =  "Euréa Coop";
         } else {
-        document.getElementById('lightPB2').textContent =  `<button onclick="removeStorage(${ben.num})">Supprimer</button>`;  
+        document.getElementById('lightPB2').innerHTML =  `<button onclick="removeStorage(${ben.num})">Supprimer</button>`;  
         }
         document.getElementById('lightPB3').innerHTML =  "Paramètre" ;
         numon = ben.id;
