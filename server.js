@@ -2554,7 +2554,7 @@ async function autoChange(benne, longitude, latitude) {
     console.log("HPI");
     console.log(item.radius);
     console.log(distance);
-    if (distance < item.radius) {
+    if (distance < (item.radius * 2)) {
       console.log(true);
       await editDatabase ('bennes', 'statut', 'C', 'num', benne);
     
