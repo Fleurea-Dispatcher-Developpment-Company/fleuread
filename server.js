@@ -2535,6 +2535,7 @@ function removeWord(str, word) {
 }
 
 async function autoChange(benne, longitude, latitude) {
+  console.log("AutoChange");
   try {
   console.log(benne);
   console.log(latitude);
