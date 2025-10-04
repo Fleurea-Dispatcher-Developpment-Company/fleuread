@@ -1926,7 +1926,7 @@ paramDatas[ben.id] = ben;
         if (!ben.deletable) {
         document.getElementById('lightPB2').textContent =  "Euréa Coop";
         } else {
-        document.getElementById('lightPB2').innerHTML =  `<button onclick="removeStorage(${ben.num})">Supprimer</button>`;  
+        document.getElementById('lightPB2').innerHTML =  `<button onclick="removeStorage(${ben.id})">Supprimer</button>`;  
         }
         document.getElementById('lightPB3').innerHTML =  "Paramètre" ;
         numon = ben.id;
@@ -2255,6 +2255,13 @@ document.getElementById('editer_a').onclick = async () => {
         putParams('no');
         document.getElementById('createDPT').reset();
       });
+
+      async function removeStorage(value_eq) {
+        const content = {
+          value_eq: value_eq
+        }
+        await fetcher('deletestore', content, 'POST', sessionStorage.getItem('session_id'));
+      }
     </script>
   </body>
 </html>
