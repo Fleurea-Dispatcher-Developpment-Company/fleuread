@@ -2570,6 +2570,11 @@ function haversineDistance(coord1, coord2) {
   const lat2 = toRad(coord2.lat);
   const lon2 = toRad(coord2.lon);
 
+  console.log(lat1);
+  console.log(lat2);
+  console.log(lon1);
+  console.log(lon2);
+
   const dLat = lat2 - lat1;
   const dLon = lon2 - lon1;
 
