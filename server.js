@@ -2629,8 +2629,13 @@ app.post('/deletestore', async (req, res) => {
       console.log("DELETE STORE");
       for (const item of stores) {
         console.log(item);
+        console.log(item.num);
+        console.log(value_eq);
         if (item.num == value_eq) {
+          console.log(true);
+          console.log(item.deletable);
           if (item.deletable) {
+            console.log(true);
              await deleteDatabase ('informations', 'num', value_eq);
             res.send("Suppression enregistrée avec succès !");
           }
