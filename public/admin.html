@@ -2260,7 +2260,11 @@ document.getElementById('editer_a').onclick = async () => {
         const content = {
           value_eq: value_eq
         }
+        if (confirm("Voulez-vous vraiment supprimer ce dépôt ?")) {
+          if (confirm("Action irréversible...")) {
         await fetcher('deletestore', content, 'POST', sessionStorage.getItem('session_id'));
+          }
+        }
       }
     </script>
   </body>
