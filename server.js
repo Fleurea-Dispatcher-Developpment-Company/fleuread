@@ -2608,7 +2608,7 @@ app.post('/createdepot', async (req, res) => {
    // `${firstname.charAt(0).toLowerCase()}.${name.slice(0, 6).toLowerCase()}${aleatoirenum}`
     const gen_date = new Date();
     if (await checkRole('admin',thisid)) {
-      await addDatabase ('informations', '', {donnee:`DPT ${donnee}`, value:value, editable:true, deletable:true}); // 45.72191877191547, 4.227417998761897
+      await addDatabase ('informations', '', {donnee:`DPT ${donnee}`, value:value, editable:true, deletable:true, photo:'https://tse1.mm.bing.net/th/id/OIP.z8hZOM7XljV7HzqdGnQxcwHaDt?cb=12&pid=Api'}); // 45.72191877191547, 4.227417998761897
       res.send("Création enregistrée avec succès !");
     //  await setHistorique (sessions[thisid].id, gen_num, "3", "comptes", gen_password, "Automatique", true); // Affectation à l'historique de la benne
       await setHistorique (gen_num, sessions[thisid].id, "3", "comptes", gen_password, "Automatique"); // Affectation à l'historique de l'actionneur
