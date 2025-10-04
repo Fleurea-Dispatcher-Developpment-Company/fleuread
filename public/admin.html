@@ -2236,5 +2236,20 @@ document.getElementById('editer_a').onclick = async () => {
           pushPanel(nowPanel);
       });
     </script>
+    <script>
+      document.getElementById('createDPT').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = await Object.fromEntries(formData.entries());
+        const content = {
+          donnee:data.name,
+          value:`${data.longitude},${data.latitude},${data.radius}`
+        };
+        const fromServer = await fetcher('createdepot', content, 'POST', sessionStorage.getItem('session_id'));
+        showToast(`Création du dépôt : ${data.name} !`);
+        putParams('no');
+        document.getElementById('createDPT').reset();
+      });
+    </script>
   </body>
 </html>
