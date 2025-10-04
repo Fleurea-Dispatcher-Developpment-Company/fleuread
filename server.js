@@ -2629,12 +2629,13 @@ app.post('/deletestore', async (req, res) => {
       for (const item of stores) {
         if (item.num == value_eq) {
           if (item.deletable) {
-             deleteDatabase ('informations', 'num', value_eq);
+             await deleteDatabase ('informations', 'num', value_eq);
+            res.send("Suppression enregistrée avec succès !");
           }
         }
       }
       
-      res.send("Suppression enregistrée avec succès !");
+      
       socketReload ("param");
     } else {
       res.status(401);
