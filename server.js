@@ -2656,7 +2656,7 @@ app.post('/deletestore', async (req, res) => {
 
       async function getVillePar() {
         const informations = await readDatabase('informations','*');
-        for (const item of stores) {
+        for (const item of informations) {
           if (item.num == 2) {
             return item.value;
           }
@@ -2665,7 +2665,7 @@ app.post('/deletestore', async (req, res) => {
 
         async function getNumPar() {
         const informations = await readDatabase('informations','*');
-        for (const item of stores) {
+        for (const item of informations) {
           if (item.num == 1) {
             return item.value;
           }
