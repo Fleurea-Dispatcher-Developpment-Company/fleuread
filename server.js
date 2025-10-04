@@ -2620,3 +2620,24 @@ app.post('/createdepot', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
+app.post('/deletestore', async (req, res) => {
+  try {
+    const thisid = req.headers.auth;
+    const value_eq = req.body.num;
+    if (await checkRole('admin',thisid)) {
+      const stores = await readDatabase('informations','*');
+      for (const item of stores) {
+        if (item.num == value_eq) {
+          if (item.deletable) {
+             deleteDatabase ('informations', 'num', value_eq);
+          }
+        }
+      }
+      
+      res.send("Suppression enregistrée avec succès !");
+      socketReload ("param");
+    } else {
+      res.status(401);
+    }
+  } catch (err) {console.error(err);}
+});
