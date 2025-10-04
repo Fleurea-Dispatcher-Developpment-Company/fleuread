@@ -1170,7 +1170,11 @@ app.post('/registerbenne', async (req, res) => {
         res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
       } else {
         // On renvoit le contenu de la page benne inconnue
-        res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2013/07/12/12/40/abort-146072_1280.png', 'message':`La benne ${benne} est inconnue dans nos systèmes...`});
+        let message = `
+        <p>La benne ${benne} est inconnue dans nos systèmes...</p>
+        <p>Contactez Centrale ${await getVillePar()} <br><strong>${await getNumPar()}</strong></p>
+        `;
+        res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2013/07/12/12/40/abort-146072_1280.png', 'message':message});
       }
     } else {
      // On renvoit le contenu de la page non autorisé
