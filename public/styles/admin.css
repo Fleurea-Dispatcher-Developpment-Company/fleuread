@@ -1,1 +1,379 @@
+ #legende {
+              opacity:0.5;
+              display:flex;
+              position:absolute;
+              top:40%;
+              left:95%;
+              height:20%;
+              width:10%;
+              z-index:2500;
+              background-color:white;
+            }
+            #legende:hover {
+              opacity:1;
+              transform: translateX(-50%);
+            }
+            .dot {
+              height: 100%;                /* Taille du point */
+              aspect-ratio: 1 / 1;
+              border-radius: 50%; 
+            }
+             #bio_block, #selecterOptSociety {
+                display: none;
+              }
+              #society_select {
+                width:100%;
+              }
+  
 
+            
+              /* afficher quand on survole #cereale_input */
+              #cereale_input:hover #bio_block, #panel_L:hover #selecterOptSociety {
+                display: flex;
+              }
+
+  .scroll-container {
+        height:90%;
+        width:100%;
+        overflow-y:auto;
+        overflow-x:auto;
+        padding:1vw;
+        background:grey;
+      }
+      #panel_A {
+        position:relative;
+        width:100%;
+      }
+      #panel_A_img {
+        width:100%;
+      }
+      #panel_A_h1 {
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        color:white;
+      }
+      .cropped-image {
+      height: 15vh;
+      object-fit: cover;      /* croppe l'image pour remplir le conteneur */
+      object-position: center; /* zone visible centrée */
+      }
+
+      #panel_E, #panel_F {
+        display:flex;
+        flex-direction:row;
+        justify-content:space-around;
+        align-items:center;
+      }
+
+       #panel_E_circle, #panel_F_circle {
+        height:25%;
+        align-items:center;
+        width:25%;
+      }
+
+      #panelcontent > div {
+    margin: 0.5rem 0;         /* espace extérieur (haut/bas) */
+    padding: 0.5rem;          /* espace intérieur */
+    border: 1px solid #ccc;   /* fine bordure grise */
+    border-radius: 0.5rem;    /* coins arrondis (optionnel) */
+    background-color: white;  /* fond clair (optionnel) */
+    }
+      
+      #map {
+        position:fixed;
+        top:10vh;
+        height:90vh;
+        width:100vw;
+        display:flex;
+        flex-direction:row;
+      }
+      #admin {
+        position:fixed;
+        top:10vh;
+        height:90vh;
+        width:100vw;
+        display:flex;
+        flex-direction:column;
+      }
+
+      #panelcontent {
+        overflow-y:auto;
+      }
+      .input_search {
+        height:2vh;
+        width:25vh;
+      }
+      #bennesSearch, #comptesSearch, #clientsSearch, #cerealesSearch, #infosSearch {
+        top:15vh;
+        height:85vh;
+        flex-direction:column;
+      }
+      #mapSearch {
+        position:absolute;
+        top:2vh;
+        left:15vh;
+        width:50vh;
+        z-index:2000;
+        flex-direction:column;
+      }
+      #result_mapSearch {
+        max-height:20vh;
+        overflow-y:auto;
+      }
+      #selecter, #searcherBenne, #createBenne, #createCompte, #searcherCompte, #createClient, #searcherClient, #createCereale, #searcherCereale, #createParam, #searcherParam, #searcherParamB, #createDPT {
+        width:100%;
+        height:5%;
+        background:linear-gradient(90deg, black, grey);
+        align-items:center; /* We center everything in height */
+        justify-content:space-between; /* Distribue l'espace horizontalement */
+        display:flex;
+        padding: 0 1rem;
+        box-sizing: border-box;
+        border: solid white 0.5px;
+      }
+      #view {
+        flex:1;
+        height:100%;
+        background:lightgray;
+      }
+       #panel {
+        width:40%;
+        height:100%;
+        background:grey;
+        flex-direction:column;
+      }
+      #mapA {
+        height:100%;
+        width:100%;
+        margin:0;
+        padding:0;
+      }
+
+       .leaflet-control-layers {
+      z-index:1001;
+    }
+
+      #mapSearch_input {
+        background-color:rgba(255,255,255,0.5);
+      }
+      
+      body {
+          margin: 0;
+          padding:1rem;
+          height: 100vh;
+          width: 100vw;
+          display:flex;
+          justify-content:center; /* aligné à l'horizontal */
+          align-items:center; /* aligné en vertical */
+          background: linear-gradient(135deg, blue, yellow);
+          font-family: Arial, sans-serif;
+           box-sizing:border-box; 
+      }
+      .form-container {
+          background: white;
+          padding: 2rem;
+          border-radius: 1rem;
+          width:100%;
+          height:auto;
+          max-width:400px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+         box-sizing:border-box;
+      }
+      input {
+        width: 100%;
+        padding: 0.75rem;
+       /* margin-bottom: 1rem; */
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        box-sizing:border-box; 
+      }
+      button {
+        
+        
+        background-color:blue;
+        color:white;
+       
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor:pointer;
+        transition:background 0.3s ease;
+       box-sizing:border-box;
+      }
+      button:hover {
+        background-color:red;
+      }
+      .img {
+        max-width:80%;
+        height:auto;
+       box-sizing:border-box;
+        margin:0.5rem;
+      }
+      .head {
+        background:linear-gradient(90deg, black, grey);
+        display:flex;
+        position:fixed; /* Fixed is better than absolute as it fix the position even when scolling */
+        top:0;
+        left:0; /* We'll take the left side as a spot better than the right one */
+        width:100%;
+        height:10vh;
+        align-items:center; /* We center everything in height */
+        justify-content:space-between; /* Distribue l'espace horizontalement */
+        padding:0 1rem; /* Espace entre bordure et contenu */
+        box-sizing:border-box;
+        color:white;
+        font-weight:bold; /* Police d'écriture en gras */
+        z-index:1000;
+      }
+      .circle {
+        width:5vh;
+        height:5vh;
+        border-radius:50%;
+        overflow:hidden;
+        position:relative;
+      }
+
+           .circleC {
+        height: 100%;         /* prend toute la hauteur disponible */
+        aspect-ratio: 1 / 1;
+        border-radius:50%;
+        overflow:hidden;
+        position:relative;
+      }
+
+      .circleB {
+        width:15vh;
+        height:15vh;
+        border-radius:50%;
+        overflow:hidden;
+        position:relative;
+      }
+       .circle img, .circleB img, .circleC img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+      }
+      #heure, #portal, #logo_eurea, #compte, #visuBtn, #adminBtn {
+        display:flex;
+        align-items:center;
+        white-space:nowrap; /* Forcer le texte à rester sur une seule ligne */
+      }
+  
+      #logo_eurea img {
+        height:6vh;
+        cursor:pointer;
+      }
+
+      #compte p {
+        margin:0;
+        font-size:1rem;
+        margin-left:2vh;
+      }
+
+      @media (max-width: 680px) { /* Ce qui se cache sur la version mobile */
+         #heure, #portal, #logo_eurea {
+           display:none;
+         }
+        button {
+          font-size:0.75rem;
+        } 
+      }
+
+ #lightbox, #lightboxB {
+        position:fixed;
+        top:0;
+        left:0;
+        height:100vh;
+        width:100vw;
+        background:rgba(100,100,100,0.7);
+        display:none;
+        justify-content:center;
+        align-items:center;
+        z-index:1000;
+      }
+       .lightbox-content {
+       background:white;
+        padding:2em;
+         border-radius:12px;
+         text-align:center;
+         max-width:400px;
+         width:80%;
+         position:relative;
+         box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      }
+      #close-btn, #close-btnB {
+        position:absolute;
+        top:10px;
+        right:15px;
+        font-size:1.8em;
+        cursor:pointer;
+        color:red;
+      }
+      .line {
+        width:100%;
+        height:10vh;
+        display:flex;
+        flex-direction:row;
+     /*   flex:1; */
+        background:white; /*linear-gradient(135deg, white, blue);*/
+        border: 1vh solid black;
+        margin-top:1vh;
+        align-items:center;
+        /* justify-content: space-between; */
+        padding: 0.5rem;
+      }
+      /* .line {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+} */
+
+.line > * {
+  flex: 1;              
+  text-align: center;   
+}
+  #toast-container {
+        position:fixed;
+        bottom:2vh;
+        right:2vw;
+        z-index:9999;
+        display:flex;
+        flex-direction:column;
+        gap:1vh;
+      }
+      .toast {
+        background-color:#4CAF50;
+        color:white;
+        padding: 1rem 1.5rem;
+        border-radius:5px;
+        font-size:1rem;
+        box-shadow: 0 0 10px;
+        animation:fadein 0.5s, fadeout 0.5s 14.5s;
+        opacity:0;
+        animation-fill-mode:forwards;
+      }
+      @keyframes fadein {
+        from {opacity:0; transform:translateX(50%);}
+        to {opacity:1; transform:translateX(0);}
+      }
+      @keyframes fadeout {
+        from {opacity:1; transform:translateX(0);}
+        to {opacity:0; transform:translateX(50%);}
+      }
+
+      #suggester {
+        display:flex;
+       /* flex-direction:column; */
+        justify-content: space-between;
+      }
+      .button_status:hover {
+        background:grey;
+      }
