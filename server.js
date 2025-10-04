@@ -1268,7 +1268,7 @@ app.post('/findbenne', async (req, res) => {
         // On renvoit le contenu de la page benne inconnue
         let message = `
         <p>La benne ${benne} est inconnue dans nos systèmes...</p>
-        <p>Contactez Centrale ${await getVillePar()} (<strong>${await getNumPar()}</strong>)</p>
+        <p>Contactez Centrale ${await getVillePar()} <br><strong>${await getNumPar()}</strong></p>
         `;
         res.json({'status':'200','icon':'https://cdn.pixabay.com/photo/2013/07/12/12/40/abort-146072_1280.png', 'message':message});
       }
