@@ -2551,8 +2551,14 @@ async function autoChange(benne, longitude, latitude) {
   console.log(storages);
   for (const item of storages) {
     const distance = haversineDistance({lat:item.latitude, lon:item.longitude}, {lat:longitude, lon:latitude});
+    console.log("HPI");
+    console.log(item.radius);
+    console.log(distance);
     if (distance < item.radius) {
-        await editDatabase ('bennes', 'status', 'C', 'num', benne);
+      console.log(true);
+        // await editDatabase ('bennes', 'status', 'C', 'num', benne);
+    } else {
+      console.log(false);
     }
   }
   } catch (err) {
