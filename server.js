@@ -2626,7 +2626,9 @@ app.post('/deletestore', async (req, res) => {
     const value_eq = req.body.num;
     if (await checkRole('admin',thisid)) {
       const stores = await readDatabase('informations','*');
+      console.log("DELETE STORE");
       for (const item of stores) {
+        console.log(item);
         if (item.num == value_eq) {
           if (item.deletable) {
              await deleteDatabase ('informations', 'num', value_eq);
