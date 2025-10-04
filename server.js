@@ -2556,7 +2556,9 @@ async function autoChange(benne, longitude, latitude) {
     console.log(distance);
     if (distance < item.radius) {
       console.log(true);
-        // await editDatabase ('bennes', 'status', 'C', 'num', benne);
+      await editDatabase ('bennes', 'statut', 'C', 'num', benne);
+    
+      socketReload ("benne");
     } else {
       console.log(false);
     }
