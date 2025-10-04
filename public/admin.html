@@ -1923,7 +1923,11 @@ paramDatas[ben.id] = ben;
         document.getElementById('imagePop').src = ben.photo;
          document.getElementById('lightH2B').textContent =  ben.donnee;
          document.getElementById('lightPB').innerHTML = ben.value; // 
-        document.getElementById('lightPB2').textContent =  "Euréa Coop";
+        if (ben.deletable) {
+        document.getElementById('lightPB2').innerHTML =  "Euréa Coop";
+        } else {
+        document.getElementById('lightPB2').textContent =  `<button onclick="removeStorage(${ben.num})">Supprimer</button>`;  
+        }
         document.getElementById('lightPB3').innerHTML =  "Paramètre" ;
         numon = ben.id;
         console.log(numon);
@@ -1963,9 +1967,11 @@ paramDatas[ben.id] = ben;
           bennesContainer.append(line);
         }
       }
+      
       async function getParams() {
         return await fetcher('getparams',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
       }
+      
     </script>
     <script>
       const input =  document.getElementById('mapSearch_input');
