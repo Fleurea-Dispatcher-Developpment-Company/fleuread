@@ -2623,7 +2623,7 @@ app.post('/createdepot', async (req, res) => {
 app.post('/deletestore', async (req, res) => {
   try {
     const thisid = req.headers.auth;
-    const value_eq = req.body.num;
+    const value_eq = req.body.value_eq;
     if (await checkRole('admin',thisid)) {
       const stores = await readDatabase('informations','*');
       console.log("DELETE STORE");
