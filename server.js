@@ -2675,3 +2675,18 @@ app.post('/deletestore', async (req, res) => {
           }
         }
       }
+
+app.get('/fileprovider', async (req, res) => {
+  const name = req.query.file;
+  const type = req.query.type;
+  try {
+    if (type == "script") {
+  res.sendFile(path.join(__dirname, 'public','scripts',name));
+    }
+    if (type == "style") {
+  res.sendFile(path.join(__dirname, 'public','styles',name));
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
