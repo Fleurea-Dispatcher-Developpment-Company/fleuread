@@ -199,7 +199,7 @@ const profilePic = document.getElementById('compte');
   };
     
     const map = L.map('mapA').setView([45.72191877191547, 4.227417998761897], 15);
-map.setMinZoom(10);
+map.setMinZoom(4);
     L.control.layers(baseMaps, null, {position:'bottomleft'}).addTo(map);
     osm.addTo(map);
       setTimeout(() => {
