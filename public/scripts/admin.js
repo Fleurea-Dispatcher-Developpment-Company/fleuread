@@ -344,7 +344,7 @@ benDatas[ben.id] = ben;
         document.getElementById('imagePop').src = ben.link;
         // onclick="window.location.assign(`/icon?type=comptes&id=${sessionStorage.getItem('session_id')}`, '_blank');"
         document.getElementById('imagePop').onclick = () => {
-          window.location.assign(`/icon?type=bennes&id=${ben.id}`, '_blank');
+          window.location.open(`/icon?type=bennes&id=${ben.id}`, '_blank');
         }
          document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
          document.getElementById('lightPB').textContent =  ben.volume + " T | " + ben.notes;
@@ -1022,7 +1022,7 @@ cliDatas[ben.id] = ben;
         console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
         document.getElementById('imagePop').onclick = () => {
-          window.location.assign(`/icon?type=clients&id=${ben.id}`, '_blank');
+          window.location.open(`/icon?type=clients&id=${ben.id}`, '_blank');
         }
          document.getElementById('lightH2B').textContent =  ben.name;
          document.getElementById('lightPB').textContent = "Client n°" + ben.id; // 
@@ -1148,7 +1148,7 @@ cerDatas[ben.id] = ben;
         console.log("Lien image :", ben.photo);
         document.getElementById('imagePop').src = ben.photo;
         document.getElementById('imagePop').onclick = () => {
-          window.location.assign(`/icon?type=cereales&id=${ben.id}`, '_blank');
+          window.location.open(`/icon?type=cereales&id=${ben.id}`, '_blank');
         }
          document.getElementById('lightH2B').textContent =  ben.name;
          document.getElementById('lightPB').textContent = "Code : " + ben.code; // 
