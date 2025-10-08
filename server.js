@@ -130,7 +130,7 @@ async function autoPing () {
 }
 
 async function setWS (sesId, ws) {
-  if (await checkRole(sesId, 'driver')) {
+  if (await checkRole('driver', sesId)) {
     WSDriver.push(ws);
     console.log(WSDriver);
     broadcast("time");
