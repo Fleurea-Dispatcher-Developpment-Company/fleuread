@@ -2350,7 +2350,8 @@ async function getDriverDatas () {
   // On obtient les données du client avant de les mettre en forme dans le PDF du client
 }
 
-// DÉBUT PDF CLIENT
+// DÉBUT PDF COMPTE → Le but est de faire un tutoriel pour utiliser le service et se connecter avec... QR CODE de connexion automatique, les identifiants surlignées en A4, une bande rouge en hait, le nom du conducteur...Et le logo euréa en bas
+
 async function pdf2(id, filePath) {
   const url = `https://fleuread.onrender.com/driver?action=register&benne=${id}`;
   const qrDataUrl = await QRCode.toDataURL(String(url), {
