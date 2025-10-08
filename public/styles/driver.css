@@ -86,7 +86,7 @@
           display:flex;
           justify-content:center; /* aligné à l'horizontal */
           align-items:center; /* aligné en vertical */
-          background: linear-gradient(135deg, '#40b054', blue);
+          background: linear-gradient(135deg, #40b054, blue);
           font-family: Arial, sans-serif;
            box-sizing:border-box; 
       }
