@@ -544,7 +544,7 @@ function translate(input) {
 app.post('/getbennes', async (req, res) => {
   try {
     const thisid = req.headers.auth;
-    if (await checkRole('admin',thisid)) {
+    if (await checkRole(thisid, 'admin')) {
       const jsonme = await getBennes(thisid);
     res.json(jsonme);
     } else {
