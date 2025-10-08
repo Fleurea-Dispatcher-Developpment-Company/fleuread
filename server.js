@@ -2646,6 +2646,7 @@ app.post('/deletestore', async (req, res) => {
             console.log(true);
              await deleteDatabase ('informations', 'num', value_eq);
             res.send("Suppression enregistrée avec succès !");
+            socketReload ("param");
           }
         }
       }
