@@ -2389,7 +2389,25 @@ async function pdf2(id, filePath) {
     height: 80,               // hauteur de la bande
     color: rgb(0.8, 0, 0),    // rouge (0.8,0,0)
   });
+// B. Intégrer le logo Euréa
+  const imageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg";
 
+  // Téléchargement de l’image (binaire)
+  const imageBytes = await fetch(imageUrl).then(res => res.arrayBuffer());
+
+  // 🔹 Intégration dans le PDF
+  const pngImage = await pdfDoc.embedPng(imageBytes); // ou embedJpg()
+  const dims = pngImage.scale(0.5);
+
+  // 🔹 Affichage sur la page
+  page.drawImage(pngImage, {
+    x: 50,
+    y: 842 - (10 + dims.height),
+    width: dims.width,
+    height: dims.height,
+  });
+
+  // FIN IMG
   const fontSizeHeader = 18;
   const headerText = `Conducteur ${await getConducteur(id)}`;
   const textWidth = font.widthOfTextAtSize(headerText, fontSizeHeader);
