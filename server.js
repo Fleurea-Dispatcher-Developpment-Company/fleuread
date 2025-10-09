@@ -2352,8 +2352,17 @@ async function getDriverDatas () {
 
 // DÉBUT PDF COMPTE → Le but est de faire un tutoriel pour utiliser le service et se connecter avec... QR CODE de connexion automatique, les identifiants surlignées en A4, une bande rouge en hait, le nom du conducteur...Et le logo euréa en bas
 
+async function getKind (num, item) {
+  const data = await readDatabase('ccomptes');
+  for (const dat of data) {
+    if (dat.num == num) {
+      return dat[item];
+    }
+  }
+}
+
 async function pdf2(id, filePath) {
-  const url = `https://fleuread.onrender.com/driver?action=register&benne=${id}`;
+  const url = `https://fleuread.onrender.com/?autocomplete=`;
   const qrDataUrl = await QRCode.toDataURL(String(url), {
     margin:1,
     width:150,
@@ -2366,9 +2375,20 @@ async function pdf2(id, filePath) {
   console.log("QR CODE GÉNÉRÉ !");
   // PDF
   const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([400,600]);
+  const page = pdfDoc.addPage([595,842]);
+  // On a notre PDF disponible avec un format A4
+  // On a le Qr Code prêt
 
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+  // A. Faire la bande rouge
+   page.drawRectangle({
+    x: 0,                     // bord gauche
+    y: 842 - 80,       // position depuis le bas
+    width: 595,         // toute la largeur
+    height: 80,               // hauteur de la bande
+    color: rgb(0.8, 0, 0),    // rouge (0.8,0,0)
+  });
 
   const fontSizeHeader = 18;
   const headerText = `Conducteur ${await getConducteur(id)}`;
