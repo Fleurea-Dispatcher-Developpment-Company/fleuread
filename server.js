@@ -2389,6 +2389,14 @@ async function pdf2(id, filePath) {
     height: 80,               // hauteur de la bande
     color: rgb(0.8, 0, 0),    // rouge (0.8,0,0)
   });
+
+  page.drawRectangle({
+    x: 0,                     // bord gauche
+    y: 80,       // position depuis le bas
+    width: 595,         // toute la largeur
+    height: 80,               // hauteur de la bande
+    color: rgb(0.8, 0, 0),    // rouge (0.8,0,0)
+  });
 // Cela présente peu d'interêt d'intégrer le logo d'Euréa à ce document qui n'est de fait pas édité par Euréa
   const fontSizeHeader = 18;
   const headerText = `Tutoriel Fleuréa Dispatcher - ${await getConducteur(id)}`;
@@ -2404,6 +2412,9 @@ async function pdf2(id, filePath) {
 const qrImage = await pdfDoc.embedPng(base64Data);
   const qrDims = qrImage.scale(1);
   page.drawImage(qrImage, {x:20, y : 732, width:qrDims.width, height:qrDims.height});
+
+  // On a la base; il reste les explications et les identifiants
+  
   const fontSizeNumber = 30;
 const numberText = String(id);
 const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
