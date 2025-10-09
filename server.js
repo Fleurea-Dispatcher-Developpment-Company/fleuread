@@ -2391,12 +2391,12 @@ async function pdf2(id, filePath) {
   });
 // Cela présente peu d'interêt d'intégrer le logo d'Euréa à ce document qui n'est de fait pas édité par Euréa
   const fontSizeHeader = 18;
-  const headerText = `Conducteur ${await getConducteur(id)}`;
+  const headerText = `Tutoriel Fleuréa Dispatcher - ${await getConducteur(id)}`;
   const textWidth = font.widthOfTextAtSize(headerText, fontSizeHeader);
   const xCenter = (page.getWidth() - textWidth) / 2;
   
   page.drawText(headerText,{
-    x:xCenter, y:550, size:fontSizeHeader, font, color:rgb(0,0,0)
+    x:xCenter, y:800, size:fontSizeHeader, font, color:rgb(255,255,255)
   });
 
   page.drawRectangle({x:95, y:295, width:210, height:210, borderColor:rgb(0.8,0,0), borderWidth:4});
