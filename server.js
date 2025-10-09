@@ -2392,7 +2392,7 @@ async function pdf2(id, filePath) {
 
   page.drawRectangle({
     x: 0,                     // bord gauche
-    y: 80,       // position depuis le bas
+    y: 0,       // position depuis le bas
     width: 595,         // toute la largeur
     height: 80,               // hauteur de la bande
     color: rgb(0.8, 0, 0),    // rouge (0.8,0,0)
