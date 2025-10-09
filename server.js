@@ -2353,7 +2353,7 @@ async function getDriverDatas () {
 // DÉBUT PDF COMPTE → Le but est de faire un tutoriel pour utiliser le service et se connecter avec... QR CODE de connexion automatique, les identifiants surlignées en A4, une bande rouge en hait, le nom du conducteur...Et le logo euréa en bas
 
 async function getKind (num, item) {
-  const data = await readDatabase('ccomptes');
+  const data = await readDatabase('comptes');
   for (const dat of data) {
     if (dat.num == num) {
       return dat[item];
@@ -2362,7 +2362,7 @@ async function getKind (num, item) {
 }
 
 async function pdf2(id, filePath) {
-  const url = `https://fleuread.onrender.com/?autocomplete=`;
+  const url = `https://fleuread.onrender.com/?autocomplete=${await getKind(id, "password")}`;
   const qrDataUrl = await QRCode.toDataURL(String(url), {
     margin:1,
     width:100,
