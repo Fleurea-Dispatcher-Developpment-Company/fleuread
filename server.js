@@ -2390,13 +2390,13 @@ async function pdf2(id, filePath) {
     color: rgb(0.8, 0, 0),    // rouge (0.8,0,0)
   });
 // B. Intégrer le logo Euréa
-  const imageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg";
+  const imageUrl = "https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg";
 
   // Téléchargement de l’image (binaire)
   const imageBytes = await fetch(imageUrl).then(res => res.arrayBuffer());
 
   // 🔹 Intégration dans le PDF
-  const pngImage = await pdfDoc.embedPng(imageBytes); // ou embedJpg()
+  const pngImage = await pdfDoc.embedJpg(imageBytes); // ou embedJpg()
   const dims = pngImage.scale(0.5);
 
   // 🔹 Affichage sur la page
