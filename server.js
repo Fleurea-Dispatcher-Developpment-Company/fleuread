@@ -2389,25 +2389,7 @@ async function pdf2(id, filePath) {
     height: 80,               // hauteur de la bande
     color: rgb(0.8, 0, 0),    // rouge (0.8,0,0)
   });
-// B. Intégrer le logo Euréa
-  const imageUrl = "https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg";
-
-  // Téléchargement de l’image (binaire)
-  const imageBytes = await fetch(imageUrl).then(res => res.arrayBuffer());
-
-  // 🔹 Intégration dans le PDF
-  const pngImage = await pdfDoc.embedJpg(imageBytes); // ou embedJpg()
-  const dims = pngImage.scale(0.5);
-
-  // 🔹 Affichage sur la page
-  page.drawImage(pngImage, {
-    x: 50,
-    y: 842 - (10 + dims.height),
-    width: dims.width,
-    height: dims.height,
-  });
-
-  // FIN IMG
+// Cela présente peu d'interêt d'intégrer le logo d'Euréa à ce document qui n'est de fait pas édité par Euréa
   const fontSizeHeader = 18;
   const headerText = `Conducteur ${await getConducteur(id)}`;
   const textWidth = font.widthOfTextAtSize(headerText, fontSizeHeader);
