@@ -2365,7 +2365,7 @@ async function pdf2(id, filePath) {
   const url = `https://fleuread.onrender.com/?autocomplete=`;
   const qrDataUrl = await QRCode.toDataURL(String(url), {
     margin:1,
-    width:150,
+    width:100,
     color:{
       dark:'#000000',
       light:'#FFFFFF'
@@ -2399,11 +2399,11 @@ async function pdf2(id, filePath) {
     x:xCenter, y:800, size:fontSizeHeader, font, color:rgb(255,255,255)
   });
 
-  page.drawRectangle({x:95, y:295, width:210, height:210, borderColor:rgb(0.8,0,0), borderWidth:4});
-  page.drawRectangle({x:100, y:300, width:200, height:200, borderColor:rgb(1,0,0), borderWidth:2});
+  //page.drawRectangle({x:95, y:295, width:210, height:210, borderColor:rgb(0.8,0,0), borderWidth:4});
+ //  page.drawRectangle({x:100, y:300, width:200, height:200, borderColor:rgb(1,0,0), borderWidth:2});
 const qrImage = await pdfDoc.embedPng(base64Data);
   const qrDims = qrImage.scale(1);
-  page.drawImage(qrImage, {x:100 + (200 - qrDims.width) / 2, y : 300 + 40, width:qrDims.width, height:qrDims.height});
+  page.drawImage(qrImage, {x:20, y : 732, width:qrDims.width, height:qrDims.height});
   const fontSizeNumber = 30;
 const numberText = String(id);
 const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
