@@ -1944,6 +1944,7 @@ app.get('/media', async (req, res) => {
           sign_url:true,
           expires_at: Math.floor(Date.now() / 1000) + 60 * 5
         });
+        console.log("MediaMaker");
         console.log(true_url);
       }
     }
