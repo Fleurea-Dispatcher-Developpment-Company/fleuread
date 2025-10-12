@@ -1938,7 +1938,7 @@ app.get('/media', async (req, res) => {
       if (doc.fleuread_id == fleuread_id) {
         console.log("Correpondance trouvée !");
         console.log(doc.link.split('/upload/')[1]);
-        true_url = await cloudinary.url(doc.link.split('/upload/')[1], {
+        true_url = await cloudinary.utils.sign_url(doc.link.split('/upload/')[1], {
           secure:true,
           type:'authenticated',
           sign_url:true,
