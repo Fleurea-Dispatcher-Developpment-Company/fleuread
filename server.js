@@ -1942,10 +1942,11 @@ app.get('/media', async (req, res) => {
           secure:true,
           type:'authenticated',
           sign_url:true,
-          expires_at: Math.floor(Date.now() / 1000) + 60 * 5
+          expires_at: Math.floor(Date.now() / 1000) + 60 * 60 * 5
         });
         console.log("MediaMaker");
         console.log(true_url);
+        console.log(Math.floor(Date.now() / 1000) + 60 * 60 * 5);
       }
     }
     const tempFilePath = path.join(__dirname, `temp_file_${fleuread_id}`);
