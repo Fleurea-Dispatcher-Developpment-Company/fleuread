@@ -1949,6 +1949,9 @@ app.get('/media', async (req, res) => {
         console.log(Math.floor(Date.now() / 1000) + 60 * 60 * 5);
       }
     }
+    cloudinary.api.resources({ type: 'authenticated', max_results: 50 }, async function(error, result){
+  console.log(result);
+});
     const tempFilePath = path.join(__dirname, `temp_file_${fleuread_id}`);
 const fileStream = fs.createWriteStream(tempFilePath);
 
