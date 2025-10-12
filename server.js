@@ -1933,6 +1933,7 @@ app.get('/media', async (req, res) => {
     let true_url;
     for (const doc of docs) {
       if (doc.fleuread_id == fleuread_id) {
+        console.log(doc.link.split('/upload/')[1]);
         true_url = await cloudinary.url(doc.link.split('/upload/')[1], {
           secure:true,
           type:'authenticated',
