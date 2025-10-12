@@ -1911,7 +1911,8 @@ app.post('/registerafile', upload.single('media'), async (req, res) => {
               const filePath = req.file.path;
                const result = await cloudinary.uploader.upload (filePath, {
                     folder:'users', 
-                    resource_type:'image'
+                    resource_type:'image',
+                 access_mode: 'authenticated'
                });
               fs.unlinkSync(filePath);
      const cryptoid = crypto.randomBytes(64).toString('hex');
@@ -1932,7 +1933,12 @@ app.get('/media', async (req, res) => {
     let true_url;
     for (const doc of docs) {
       if (doc.fleuread_id == fleuread_id) {
-        true_url = String(doc.link);
+        true_url = await cloudinary.url(doc.link.split('/upload/')[1], {
+          secure:true,
+          type:'authenticated',
+          sign_url:true,
+          expires_at: Math.floor(Date.now() / 1000) + 60 * 5;
+        });
         console.log(true_url);
       }
     }
