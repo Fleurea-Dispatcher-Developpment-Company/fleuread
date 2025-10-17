@@ -2455,23 +2455,23 @@ async function isBenne(id) {
   return false;
 }
 
-
-     async function formatTimestamp(timestamp) {
+async function formatTimestamp(timestamp) {
   const alldate = new Date(timestamp);
 
-       const date = new Date(
+  const date = new Date(
     alldate.toLocaleString('en-US', { timeZone: 'Europe/Paris' })
   );
 
   const jour = String(date.getDate()).padStart(2, '0');
-  const mois = String(date.getMonth() + 1).padStart(2, '0'); // +1 car les mois commencent à 0
-  const annee = String(date.getFullYear()).slice(-2); // Prend les 2 derniers chiffres
+  const mois = String(date.getMonth() + 1).padStart(2, '0');
+  const annee = String(date.getFullYear()).slice(-2);
 
-  const heures = String(date.getHours() + ).padStart(2, '0');
+  const heures = String(date.getHours()).padStart(2, '0'); // correction
   const minutes = String(date.getMinutes()).padStart(2, '0');
 
   return `${jour}/${mois}/${annee} à ${heures}h${minutes}`;
 }
+
 
 async function getOptList() {
   const param = await readDatabase('informations','*');
