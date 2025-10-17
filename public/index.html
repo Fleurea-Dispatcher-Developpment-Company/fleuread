@@ -16,8 +16,8 @@
       <p class="w3-center">Fleuréa Dispatcher</p>
       <img class="w3-center" src="https://res.cloudinary.com/devee5rfe/image/upload/v1754320567/OIP_lz4npc.jpg" alt="Logo Euréa">
       <form class="w3-center" id="login">
-        <input class="w3-center" name="password" type="password" placeholder="Entrez votre mot de passe" required>
-        <button class="w3-center" type="submit()">Se connecter</button>
+        <input id="former" class="w3-center" name="password" type="password" placeholder="Entrez votre mot de passe" required>
+        <button id="clicker" class="w3-center" type="submit()">Se connecter</button>
       </form>
       </div> 
     </div>
@@ -131,17 +131,14 @@
         // showToast("Lecture des paramètres en cours...");
        
         const urlParams = new URLSearchParams(window.location.search);
-        const action = urlParams.get('action');
-        const id = urlParams.get('benne');
+        const action = urlParams.get('autocomplete');
+       // const id = urlParams.get('benne');
        //   showToast(`Résult : ${id} / ${action}`);
       
       
-            if (action == "register") {
-              console.log("register");
-          //    showToast("Demande d'enregistrement...");
-              if (id) {
-               // On procède à la connexion du client...
-              }
+            if (action) {
+              document.getElementById('former').value = action;
+              document.getElementById('clicker').click();
             }
       }
 
