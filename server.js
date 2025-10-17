@@ -2457,13 +2457,17 @@ async function isBenne(id) {
 
 
      async function formatTimestamp(timestamp) {
-  const date = new Date(timestamp);
+  const alldate = new Date(timestamp);
+
+       const localDate = new Date(
+    alldate.toLocaleString('en-US', { timeZone: 'Europe/Paris' })
+  );
 
   const jour = String(date.getDate()).padStart(2, '0');
   const mois = String(date.getMonth() + 1).padStart(2, '0'); // +1 car les mois commencent à 0
   const annee = String(date.getFullYear()).slice(-2); // Prend les 2 derniers chiffres
 
-  const heures = String(date.getHours() + offset).padStart(2, '0');
+  const heures = String(date.getHours() + ).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
 
   return `${jour}/${mois}/${annee} à ${heures}h${minutes}`;
