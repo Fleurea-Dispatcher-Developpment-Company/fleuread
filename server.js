@@ -2416,8 +2416,8 @@ const qrImage = await pdfDoc.embedPng(base64Data);
   page.drawImage(qrImage, {x:20, y : 642, width:qrDims.width, height:qrDims.height});
 
   // On a la base; il reste les explications et les identifiants
-   page.drawText(`Identité : ${await getConducteur(id)}`, {x:400, y:500, size:12, font, color:rgb(0,0,0)});
-    page.drawText(`Mot de passe : ${await getKind(id, "password")}`, {x:400, y:470, size:12, font, color:rgb(0,0,0)});
+   page.drawText(`Identité : ${await getConducteur(id)}`, {x:400, y:600, size:12, font, color:rgb(0,0,0)});
+    page.drawText(`Mot de passe : ${await getKind(id, "password")}`, {x:400, y:570, size:12, font, color:rgb(0,0,0)});
   
   const fontSizeNumber = 30;
 const numberText = String(id);
@@ -2431,12 +2431,12 @@ const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
 //});
   const explications = `Lien : ${url}. Découpez le cadre rouge et collez-le à proximité de la plaque d'immatriculation de la benne n°${id}. Scannez ce QR-Code avec un compte conducteur pour signaler automatiquement la position de cette benne au système Fleuréa Dispatcher. Pensez à bien désactiver la localisation une fois l'enregistrement terminé afin d'économiser la batterie.`;
   const fontSizeB = 10;
-  const maxWidthB = 320;
+  const maxWidthB = 500;
 
   const textWidthB = font.widthOfTextAtSize(explications, fontSizeB);
   const xCenterB = (595 - Math.min(textWidthB, maxWidthB)) / 2;
   // 595,842
-  page.drawText(explications, {x:xCenterB, y:350, size:fontSizeB, font, color:rgb(0,0,0), maxWidth:maxWidthB});
+  page.drawText(explications, {x:xCenterB, y:450, size:fontSizeB, font, color:rgb(0,0,0), maxWidth:maxWidthB});
   const pdfBytes = await pdfDoc.save();
   fs.writeFileSync(filePath, pdfBytes);
   return filePath;
