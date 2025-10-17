@@ -2416,8 +2416,8 @@ const qrImage = await pdfDoc.embedPng(base64Data);
   page.drawImage(qrImage, {x:20, y : 642, width:qrDims.width, height:qrDims.height});
 
   // On a la base; il reste les explications et les identifiants
-   page.drawText(`Identité : ${await getConducteur(id)}`, {x:400, y:600, size:12, font, color:rgb(0,0,0)});
-    page.drawText(`Mot de passe : ${await getKind(id, "password")}`, {x:400, y:570, size:12, font, color:rgb(0,0,0)});
+   page.drawText(`Identité : ${await getConducteur(id)}`, {x:400, y:700, size:12, font, color:rgb(0,0,0)});
+    page.drawText(`Mot de passe : ${await getKind(id, "password")}`, {x:400, y:670, size:12, font, color:rgb(0,0,0)});
   
   const fontSizeNumber = 30;
 const numberText = String(id);
