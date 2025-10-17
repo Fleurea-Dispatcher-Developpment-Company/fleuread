@@ -2418,6 +2418,7 @@ const qrImage = await pdfDoc.embedPng(base64Data);
   // On a la base; il reste les explications et les identifiants
    page.drawText(`Identité : ${await getConducteur(id)}`, {x:400, y:700, size:12, font, color:rgb(0,0,0)});
     page.drawText(`Mot de passe : ${await getKind(id, "password")}`, {x:400, y:670, size:12, font, color:rgb(0,0,0)});
+   page.drawText(`Version du ${await formatTimestamp(new Date())}`, {x:250, y:100, size:12, font, color:rgb(0,0,0)});
   
   const fontSizeNumber = 30;
 const numberText = String(id);
@@ -2452,6 +2453,20 @@ async function isBenne(id) {
     }
   }
   return false;
+}
+
+
+     async function formatTimestamp(timestamp) {
+  const date = new Date(timestamp);
+
+  const jour = String(date.getDate()).padStart(2, '0');
+  const mois = String(date.getMonth() + 1).padStart(2, '0'); // +1 car les mois commencent à 0
+  const annee = String(date.getFullYear()).slice(-2); // Prend les 2 derniers chiffres
+
+  const heures = String(date.getHours() + offset).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${jour}/${mois}/${annee} à ${heures}h${minutes}`;
 }
 
 async function getOptList() {
