@@ -948,14 +948,14 @@ comDatas[ben.id] = ben;
             window.open(`/historique?type=compte&id=${ben.id}`, '_blank');
           });
           line.append(button);
-              if (ben.auth == "driver") {
+         //     if (ben.auth == "driver") {
              const buttonB = document.createElement('button');
           buttonB.textContent = "Document";
           buttonB.addEventListener('click', () => {
             window.open(`/documentexplicatif?session=${sessionStorage.getItem('session_id')}&id=${ben.id}`, '_blank');
           });
           line.append(buttonB);
-              }
+       //       }
           const pds = document.createElement('p');
           pds.textContent = formatTimestamp(ben.last_connection);;
           line.append(pds);
