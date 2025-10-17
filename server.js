@@ -2436,7 +2436,7 @@ const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
   const textWidthB = font.widthOfTextAtSize(explications, fontSizeB);
   const xCenterB = (595 - Math.min(textWidthB, maxWidthB)) / 2;
   // 595,842
-  page.drawText(explications, {x:xCenterB, y:650, size:fontSizeB, font, color:rgb(0,0,0), maxWidth:maxWidthB});
+  page.drawText(explications, {x:xCenterB, y:600, size:fontSizeB, font, color:rgb(0,0,0), maxWidth:maxWidthB});
   const pdfBytes = await pdfDoc.save();
   fs.writeFileSync(filePath, pdfBytes);
   return filePath;
