@@ -2459,7 +2459,7 @@ async function isBenne(id) {
      async function formatTimestamp(timestamp) {
   const alldate = new Date(timestamp);
 
-       const localDate = new Date(
+       const date = new Date(
     alldate.toLocaleString('en-US', { timeZone: 'Europe/Paris' })
   );
 
