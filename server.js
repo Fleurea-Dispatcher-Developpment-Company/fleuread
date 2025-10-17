@@ -2413,7 +2413,7 @@ async function pdf2(id, filePath) {
  //  page.drawRectangle({x:100, y:300, width:200, height:200, borderColor:rgb(1,0,0), borderWidth:2});
 const qrImage = await pdfDoc.embedPng(base64Data);
   const qrDims = qrImage.scale(1);
-  page.drawImage(qrImage, {x:20, y : 642, width:qrDims.width, height:qrDims.height});
+  page.drawImage(qrImage, {x:70, y : 642, width:qrDims.width, height:qrDims.height});
 
   // On a la base; il reste les explications et les identifiants
    page.drawText(`Identité : ${await getConducteur(id)}`, {x:400, y:700, size:12, font, color:rgb(0,0,0)});
