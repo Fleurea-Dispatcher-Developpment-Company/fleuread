@@ -2437,6 +2437,7 @@ const numberWidth = font.widthOfTextAtSize(numberText, fontSizeNumber);
   const xCenterB = (595 - Math.min(textWidthB, maxWidthB)) / 2;
   // 595,842
   page.drawText(explications, {x:xCenterB, y:600, size:fontSizeB, font, color:rgb(0,0,0), maxWidth:maxWidthB});
+  page.drawText("`                      Il est également possible pour vous, dans un second temps, de personnaliser votre image de profil en cliquant sur son icône. Le système étant en développement, de nouvelles fonctionnalités sont succeptibles d'apparaître au cours du temps.", {x:xCenterB, y:300, size:fontSizeB, font, color:rgb(0,0,0), maxWidth:maxWidthB});
   const pdfBytes = await pdfDoc.save();
   fs.writeFileSync(filePath, pdfBytes);
   return filePath;
