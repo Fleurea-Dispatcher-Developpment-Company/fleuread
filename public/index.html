@@ -47,6 +47,7 @@
         formulaire(); 
         }
       }
+        readParams ();
       }
       
       start();
@@ -125,6 +126,25 @@
           return data;
         } catch (err) {return err;}
       }
+
+       async function readParams () {
+        // showToast("Lecture des paramètres en cours...");
+       
+        const urlParams = new URLSearchParams(window.location.search);
+        const action = urlParams.get('action');
+        const id = urlParams.get('benne');
+       //   showToast(`Résult : ${id} / ${action}`);
+      
+      
+            if (action == "register") {
+              console.log("register");
+          //    showToast("Demande d'enregistrement...");
+              if (id) {
+               // On procède à la connexion du client...
+              }
+            }
+      }
+
 
       document.getElementById('login').addEventListener('submit', async (e) => {
         e.preventDefault();
