@@ -95,7 +95,7 @@ app.get('/', async (req, res) => {
 
 app.get('/status', async (req, res) => {
   try {
-  res.send(temoindistance);
+  res.status(200).json({value:temoindistance});
   } catch (err) {
     console.error(err);
   }
