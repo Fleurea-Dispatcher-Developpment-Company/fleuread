@@ -93,6 +93,14 @@ app.get('/', async (req, res) => {
   }
 });
 
+app.get('/status', async (req, res) => {
+  try {
+  res.send(temoindistance);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 app.get('/icon', async (req, res) => {
   try {
   res.sendFile(path.join(__dirname, 'public', 'icon_changer.html'));
@@ -2604,6 +2612,8 @@ function removeWord(str, word) {
   return str.replace(regex, "").trim();
 }
 
+let temoindistance = 0;
+
 async function autoChange(benne, longitude, latitude) {
   console.log("AutoChange");
   try {
@@ -2624,6 +2634,7 @@ async function autoChange(benne, longitude, latitude) {
     console.log("HPI");
     console.log(item.radius);
     console.log(distance);
+    temoindistance = distance;
     if (distance < (item.radius)) {
       console.log(true);
       await editDatabase ('bennes', 'statut', 'C', 'num', benne);
