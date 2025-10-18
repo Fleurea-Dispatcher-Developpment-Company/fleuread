@@ -1900,6 +1900,11 @@ app.post('/changeimagedata', async (req, res) => {
    if (type == "comptes") {
   deleteImageFromUrl(lasturl);
    }
+    socketReload ("benne"); 
+   socketReload ("client"); 
+   socketReload ("compte"); 
+   socketReload ("param");
+   socketReload ("cereale");
   return {message:"Confirmation du changement d'image.", color:'yellow'};
  }
 
