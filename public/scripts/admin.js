@@ -281,7 +281,7 @@ async function plotStorage() {
   console.log(storagePoints);
 
   for (const point of storagePoints) {
-    const coords = createGeodesicCircle(point.longitude, point.latitude, point.radius);
+    const coords = createGeodesicCircle(point.longitude.trim(), point.latitude.trim(), point.radius);
     const circle = L.polygon(coords, {
       color: 'royalblue',
       fillColor: 'steelblue',
