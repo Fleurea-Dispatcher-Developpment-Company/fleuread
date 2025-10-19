@@ -2642,14 +2642,14 @@ async function autoChange(benne, longitude, latitude) {
       console.log(true);
       if (await checkTheValue(17)) {
       await editDatabase ('bennes', 'statut', 'C', 'num', benne);
-    
+    setHourBenne (benne);
       socketReload ("benne");
       }
     } else {
       console.log(false);
       if (await checkTheValue(16)) {
       await editDatabase ('bennes', 'statut', 'A', 'num', benne);
-    
+    setHourBenne (benne);
       socketReload ("benne");
       }
     }
