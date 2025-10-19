@@ -299,6 +299,17 @@ async function plotStorage() {
     for (const point of storagePoints) {
         const lat = parseFloat(point.longitude.trim());
         const lon = parseFloat(point.latitude.trim());
+
+  const coordsB = createGeodesicCircleExact(lat, lon, (point.radius * (280/200));
+
+        const circleB = L.polygon(coordsB, {
+            color: 'royalblue',
+            fillColor: 'red',
+            fillOpacity: 0.4
+        })
+        .addTo(map)
+
+          
         const coords = createGeodesicCircleExact(lat, lon, point.radius);
 
         const circle = L.polygon(coords, {
