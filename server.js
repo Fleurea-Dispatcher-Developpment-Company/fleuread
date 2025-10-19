@@ -581,6 +581,7 @@ async function getBennes(thisid) {
         adresse:benne.adresse,
         cereale:benne.céréale,
         society:benne.society,
+        lastactu:benne.lastactu,
         flash_id:`B${benne.num}A${benne.num}`,
         status:benne.statut,
         search_status:await convertToSearch(benne.statut),
