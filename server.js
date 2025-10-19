@@ -2775,7 +2775,7 @@ async function checkTheValue(num) {
     if (param.num == num) {
       console.log(true);
       console.log(param.value.trim().toLowerCase);
-      if (param.value.trim().toLowerCase == "oui") {
+      if (param.value.trim().toLowerCase() == "oui") {
         return true;
         console.log(true);
       }
