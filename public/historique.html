@@ -17,7 +17,7 @@
     </div>
     
     <div style="display:flex; flex-direction:row; position:absolute; top:94vh; left:1vw; height:5vh; width:98vw;">
-     <button>Format PDF</button>
+     <button onclick="generatePdf();">Format PDF</button>
       <button>Format Excel</button>
       <button>Format Texte</button>
     </div>
@@ -340,7 +340,7 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
     </style>
     <script>
       // Génération des documents
-       function createPDF() {
+       function generatePDF() {
         const now = new Date();
         const nowFormatted = String(now.getDate()) + String(now.getMonth()) + String(now.getFullYear()) + String(now.getHours()) + String(now.getMinutes()) + String(now.getSeconds());
           console.log(nowFormatted);
@@ -348,7 +348,7 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
           const doc = new jsPDF();
       
           doc.autoTable({
-            html: '#tableau',
+            html: '#tablehisto',
             theme: 'grid',
             headStyles: { fillColor: [80, 80, 80], 
                          halign:'center',
@@ -360,12 +360,12 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
             }
           });
       
-          doc.save(`calculautomatiquedesdistances${nowFormatted}.pdf`);
+          doc.save(`HISTORIQUE_${alltype}_${allid}-${nowFormatted}.pdf`);
     }
     
     function createExcel() {
   const wb = XLSX.utils.book_new(); // Crée un nouveau classeur
-  const table = document.getElementById("tableau"); // Récupère le tableau HTML
+  const table = document.getElementById("tablehisto"); // Récupère le tableau HTML
 
   // Convertit le tableau HTML en feuille de calcul
   const ws = XLSX.utils.table_to_sheet(table);
