@@ -244,7 +244,7 @@ async function translateColor (input) {
 // main.js
 
 // Import Vincenty ellipsoidal (WGS84)
-import LatLon from 'https://cdn.jsdelivr.net/npm/geodesy@2.2.0/latlon-ellipsoidal-vincenty.js';
+// import LatLon from 'https://cdn.jsdelivr.net/npm/geodesy@2.2.0/latlon-ellipsoidal-vincenty.js';
 
 // Fonction utilitaire : calcule un point à distance donnée sur l'ellipsoïde
 function destPoint(lat, lon, distanceMeters, bearingDeg) {
