@@ -86,7 +86,7 @@
           display:flex;
           justify-content:center; /* aligné à l'horizontal */
           align-items:center; /* aligné en vertical */
-          background: #30a72f;
+          background: grey;
           font-family: Arial, sans-serif;
            box-sizing:border-box; 
       }
