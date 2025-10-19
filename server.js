@@ -2630,8 +2630,8 @@ async function autoChange(benne, longitude, latitude) {
       }
   console.log(storages);
   for (const item of storages) {
-    const latitudeHere = longitude;
-    const longitudeHere = latitude;
+    const latitudeHere = latitude;
+    const longitudeHere = longitude;
     const distance = haversineDistance({lat:item.latitude, lon:item.longitude}, {lat:longitudeHere, lon:latitudeHere});
     console.log("HPI");
     console.log(item.radius);
