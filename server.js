@@ -2639,11 +2639,18 @@ async function autoChange(benne, longitude, latitude) {
     temoindistance = distance;
     if (distance < (item.radius)) {
       console.log(true);
+      if (await checkTheValue(17)) {
       await editDatabase ('bennes', 'statut', 'C', 'num', benne);
     
       socketReload ("benne");
+      }
     } else {
       console.log(false);
+      if (await checkTheValue(16)) {
+      await editDatabase ('bennes', 'statut', 'A', 'num', benne);
+    
+      socketReload ("benne");
+      }
     }
   }
   } catch (err) {
@@ -2758,3 +2765,15 @@ app.get('/fileprovider', async (req, res) => {
     console.error(err);
   }
 });
+
+async function checkTheValue(num) {
+  const datashere = await readDatabase('informations','*');
+  for (const param of datashere) {
+    if (param.id == num) {
+      if (param.value.trim().toLowerCase == "oui") {
+        return true;
+      }
+    }
+  }
+  return false;
+}
