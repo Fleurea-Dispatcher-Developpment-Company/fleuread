@@ -17,9 +17,8 @@
     </div>
     
     <div style="display:flex; flex-direction:row; position:absolute; top:94vh; left:1vw; height:6vh; width:98vw;">
-     <button onclick="generatePdf();">Format PDF</button>
-      <button>Format Excel</button>
-      <button>Format Texte</button>
+      <button onclick="createExcel();">Format Excel</button>
+      <button onclick="createTXT();">Format Texte</button>
     </div>
        <script>
       const offset = -((new Date().getTimezoneOffset()) / 60);
@@ -338,68 +337,44 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
         to {opacity:0; transform:translateX(50%);}
       }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+   <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
     <script>
-      // Génération des documents
-     function generatePdf() {
-    // Timestamp lisible et triable : YYYYMMDD_HHMMSS
+    // Fonction utilitaire pour timestamp lisible et unique
+  function getTimestamp() {
     const now = new Date();
     const pad = n => String(n).padStart(2, "0");
-    const nowFormatted = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
-    console.log(nowFormatted);
+    return `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+  }
 
-    // Extraction de jsPDF
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+  // --- Génération Excel (.xlsx)
+  function createExcel() {
+    const table = document.getElementById("tablehisto"); // Tableau HTML
+    const wb = XLSX.utils.book_new();                   // Nouveau classeur
+    const ws = XLSX.utils.table_to_sheet(table);        // Convertit table en feuille
+    XLSX.utils.book_append_sheet(wb, ws, "Distances"); // Ajoute la feuille
 
-    // Création du tableau PDF
-    doc.autoTable({
-        html: '#tablehisto', // Tableau HTML source
-        theme: 'grid',        // Ta mise en forme actuelle
-        headStyles: { 
-            fillColor: [0, 0, 255], 
-            halign: 'center',
-            valign: 'middle'
-        },
-        bodyStyles: {
-            halign: 'center',
-            valign: 'middle'
-        },
-        styles: { fontSize: 8 }, // Optionnel pour lisibilité
-        margin: { top: 20 }       // Petit top margin
-    });
+    XLSX.writeFile(wb, `HISTORIQUE_${alltype.toUpperCase}_${allid}-${getTimestamp()}.xlsx`);
+  }
 
-    // Téléchargement du PDF
-    doc.save(`HISTORIQUE_${alltype}_${allid}-${nowFormatted}.pdf`);
-}
+  // --- Génération TXT (.txt)
+  function createTXT() {
+    const table = document.getElementById("tablehisto");
+    let txtContent = "";
 
-    
-    function createExcel() {
-  const wb = XLSX.utils.book_new(); // Crée un nouveau classeur
-  const table = document.getElementById("tablehisto"); // Récupère le tableau HTML
+    // Parcours de chaque ligne du tableau
+    for (const row of table.rows) {
+      const cells = Array.from(row.cells).map(cell => cell.innerText);
+      txtContent += cells.join("\t") + "\n"; // tabulation entre colonnes
+    }
 
-  // Convertit le tableau HTML en feuille de calcul
-  const ws = XLSX.utils.table_to_sheet(table);
-
-  // Ajoute la feuille au classeur
-  XLSX.utils.book_append_sheet(wb, ws, "Distances");
-
-  // Format de nom avec timestamp
-  const now = new Date();
-  const nowFormatted = String(now.getDate()).padStart(2, "0") +
-                       String(now.getMonth() + 1).padStart(2, "0") +
-                       String(now.getFullYear()) +
-                       "_" +
-                       String(now.getHours()).padStart(2, "0") +
-                       String(now.getMinutes()).padStart(2, "0") +
-                       String(now.getSeconds()).padStart(2, "0");
-
-  // Télécharge le fichier .xlsx
-  XLSX.writeFile(wb, `comparateur_distances_${nowFormatted}.xlsx`);
-}
-
+    // Création du blob et téléchargement
+    const blob = new Blob([txtContent], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `HISTORIQUE_${alltype.toUpperCase}_${allid}-${getTimestamp()}.txt`;
+    link.click();
+  }
     </script>
   </body>
 </html>
