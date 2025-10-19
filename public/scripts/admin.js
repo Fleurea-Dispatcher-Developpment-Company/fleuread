@@ -386,7 +386,7 @@ plotStorage();
         console.log(bennes);
         let filtered = [];
         if (filtre !== 'no') {
-        filtered = await filter(bennes, filtre, document.getElementById('smartchecker').value);
+        filtered = await filter(bennes, filtre, document.getElementById('smartchecker').checked);
         } else {
         filtered = bennes;
         }
