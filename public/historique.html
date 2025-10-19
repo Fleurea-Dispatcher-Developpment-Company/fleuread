@@ -10,6 +10,9 @@
   </head>
   <body>
      <div id="toast-container"></div>
+    <div id="pdfbutton">
+      PDF
+    </div>
     <div style="border:2px outset black; overflow-y:auto; position:absolute; top:1vh; left:1vw; height:98vh; width:98vw;">
      <table class="w3-center" style="width:100%; border:2px solid black; border-collapse:collapse; text-align:center;vertical-align:center;" id="tablehisto"></table>
       <p class="w3-center" id="result">Chargement des données en cours...</p>
@@ -266,6 +269,18 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
           max-width:400px;
           box-shadow: 0 8px 20px rgba(0,0,0,0.7);
          box-sizing:border-box;
+      }
+      #pdfbutton {
+        position:absolute;
+        z-index:10000;
+        top: 50;
+        right:2vh;
+          opacity:50%;
+        color:blue;
+        background-color:white;
+      }
+      #pdfbutton:hover {
+        opacity:0%;
       }
       input {
         width: 100%;
