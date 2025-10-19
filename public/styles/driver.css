@@ -96,7 +96,8 @@
         justify-content:space-around;
         width:90%;
         height:90%;
-     
+        top:10%;
+       position:absolute;
       }
       .thispage {
         top:10vh;
