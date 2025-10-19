@@ -338,9 +338,11 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
         to {opacity:0; transform:translateX(50%);}
       }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+// PDF
     <script>
       // Génération des documents
-       function generatePDF() {
+       function generatePdf() {
         const now = new Date();
         const nowFormatted = String(now.getDate()) + String(now.getMonth()) + String(now.getFullYear()) + String(now.getHours()) + String(now.getMinutes()) + String(now.getSeconds());
           console.log(nowFormatted);
