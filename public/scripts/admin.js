@@ -276,8 +276,8 @@ async function plotStorage() {
     for (const point of storagePoints) {
         // ⚠️ Inversion correcte : [longitude, latitude]
         const coords = createGeodesicCircle(
-            parseFloat(point.longitude.trim()),
             parseFloat(point.latitude.trim()),
+            parseFloat(point.longitude.trim()),
             point.radius
         );
 
