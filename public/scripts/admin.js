@@ -247,8 +247,8 @@ async function translateColor (input) {
 function createGeodesicCircle(centerLon, centerLat, radiusMeters, steps = 64) {
     // Turf utilise [lon, lat]
     const center = [parseFloat(centerLon), parseFloat(centerLat)];
-    const options = { steps: steps, units: 'meters' };
-    const circleGeoJSON = turf.circle(center, radiusMeters, options);
+    const options = { steps: steps, units: 'kilometers' };
+    const circleGeoJSON = turf.circle(center, (radiusMeters / 1000), options);
 
     // Convertir les coordonnées Turf [lon, lat] en [lat, lon] pour Leaflet
     const coords = circleGeoJSON.geometry.coordinates[0].map(c => [c[1], c[0]]);
@@ -262,7 +262,7 @@ async function plotStorage() {
 
     for (const point of storagePoints) {
         // Inversion lon/lat comme demandé
-        const coords = createGeodesicCircle(point.latitude.trim(), point.longitude.trim(), point.radius);
+        const coords = createGeodesicCircle(parseFloat(point.latitude.trim()), parseFloat(point.longitude.trim()), point.radius);
 
         const circle = L.polygon(coords, {
             color: 'royalblue',
