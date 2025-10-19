@@ -241,70 +241,57 @@ async function translateColor (input) {
       
     const markers = [];
 
-// Fonction utilitaire : calcule un point à distance donnée sur la sphère
+// main.js
+
+// Import Vincenty ellipsoidal (WGS84)
+import LatLon from 'https://cdn.jsdelivr.net/npm/geodesy@2.2.0/latlon-ellipsoidal-vincenty.js';
+
+// Fonction utilitaire : calcule un point à distance donnée sur l'ellipsoïde
 function destPoint(lat, lon, distanceMeters, bearingDeg) {
-  const R = 6371008.8; // rayon moyen de la Terre (m)
-  const δ = distanceMeters / R;
-  const θ = bearingDeg * Math.PI / 180;
-  const φ1 = lat * Math.PI / 180;
-  const λ1 = lon * Math.PI / 180;
-
-  const sinφ1 = Math.sin(φ1), cosφ1 = Math.cos(φ1);
-  const sinδ = Math.sin(δ), cosδ = Math.cos(δ);
-
-  const sinφ2 = sinφ1 * cosδ + cosφ1 * sinδ * Math.cos(θ);
-  const φ2 = Math.asin(sinφ2);
-  const y = Math.sin(θ) * sinδ * cosφ1;
-  const x = cosδ - sinφ1 * sinφ2;
-  const λ2 = λ1 + Math.atan2(y, x);
-
-  return {
-    lat: φ2 * 180 / Math.PI,
-    lon: ((λ2 * 180 / Math.PI + 540) % 360) - 180 // normaliser entre -180 et 180
-  };
+    const p = new LatLon(lat, lon);
+    const d = p.destinationPoint(distanceMeters, bearingDeg);
+    return { lat: d.lat, lon: d.lon };
 }
 
 // Crée un vrai cercle géodésique sous forme de polygone
-function createGeodesicCircle(centerLat, centerLon, radiusMeters, steps = 360) {
-  const coords = [];
-  for (let i = 0; i < steps; i++) {
-    const bearing = (360 / steps) * i;
-    const p = destPoint(centerLat, centerLon, radiusMeters, bearing);
-    coords.push([p.lat, p.lon]);
-  }
-  return coords;
+function createGeodesicCircle(centerLat, centerLon, radiusMeters, steps = 64) {
+    const coords = [];
+    for (let i = 0; i < steps; i++) {
+        const bearing = (360 / steps) * i;
+        const p = destPoint(centerLat, centerLon, radiusMeters, bearing);
+        coords.push([p.lat, p.lon]);
+    }
+    return coords;
 }
 
-// === Fonction principale corrigée ===
+// Fonction principale corrigée pour afficher les cercles
 async function plotStorage() {
-  const storagePoints = await fetcher('getstores', {authentified: true}, 'POST', sessionStorage.getItem('session_id'));
-  console.log(storagePoints);
+    const storagePoints = await fetcher('getstores', { authentified: true }, 'POST', sessionStorage.getItem('session_id'));
+    console.log(storagePoints);
 
-  for (const point of storagePoints) {
-    const coords = createGeodesicCircle(point.longitude.trim(), point.latitude.trim(), point.radius);
-    const circle = L.polygon(coords, {
-      color: 'royalblue',
-      fillColor: 'steelblue',
-      fillOpacity: 0.4
-    })
-      .addTo(map)
-      .bindPopup(point.name.toString());
+    for (const point of storagePoints) {
+        const lat = parseFloat(point.latitude.trim());
+        const lon = parseFloat(point.longitude.trim());
+        const coords = createGeodesicCircle(lat, lon, point.radius);
 
-    circle.off("click");
+        const circle = L.polygon(coords, {
+            color: 'royalblue',
+            fillColor: 'steelblue',
+            fillOpacity: 0.4
+        })
+        .addTo(map)
+        .bindPopup(point.name.toString());
 
-    // Gérer le survol
-    circle.on("mouseover", function () {
-      this.openPopup();
-    });
-    circle.on("mouseout", function () {
-      this.closePopup();
-    });
-  }
+        circle.off("click");
+
+        circle.on("mouseover", function () { this.openPopup(); });
+        circle.on("mouseout", function () { this.closePopup(); });
+    }
 }
 
+// Lancer l'affichage
+plotStorage();
 
-      plotStorage();
-      
       async function plotPoints () {
         // On possède les données
         // await getGeneralDatas();
