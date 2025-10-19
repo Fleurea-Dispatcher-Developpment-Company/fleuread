@@ -241,38 +241,28 @@ async function translateColor (input) {
       
     const markers = [];
 
-// main.js
 
-// Import Vincenty ellipsoidal (WGS84)
-// import LatLon from 'https://cdn.jsdelivr.net/npm/geodesy@2.2.0/latlon-ellipsoidal-vincenty.js';
 
-// Fonction utilitaire : calcule un point à distance donnée sur l'ellipsoïde
-function destPoint(lat, lon, distanceMeters, bearingDeg) {
-    const p = new LatLon(lat, lon);
-    const d = p.destinationPoint(distanceMeters, bearingDeg);
-    return { lat: d.lat, lon: d.lon };
-}
+// Crée un cercle géodésique avec Turf.js
+function createGeodesicCircle(centerLon, centerLat, radiusMeters, steps = 64) {
+    // Turf utilise [lon, lat]
+    const center = [parseFloat(centerLon), parseFloat(centerLat)];
+    const options = { steps: steps, units: 'meters' };
+    const circleGeoJSON = turf.circle(center, radiusMeters, options);
 
-// Crée un vrai cercle géodésique sous forme de polygone
-function createGeodesicCircle(centerLat, centerLon, radiusMeters, steps = 64) {
-    const coords = [];
-    for (let i = 0; i < steps; i++) {
-        const bearing = (360 / steps) * i;
-        const p = destPoint(centerLat, centerLon, radiusMeters, bearing);
-        coords.push([p.lat, p.lon]);
-    }
+    // Convertir les coordonnées Turf [lon, lat] en [lat, lon] pour Leaflet
+    const coords = circleGeoJSON.geometry.coordinates[0].map(c => [c[1], c[0]]);
     return coords;
 }
 
-// Fonction principale corrigée pour afficher les cercles
+// Fonction principale pour afficher les cercles
 async function plotStorage() {
     const storagePoints = await fetcher('getstores', { authentified: true }, 'POST', sessionStorage.getItem('session_id'));
     console.log(storagePoints);
 
     for (const point of storagePoints) {
-        const lat = parseFloat(point.latitude.trim());
-        const lon = parseFloat(point.longitude.trim());
-        const coords = createGeodesicCircle(lat, lon, point.radius);
+        // Inversion lon/lat comme demandé
+        const coords = createGeodesicCircle(point.longitude.trim(), point.latitude.trim(), point.radius);
 
         const circle = L.polygon(coords, {
             color: 'royalblue',
@@ -283,7 +273,6 @@ async function plotStorage() {
         .bindPopup(point.name.toString());
 
         circle.off("click");
-
         circle.on("mouseover", function () { this.openPopup(); });
         circle.on("mouseout", function () { this.closePopup(); });
     }
@@ -291,6 +280,7 @@ async function plotStorage() {
 
 // Lancer l'affichage
 plotStorage();
+
 
       async function plotPoints () {
         // On possède les données
