@@ -1670,6 +1670,8 @@ async function selectOptionByText (text) {
 
 
 
-
+document.getElementById('smartcheck').addEventListener('change', () => {
+    document.getElementById('resultcheckbox').textContent = document.getElementById('smartcheck').checked ? 'Urgentiel' : 'Alphabétique';
+  });
 
 
