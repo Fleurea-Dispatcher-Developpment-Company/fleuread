@@ -2772,7 +2772,7 @@ async function checkTheValue(num) {
   const datashere = await readDatabase('informations','*');
   for (const param of datashere) {
     console.log(param);
-    if (param.id == num) {
+    if (param.num == num) {
       console.log(true);
       console.log(param.value.trim().toLowerCase);
       if (param.value.trim().toLowerCase == "oui") {
