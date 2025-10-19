@@ -243,28 +243,26 @@ async function translateColor (input) {
 
 
 
-// Crée un cercle géodésique avec Turf.js
+// Crée un cercle géodésique précis avec Turf.js
 function createGeodesicCircle(centerLon, centerLat, radiusMeters, steps = 64) {
     // Turf attend [lon, lat]
     const center = [parseFloat(centerLon), parseFloat(centerLat)];
 
-    // Crée le cercle (rayon en kilomètres)
-    const options = { steps: steps, units: 'kilometers' };
-    const circleGeoJSON = turf.circle(center, radiusMeters / 1000, options);
+    // Générer les points du cercle avec turf.destination
+    const coords = [];
+    for (let i = 0; i < steps; i++) {
+        const angle = (360 / steps) * i; // azimut en degrés
+        const pt = turf.destination(center, radiusMeters / 1000, angle, { units: 'kilometers' });
+        coords.push([pt.geometry.coordinates[1], pt.geometry.coordinates[0]]); // [lat, lon] pour Leaflet
+    }
 
-    // --- CHECKING : distances Haversine ---
-    const dists = circleGeoJSON.geometry.coordinates[0].map(pt => {
-        return turf.distance(center, pt, { units: 'kilometers' }) * 1000; // en mètres
-    });
+    // Vérification des distances Haversine
+    const dists = coords.map(c => turf.distance([c[1], c[0]], center, { units: 'kilometers' }) * 1000);
     const minDist = Math.min(...dists);
     const maxDist = Math.max(...dists);
     const avgDist = dists.reduce((a, b) => a + b, 0) / dists.length;
-
     console.log('min,max,avg distance (m):', minDist, maxDist, avgDist);
-    // --------------------------------------
 
-    // Convertir les coordonnées [lon, lat] → [lat, lon] pour Leaflet
-    const coords = circleGeoJSON.geometry.coordinates[0].map(c => [c[1], c[0]]);
     return coords;
 }
 
@@ -276,8 +274,8 @@ async function plotStorage() {
     for (const point of storagePoints) {
         // ⚠️ Inversion correcte : [longitude, latitude]
         const coords = createGeodesicCircle(
-            parseFloat(point.latitude.trim()),
             parseFloat(point.longitude.trim()),
+            parseFloat(point.latitude.trim()),
             point.radius
         );
 
@@ -297,6 +295,7 @@ async function plotStorage() {
 
 // Lancer l'affichage
 plotStorage();
+
 
 
 
