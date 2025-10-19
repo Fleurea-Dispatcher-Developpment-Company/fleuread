@@ -725,7 +725,7 @@ app.post('/getcomptes', async (req, res) => {
 
 async function getComptes(thisid) {
   let comptes = await readDatabase('comptes', '*');
-  comptes.sort((a, b) => a.name - b.name);
+  comptes.sort((a, b) => a.name.localeCompare(b.name));
   totalStatCom = comptes.length;
   nowStatCom = 0;
   const formatted = await Promise.all(
@@ -817,7 +817,7 @@ app.post('/getclients', async (req, res) => {
 
 async function getClients(thisid) {
   let comptes = await readDatabase('clients', '*');
-  comptes.sort((a, b) => a.name - b.name);
+  comptes.sort((a, b) => a.name.localeCompare(b.name));
   totalStatCli = comptes.length;
   nowStatCli = 0;
   const formatted = await Promise.all(
@@ -912,7 +912,7 @@ app.post('/getcereales', async (req, res) => {
 
 async function getCereales(thisid) {
   let comptes = await readDatabase('cereales', '*');
-  comptes.sort((a, b) => a.name - b.name);
+  comptes.sort((a, b) => a.name.localeCompare(b.name));
   totalStatCer = comptes.length;
   nowStatCer = 0;
   const formatted = await Promise.all(
@@ -996,7 +996,7 @@ app.post('/getparams', async (req, res) => {
 
 async function getParams(thisid) {
   let comptes = await readDatabase('informations', '*');
-  comptes.sort((a, b) => a.name - b.name);
+  comptes.sort((a, b) => a.donnee.localeCompare(b.donnee));
   totalStatPar = comptes.length;
   nowStatPar = 0;
   const formatted = await Promise.all(
