@@ -250,6 +250,16 @@ function createGeodesicCircle(centerLon, centerLat, radiusMeters, steps = 64) {
     const options = { steps: steps, units: 'kilometers' };
     const circleGeoJSON = turf.circle(center, (radiusMeters / 1000), options);
 
+      // CHECKING
+      const center = circleGeoJSON.geometry.coordinates[0][0]; // ou ton centre [lon,lat]
+const dists = circleGeoJSON.geometry.coordinates[0].map(pt => {
+  return turf.distance(center, pt, { units: 'kilometers' }) * 1000; // en mètres
+});
+console.log('min,max,avg distance (m):',
+  Math.min(...dists), Math.max(...dists),
+  dists.reduce((a,b)=>a+b,0)/dists.length);
+      // CHECKING
+
     // Convertir les coordonnées Turf [lon, lat] en [lat, lon] pour Leaflet
     const coords = circleGeoJSON.geometry.coordinates[0].map(c => [c[1], c[0]]);
     return coords;
