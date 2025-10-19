@@ -300,7 +300,7 @@ async function plotStorage() {
         const lat = parseFloat(point.longitude.trim());
         const lon = parseFloat(point.latitude.trim());
 
-  const coordsB = createGeodesicCircleExact(lat, lon, (point.radius * (280/200));
+  const coordsB = createGeodesicCircleExact(lat, lon, (point.radius * (280/200)));
 
         const circleB = L.polygon(coordsB, {
             color: 'royalblue',
