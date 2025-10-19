@@ -243,27 +243,51 @@ async function translateColor (input) {
 
 
 
-// Crée un cercle géodésique précis avec Turf.js
-function createGeodesicCircle(centerLon, centerLat, radiusMeters, steps = 64) {
-    // Turf attend [lon, lat]
-    const center = [parseFloat(centerLon), parseFloat(centerLat)];
+// Calcul exact d'un point à une distance et azimut sur une sphère (formule Haversine inversée)
+function destinationPoint(lat, lon, distanceMeters, bearingDegrees) {
+    const R = 6371000; // Rayon de la Terre en mètres
+    const φ1 = lat * Math.PI / 180;
+    const λ1 = lon * Math.PI / 180;
+    const θ = bearingDegrees * Math.PI / 180;
+    const δ = distanceMeters / R;
 
-    // Générer les points du cercle avec turf.destination
+    const φ2 = Math.asin(Math.sin(φ1) * Math.cos(δ) + Math.cos(φ1) * Math.sin(δ) * Math.cos(θ));
+    const λ2 = λ1 + Math.atan2(Math.sin(θ) * Math.sin(δ) * Math.cos(φ1), Math.cos(δ) - Math.sin(φ1) * Math.sin(φ2));
+
+    return [φ2 * 180 / Math.PI, λ2 * 180 / Math.PI]; // [lat, lon]
+}
+
+// Crée un cercle géodésique exact
+function createGeodesicCircleExact(centerLat, centerLon, radiusMeters, steps = 64) {
     const coords = [];
     for (let i = 0; i < steps; i++) {
-        const angle = (360 / steps) * i; // azimut en degrés
-        const pt = turf.destination(center, radiusMeters / 1000, angle, { units: 'kilometers' });
-        coords.push([pt.geometry.coordinates[1], pt.geometry.coordinates[0]]); // [lat, lon] pour Leaflet
+        const bearing = (360 / steps) * i;
+        const [lat, lon] = destinationPoint(centerLat, centerLon, radiusMeters, bearing);
+        coords.push([lat, lon]); // [lat, lon] pour Leaflet
     }
 
-    // Vérification des distances Haversine
-    const dists = coords.map(c => turf.distance([c[1], c[0]], center, { units: 'kilometers' }) * 1000);
+    // Vérification des distances Haversine exactes
+    const dists = coords.map(c => haversineDistance([centerLat, centerLon], c));
     const minDist = Math.min(...dists);
     const maxDist = Math.max(...dists);
-    const avgDist = dists.reduce((a, b) => a + b, 0) / dists.length;
+    const avgDist = dists.reduce((a,b)=>a+b,0)/dists.length;
     console.log('min,max,avg distance (m):', minDist, maxDist, avgDist);
 
     return coords;
+}
+
+// Fonction Haversine exacte
+function haversineDistance([lat1, lon1], [lat2, lon2]) {
+    const R = 6371000; // en mètres
+    const toRad = x => x * Math.PI / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const φ1 = toRad(lat1);
+    const φ2 = toRad(lat2);
+
+    const a = Math.sin(dLat/2)**2 + Math.cos(φ1)*Math.cos(φ2)*Math.sin(dLon/2)**2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
 }
 
 // Fonction principale pour afficher les cercles
@@ -272,12 +296,9 @@ async function plotStorage() {
     console.log(storagePoints);
 
     for (const point of storagePoints) {
-        // ⚠️ Inversion correcte : [longitude, latitude]
-        const coords = createGeodesicCircle(
-            parseFloat(point.latitude.trim()),
-            parseFloat(point.longitude.trim()),
-            point.radius
-        );
+        const lat = parseFloat(point.latitude.trim());
+        const lon = parseFloat(point.longitude.trim());
+        const coords = createGeodesicCircleExact(lat, lon, point.radius);
 
         const circle = L.polygon(coords, {
             color: 'royalblue',
@@ -295,6 +316,7 @@ async function plotStorage() {
 
 // Lancer l'affichage
 plotStorage();
+
 
 
 
