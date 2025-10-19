@@ -354,7 +354,7 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
     const ws = XLSX.utils.table_to_sheet(table);        // Convertit table en feuille
     XLSX.utils.book_append_sheet(wb, ws, "Distances"); // Ajoute la feuille
 
-    XLSX.writeFile(wb, `HISTORIQUE_${alltype.toUpperCase}_${allid}-${getTimestamp()}.xlsx`);
+    XLSX.writeFile(wb, `HISTORIQUE_${alltype.toUpperCase()}_${allid}-${getTimestamp()}.xlsx`);
   }
 
   // --- Génération TXT (.txt)
@@ -372,7 +372,7 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
     const blob = new Blob([txtContent], { type: "text/plain" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `HISTORIQUE_${alltype.toUpperCase}_${allid}-${getTimestamp()}.txt`;
+    link.download = `HISTORIQUE_${alltype.toUpperCase()}_${allid}-${getTimestamp()}.txt`;
     link.click();
   }
     </script>
