@@ -267,7 +267,8 @@ function createGeodesicCircleExact(centerLat, centerLon, radiusMeters, steps = 6
     }
 
     // Vérification des distances Haversine exactes
-    const dists = coords.map(c => haversineDistance([centerLat, centerLon], c));
+    const dists = coords.map(c => haversineDistanceB([centerLat, centerLon], c));
+      console.log(dists);
     const minDist = Math.min(...dists);
     const maxDist = Math.max(...dists);
     const avgDist = dists.reduce((a,b)=>a+b,0)/dists.length;
@@ -277,7 +278,7 @@ function createGeodesicCircleExact(centerLat, centerLon, radiusMeters, steps = 6
 }
 
 // Fonction Haversine exacte
-function haversineDistance([lat1, lon1], [lat2, lon2]) {
+function haversineDistanceB([lat1, lon1], [lat2, lon2]) {
     const R = 6371000; // en mètres
     const toRad = x => x * Math.PI / 180;
     const dLat = toRad(lat2 - lat1);
