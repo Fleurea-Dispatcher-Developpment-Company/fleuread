@@ -251,9 +251,9 @@ function createGeodesicCircle(centerLon, centerLat, radiusMeters, steps = 64) {
     const circleGeoJSON = turf.circle(center, (radiusMeters / 1000), options);
 
       // CHECKING
-      const center = circleGeoJSON.geometry.coordinates[0][0]; // ou ton centre [lon,lat]
+      const centerB = circleGeoJSON.geometry.coordinates[0][0]; // ou ton centre [lon,lat]
 const dists = circleGeoJSON.geometry.coordinates[0].map(pt => {
-  return turf.distance(center, pt, { units: 'kilometers' }) * 1000; // en mètres
+  return turf.distance(centerB, pt, { units: 'kilometers' }) * 1000; // en mètres
 });
 console.log('min,max,avg distance (m):',
   Math.min(...dists), Math.max(...dists),
