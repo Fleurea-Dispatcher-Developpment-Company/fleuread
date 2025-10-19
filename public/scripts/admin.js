@@ -296,8 +296,8 @@ async function plotStorage() {
     console.log(storagePoints);
 
     for (const point of storagePoints) {
-        const lat = parseFloat(point.latitude.trim());
-        const lon = parseFloat(point.longitude.trim());
+        const lat = parseFloat(point.longitude.trim());
+        const lon = parseFloat(point.latitude.trim());
         const coords = createGeodesicCircleExact(lat, lon, point.radius);
 
         const circle = L.polygon(coords, {
