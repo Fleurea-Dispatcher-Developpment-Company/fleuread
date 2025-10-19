@@ -262,7 +262,7 @@ async function plotStorage() {
 
     for (const point of storagePoints) {
         // Inversion lon/lat comme demandé
-        const coords = createGeodesicCircle(point.longitude.trim(), point.latitude.trim(), point.radius);
+        const coords = createGeodesicCircle(point.latitude.trim(), point.longitude.trim(), point.radius);
 
         const circle = L.polygon(coords, {
             color: 'royalblue',
