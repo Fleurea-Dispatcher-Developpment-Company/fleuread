@@ -190,6 +190,9 @@
         font-size: 1rem;
         box-sizing:border-box; 
       }
+#smartcheck {
+ width:auto;
+}
       button {
         
         
