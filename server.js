@@ -2651,33 +2651,26 @@ async function autoChange(benne, longitude, latitude) {
   }
 }
 
+// Calcul exact de la distance Haversine en mètres
 function haversineDistance(coord1, coord2) {
-  console.log("HAVERSINE");
-  const R = 6371; // Rayon de la Terre en km
-  const toRad = deg => deg * Math.PI / 180;
+    const R = 6371000; // Rayon de la Terre en mètres
+    const toRad = deg => deg * Math.PI / 180;
 
-  const lat1 = toRad(coord1.lat);
-  const lon1 = toRad(coord1.lon);
-  const lat2 = toRad(coord2.lat);
-  const lon2 = toRad(coord2.lon);
+    const lat1 = toRad(coord1.lat);
+    const lon1 = toRad(coord1.lon);
+    const lat2 = toRad(coord2.lat);
+    const lon2 = toRad(coord2.lon);
 
-  console.log(lat1);
-  console.log(lat2);
-  console.log(lon1);
-  console.log(lon2);
+    const dLat = lat2 - lat1;
+    const dLon = lon2 - lon1;
 
-  const dLat = lat2 - lat1;
-  const dLon = lon2 - lon1;
+    const a = Math.sin(dLat / 2) ** 2 +
+              Math.cos(lat1) * Math.cos(lat2) *
+              Math.sin(dLon / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  const a = Math.sin(dLat / 2) ** 2 +
-            Math.cos(lat1) * Math.cos(lat2) *
-            Math.sin(dLon / 2) ** 2;
-  const c = 2 * Math.asin(Math.sqrt(a));
-
-  let result = R * c;
-  result = result * 1000;
-  console.log(result);
-  return result; // Distance en m
+    const distance = R * c; // Distance en mètres
+    return distance;
 }
 
 app.post('/createdepot', async (req, res) => {
