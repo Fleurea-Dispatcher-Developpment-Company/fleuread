@@ -494,12 +494,14 @@ benDatas[ben.id] = ben;
       async function filter (what, filtre, smart) {
         console.log("Appel d'un filtre");
         console.log("Avant :", what);
+            let todeal;
+            todeal = what;
         const query = filtre.toLowerCase();
             if (smart) {
-        return what.sort((a, b) => new Date(b.lastactu) - new Date(a.lastactu));
-            } else {
-        return what.filter(obj => Object.values(obj).some(val => String(val).toLowerCase().includes(query)));
+        todeal = todeal.sort((a, b) => new Date(b.lastactu) - new Date(a.lastactu));
             }
+        return todeal.filter(obj => Object.values(obj).some(val => String(val).toLowerCase().includes(query)));
+            
       }
 
       function short(str) {
