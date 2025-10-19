@@ -581,7 +581,7 @@ async function getBennes(thisid) {
         adresse:benne.adresse,
         cereale:benne.céréale,
         society:benne.society,
-        lastactu:benne.lastactu,
+        lastactu:await betweenDates(new Date(), benne.lastactu),
         flash_id:`B${benne.num}A${benne.num}`,
         status:benne.statut,
         search_status:await convertToSearch(benne.statut),
@@ -2793,4 +2793,17 @@ async function setHourBenne (benne) {
   const stringDate = now.toISOString().split('T')[0];
   console.log(stringDate);
   await editDatabase ('bennes', 'lastactu', stringDate, 'num', benne);
+}
+
+async function betweenDates(a, b) {
+  const a1 = new Date(a);
+  const b2 = new Date(b);
+
+  // Différence en millisecondes
+  const diffMs = b2 - a1;
+
+  // Conversion en jours (1 jour = 86 400 000 ms)
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+
+  return Math.abs(diffDays);
 }
