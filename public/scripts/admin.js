@@ -457,6 +457,10 @@ benDatas[ben.id] = ben;
           const pds = document.createElement('p');
           pds.textContent = ben.formatted_cereale;
           line.append(pds);
+
+          const aym = document.createElement('p');
+          aym.textContent = ben.lastactu;
+          line.append(aym);
           
           const notes = document.createElement('p');
           notes.textContent = short(ben.notes);
