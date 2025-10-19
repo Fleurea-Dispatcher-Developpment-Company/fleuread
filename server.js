@@ -2784,3 +2784,7 @@ async function checkTheValue(num) {
   }
   return false;
 }
+
+async function setHourBenne (benne) {
+  
+}
