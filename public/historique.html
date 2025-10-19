@@ -343,28 +343,38 @@ console.warn(`${jour}/${mois}/${annee} à ${heures}h${minutes}`);
 
     <script>
       // Génération des documents
-       function generatePdf() {
-        const now = new Date();
-        const nowFormatted = String(now.getDate()) + String(now.getMonth()) + String(now.getFullYear()) + String(now.getHours()) + String(now.getMinutes()) + String(now.getSeconds());
-          console.log(nowFormatted);
-          const { jsPDF } = window.jspdf;
-          const doc = new jsPDF();
-      
-          doc.autoTable({
-            html: '#tablehisto',
-            theme: 'grid',
-            headStyles: { fillColor: [80, 80, 80], 
-                         halign:'center',
-                         valign:'middle'
-                        },
-            bodyStyles: {
-                          halign:'center',
-                         valign:'middle'
-            }
-          });
-      
-          doc.save(`HISTORIQUE_${alltype}_${allid}-${nowFormatted}.pdf`);
-    }
+     function generatePdf() {
+    // Timestamp lisible et triable : YYYYMMDD_HHMMSS
+    const now = new Date();
+    const pad = n => String(n).padStart(2, "0");
+    const nowFormatted = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+    console.log(nowFormatted);
+
+    // Extraction de jsPDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Création du tableau PDF
+    doc.autoTable({
+        html: '#tablehisto', // Tableau HTML source
+        theme: 'grid',        // Ta mise en forme actuelle
+        headStyles: { 
+            fillColor: [80, 80, 80], 
+            halign: 'center',
+            valign: 'middle'
+        },
+        bodyStyles: {
+            halign: 'center',
+            valign: 'middle'
+        },
+        styles: { fontSize: 10 }, // Optionnel pour lisibilité
+        margin: { top: 20 }       // Petit top margin
+    });
+
+    // Téléchargement du PDF
+    doc.save(`HISTORIQUE_${alltype}_${allid}-${nowFormatted}.pdf`);
+}
+
     
     function createExcel() {
   const wb = XLSX.utils.book_new(); // Crée un nouveau classeur
