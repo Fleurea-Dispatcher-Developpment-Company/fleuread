@@ -2805,5 +2805,5 @@ async function betweenDates(a, b) {
   // Conversion en jours (1 jour = 86 400 000 ms)
   const diffDays = diffMs / (1000 * 60 * 60 * 24);
 
-  return Math.abs(diffDays);
+  return Math.floor(Math.abs(diffDays));
 }
