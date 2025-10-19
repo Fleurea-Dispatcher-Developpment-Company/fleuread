@@ -2786,5 +2786,8 @@ async function checkTheValue(num) {
 }
 
 async function setHourBenne (benne) {
-  
+  const now = new Date();
+  const stringDate = now.toISOString().split('T')[0];
+  console.log(stringDate);
+  await editDatabase ('bennes', 'lastactu', stringDate, 'num', benne);
 }
