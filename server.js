@@ -687,6 +687,9 @@ app.post('/editbenne', async (req, res) => {
         if (toupd == "id_client") {
          await setHistorique (sessions[thisid].id, value_toupd, "1", "clients", value_eq, toupd); // Affectation à l'historique de la benne
         }
+      if (toupd == "statut") {
+        setHourBenne (value_eq);
+      }
       console.log("APRÈS");
       const {latitude, longitude} = await getAdresseBenneEdit(value_eq);
       console.log("Entrée adresse benne", latitude, "*", longitude);
