@@ -2767,11 +2767,17 @@ app.get('/fileprovider', async (req, res) => {
 });
 
 async function checkTheValue(num) {
+  console.log("checkTheValue");
+  console.log(num);
   const datashere = await readDatabase('informations','*');
   for (const param of datashere) {
+    console.log(param);
     if (param.id == num) {
+      console.log(true);
+      console.log(param.value.trim().toLowerCase);
       if (param.value.trim().toLowerCase == "oui") {
         return true;
+        console.log(true);
       }
     }
   }
