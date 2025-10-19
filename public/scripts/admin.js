@@ -265,7 +265,7 @@ function destPoint(lat, lon, distanceMeters, bearingDeg) {
 }
 
 // Crée un vrai cercle géodésique sous forme de polygone
-function createGeodesicCircle(centerLat, centerLon, radiusMeters, steps = 64) {
+function createGeodesicCircle(centerLat, centerLon, radiusMeters, steps = 360) {
   const coords = [];
   for (let i = 0; i < steps; i++) {
     const bearing = (360 / steps) * i;
