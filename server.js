@@ -214,7 +214,7 @@ async function readDatabase (store, select) {
     let {data, error} = await supabase
     .from(store)
     .select(select);
-    if (data) {console.log(data);
+    if (data) {// console.log(data);
               return data;}
     if (error) {console.error(error)}
   } catch (err) {console.error(err);}
@@ -230,7 +230,7 @@ async function editDatabase (store, toupd, value_toupd, eq, value_eq) {
     .update({[toupd]:value_toupd})
     .eq(eq, value_eq)
     .select();
-    if (data) {console.log(data);
+    if (data) {//console.log(data);
               return data;}
     if (error) {console.error(error)}
   } catch (err) {console.error(err);}
