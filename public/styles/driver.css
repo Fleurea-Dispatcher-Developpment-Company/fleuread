@@ -11,8 +11,8 @@
         z-index:1000;
       }
       #resultContainer {
-        position:absolute;
-        top:10vh;
+        position:relative;
+        top:0;
         left:0;
         height:90vh;
         width:100vw;
