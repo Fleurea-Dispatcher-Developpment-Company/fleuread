@@ -209,16 +209,63 @@ const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Début des fonctions supabase
-async function readDatabase (store, select) {
+// Cache mémoire pour readDatabase
+let memoryReadDatabase = [];
+
+/**
+ * Lecture Supabase avec cache mémoire de 60 secondes
+ * @param {string} store - Nom de la table
+ * @param {string} select - Colonnes à sélectionner (ex: '*', 'id,name')
+ */
+async function readDatabase(store, select) {
   try {
-    let {data, error} = await supabase
-    .from(store)
-    .select(select);
-    if (data) {// console.log(data);
-              return data;}
-    if (error) {console.error(error)}
-  } catch (err) {console.error(err);}
+    const key = `${store}::${select}`;
+
+    // 1️⃣ Recherche dans le cache
+    const cached = memoryReadDatabase.find(item => item.key === key);
+    if (cached) {
+      const now = Date.now();
+      if (now - cached.timestamp < 1000) { // 1 seconde
+        // console.log(`[CACHE HIT] ${store}`);
+        return cached.data;
+      } else {
+        // Cache expiré → suppression
+        memoryReadDatabase = memoryReadDatabase.filter(item => item.key !== key);
+      }
+    }
+
+    // 2️⃣ Requête réelle Supabase
+    const { data, error } = await supabase
+      .from(store)
+      .select(select);
+
+    if (error) {
+      console.error(`Erreur Supabase (${store}):`, error);
+      return null;
+    }
+
+    if (data) {
+      // 3️⃣ Mise en cache
+      memoryReadDatabase.push({
+        key,
+        data,
+        timestamp: Date.now()
+      });
+
+      // 4️⃣ Nettoyage automatique après 1 seconde
+      setTimeout(() => {
+        memoryReadDatabase = memoryReadDatabase.filter(item => item.key !== key);
+      }, 1000);
+
+      return data;
+    }
+
+  } catch (err) {
+    console.error(`Erreur readDatabase (${store}):`, err);
+    return null;
+  }
 }
+
 
 async function editDatabase (store, toupd, value_toupd, eq, value_eq) {
   const update_value = `{${toupd}:'${value_toupd}'}`;
