@@ -1434,18 +1434,32 @@ async function getAdresseFermeEdit(id) {
 
 
 
+let memoryGetAdresseFerme = [];
+
 async function getAdresseFerme(id) {
   try {
-  const conducteurs = await readDatabase('clients', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == id) {
-      return `${conduc.adresse}`;
+    for (const item of memoryGetAdresseFerme) {
+      if (item.input == id) {
+        return item.output;
+      }
     }
-  }
-     } catch (err) {
+    // VERSION D'APPEL
+    const conducteurs = await readDatabase('clients', '*');
+    for (const conduc of conducteurs) {
+      if (conduc.num == id) {
+        memoryGetAdresseFerme.push({input:conduc.num, output:conduc.adresse});
+        setTimeout(() => {
+          memoryGetAdresseFerme = memoryGetAdresseFerme.filter(item => item.input !== conduc.num);
+        }, 5000);
+        return `${conduc.adresse}`;
+      }
+    }
+    // FIN VERSION APPEL
+  } catch (err) {
     return "X";
   }
 }
+
 
 function formatTime (time, offseter) {
   console.log("FORMAT TIME");
