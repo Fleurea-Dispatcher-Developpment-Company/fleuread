@@ -663,8 +663,8 @@ async function socketReload (what) {
 }
 
 async function benneStatus (thisid) {
-  nowStatBen += 1;
-  broadcastToAdmins({action:'benstatus', value:(nowStatBen/totalStatBen), who:thisid});
+//  nowStatBen += 1;
+//  broadcastToAdmins({action:'benstatus', value:(nowStatBen/totalStatBen), who:thisid});
 }
 
 async function compteStatus (thisid) {
