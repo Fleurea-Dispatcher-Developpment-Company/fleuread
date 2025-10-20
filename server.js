@@ -2836,15 +2836,41 @@ async function setHourBenne (benne) {
   await editDatabase ('bennes', 'lastactu', stringDate, 'num', benne);
 }
 
+let memoryBetweenDates = [];
+
+/**
+ * Calcule le nombre de jours entre deux dates avec un cache temporaire de 10 secondes.
+ */
 async function betweenDates(a, b) {
-  const a1 = new Date(a);
-  const b2 = new Date(b);
+  try {
+    // Normalisation des entrées
+    const key = `${new Date(a).getTime()}_${new Date(b).getTime()}`;
 
-  // Différence en millisecondes
-  const diffMs = b2 - a1;
+    // Vérifie dans le cache
+    for (const item of memoryBetweenDates) {
+      if (item.key === key) {
+        return item.value;
+      }
+    }
 
-  // Conversion en jours (1 jour = 86 400 000 ms)
-  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+    // Calcul si pas en cache
+    const a1 = new Date(a);
+    const b2 = new Date(b);
+    const diffMs = b2 - a1;
+    const diffDays = Math.floor(Math.abs(diffMs / (1000 * 60 * 60 * 24)));
 
-  return Math.floor(Math.abs(diffDays));
+    // Stockage dans le cache
+    memoryBetweenDates.push({ key, value: diffDays });
+
+    // Suppression du cache après 10 secondes
+    setTimeout(() => {
+      memoryBetweenDates = memoryBetweenDates.filter(item => item.key !== key);
+    }, 60000);
+
+    return diffDays;
+  } catch (err) {
+    console.error("Erreur betweenDates :", err);
+    return 0;
+  }
 }
+
