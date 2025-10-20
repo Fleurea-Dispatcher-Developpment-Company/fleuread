@@ -138,6 +138,8 @@
       
       
             if (action) {
+              localStorage.clear();
+              sessionStorage.clear();
               document.getElementById('former').value = action;
               document.getElementById('clicker').click();
             }
