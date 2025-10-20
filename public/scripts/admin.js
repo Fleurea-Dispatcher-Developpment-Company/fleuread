@@ -374,6 +374,12 @@ plotStorage();
         focus.bindPopup(text).openPopup();
       };
 
+document.getElementById('visuBtn').addEventListener('click', () => {
+      setTimeout(() => {
+      map.invalidateSize();
+      }, 1000);
+})
+
       async function getBennes() {
         return await fetcher('getbennes',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
       }
