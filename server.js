@@ -1312,14 +1312,27 @@ async function getConducteur(conducteur) {
   }
 }
 
+let memoryGetFerme = [];
+
 async function getFerme(conducteur) {
   try {
+    for (const item of memoryGetFerme) {
+      if (item.input == conducteur) {
+        return item.output;
+      }
+    }
+    // VERSION D'APPEL
   const conducteurs = await readDatabase('clients', '*');
   for (const conduc of conducteurs) {
     if (conduc.num == conducteur) {
+      memoryGetFerme.push({input:conduc.num, output:conduc.name});
+      setTimeout(() => {
+        memoryGetFerme = memoryGetFerme.filter(item => item.input !== conduc.num);
+      }, 5000);
       return `${conduc.name}`;
     }
   }
+    // FIN VERSION APPEL
      } catch (err) {
     return "X";
   }
@@ -1351,18 +1364,32 @@ async function getNotes(conducteur) {
   }
 }
 
+let memoryGetCereale = [];
+
 async function getCereale(id) {
   try {
-  const conducteurs = await readDatabase('cereales', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == id) {
-      return `${conduc.name}`;
+    for (const item of memoryGetCereale) {
+      if (item.input == id) {
+        return item.output;
+      }
     }
-  }
-     } catch (err) {
+    // VERSION D'APPEL
+    const conducteurs = await readDatabase('cereales', '*');
+    for (const conduc of conducteurs) {
+      if (conduc.num == id) {
+        memoryGetCereale.push({input:conduc.num, output:conduc.name});
+        setTimeout(() => {
+          memoryGetCereale = memoryGetCereale.filter(item => item.input !== conduc.num);
+        }, 5000);
+        return `${conduc.name}`;
+      }
+    }
+    // FIN VERSION APPEL
+  } catch (err) {
     return "X";
   }
 }
+
 
 async function getAdresseBenne(id) {
   try {
