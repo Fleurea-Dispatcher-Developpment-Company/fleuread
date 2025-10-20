@@ -2891,7 +2891,7 @@ let memoryBetweenDates = [];
 async function betweenDates(b) {
   try {
     // Normalisation des entrées
-    const key = `${new Date(a).getTime()}_${new Date(b).getTime()}`;
+    const key = `${new Date().getTime()}_${new Date(b).getTime()}`;
 
     // Vérifie dans le cache
     for (const item of memoryBetweenDates) {
