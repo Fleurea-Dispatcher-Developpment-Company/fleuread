@@ -628,10 +628,10 @@ async function getBennes(thisid) {
         adresse:benne.adresse,
         cereale:benne.céréale,
         society:benne.society,
-        lastactu:await betweenDates(new Date(), benne.lastactu),
+        lastactu:await betweenDates(benne.lastactu),
         flash_id:`B${benne.num}A${benne.num}`,
         status:benne.statut,
-        search_status:await convertToSearch(benne.statut),
+        search_status:convertToSearch(benne.statut),
         link:benne.link,
         ferme:await getFerme(benne.id_client),
         formatted_cereale:await getCereale(benne.céréale),
@@ -1844,7 +1844,7 @@ app.post('/smartsearchcereale', async (req, res) => {
   } catch (err) {console.error(err);}
 });
 
-async function convertToSearch(tosearch) {
+function convertToSearch(tosearch) {
   if (tosearch == "A") {
     return "STAT$POS";
   } else if (tosearch == "B") {
@@ -2888,7 +2888,7 @@ let memoryBetweenDates = [];
 /**
  * Calcule le nombre de jours entre deux dates avec un cache temporaire de 10 secondes.
  */
-async function betweenDates(a, b) {
+async function betweenDates(b) {
   try {
     // Normalisation des entrées
     const key = `${new Date(a).getTime()}_${new Date(b).getTime()}`;
@@ -2901,7 +2901,7 @@ async function betweenDates(a, b) {
     }
 
     // Calcul si pas en cache
-    const a1 = new Date(a);
+    const a1 = new Date();
     const b2 = new Date(b);
     const diffMs = b2 - a1;
     const diffDays = Math.floor(Math.abs(diffMs / (1000 * 60 * 60 * 24)));
