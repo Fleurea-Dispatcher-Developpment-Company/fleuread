@@ -1,20 +1,20 @@
 const offset = -((new Date().getTimezoneOffset()) / 60);
-      console.log(offset);
+    //  console.log(offset);
       
           async function start() {
       url = new URL(window.location.href);
       sessionId = await sessionStorage.getItem('session_id');
       if (!sessionId) {
-        console.log("Not connected");
+      //  console.log("Not connected");
         window.location.href = `https://${url.hostname}`; 
       } else {
         if (await check(sessionId)) {
-        console.log("Connected");
+      //  console.log("Connected");
        await connectWebSocket();
           await getMe();
         } else {
         sessionStorage.removeItem('session_id');
-        console.log("Not connected");
+     //   console.log("Not connected");
         window.location.href = `https://${url.hostname}`; 
         }
       }
@@ -27,7 +27,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
       async function check(id) {
         const answer = await fetcher('checksession',{'id':id},'POST','noauth');
         const bool = answer.value;
-        console.warn(bool);
+     //   console.warn(bool);
         if (bool) {
           console.warn("true");
           return true;
@@ -157,7 +157,7 @@ let generalDatas;
        async function getGeneralDatas() {
         const answer = await fetcher('getgeneraldatas',{'id':sessionStorage.getItem('session_id')},'POST',sessionStorage.getItem('session_id'));
         generalDatas = answer;
-        console.log(generalDatas);
+      //  console.log(generalDatas);
       }
 
 // SCRIPT 2
@@ -211,7 +211,7 @@ map.setMinZoom(4);
     const lon = e.latlng.lng;
 
     // Afficher les coordonnées
-  console.log(`Latitude: ${lat.toFixed(6)}, Longitude: ${lon.toFixed(6)}`);
+//  console.log(`Latitude: ${lat.toFixed(6)}, Longitude: ${lon.toFixed(6)}`);
    if (changerState) {
      showToast("Nouvelle position enregistrée.", "green");
 
@@ -221,7 +221,7 @@ map.setMinZoom(4);
                  longitude:lon,
                  id:nowPanel
               };
-              console.log(content);
+          //    console.log(content);
               fetcher('registerbenne', content, 'POST', sessionStorage.getItem('session_id'));
      changerState = false;
    }
@@ -387,22 +387,22 @@ document.getElementById('visuBtn').addEventListener('click', () => {
       async function putBennes(filtre) {
         document.getElementById("registerPop").onclick = () => logModification();
         await setForBennes ();
-        console.log("Appel d'un putBennes...");
+     //   console.log("Appel d'un putBennes...");
         const bennes = await getBennes();
-        console.log(bennes);
+       // console.log(bennes);
         let filtered = [];
         if (filtre !== 'no') {
         filtered = await filter(bennes, filtre, document.getElementById('smartcheck').checked);
         } else {
         filtered = bennes;
         }
-        console.log("Le système a filtré la liste :");
-        console.log(filtered);
+      //  console.log("Le système a filtré la liste :");
+    //    console.log(filtered);
         const bennesContainer = document.getElementById('bennesContent');
         bennesContainer.innerHTML = "";
-        console.log("On va traiter l'ajout...");
+      //  console.log("On va traiter l'ajout...");
         for (const ben of filtered) {
-          console.log("Création d'une benne :", ben);
+      //    console.log("Création d'une benne :", ben);
           const line = document.createElement('div');
           line.classList.add('line');
           line.id = `B${ben.id}`;
@@ -410,10 +410,10 @@ benDatas[ben.id] = ben;
        const lightbox = document.getElementById('lightboxB');
        const closeBtn = document.getElementById('close-btnB');
         const imagePop = document.getElementById('lightImgB');
-      console.log("LIGHTBOX");
+     // console.log("LIGHTBOX");
       line.addEventListener('click', () => {
          lightbox.style.display = 'flex';
-        console.log("Lien image :", ben.link);
+     //   console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
         // onclick="window.location.assign(`/icon?type=comptes&id=${sessionStorage.getItem('session_id')}`, '_blank');"
         document.getElementById('imagePop').onclick = () => {
@@ -422,11 +422,11 @@ benDatas[ben.id] = ben;
          document.getElementById('lightH2B').textContent = "Benne n°" + ben.id;
          document.getElementById('lightPB').textContent =  ben.volume + " T | " + ben.notes;
         const statusReadable = toread(ben.status);
-        console.log(statusReadable);
+      //  console.log(statusReadable);
         document.getElementById('lightPB3').innerHTML =  "<strong>" + statusReadable.charAt(0).toUpperCase() + statusReadable.slice(1) + "</strong> chez <strong>" + ben.ferme + "</strong> en <strong>" + ben.formatted_cereale + "</strong>";
          popAdresse(ben.adresse);
         numon = ben.id;
-        console.log(numon);
+      //  console.log(numon);
         document.getElementById('editeurLightBenne').style.display == 'none';
         selecter.selectedIndex = 0;
          document.getElementById('inpSelecter').value = "";
@@ -498,8 +498,8 @@ benDatas[ben.id] = ben;
       }
 
       async function filter (what, filtre, smart) {
-        console.log("Appel d'un filtre");
-        console.log("Avant :", what);
+     //   console.log("Appel d'un filtre");
+     //   console.log("Avant :", what);
             let todeal;
             todeal = what;
         const query = filtre.toLowerCase();
@@ -604,7 +604,7 @@ benDatas[ben.id] = ben;
       });
 
       async function deleteBenne(num) {
-        console.log(numon)
+     //   console.log(numon)
         if (confirm(`Supprimer la benne n°${numon} ?`)) {
           if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
         const content = {
@@ -742,11 +742,11 @@ let what;
         }
       }
         selecter.addEventListener('change', (event) => {
-          console.log(benDatas);
+        //  console.log(benDatas);
           const value = event.target.value;
-          console.log("Change ", value);
+       //   console.log("Change ", value);
           if (value == "statut") {
-            console.log(true);
+        //    console.log(true);
             document.getElementById('inpSelecter').style.display = "none";
             document.getElementById('suggester').style.display = "flex";
             document.getElementById('suggester').innerHTML="";
@@ -764,7 +764,7 @@ let what;
               document.getElementById('suggester').append(button);
             }
           } else if (value == "auth") {
-            console.log(true);
+       //     console.log(true);
             document.getElementById('inpSelecter').style.display = "none";
             document.getElementById('suggester').style.display = "flex";
             document.getElementById('suggester').innerHTML="";
@@ -802,10 +802,10 @@ let what;
 // SCRIPT 4
  async function checkWebSocket() {
         if (!socket || socket.readyState == WebSocket.CLOSED ||  socket.readyState == WebSocket.CLOSING) {
-          console.log("WebSocket Inactif !");
+       //   console.log("WebSocket Inactif !");
           window.location.reload();
         } else {
-          console.log("WebSocket Actif !");
+     //     console.log("WebSocket Actif !");
         }
       }
       setInterval(checkWebSocket, 15*1000);
@@ -823,7 +823,7 @@ let what;
       async function logModification () {
         const parameterToChange = selecter.value;
         const affSelecter = selecter.options[selecter.selectedIndex].text;
-        console.log("affSelecter :", affSelecter);
+      //  console.log("affSelecter :", affSelecter);
         const value = document.getElementById('inpSelecter').value;
         const num = numon;
         const content = {
@@ -832,7 +832,7 @@ let what;
           eq:'num',
           value_eq:num
         };
-        console.log(content);
+       // console.log(content);
         const fromServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
         setTimeout(() => {
         document.getElementById(`B${numon}`).click();
@@ -846,7 +846,7 @@ let what;
       async function logModificationB () {
         const parameterToChange = selecter.value;
         const affSelecter = selecter.options[selecter.selectedIndex].text;
-        console.log("affSelecter :", affSelecter);
+       // console.log("affSelecter :", affSelecter);
         const value = document.getElementById('inpSelecter').value;
         const num = numon;
         const content = {
@@ -855,7 +855,7 @@ let what;
           eq:'num',
           value_eq:num
         };
-        console.log(content);
+       // console.log(content);
         const fromServer = await fetcher('editcompte', content, 'POST', sessionStorage.getItem('session_id'));
         setTimeout(() => {
         document.getElementById(`C${numon}`).click();
@@ -878,7 +878,7 @@ let what;
           eq:'num',
           value_eq:num
         };
-        console.log(content);
+      //  console.log(content);
         const fromServer = await fetcher('editclient', content, 'POST', sessionStorage.getItem('session_id'));
         setTimeout(() => {
         document.getElementById(`D${numon}`).click();
@@ -892,7 +892,7 @@ let what;
       async function logModificationD () {
         const parameterToChange = selecter.value;
         const affSelecter = selecter.options[selecter.selectedIndex].text;
-        console.log("affSelecter :", affSelecter);
+      //  console.log("affSelecter :", affSelecter);
         const value = document.getElementById('inpSelecter').value;
         const num = numon;
         const content = {
@@ -901,7 +901,7 @@ let what;
           eq:'num',
           value_eq:num
         };
-        console.log(content);
+   //     console.log(content);
         const fromServer = await fetcher('editcereale', content, 'POST', sessionStorage.getItem('session_id'));
         setTimeout(() => {
         document.getElementById(`E${numon}`).click();
@@ -915,7 +915,7 @@ let what;
       async function logModificationE () {
         const parameterToChange = selecter.value;
         const affSelecter = selecter.options[selecter.selectedIndex].text;
-        console.log("affSelecter :", affSelecter);
+    //    console.log("affSelecter :", affSelecter);
         const value = document.getElementById('inpSelecter').value;
         const num = numon;
         const content = {
@@ -924,7 +924,7 @@ let what;
           eq:'num',
           value_eq:num
         };
-        console.log(content);
+    //    console.log(content);
         const fromServer = await fetcher('editparam', content, 'POST', sessionStorage.getItem('session_id'));
         setTimeout(() => {
         document.getElementById(`F${numon}`).click();
@@ -957,7 +957,7 @@ function showToast(message, color = '#4CAF50') {
 async function putComptes(filtre) {
               await setForComptes ();
               document.getElementById("registerPop").onclick = () => logModificationB();
-        console.log("Appel d'un putComptes...");
+     //   console.log("Appel d'un putComptes...");
         const bennes = await getComptes();
         console.log(bennes);
         let filtered = [];
@@ -966,13 +966,13 @@ async function putComptes(filtre) {
         } else {
         filtered = bennes;
         }
-        console.log("Le système a filtré la liste :");
-        console.log(filtered);
+     //   console.log("Le système a filtré la liste :");
+      //  console.log(filtered);
         const bennesContainer = document.getElementById('comptesContent');
         bennesContainer.innerHTML = "";
-        console.log("On va traiter l'ajout...");
+      //  console.log("On va traiter l'ajout...");
         for (const ben of filtered) {
-          console.log("Création d'une compte :", ben);
+      //    console.log("Création d'une compte :", ben);
           const line = document.createElement('div');
           line.classList.add('line');
           line.id = `C${ben.id}`;
@@ -980,10 +980,10 @@ comDatas[ben.id] = ben;
        const lightbox = document.getElementById('lightboxB');
        const closeBtn = document.getElementById('close-btnB');
         const imagePop = document.getElementById('lightImgB');
-      console.log("LIGHTBOX");
+    //  console.log("LIGHTBOX");
       line.addEventListener('click', () => {
          lightbox.style.display = 'flex';
-        console.log("Lien image :", ben.link);
+     //   console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
         // document.getElementById('imagePop').onclick = () => {
         //  window.location.assign(`/icon?type=comptes&id=${ben.id}`, '_blank');
@@ -994,7 +994,7 @@ comDatas[ben.id] = ben;
         document.getElementById('lightPB3').innerHTML =  "Dernière connexion : <strong>" + formatTimestamp(ben.last_connection) + "</strong>" ;
   
         numon = ben.id;
-        console.log(numon);
+     //   console.log(numon);
         document.getElementById('editeurLightBenne').style.display == 'none';
         selecter.selectedIndex = 0;
          document.getElementById('inpSelecter').value = "";
@@ -1063,7 +1063,7 @@ comDatas[ben.id] = ben;
       });
 
       async function deleteCompte(num) {
-        console.log(numon)
+       // console.log(numon)
         if (confirm(`Supprimer le compte n°${numon} ?`)) {
           if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
         const content = {
@@ -1078,22 +1078,22 @@ comDatas[ben.id] = ben;
         async function putClients(filtre) {
               await setForClients ();
               document.getElementById("registerPop").onclick = () => logModificationC();
-        console.log("Appel d'un putClients...");
+       // console.log("Appel d'un putClients...");
         const bennes = await getClients();
-        console.log(bennes);
+     //   console.log(bennes);
         let filtered = [];
         if (filtre !== 'no') {
         filtered = await filter(bennes, filtre);
         } else {
         filtered = bennes;
         }
-        console.log("Le système a filtré la liste :");
-        console.log(filtered);
+     //   console.log("Le système a filtré la liste :");
+     //   console.log(filtered);
         const bennesContainer = document.getElementById('clientsContent');
         bennesContainer.innerHTML = "";
-        console.log("On va traiter l'ajout...");
+     //   console.log("On va traiter l'ajout...");
         for (const ben of filtered) {
-          console.log("Création d'un client :", ben);
+     //     console.log("Création d'un client :", ben);
           const line = document.createElement('div');
           line.classList.add('line');
           line.id = `D${ben.id}`;
@@ -1101,10 +1101,10 @@ cliDatas[ben.id] = ben;
        const lightbox = document.getElementById('lightboxB');
        const closeBtn = document.getElementById('close-btnB');
         const imagePop = document.getElementById('lightImgB');
-      console.log("LIGHTBOX");
+    //  console.log("LIGHTBOX");
       line.addEventListener('click', () => {
          lightbox.style.display = 'flex';
-        console.log("Lien image :", ben.link);
+    //    console.log("Lien image :", ben.link);
         document.getElementById('imagePop').src = ben.link;
         document.getElementById('imagePop').onclick = () => {
           window.open(`/icon?type=clients&id=${ben.id}`, '_blank');
@@ -1115,7 +1115,7 @@ cliDatas[ben.id] = ben;
         document.getElementById('lightPB3').innerHTML =  "Contact : <strong>" + ben.phonenumber + "</strong>" ;
         popAdresse(ben.adresse);
         numon = ben.id;
-        console.log(numon);
+   //    console.log(numon);
         document.getElementById('editeurLightBenne').style.display == 'none';
         selecter.selectedIndex = 0;
          document.getElementById('inpSelecter').value = "";
@@ -1176,7 +1176,7 @@ cliDatas[ben.id] = ben;
       });
 
       async function deleteClient(num) {
-        console.log(numon)
+    //    console.log(numon)
         if (confirm(`Supprimer le client n°${numon} ?`)) {
           if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
         const content = {
@@ -1204,22 +1204,22 @@ cliDatas[ben.id] = ben;
       async function putCereales(filtre) {
               await setForCereales ();
               document.getElementById("registerPop").onclick = () => logModificationD();
-        console.log("Appel d'un putCereales...");
+   //     console.log("Appel d'un putCereales...");
         const bennes = await getCereales();
-        console.log(bennes);
+    //    console.log(bennes);
         let filtered = [];
         if (filtre !== 'no') {
         filtered = await filter(bennes, filtre);
         } else {
         filtered = bennes;
         }
-        console.log("Le système a filtré la liste :");
-        console.log(filtered);
+      //  console.log("Le système a filtré la liste :");
+      //  console.log(filtered);
         const bennesContainer = document.getElementById('cerealesContent');
         bennesContainer.innerHTML = "";
-        console.log("On va traiter l'ajout...");
+   //     console.log("On va traiter l'ajout...");
         for (const ben of filtered) {
-          console.log("Création d'un client :", ben);
+    //      console.log("Création d'un client :", ben);
           const line = document.createElement('div');
           line.classList.add('line');
           line.id = `E${ben.id}`;
@@ -1227,10 +1227,10 @@ cerDatas[ben.id] = ben;
        const lightbox = document.getElementById('lightboxB');
        const closeBtn = document.getElementById('close-btnB');
         const imagePop = document.getElementById('lightImgB');
-      console.log("LIGHTBOX");
+  //    console.log("LIGHTBOX");
       line.addEventListener('click', () => {
          lightbox.style.display = 'flex';
-        console.log("Lien image :", ben.photo);
+    //    console.log("Lien image :", ben.photo);
         document.getElementById('imagePop').src = ben.photo;
         document.getElementById('imagePop').onclick = () => {
           window.open(`/icon?type=cereales&id=${ben.id}`, '_blank');
@@ -1294,7 +1294,7 @@ cerDatas[ben.id] = ben;
       });
 
       async function deleteCereale(num) {
-        console.log(numon)
+    //    console.log(numon)
         if (confirm(`Supprimer la céréale n°${numon} ?`)) {
           if(confirm("Confirmez pour la dernière fois... Cette action est irréversible")) {
         const content = {
@@ -1309,22 +1309,22 @@ cerDatas[ben.id] = ben;
        async function putParams(filtre) {
               await setForParams ();
               document.getElementById("registerPop").onclick = () => logModificationE();
-        console.log("Appel d'un putParams...");
+    //    console.log("Appel d'un putParams...");
         const bennes = await getParams();
-        console.log(bennes);
+      //  console.log(bennes);
         let filtered = [];
         if (filtre !== 'no') {
         filtered = await filter(bennes, filtre);
         } else {
         filtered = bennes;
         }
-        console.log("Le système a filtré la liste :");
-        console.log(filtered);
+   //     console.log("Le système a filtré la liste :");
+    //    console.log(filtered);
         const bennesContainer = document.getElementById('infosContent');
         bennesContainer.innerHTML = "";
-        console.log("On va traiter l'ajout...");
+     //   console.log("On va traiter l'ajout...");
         for (const ben of filtered) {
-          console.log("Création d'un paramètre :", ben);
+     //     console.log("Création d'un paramètre :", ben);
           const line = document.createElement('div');
           line.classList.add('line');
           line.id = `F${ben.id}`;
@@ -1332,11 +1332,11 @@ paramDatas[ben.id] = ben;
        const lightbox = document.getElementById('lightboxB');
        const closeBtn = document.getElementById('close-btnB');
         const imagePop = document.getElementById('lightImgB');
-      console.log("LIGHTBOX");
+ //     console.log("LIGHTBOX");
           if (ben.editable) {
       line.addEventListener('click', () => {
          lightbox.style.display = 'flex';
-        console.log("Lien image :", ben.photo);
+    //    console.log("Lien image :", ben.photo);
         document.getElementById('imagePop').src = ben.photo;
          document.getElementById('lightH2B').textContent =  ben.donnee;
          document.getElementById('lightPB').innerHTML = ben.value; // 
@@ -1347,7 +1347,7 @@ paramDatas[ben.id] = ben;
         }
         document.getElementById('lightPB3').innerHTML =  "Paramètre" ;
         numon = ben.id;
-        console.log(numon);
+     //   console.log(numon);
         document.getElementById('editeurLightBenne').style.display == 'none';
         selecter.selectedIndex = 0;
          document.getElementById('inpSelecter').value = "";
@@ -1437,7 +1437,7 @@ const input =  document.getElementById('mapSearch_input');
         };
         let fromServer = await fetcher ('getbenneinformations', content, 'POST', sessionStorage.getItem('session_id'));
         fromServer = fromServer.message;
-        console.log(fromServer);
+      //  console.log(fromServer);
         document.getElementById('panel_A_img').src = fromServer.n;
         document.getElementById('panel_A_h1').textContent = fromServer.a;
         document.getElementById('panel_B_p').textContent = toread(fromServer.b);
@@ -1463,7 +1463,7 @@ document.getElementById('editer_a').onclick = async () => {
           eq:'num',
           value_eq:fromServer.a
         };
-        console.log(content);
+   //     console.log(content);
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
           pushPanel(fromServer.a);
 }
@@ -1475,7 +1475,7 @@ document.getElementById('editer_a').onclick = async () => {
           eq:'num',
           value_eq:fromServer.a
         };
-        console.log(content);
+   //     console.log(content);
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
           pushPanel(fromServer.a);
 }
@@ -1487,7 +1487,7 @@ document.getElementById('editer_a').onclick = async () => {
           eq:'num',
           value_eq:fromServer.a
         };
-        console.log(content);
+   //     console.log(content);
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
           pushPanel(fromServer.a);
 }
@@ -1527,7 +1527,7 @@ let nowPanel;
                 eq:'num',
                 value_eq:nowPanel
               };
-              console.log(content);
+          //    console.log(content);
               const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
                 pushPanel(nowPanel);
           showToast("Modification enregistrée !",'blue');
@@ -1557,7 +1557,7 @@ let nowPanel;
                 eq:'num',
                 value_eq:nowPanel
               };
-              console.log(content);
+         //     console.log(content);
               const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
                 pushPanel(nowPanel);
           showToast("Modification enregistrée !",'blue');
@@ -1567,7 +1567,7 @@ let nowPanel;
       });
 
       async function disconnect () {
-        console.log("DISCONNECTION");
+       // console.log("DISCONNECTION");
         sessionStorage.removeItem('session_id');
         localStorage.removeItem('offtoken');
         
@@ -1579,7 +1579,7 @@ let nowPanel;
       let changerState = false;
       document.getElementById('move_benne').addEventListener('click', function () {
         changerState = true;
-        console.log(changerState);
+    //    console.log(changerState);
         showToast("Cliquez sur la carte pour placer la benne dans moins de 15 secondes.", 'blue');
         setTimeout(() => {
           changerState = false;
@@ -1596,7 +1596,7 @@ let nowPanel;
 
       document.getElementById('bioounon').addEventListener('change', async function () {
         const value = document.getElementById('bioounon').checked;
-        console.log(value);
+     //   console.log(value);
         if (value) {
           document.getElementById('bio_temoin').textContent = "Oui";
         } else {
@@ -1614,15 +1614,15 @@ let nowPanel;
       async function showMap (id) {
         // nowPanel
         document.getElementById('close-btnB').click(); // Fermer Pop-up
-        console.log("Step 1");
+     //   console.log("Step 1");
         document.getElementById('visuBtn').click(); // Afficher la carte
-        console.log("Step 2");
+     //   console.log("Step 2");
         setTimeout(() => {
         document.getElementById('mapSearch_input').value = `FOCUS:${id}`;
           document.getElementById('mapSearch_input').dispatchEvent(new Event('input', { bubbles: true }));
-          console.log("Step 3");
+      //    console.log("Step 3");
         pushPanel(id);
-          console.log("Step 4");
+     //     console.log("Step 4");
         }, 1000);
       }
 // SCRIPT 13
@@ -1644,7 +1644,7 @@ async function selectOptionByText (text) {
           eq:'num',
           value_eq:nowPanel
         };
-        console.log(content);
+     //   console.log(content);
         const responseServer = await fetcher('editbenne', content, 'POST', sessionStorage.getItem('session_id'));
           pushPanel(nowPanel);
       });
