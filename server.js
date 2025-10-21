@@ -1311,19 +1311,34 @@ app.post('/findbenne', async (req, res) => {
                 }
 });
 
+// 🔹 Conducteur
+let memoryGetConducteur = [];
+
 async function getConducteur(conducteur) {
   try {
-  const conducteurs = await readDatabase('comptes', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == conducteur) {
-      return `${conduc.name} ${conduc.first_name}`;
+    for (const item of memoryGetConducteur) {
+      if (item.input == conducteur) {
+        return item.output;
+      }
     }
-  }
+
+    const conducteurs = await readDatabaseFilter('comptes', '*', 'num', conducteur);
+    if (conducteurs && conducteurs.length > 0) {
+      const conduc = conducteurs[0];
+      const output = `${conduc.name} ${conduc.first_name}`;
+      memoryGetConducteur.push({ input: conduc.num, output });
+      setTimeout(() => {
+        memoryGetConducteur = memoryGetConducteur.filter(item => item.input !== conduc.num);
+      }, 5000);
+      return output;
+    }
   } catch (err) {
     return "X";
   }
 }
 
+
+// 🔹 Ferme
 let memoryGetFerme = [];
 
 async function getFerme(conducteur) {
@@ -1333,49 +1348,75 @@ async function getFerme(conducteur) {
         return item.output;
       }
     }
-    // VERSION D'APPEL
-  const conducteurs = await readDatabase('clients', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == conducteur) {
-      memoryGetFerme.push({input:conduc.num, output:conduc.name});
+
+    const fermes = await readDatabaseFilter('clients', '*', 'num', conducteur);
+    if (fermes && fermes.length > 0) {
+      const ferme = fermes[0];
+      memoryGetFerme.push({ input: ferme.num, output: ferme.name });
       setTimeout(() => {
-        memoryGetFerme = memoryGetFerme.filter(item => item.input !== conduc.num);
+        memoryGetFerme = memoryGetFerme.filter(item => item.input !== ferme.num);
       }, 5000);
-      return `${conduc.name}`;
+      return `${ferme.name}`;
     }
-  }
-    // FIN VERSION APPEL
-     } catch (err) {
+  } catch (err) {
     return "X";
   }
 }
+
+
+// 🔹 Numéro de téléphone
+let memoryGetPhoneNumber = [];
 
 async function getPhoneNumber(conducteur) {
   try {
-  const conducteurs = await readDatabase('clients', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == conducteur) {
-      return `${conduc.phonenumber}`;
+    for (const item of memoryGetPhoneNumber) {
+      if (item.input == conducteur) {
+        return item.output;
+      }
     }
-  }
-     } catch (err) {
+
+    const clients = await readDatabaseFilter('clients', '*', 'num', conducteur);
+    if (clients && clients.length > 0) {
+      const client = clients[0];
+      memoryGetPhoneNumber.push({ input: client.num, output: client.phonenumber });
+      setTimeout(() => {
+        memoryGetPhoneNumber = memoryGetPhoneNumber.filter(item => item.input !== client.num);
+      }, 5000);
+      return `${client.phonenumber}`;
+    }
+  } catch (err) {
     return "X";
   }
 }
+
+
+// 🔹 Notes
+let memoryGetNotes = [];
 
 async function getNotes(conducteur) {
   try {
-  const conducteurs = await readDatabase('clients', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == conducteur) {
-      return `${conduc.notes}`;
+    for (const item of memoryGetNotes) {
+      if (item.input == conducteur) {
+        return item.output;
+      }
     }
-  }
-     } catch (err) {
+
+    const clients = await readDatabaseFilter('clients', '*', 'num', conducteur);
+    if (clients && clients.length > 0) {
+      const client = clients[0];
+      memoryGetNotes.push({ input: client.num, output: client.notes });
+      setTimeout(() => {
+        memoryGetNotes = memoryGetNotes.filter(item => item.input !== client.num);
+      }, 5000);
+      return `${client.notes}`;
+    }
+  } catch (err) {
     return "X";
   }
 }
 
+
+// 🔹 Céréale
 let memoryGetCereale = [];
 
 async function getCereale(id) {
@@ -1385,36 +1426,47 @@ async function getCereale(id) {
         return item.output;
       }
     }
-    // VERSION D'APPEL
-    const conducteurs = await readDatabase('cereales', '*');
-    for (const conduc of conducteurs) {
-      if (conduc.num == id) {
-        memoryGetCereale.push({input:conduc.num, output:conduc.name});
-        setTimeout(() => {
-          memoryGetCereale = memoryGetCereale.filter(item => item.input !== conduc.num);
-        }, 5000);
-        return `${conduc.name}`;
-      }
+
+    const cereales = await readDatabaseFilter('cereales', '*', 'num', id);
+    if (cereales && cereales.length > 0) {
+      const cereale = cereales[0];
+      memoryGetCereale.push({ input: cereale.num, output: cereale.name });
+      setTimeout(() => {
+        memoryGetCereale = memoryGetCereale.filter(item => item.input !== cereale.num);
+      }, 5000);
+      return `${cereale.name}`;
     }
-    // FIN VERSION APPEL
   } catch (err) {
     return "X";
   }
 }
 
 
+// 🔹 Adresse Benne
+let memoryGetAdresseBenne = [];
+
 async function getAdresseBenne(id) {
   try {
-  const conducteurs = await readDatabase('bennes', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == id) {
-      return `${conduc.adresse}`;
+    for (const item of memoryGetAdresseBenne) {
+      if (item.input == id) {
+        return item.output;
+      }
     }
-  }
-     } catch (err) {
+
+    const bennes = await readDatabaseFilter('bennes', '*', 'num', id);
+    if (bennes && bennes.length > 0) {
+      const benne = bennes[0];
+      memoryGetAdresseBenne.push({ input: benne.num, output: benne.adresse });
+      setTimeout(() => {
+        memoryGetAdresseBenne = memoryGetAdresseBenne.filter(item => item.input !== benne.num);
+      }, 5000);
+      return `${benne.adresse}`;
+    }
+  } catch (err) {
     return "X";
   }
 }
+
 
 async function getAdresseBenneEdit(id) {
   try {
@@ -1666,57 +1718,109 @@ app.post('/getbenneinformations', async (req, res) => {
                 }
 });
 
+// 🔹 Conducteur
+let memoryGetIconConducteur = [];
+
 async function getIcon_conducteur(id) {
   try {
-  const conducteurs = await readDatabase('comptes', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == id) {
+    for (const item of memoryGetIconConducteur) {
+      if (item.input == id) {
+        return item.output;
+      }
+    }
+
+    const conducteurs = await readDatabaseFilter('comptes', '*', 'num', id);
+    if (conducteurs && conducteurs.length > 0) {
+      const conduc = conducteurs[0];
+      memoryGetIconConducteur.push({ input: conduc.num, output: conduc.link });
+      setTimeout(() => {
+        memoryGetIconConducteur = memoryGetIconConducteur.filter(item => item.input !== conduc.num);
+      }, 5000);
       return `${conduc.link}`;
     }
-  }
-     } catch (err) {
+  } catch (err) {
     return "X";
   }
 }
+
+
+// 🔹 Céréale
+let memoryGetIconCereale = [];
 
 async function getIcon_cereale(id) {
   try {
-  const conducteurs = await readDatabase('cereales', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == id) {
-      return `${conduc.photo}`;
+    for (const item of memoryGetIconCereale) {
+      if (item.input == id) {
+        return item.output;
+      }
     }
-  }
-     } catch (err) {
+
+    const cereales = await readDatabaseFilter('cereales', '*', 'num', id);
+    if (cereales && cereales.length > 0) {
+      const cereale = cereales[0];
+      memoryGetIconCereale.push({ input: cereale.num, output: cereale.photo });
+      setTimeout(() => {
+        memoryGetIconCereale = memoryGetIconCereale.filter(item => item.input !== cereale.num);
+      }, 5000);
+      return `${cereale.photo}`;
+    }
+  } catch (err) {
     return "X";
   }
 }
+
+
+// 🔹 Ferme
+let memoryGetIconFerme = [];
 
 async function getIcon_ferme(id) {
   try {
-  const conducteurs = await readDatabase('clients', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == id) {
-      return `${conduc.link}`;
+    for (const item of memoryGetIconFerme) {
+      if (item.input == id) {
+        return item.output;
+      }
     }
-  }
-     } catch (err) {
+
+    const fermes = await readDatabaseFilter('clients', '*', 'num', id);
+    if (fermes && fermes.length > 0) {
+      const ferme = fermes[0];
+      memoryGetIconFerme.push({ input: ferme.num, output: ferme.link });
+      setTimeout(() => {
+        memoryGetIconFerme = memoryGetIconFerme.filter(item => item.input !== ferme.num);
+      }, 5000);
+      return `${ferme.link}`;
+    }
+  } catch (err) {
     return "X";
   }
 }
 
+
+// 🔹 Benne
+let memoryGetIconBenne = [];
+
 async function getIcon_benne(id) {
   try {
-  const conducteurs = await readDatabase('bennes', '*');
-  for (const conduc of conducteurs) {
-    if (conduc.num == id) {
-      return `${conduc.link}`;
+    for (const item of memoryGetIconBenne) {
+      if (item.input == id) {
+        return item.output;
+      }
     }
-  }
-     } catch (err) {
+
+    const bennes = await readDatabaseFilter('bennes', '*', 'num', id);
+    if (bennes && bennes.length > 0) {
+      const benne = bennes[0];
+      memoryGetIconBenne.push({ input: benne.num, output: benne.link });
+      setTimeout(() => {
+        memoryGetIconBenne = memoryGetIconBenne.filter(item => item.input !== benne.num);
+      }, 5000);
+      return `${benne.link}`;
+    }
+  } catch (err) {
     return "X";
   }
 }
+
 
 // SMART SEARCHS
 
