@@ -220,6 +220,18 @@ async function readDatabase (store, select) {
   } catch (err) {console.error(err);}
 }
 
+async function readDatabaseFilter (store, select, character, value) {
+  try {
+    let {data, error} = await supabase
+    .from(store)
+    .select(select)
+    .eq(character, value);
+    if (data) {// console.log(data);
+              return data;}
+    if (error) {console.error(error)}
+  } catch (err) {console.error(err);}
+}
+
 async function editDatabase (store, toupd, value_toupd, eq, value_eq) {
   const update_value = `{${toupd}:'${value_toupd}'}`;
   const eq_value = `'${eq}', '${value_eq}'`;
