@@ -1,4 +1,5 @@
 // Baptiste M. 2025
+// A noter → inversion longitude/latitude fréquente → erreur de ma part mais l'ordre est la bon dans la logique.
 const express = require('express');
 const path = require('path');
 const cors = require("cors");
