@@ -1,20 +1,20 @@
 const offset = -((new Date().getTimezoneOffset()) / 60);
-      console.log(offset);
+     // console.log(offset);
       
           async function start() {
       url = new URL(window.location.href);
       sessionId = await sessionStorage.getItem('session_id');
       if (!sessionId) {
-        console.log("Not connected");
+     //   console.log("Not connected");
         window.location.href = `https://${url.hostname}`; 
       } else {
         if (await check(sessionId)) {
-        console.log("Connected");
+     //   console.log("Connected");
        await connectWebSocket();
           await getMe();
         } else {
         sessionStorage.removeItem('session_id');
-        console.log("Not connected");
+      //  console.log("Not connected");
         window.location.href = `https://${url.hostname}`; 
         }
       }
@@ -27,9 +27,9 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
       async function check(id) {
         const answer = await fetcher('checksession',{'id':id},'POST','noauth');
         const bool = answer.value;
-        console.warn(bool);
+      //  console.warn(bool);
         if (bool) {
-          console.warn("true");
+      //    console.warn("true");
           return true;
         } else {
           console.warn("false");
@@ -69,10 +69,10 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
           document.getElementById('time').textContent = mes.value;
         }
           if (mes.action === 'disconnect') {
-              console.log("A/B");
-              console.log(mes.who);
+            //  console.log("A/B");
+           //   console.log(mes.who);
           if (mes.who === localStorage.getItem('offtoken')) {
-            console.log("B/B");
+       //     console.log("B/B");
           disconnect();
           }
         }
@@ -144,10 +144,10 @@ const profilePic = document.getElementById('compte');
        });
        async function checkWebSocket() {
         if (!socket || socket.readyState == WebSocket.CLOSED ||  socket.readyState == WebSocket.CLOSING) {
-          console.log("WebSocket Inactif !");
+     //     console.log("WebSocket Inactif !");
           window.location.reload();
         } else {
-          console.log("WebSocket Actif !");
+     //     console.log("WebSocket Actif !");
         }
       }
       setInterval(checkWebSocket, 15*1000);
@@ -167,12 +167,12 @@ let onlive;
       });
 
       async function getPosition () {
-        console.log("Lancement d'un getPosition");
+    //    console.log("Lancement d'un getPosition");
         return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-          console.log("Obtention d'une position GPS");
-          console.log(position);
+       //   console.log("Obtention d'une position GPS");
+       //   console.log(position);
           resolve({latitude:position.coords.latitude, longitude:position.coords.longitude, altitude:position.coords.altitude ?? "Inconnue"});
         },
             (error) => {
@@ -207,7 +207,7 @@ let onlive;
           longitude:longitude,
           altitude:altitude
         };
-        console.log(content);
+       // console.log(content);
         const fromServer = await fetcher('registerbenne', content, 'POST', sessionStorage.getItem('session_id'));
         const link = fromServer.icon;
         const message = fromServer.message;
@@ -246,10 +246,10 @@ let onlive;
       
       
             if (action == "register") {
-              console.log("register");
+          //    console.log("register");
           //    showToast("Demande d'enregistrement...");
               if (id) {
-                console.log(`Nous allons enregistrer la benne ${id}`);
+          //      console.log(`Nous allons enregistrer la benne ${id}`);
               //  showToast(`Nous allons enregistrer la benne ${id}`);
                 document.getElementById('register').style.display='flex';
                 document.getElementById('main').style.display='none';
@@ -279,7 +279,7 @@ let onshow = false;
           id:id,
             offset:offset
         };
-        console.log(content);
+     //   console.log(content);
         const fromServer = await fetcher('findbenne', content, 'POST', sessionStorage.getItem('session_id'));
         const link = fromServer.icon;
         const message = fromServer.message;
@@ -291,7 +291,7 @@ let onshow = false;
       }
 
            async function disconnect () {
-        console.log("DISCONNECTION");
+      //  console.log("DISCONNECTION");
         sessionStorage.removeItem('session_id');
         localStorage.removeItem('offtoken');
         
