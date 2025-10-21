@@ -51,13 +51,13 @@ const WSDriver = [];
 const WSAdmin = [];
 
 wss.on('connection', (ws, req) => {
- console.log("Entrée WEBSOCKET");
+// console.log("Entrée WEBSOCKET");
   const sesId = urler.parse(req.url, true).query.key;
   const offset = urler.parse(req.url, true).query.offset;
-  console.log(offset);
+ // console.log(offset);
   ws.offset = parseInt(offset || '0', 10);
-  console.log("Offset dans l'objet : ",ws.offset);
-  console.log(sesId);
+ // console.log("Offset dans l'objet : ",ws.offset);
+  //console.log(sesId);
   let idclient;
   if (checkSession(sesId)) {
   setWS(sesId, ws);
@@ -65,8 +65,8 @@ wss.on('connection', (ws, req) => {
     return;
   }
   ws.on('message', (data) => {
-    console.log("Socket:");
-    console.log(data);
+ //   console.log("Socket:");
+  //  console.log(data);
     let parsedData = JSON.parse(data.toString('utf8'));
   });
   ws.on('close', () => {
@@ -78,8 +78,8 @@ wss.on('connection', (ws, req) => {
     if (indexAdmin !== -1) {
       WSAdmin.splice(indexAdmin, 1);
     }
-    console.log(WSDriver);
-    console.log(WSAdmin);
+//    console.log(WSDriver);
+  //  console.log(WSAdmin);
   });
 });
 
@@ -131,7 +131,7 @@ async function autoPing () {
   try {
     const response = await fetch(`https://${url}/ping`);
     const data = await response.json();
-    console.log(data);
+   // console.log(data);
     readDatabase('bennes', '*'); // Cette ligne permet de maintenir Supabase en éveil
   } catch (err) {
     console.error(err);
@@ -141,11 +141,11 @@ async function autoPing () {
 async function setWS (sesId, ws) {
   if (await checkRole('driver', sesId)) {
     WSDriver.push(ws);
-    console.log(WSDriver);
+ //   console.log(WSDriver);
     broadcast("time");
   } else {
     WSAdmin.push(ws);
-    console.log(WSAdmin);
+//    console.log(WSAdmin);
  
     broadcast("time");
   }
@@ -158,7 +158,7 @@ app.get('/osm', async (req, res) => {
   try {
   const [lat, long] = req.query.coords.split(',');
   const coords = [lat, long];
-  console.log(coords);
+//  console.log(coords);
   res.send(await getAdress(coords));
   } catch (err) {
     res.send(err);
@@ -174,10 +174,10 @@ async function getAdress(coords) {
     }
   });
   const result = await response.json();
-  console.log(response);
-  console.log(result);
+ // console.log(response);
+ // console.log(result);
   const address = result.address;
-  console.log(address);
+//  console.log(address);
   return await transformAdress(address);
   } catch (err) {
     return err;
@@ -185,7 +185,7 @@ async function getAdress(coords) {
 }
 
 async function transformAdress (address) {
-  console.log("We have an adress as input :", address);
+//  console.log("We have an adress as input :", address);
   const infrastructure = address.amenity || address.shop || address.railway || address.harbour || address.building || address.farm || address.farmyard || 'nodata';
   const numrue = address.housenumber || address.house_number || 'nodata';
   const route = address.road || address.pedestrian || address.footway || address.cycleway || address.path || 'nodata';
@@ -194,7 +194,7 @@ async function transformAdress (address) {
   const code_postal = address.postcode || 'nodata';
   const departement = address.state_district ||address.county || address.state || 'nodata';
   let keep = `${infrastructure}, ${numrue}, ${route}, ${hameau}, ${ville} (${code_postal}), ${departement}`;
-  console.log(keep);
+//  console.log(keep);
   const tablekeep = keep.split(',');
  // console.log("tablekeep :", tablekeep);
   keep = tablekeep.filter(item => item.trim() !== 'nodata');
@@ -236,7 +236,7 @@ async function readDatabaseFilter (store, select, character, value) {
 async function editDatabase (store, toupd, value_toupd, eq, value_eq) {
   const update_value = `{${toupd}:'${value_toupd}'}`;
   const eq_value = `'${eq}', '${value_eq}'`;
-  console.log(update_value, eq_value);
+ // console.log(update_value, eq_value);
   try {
     let {data, error} = await supabase
     .from(store)
@@ -251,7 +251,7 @@ async function editDatabase (store, toupd, value_toupd, eq, value_eq) {
 
 async function deleteDatabase (store, eq, value_eq) {
   const eq_value = `'${eq}', '${value_eq}'`;
-  console.log(eq_value);
+//  console.log(eq_value);
   try {
     let {error} = await supabase
     .from(store)
@@ -294,15 +294,15 @@ app.post('/checksession', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   try {
-  console.log("Login");
+//  console.log("Login");
   const data = req.body;
   const password = data.password;
   const accounts = await readDatabase('comptes','*');
-  console.log(accounts);
+//  console.log(accounts);
   for (const compte of accounts) {
     if (compte.password == password) {
-      console.log(compte);
-      console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
+   //   console.log(compte);
+   //   console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const token = crypto.randomBytes(32).toString('hex');
       let token_container = compte.auto_token || [];
       token_container.push(token);
@@ -316,18 +316,18 @@ app.post('/login', async (req, res) => {
 
 app.post('/logout', async (req, res) => {
   try {
-  console.log("Logout");
+//  console.log("Logout");
   const data = req.body;
   const password = data.session_id;
   const permatoken = data.token;
   const accounts = await readDatabase('comptes','*');
-  console.log(accounts);
+//  console.log(accounts);
     // sessions[sessionId].id = compte.num;
     let searched_num = sessions[password].id;
   for (const compte of accounts) {
     if (compte.num == searched_num) {
-      console.log(compte);
-      console.log(compte.first_name, "", compte.name, " est en cours de déconnexion");
+   //   console.log(compte);
+   //   console.log(compte.first_name, "", compte.name, " est en cours de déconnexion");
       let token_container = compte.auto_token || [];
       token_container.slice(token_container.indexOf(permatoken), 1);
       await editDatabase('comptes', 'auto_token', token_container, 'password', password);
@@ -344,10 +344,10 @@ app.post('/getsessionid', async (req, res) => {
   const data = req.body;
   const token = data.token;
   const accounts = await readDatabase('comptes','*');
-  console.log(accounts);
+//  console.log(accounts);
   for (const compte of accounts) {
     if (compte.auto_token.includes(token)) {
-      console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
+   //   console.log(compte.first_name, "", compte.NOM, " est enregistré(e)");
       const sessionId = crypto.randomBytes(32).toString('hex');
       sessions[sessionId] = {};
       sessions[sessionId].id = compte.num;
@@ -393,8 +393,8 @@ function checkSession (id) {
       const accounts = await readDatabase('comptes', '*');
       for (const compte of accounts) {
         const me = sessions[id].id;
-        console.log(compte.num);
-        console.log(sessions[id].id);
+      //  console.log(compte.num);
+      //  console.log(sessions[id].id);
         if (compte.num == sessions[id].id) {
           console.log("=");
           return compte.auth;
@@ -422,7 +422,7 @@ async function broadcastToDrivers(message) {
   for(const ws of WSDriver) {
     if (ws.readyState === ws.OPEN) {
       try {
-        console.log(JSON.stringify(message));
+   //     console.log(JSON.stringify(message));
       ws.send(JSON.stringify(message));
       } catch(err){console.error(err);}
     }
@@ -433,7 +433,7 @@ async function broadcastToAdmins(message) {
   for(const ws of WSAdmin) {
     if (ws.readyState === ws.OPEN) {
        try {
-         console.log(JSON.stringify(message));
+    //     console.log(JSON.stringify(message));
       ws.send(JSON.stringify(message));
       } catch(err){console.error(err);}
     }
@@ -442,25 +442,25 @@ async function broadcastToAdmins(message) {
 
 async function broadcastTime(now) {
   for(const ws of WSAdmin) {
-    console.log("BROADTIME");
-    console.log(ws);
+ //   console.log("BROADTIME");
+ //   console.log(ws);
     if (ws.readyState === ws.OPEN) {
-      console.log("Broadcast :", ws.offset);
+    //  console.log("Broadcast :", ws.offset);
        try {
          const offsetHere = ws.offset;
-         console.log("Offset Here : ",offsetHere);
+      //   console.log("Offset Here : ",offsetHere);
       ws.send(JSON.stringify({'action':'time', 'value':formatHour(now,offsetHere)}));
       } catch(err){console.error(err);}
     }
   }
     for(const ws of WSDriver) {
-    console.log("BROADTIME");
-    console.log(ws);
+//    console.log("BROADTIME");
+ //   console.log(ws);
     if (ws.readyState === ws.OPEN) {
-      console.log("Broadcast :", ws.offset);
+  //    console.log("Broadcast :", ws.offset);
        try {
          const offsetHere = ws.offset;
-         console.log("Offset Here : ",offsetHere);
+    //     console.log("Offset Here : ",offsetHere);
       ws.send(JSON.stringify({'action':'time', 'value':formatHour(now,offsetHere)}));
       } catch(err){console.error(err);}
     }
@@ -473,7 +473,7 @@ async function broadcast (message) {
   broadcastToAdmins(message);
   } else {
     broadcastTime(new Date());
-    console.log("TIME BROADCASTING");
+  //  console.log("TIME BROADCASTING");
   }
 }
 
@@ -489,22 +489,22 @@ let last_time;
 
 async function checkNextHour (time) {
  if (formatHour(time) == last_time) {
-   console.log('false');
+  // console.log('false');
    return false;
  } else {
-   console.log('true');
+  // console.log('true');
    last_time = formatHour(time);
    return true;
  }
 }
 
 function formatHour (time, offseter) {
-  console.log("offseter", offseter);
+ // console.log("offseter", offseter);
   const offset = offseter || 0;
-  console.log("Entrée :", time, "+",offset);
-  console.log(offset);
+//  console.log("Entrée :", time, "+",offset);
+//  console.log(offset);
   const now = new Date(time.getTime() + offset * 60 * 60 *1000);
-  console.log(now);
+//  console.log(now);
   let hour = now.getHours();
   //if (offset > 0) {
   //  hour = hour + offset;
@@ -512,8 +512,8 @@ function formatHour (time, offseter) {
   hour = hour.toString().padStart(2, '0');
   const minute = now.getMinutes().toString().padStart(2, '0');
   let toret = `${hour}h${minute}`;
-  console.log("Sortie :", toret);
-  console.log(toret);
+//  console.log("Sortie :", toret);
+//  console.log(toret);
   return toret;
 }
 
@@ -581,7 +581,7 @@ async function getBennes(thisid) {
   nowStatBen = 0;
   const formatted = await Promise.all(
     bennes.map(async (benne) => {
-      console.log("Lancement de la requête n°", nowStatBen);
+  //    console.log("Lancement de la requête n°", nowStatBen);
     //  const adresse = await getAdress([benne.latitude,benne.longitude]);
       benneStatus(thisid);
       return {
@@ -605,7 +605,7 @@ async function getBennes(thisid) {
       }
     })
   );
-  console.log(formatted);
+ // console.log(formatted);
   return formatted;
 }
 
@@ -694,7 +694,7 @@ app.post('/editbenne', async (req, res) => {
     if (await checkRole('admin',thisid)) {
       editDatabase ('bennes', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
-      console.log("AVANT");
+   //   console.log("AVANT");
       await setHistorique (sessions[thisid].id, value_eq, "1", "bennes", value_toupd, toupd); // Affectation à l'historique de la benne
       await setHistorique (value_eq, sessions[thisid].id, "1", "comptes", value_toupd, toupd); // Affectation à l'historique de l'actionneur
         if (toupd == "id_client") {
@@ -703,9 +703,9 @@ app.post('/editbenne', async (req, res) => {
       if (toupd == "statut") {
         setHourBenne (value_eq);
       }
-      console.log("APRÈS");
+    //  console.log("APRÈS");
       const {latitude, longitude} = await getAdresseBenneEdit(value_eq);
-      console.log("Entrée adresse benne", latitude, "*", longitude);
+   //   console.log("Entrée adresse benne", latitude, "*", longitude);
       const adresse = await getAdress([longitude, latitude]);
       editDatabase ('bennes', 'adresse', adresse, 'num', value_eq);
       socketReload ("benne");
@@ -724,7 +724,7 @@ async function allDatas () {
 }
 
 app.post('/getcomptes', async (req, res) => {
-  console.log("Réception d'un GET compte");
+ // console.log("Réception d'un GET compte");
   try {
     const thisid = req.headers.auth;
     if (await checkRole('admin',thisid)) {
@@ -743,7 +743,7 @@ async function getComptes(thisid) {
   nowStatCom = 0;
   const formatted = await Promise.all(
     comptes.map(async (compte) => {
-      console.log("Lancement de la requête n°", nowStatCom);
+  //    console.log("Lancement de la requête n°", nowStatCom);
       compteStatus(thisid);
       return {
         id:compte.num,
@@ -756,7 +756,7 @@ async function getComptes(thisid) {
       }
     })
   );
-  console.log(formatted);
+ // console.log(formatted);
   return formatted;
 }
 
@@ -816,7 +816,7 @@ app.post('/editcompte', async (req, res) => {
 });
 
 app.post('/getclients', async (req, res) => {
-  console.log("Réception d'un GET client");
+//  console.log("Réception d'un GET client");
   try {
     const thisid = req.headers.auth;
     if (await checkRole('admin',thisid)) {
@@ -835,7 +835,7 @@ async function getClients(thisid) {
   nowStatCli = 0;
   const formatted = await Promise.all(
     comptes.map(async (compte) => {
-      console.log("Lancement de la requête n°", nowStatCli);
+ //     console.log("Lancement de la requête n°", nowStatCli);
       clientStatus(thisid);
       return {
         id:compte.num,
@@ -850,7 +850,7 @@ async function getClients(thisid) {
       }
     })
   );
-  console.log(formatted);
+//  console.log(formatted);
   return formatted;
 }
 
@@ -898,7 +898,7 @@ app.post('/editclient', async (req, res) => {
       editDatabase ('clients', toupd, value_toupd, eq, value_eq);
       res.send("Édition enregistrée avec succès !");
       const {latitude, longitude} = await getAdresseFermeEdit(value_eq);
-      console.log("Entrée adresse client", latitude, "*", longitude);
+   //   console.log("Entrée adresse client", latitude, "*", longitude);
       const adresse = await getAdress([longitude, latitude]);
       await editDatabase ('clients', 'adresse', adresse, 'num', value_eq);
       await setHistorique (sessions[thisid].id, value_eq, "1", "clients", value_toupd, toupd); // Affectation à l'historique de lu compte
@@ -911,7 +911,7 @@ app.post('/editclient', async (req, res) => {
 });
 
 app.post('/getcereales', async (req, res) => {
-  console.log("Réception d'un GET céréale");
+//  console.log("Réception d'un GET céréale");
   try {
     const thisid = req.headers.auth;
     if (await checkRole('admin',thisid)) {
@@ -930,7 +930,7 @@ async function getCereales(thisid) {
   nowStatCer = 0;
   const formatted = await Promise.all(
     comptes.map(async (compte) => {
-      console.log("Lancement de la requête n°", nowStatCer);
+    //  console.log("Lancement de la requête n°", nowStatCer);
       cerealeStatus(thisid);
       return {
         id:compte.num,
@@ -940,7 +940,7 @@ async function getCereales(thisid) {
       }
     })
   );
-  console.log(formatted);
+ // console.log(formatted);
   return formatted;
 }
 
@@ -995,7 +995,7 @@ app.post('/editcereale', async (req, res) => {
 });
 
 app.post('/getparams', async (req, res) => {
-  console.log("Réception d'un GET params");
+//  console.log("Réception d'un GET params");
   try {
     const thisid = req.headers.auth;
     if (await checkRole('admin',thisid)) {
@@ -1014,7 +1014,7 @@ async function getParams(thisid) {
   nowStatPar = 0;
   const formatted = await Promise.all(
     comptes.map(async (compte) => {
-      console.log("Lancement de la requête n°", nowStatPar);
+   //   console.log("Lancement de la requête n°", nowStatPar);
       paramStatus(thisid);
       return {
         id:compte.num,
@@ -1026,7 +1026,7 @@ async function getParams(thisid) {
       }
     })
   );
-  console.log(formatted);
+//  console.log(formatted);
   return formatted;
 }
 
@@ -1050,25 +1050,25 @@ app.post('/editparam', async (req, res) => {
 async function setHistorique (who, what, content, table, value, type, bool) {
   try {
   // Il faut récupérer la cellule selectionnée dans public:table:what
-  console.log("Gamma");
-  console.log(who, what, content, table, value, type, bool);
+//  console.log("Gamma");
+ // console.log(who, what, content, table, value, type, bool);
   const from = await readDatabase(table, '*');
   let cellule;
   for (const cell of from) {
     if (cell.num == what) {
       cellule = cell.historique || [];
-      console.log(cellule);
+    //  console.log(cellule);
     }
   }
   // La convertir en tableau
   // Ajouter la ligne who made content on the table what
     const now = new Date();
-    console.log({who:who, when:now, content:content, what:what, value:value, table:table, type:type});
+  //  console.log({who:who, when:now, content:content, what:what, value:value, table:table, type:type});
   cellule.push({who:who, when:now, content:content, what:what, value:value, table:table, type:type, passive:bool});
   // Remplacer le contenu de la cellule public:table:what par la valeur du tableau
-    console.log("Lancement de l'édition en cours...");
+  //  console.log("Lancement de l'édition en cours...");
   await editDatabase (table, 'historique', cellule, 'num', what);
-    console.log("Opération terminée avec succès !");
+   // console.log("Opération terminée avec succès !");
   } catch (err) {
     console.error(err);
   }
@@ -1076,7 +1076,7 @@ async function setHistorique (who, what, content, table, value, type, bool) {
 
 // generate?what=QR&id=42
 app.get('/generate', async (req, res) => {
-  console.log("Generate QR-Code");
+//  console.log("Generate QR-Code");
   const what = req.query.what;
   const id = req.query.id;
   try {
@@ -1109,7 +1109,7 @@ async function pdfWithQr(id, filePath) {
     }
   });
   const base64Data = qrDataUrl.split(',')[1];
-  console.log("QR CODE GÉNÉRÉ !");
+ // console.log("QR CODE GÉNÉRÉ !");
   // PDF
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage([595,842]);
@@ -1188,8 +1188,8 @@ app.post('/registerbenne', async (req, res) => {
         } catch (err) {
           console.log(error);
         }
-        console.log(longitude);
-        console.log(latitude);
+   //     console.log(longitude);
+     //   console.log(latitude);
         let adresse = await getAdresseBenne(benne);
         let message = `Confirmation : la benne n°<strong>${benne}</strong> a bien été enregistrée à l'adresse <strong>${adresse}</strong>.<br> Merci !`;
         setHistorique ( await getIdFromSession(thisid), benne, "2", "bennes", [latitude, longitude], "Position GPS");
@@ -1213,20 +1213,20 @@ app.post('/registerbenne', async (req, res) => {
 });
 
 app.post('/checkreferrer', async (req, res) => {
-  console.log("CheckReferrer");
+//  console.log("CheckReferrer");
   try {
     const thisid = req.headers.auth;
     const url = req.body.url;
 
     if (await checkSession(thisid)) {
-      console.log(url);
+  //    console.log(url);
       const tocheck = new URL(url);
 
       if (tocheck.hostname === "fleuread.onrender.com" && tocheck.pathname === "/driver") {
-        console.log("TRUE");
+  //      console.log("TRUE");
         return res.json({ value: true });
       } else {
-        console.log("FALSE");
+ //       console.log("FALSE");
         return res.json({ value: false });
       }
 
@@ -1527,13 +1527,13 @@ async function getAdresseFerme(id) {
 
 
 function formatTime (time, offseter) {
-  console.log("FORMAT TIME");
-  console.log("offseter", offseter);
+//  console.log("FORMAT TIME");
+//  console.log("offseter", offseter);
   const offset = offseter || 0;
-  console.log("Entrée :", time, "+",offset);
-  console.log(offset);
+ // console.log("Entrée :", time, "+",offset);
+ // console.log(offset);
   const now = new Date(time.getTime() + offset * 60 * 60 *1000);
-  console.log(now);
+//  console.log(now);
   let hour = now.getHours();
   //if (offset > 0) {
   //  hour = hour + offset;
@@ -1544,8 +1544,8 @@ function formatTime (time, offseter) {
   const month = (now.getMonth() + 1).toString().padStart(2, '0');
   const year = now.getFullYear();
   let toret = `${date}/${month}/${year} ${hour}h${minute}`;
-  console.log("Sortie :", toret);
-  console.log(toret);
+//  console.log("Sortie :", toret);
+//  console.log(toret);
   return toret;
 }
 
@@ -1561,14 +1561,14 @@ app.post('/smartsearchmap', async (req, res) => {
       res.json({});
       return;
     }
-    console.log("SMART SEARCH MAP");
+ //   console.log("SMART SEARCH MAP");
     if (await checkSession(thisid)) {
       const options = [];
       // Dans la fonction on va :
       // 1. Interroger Nominatim
       if (!(value).includes("FOCUS:")) {
       if (value.length > 3) {
-      console.log("Interrogation de NOMINATIM");
+//      console.log("Interrogation de NOMINATIM");
       try {
   const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(value)}&format=json&addressdetails=1&countrycodes=fr,be,lu,de,ch,it,mc,es,ad,gb`, {
     headers:{
@@ -1585,8 +1585,8 @@ app.post('/smartsearchmap', async (req, res) => {
       }
       }
       }
-      console.log(options);
-      console.log("Le système parcourt les bennes");
+   //   console.log(options);
+   //   console.log("Le système parcourt les bennes");
       // 2. Chercher dans les bennes (n° et id client)
       try {
       const bennes = await readDatabase('bennes', '*');
@@ -1608,8 +1608,8 @@ app.post('/smartsearchmap', async (req, res) => {
         console.error(err);
        // res.send(err);
       }
-      console.log(options);
-      console.log("Le système parcourt les clients");
+    //  console.log(options);
+    //  console.log("Le système parcourt les clients");
       // 3. Chercher dans les clients
        try {
       const bennes = await readDatabase('clients', '*');
@@ -1703,8 +1703,8 @@ app.post('/getbenneinformations', async (req, res) => {
           q:altitude,
           r:society
         };
-        console.log("LOGI");
-        console.log(message);
+   //     console.log("LOGI");
+   //     console.log(message);
         res.json({'status':'400','icon':'https://cdn.pixabay.com/photo/2013/07/12/18/22/check-153363_1280.png', 'message':message});
       } else {
         // On renvoit le contenu de la page benne inconnue
@@ -1833,7 +1833,7 @@ app.post('/smartsearchfarm', async (req, res) => {
       res.json({});
       return;
     }
-    console.log("SMART SEARCH FARM");
+   // console.log("SMART SEARCH FARM");
     if (await checkSession(thisid)) {
       const options = [];
       // Dans la fonction on va :
@@ -1871,7 +1871,7 @@ app.post('/smartsearchcereale', async (req, res) => {
       res.json({});
       return;
     }
-    console.log("SMART SEARCH CEREALE");
+//    console.log("SMART SEARCH CEREALE");
     if (await checkSession(thisid)) {
       const options = [];
       // Dans la fonction on va :
@@ -2005,24 +2005,24 @@ async function imageData (type, id) {
 }
 
 app.post('/changeimagedata', async (req, res) => {
-  console.log("Changement de l'image");
+//  console.log("Changement de l'image");
   try {
     const thisid = req.headers.auth;
     const type = req.body.type;
     const id = req.body.id;
     const urlAb = req.body.url
     const lasturl = req.body.lasturl;
-    console.log({thisid, type, id, urlAb, lasturl});
+  //  console.log({thisid, type, id, urlAb, lasturl});
     if (await checkSession(thisid)) {
-      console.log("Session vérifiée !");
+   //   console.log("Session vérifiée !");
       // compte
           if (type == "comptes") {
-            console.log("comptes");
+          //  console.log("comptes");
             if (await checkRole ('admin',thisid)) {
-              console.log("Rôle vérifié");
+            //  console.log("Rôle vérifié");
               res.json(await changeImage(id, type, urlAb, lasturl));
             } else {
-              console.log("Rôle non vérifié");
+             // console.log("Rôle non vérifié");
               if (id == sessions[thisid].id) {
                 res.json(await changeImage(id, type, urlAb, lasturl));
               }
@@ -2079,7 +2079,7 @@ app.post('/changeimagedata', async (req, res) => {
  }
 
 app.post('/registerafile', upload.single('media'), async (req, res) => {
-  console.log("Enregistrement d'une image");
+ // console.log("Enregistrement d'une image");
   try {
     const thisid = req.headers.auth;
     if (await checkSession(thisid)) {
@@ -2099,16 +2099,16 @@ app.post('/registerafile', upload.single('media'), async (req, res) => {
 });
 
 app.get('/media', async (req, res) => {
-  console.log("Media");
+//  console.log("Media");
   try {
     const fleuread_id = req.query.id;
-    console.log(fleuread_id);
+   // console.log(fleuread_id);
     const docs = await readDatabase('storage', '*');
     let true_url;
     for (const doc of docs) {
       if (doc.fleuread_id == fleuread_id) {
         true_url = String(doc.link);
-        console.log(true_url);
+      //  console.log(true_url);
       }
     }
     const tempFilePath = path.join(__dirname, `temp_file_${fleuread_id}`);
@@ -2143,16 +2143,16 @@ res.sendFile(tempFilePath, (err) => {
 });
 
 app.post('/gethistorique', async (req, res) => {
-  console.log("Get Historique");
+ // console.log("Get Historique");
   const id = req.body.id;
   const type = req.body.type;
   const query = req.body.query;
-  console.log(id, type);
+//  console.log(id, type);
   try {
     const thisid = req.headers.auth;
     if (await checkRole('admin', thisid)) {
      // On récupère l'historique
-      console.log("Reading :", `${type}s`);
+    //  console.log("Reading :", `${type}s`);
       const datas = await readDatabase(`${type}s`,'*');
       for (const item of datas) {
         if (item.num == id) {
@@ -2265,7 +2265,7 @@ async function convertLabel (input) {
 }
 
 async function filtrerEnDetail (table, query) {
-  console.log("Lancement d'un protocole de filtration en détail");
+ // console.log("Lancement d'un protocole de filtration en détail");
   const offset = query.offset;
   let fulltable = table;
   fulltable = await filtrerA (fulltable, removeOffsetFromString(query.a, offset));
@@ -2287,8 +2287,8 @@ async function filtrerA (table, criteria) {
   } else {
     // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
   let toret = [];
-  console.log("FILTRER A");
-  console.log(criteria);
+ // console.log("FILTRER A");
+ // console.log(criteria);
     for (const item of table) {
         if (compareDates(item.when, criteria) == 1) { // Ici nous voulons que la date comparée soit après → donc D1 (comparée) après D2 (critère)
           toret.push(item);
@@ -2307,8 +2307,8 @@ async function filtrerB (table, criteria) {
   } else {
     // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
   let toret = [];
-  console.log("FILTRER B");
-  console.log(criteria);
+//  console.log("FILTRER B");
+//  console.log(criteria);
     for (const item of table) {
         if (compareDates(item.when, criteria) == -1) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
@@ -2349,8 +2349,8 @@ async function filtrerC (table, criteria) {
   } else {
     // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
   let toret = [];
-  console.log("FILTRER ALL");
-  console.log(criteria);
+ // console.log("FILTRER ALL");
+//  console.log(criteria);
     for (const item of table) {
         if (String(item.who || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
@@ -2369,8 +2369,8 @@ async function filtrerD (table, criteria) {
   } else {
     // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
   let toret = [];
-  console.log("FILTRER ALL");
-  console.log(criteria);
+ // console.log("FILTRER ALL");
+//  console.log(criteria);
     for (const item of table) {
         if (String(item.content || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
@@ -2389,8 +2389,8 @@ async function filtrerE (table, criteria) {
   } else {
     // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
   let toret = [];
-  console.log("FILTRER ALL");
-  console.log(criteria);
+ // console.log("FILTRER ALL");
+//  console.log(criteria);
     for (const item of table) {
         if (String(item.what || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
@@ -2409,8 +2409,8 @@ async function filtrerF (table, criteria) {
   } else {
     // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
   let toret = [];
-  console.log("FILTRER ALL");
-  console.log(criteria);
+//  console.log("FILTRER ALL");
+//  console.log(criteria);
     for (const item of table) {
         if (String(item.table || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
@@ -2429,8 +2429,8 @@ async function filtrerG (table, criteria) {
   } else {
     // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
   let toret = [];
-  console.log("FILTRER ALL");
-  console.log(criteria);
+  // console.log("FILTRER ALL");
+//  console.log(criteria);
     for (const item of table) {
         if (String(item.type || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
@@ -2449,8 +2449,8 @@ async function filtrerH (table, criteria) {
   } else {
     // On traite la table pour retirer les éléments qui ne correspondent pas au critère de filtrage
   let toret = [];
-  console.log("FILTRER ALL");
-  console.log(criteria);
+ // console.log("FILTRER ALL");
+ // console.log(criteria);
     for (const item of table) {
         if (String(item.value || "").toLowerCase().includes(criteria)) { // Ici nous voulons que la date comparée soit avant → donc D1 (comparée) avant D2 (critère)
           toret.push(item);
@@ -2463,33 +2463,33 @@ async function filtrerH (table, criteria) {
 
 // Deleter d'images Cloudinary pour optimisation maximale du cloud...
 async function deleteImageFromUrl(imageUrl) {
-  console.log("DELETER !");
+//  console.log("DELETER !");
   try {
     // Exemple d'URL Cloudinary :
     // https://res.cloudinary.com/demo/image/upload/v1694567890/folder/myimage.jpg
     let fleuread_id = imageUrl;
     const urlove = new URL(fleuread_id);
     fleuread_id = urlove.searchParams.get("id");
-    console.log(fleuread_id);
+//    console.log(fleuread_id);
     const docs = await readDatabase('storage', '*'); // On lit notre stockage
     let true_url; 
     for (const doc of docs) {
       if (doc.fleuread_id == fleuread_id) {
         true_url = String(doc.link); // On obtient la vraie url
-        console.log("TRUE URL:");
-        console.log(true_url);
+   //     console.log("TRUE URL:");
+    //    console.log(true_url);
       }
     }
-    console.log(true_url);
+  //  console.log(true_url);
     const parts = true_url.split('/');
-    console.log(parts);
+   // console.log(parts);
     const publicIdWithExt = parts.slice(7).join('/'); // "folder/myimage.jpg"
-    console.log(publicIdWithExt);
+  //  console.log(publicIdWithExt);
     const publicId = publicIdWithExt.replace(/\.[^/.]+$/, ''); // supprime l'extension
-    console.log(publicId);
+  //  console.log(publicId);
 
     const result = await cloudinary.uploader.destroy(publicId);
-    console.log(result);
+ //   console.log(result);
     deleteDatabase ('storage', imageUrl, 'fleuread_id');
     return result;
   } catch (err) {
@@ -2499,7 +2499,7 @@ async function deleteImageFromUrl(imageUrl) {
 
 // Génération document explicatif
 app.get('/documentexplicatif', async (req, res) => {
-  console.log("Generate Document Explicatif");
+//  console.log("Generate Document Explicatif");
   // const what = req.query.what;
   const id = req.query.id;
   const session_id = req.query.session;
@@ -2549,7 +2549,7 @@ async function pdf2(id, filePath) {
     }
   });
   const base64Data = qrDataUrl.split(',')[1];
-  console.log("QR CODE GÉNÉRÉ !");
+//  console.log("QR CODE GÉNÉRÉ !");
   // PDF
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage([595,842]);
@@ -2667,7 +2667,7 @@ async function getOptList() {
 
 // Génération de tous les pdf
 app.get('/generateall', async (req, res) => {
-  console.log("Generate QR-Code");
+//  console.log("Generate QR-Code");
  
   try {
   const fileName = `QrCodes_bennes_${new Date()}.pdf`;
@@ -2707,7 +2707,7 @@ async function pdfWithQrAll(filePath) {
     }
   });
   const base64Data = qrDataUrl.split(',')[1];
-  console.log("QR CODE GÉNÉRÉ !");
+//  console.log("QR CODE GÉNÉRÉ !");
 
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
@@ -2777,11 +2777,11 @@ function removeWord(str, word) {
 let temoindistance = 0;
 
 async function autoChange(benne, longitude, latitude) {
-  console.log("AutoChange");
+//  console.log("AutoChange");
   try {
-  console.log(benne);
-  console.log(latitude);
-  console.log(longitude);
+//  console.log(benne);
+//  console.log(latitude);
+//  console.log(longitude);
     const stores = await readDatabase('informations','*');
       let storages = [];
       for (const store of stores) {
@@ -2795,19 +2795,19 @@ async function autoChange(benne, longitude, latitude) {
     const latitudeHere = latitude;
     const longitudeHere = longitude;
     const distance = haversineDistance({lat:item.latitude, lon:item.longitude}, {lat:longitudeHere, lon:latitudeHere});
-    console.log("HPI");
-    console.log(item.radius);
-    console.log(distance);
+   // console.log("HPI");
+   // console.log(item.radius);
+   // console.log(distance);
     temoindistance = distance;
     if (distance < (item.radius)) {
-      console.log(true);
+   //   console.log(true);
       if (await checkTheValue(17)) {
       await editDatabase ('bennes', 'statut', 'C', 'num', benne);
     setHourBenne (benne);
       socketReload ("benne");
       }
     } else {
-      console.log(false);
+   //   console.log(false);
       if (await checkTheValue(16)) {
       await editDatabase ('bennes', 'statut', 'A', 'num', benne);
     setHourBenne (benne);
@@ -2870,16 +2870,16 @@ app.post('/deletestore', async (req, res) => {
     const value_eq = req.body.value_eq;
     if (await checkRole('admin',thisid)) {
       const stores = await readDatabase('informations','*');
-      console.log("DELETE STORE");
+     // console.log("DELETE STORE");
       for (const item of stores) {
-        console.log(item);
-        console.log(item.num);
-        console.log(value_eq);
+     //   console.log(item);
+     //   console.log(item.num);
+      //  console.log(value_eq);
         if (item.num == value_eq) {
-          console.log(true);
-          console.log(item.deletable);
+       //   console.log(true);
+       //   console.log(item.deletable);
           if (item.deletable) {
-            console.log(true);
+         //   console.log(true);
              await deleteDatabase ('informations', 'num', value_eq);
             res.send("Suppression enregistrée avec succès !");
             socketReload ("param");
@@ -2929,17 +2929,17 @@ app.get('/fileprovider', async (req, res) => {
 });
 
 async function checkTheValue(num) {
-  console.log("checkTheValue");
-  console.log(num);
+//  console.log("checkTheValue");
+//  console.log(num);
   const datashere = await readDatabase('informations','*');
   for (const param of datashere) {
-    console.log(param);
+   // console.log(param);
     if (param.num == num) {
-      console.log(true);
-      console.log(param.value.trim().toLowerCase);
+   //   console.log(true);
+   //   console.log(param.value.trim().toLowerCase);
       if (param.value.trim().toLowerCase() == "oui") {
         return true;
-        console.log(true);
+     //   console.log(true);
       }
     }
   }
@@ -2949,7 +2949,7 @@ async function checkTheValue(num) {
 async function setHourBenne (benne) {
   const now = new Date();
   const stringDate = now.toISOString().split('T')[0];
-  console.log(stringDate);
+//  console.log(stringDate);
   await editDatabase ('bennes', 'lastactu', stringDate, 'num', benne);
 }
 
