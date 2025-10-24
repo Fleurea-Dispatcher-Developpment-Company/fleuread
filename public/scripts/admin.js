@@ -19,6 +19,7 @@ const offset = -((new Date().getTimezoneOffset()) / 60);
         }
       }
             plotPoints();
+            document.getElementById('btnBennes').click();
       }
       
       start();
